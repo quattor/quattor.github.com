@@ -116,7 +116,6 @@ img {
         padding-top: 10px;
         padding-bottom: 10px;
 	width: 650px;
-	height: 52px;
 	overflow: hidden;
 }
 
@@ -132,6 +131,14 @@ img {
 .breadcrumb a.first {
 	padding-left: 0px;
 	background: transparent none repeat scroll 0px 0px;
+}
+
+.breadcrumb a.first:before {
+	content "";
+}
+
+.breadcrumb a:before {
+        content "&#8250;";
 }
 
 .breadcrumb a.current {
