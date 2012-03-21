@@ -109,13 +109,14 @@ img {
 
 /* Breadcrumb */
 .breadcrumb {
-	position: absolute;
+	/* position: absolute;
 	top: 100px;
-	left: 190px;
+	left: 190px; */
 	display: block;
 	width: 790px;
 	height: 52px;
 	overflow: hidden;
+	background-color: AntiqueWhite;
 }
 
 .breadcrumb a {
