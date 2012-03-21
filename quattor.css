@@ -113,10 +113,11 @@ img {
 	top: 100px;
 	left: 190px; */
 	display: block;
-	width: 790px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+	width: 650px;
 	height: 52px;
 	overflow: hidden;
-	background-color: AntiqueWhite;
 }
 
 .breadcrumb a {
@@ -161,6 +162,15 @@ img {
 	padding-top:20px;
 	padding-left: 10px;
 	width: 250px;
+}
+
+/* Turn off bullets for lists of posts. */
+.list_news ul,
+.list_news ul li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	list-style-image: none;
 }
 
 /* Footer */
