@@ -140,12 +140,9 @@ img {
 	background: transparent none repeat scroll 0px 0px;
 }
 
-.breadcrumb a.first:before {
-	content "";
-}
-
-.breadcrumb a:before {
-        content "&#8250;";
+.breadcrumb ul li {
+	list-style: "";
+	list-style-image: none;
 }
 
 .breadcrumb a.current {

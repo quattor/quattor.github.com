@@ -27,14 +27,17 @@
       <div id="content">
         <div class="content_bg">
 
-          <div class="breadcrumb">
-            <a href="/" class="first">Home</a>
-            <a href="/{{ page.category }}/index.html">{{ page.category | capitalize }}</a>
-            <a href="{{ page.url }}" class="current">{{ page.title }}</a>
-          </div>
-          
           <div class="main">
             <h1 class="list_title">{{ page.title }}</h1>
+
+            <div class="breadcrumb">
+              <ul>
+              <li><a href="/" class="first">Home</a>
+              <li><a href="/{{ page.category }}/index.html">{{ page.category | capitalize }}</a>
+              <li><a href="{{ page.url }}" class="current">{{ page.title }}</a>
+              </ul>
+            </div>
+          
             {% if page.category == "news" %}
             <div class="date">{{ page.date | date: "%d %B %Y" }}</div>
             {% endif %}
