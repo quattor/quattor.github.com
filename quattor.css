@@ -35,6 +35,13 @@ img {
 	background: transparent;
 }
 
+.front_page #content {
+	width: 1002px;
+	margin: -5px 0px 25px 4px;
+	padding-bottom: 12px;
+	background: transparent;
+}
+
 .content_bg {
 	float: left;
 	width: 1002px;
