@@ -141,8 +141,16 @@ img {
 }
 
 .breadcrumb ul li {
-	list-style: "";
+	list-style: none;
 	list-style-image: none;
+}
+
+.breadcrumb ui:first-child {
+        content: "" !important;
+}
+
+.breadcrumb ui li:before {
+        content: "\00BB \0020";
 }
 
 .breadcrumb a.current {
