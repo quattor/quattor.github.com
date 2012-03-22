@@ -1,212 +1,210 @@
 
 body {
-	margin: 0px;
-	padding: 0px;
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 0.875em;/*14px*/
-	color: #black;
-	background: #ffffff;
+margin: 0px;
+padding: 0px;
+font-family: Helvetica, Arial, sans-serif;
+font-size: 0.875em;/*14px*/
+color: #black;
+background: #ffffff;
 }
 
 /* Main content */
 body *, body :focus, a {
-	outline: none;
+outline: none;
 }
 
 img {
-	border: none;
+border: none;
 }
 
 #wrapper {
-	position: relative;
-	width: 1008px;
-	margin: 0px auto;
+position: relative;
+width: 1008px;
+margin: 0px auto;
 }
 
 #content {
-	float: left;
-	margin: 30px 0px 25px 0px;
+float: left;
+margin: 30px 0px 25px 0px;
 }
 
 .not_front_page #content {
-	width: 1002px;
-	margin: -5px 0px 25px 4px;
-	padding-bottom: 12px;
-	background: transparent;
+width: 1002px;
+margin: -5px 0px 25px 4px;
+padding-bottom: 12px;
+background: transparent;
 }
 
 .front_page #content {
-	width: 1002px;
-	margin: -5px 0px 25px 4px;
-	padding-bottom: 12px;
-	background: transparent;
+width: 1002px;
+margin: -5px 0px 25px 4px;
+padding-bottom: 12px;
+background: transparent;
 }
 
 .content_bg {
-	float: left;
-	width: 1002px;
-	background: transparent;
+float: left;
+width: 1002px;
+background: transparent;
 }
 
 .main {
-	float: left;
-	width: 650px;
-	padding: 0px 26px 30px 30px;
+float: left;
+width: 650px;
+padding: 0px 26px 30px 30px;
 }
 
 /* Main menu */
 .menu {
-	position: relative;
-	margin: 0px -52px;
-	padding: 40px 52px 0px 52px;
-	background: transparent no-repeat scroll center top;
-}
-
-.menu {
-	display: block;
-	width: 1008px;
-	height: 43px;
-	background: transparent no-repeat scroll center top;
+position: relative;
+display: block;
+width: 1008px;
+height: 43px;
+margin: 0px -52px;
+padding: 40px 52px 0px 52px;
+background: transparent no-repeat scroll center top;
 }
 
 .menu ul,
 .menu ul li {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-	list-style-image: none;
+margin: 0px;
+padding: 0px;
+list-style: none;
+list-style-image: none;
 }
 
 .menu ul li {
-	float: left;
-	height: 43px;
-	padding-right: 2px;
-	line-height: 43px;
-	background: transparent no-repeat scroll right top;
+float: left;
+height: 43px;
+padding-right: 2px;
+line-height: 43px;
+background: transparent no-repeat scroll right top;
 }
 
 .menu ul li.home.active,
 .menu ul li.home:hover {
-	background: transparent no-repeat scroll 5px top;
+background: transparent no-repeat scroll 5px top;
 }
 
 .menu ul li a {
-	display: block;
-	line-height: 43px;
-	padding: 0px 27px;
+display: block;
+line-height: 43px;
+padding: 0px 27px;
 #	color: #ffffff;
 }
 
 .menu ul li.home a {
-	width: 76px;
-	height: 43px;
-	padding: 0px;
-	background: transparent url(img/design/home.png) no-repeat scroll 30px center;
+width: 76px;
+height: 43px;
+padding: 0px;
+background: transparent url(img/design/home.png) no-repeat scroll 30px center;
 }
 
 .menu ul li a.active,
 .menu ul li a:hover {
-	background: transparent url(img/design/menu_active.png) repeat-x scroll left top;
+background: transparent url(img/design/menu_active.png) repeat-x scroll left top;
 }
 
 .menu ul li.home a.active,
 .menu ul li.home a:hover {
-	background: transparent url(img/design/home.png) no-repeat scroll 30px center;
+background: transparent url(img/design/home.png) no-repeat scroll 30px center;
 }
 
 /* Style Quattor characteristics on front page. */
 .main dl dt {
-      font-style: italic;
-      font-weight: bold;
+font-style: italic;
+font-weight: bold;
 }
 
 /* Breadcrumb */
 .breadcrumb {
-        float: left;
-	padding: 0px;
-	display: block;
-	width: 650px;
-	background: transparent no-repeat scroll center top;
+position: relative;
+display: block;
+width: 1008px;
+background: transparent no-repeat scroll center top;
+}
+
+.breadcrumb ul {
+display: block;
+width: 1008px;
 }
 
 .breadcrumb ul,
 .breadcrumb ul li {
-            display: block;
-        float: left
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-	list-style-image: none;
-	background: transparent no-repeat scroll right top;
+margin: 0px;
+padding: 0px;
+list-style: none;
+list-style-image: none;
+}
+
+.breadcrumb ul li {
+float: left;
+padding-right: 5px;
+background: transparent no-repeat scroll right top;
 }
 
 .breadcrumb ul li a {
-	display: block;
-	padding: 0px 5px;
+padding-left: 2px;
+padding-right: 2px;
+text-style: italic;
 }
 
-.breadcrumb ul li a.current {
-	color: #6c6c6c;
+.breadcrumb ul li a.first:before {
+content: "";
+}
+
+.breadcrumb ul li a:before {
+content: "\00BB ";
 }
 
 .breadcrumb ul li a.active,
 .breadcrumb ul li a:hover {
-	background: transparent repeat-x scroll left top;
-}
-
-.breadcrumb ul:first-child {
-        content: "" !important;
-	padding-left: 0px;
-	background: transparent none repeat scroll 0px 0px;
-}
-
-.breadcrumb ul li:before {
-        content: "\00BB \0020";
+background: transparent repeat-x scroll left top;
 }
 
 /* Sidebar */
 .sidebar {
-	float: right;
-	width: 278px;
-	background-color: AliceBlue;
+float: right;
+width: 278px;
+background-color: AliceBlue;
 }
 
 .sidebar ul {
-	margin: 0px;
-	padding: 20px 20px 10px 10px;
+margin: 0px;
+padding: 20px 20px 10px 10px;
 }
 
 .sidebar ul li {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-	list-style-image: none;
+margin: 0px;
+padding: 0px;
+list-style: none;
+list-style-image: none;
 }
 
 .search {
-	float: center;
-	padding-top:20px;
-	padding-left: 10px;
-	width: 250px;
+float: center;
+padding-top: 20px;
+padding-left: 10px;
+width: 250px;
 }
 
 /* Turn off bullets for lists of posts. */
 .list_news ul,
 .list_news ul li {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-	list-style-image: none;
+margin: 0px;
+padding: 0px;
+list-style: none;
+list-style-image: none;
 }
 
 /* Footer */
 #footer {
-	float: left;
-	display: block;
-	width: 1008px;
-	color: #9b9b9b;
+float: left;
+display: block;
+width: 1008px;
+color: #9b9b9b;
 }
 
 #footer span {
-	text-align: center;
+text-align: center;
 }
