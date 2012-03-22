@@ -4,7 +4,7 @@ margin: 0px;
 padding: 0px;
 font-family: Helvetica, Arial, sans-serif;
 font-size: 0.875em;/*14px*/
-color: #black;
+color: black;
 background: #ffffff;
 }
 
@@ -81,33 +81,21 @@ line-height: 43px;
 background: transparent no-repeat scroll right top;
 }
 
-.menu ul li.home.active,
-.menu ul li.home:hover {
-background: transparent no-repeat scroll 5px top;
-}
-
 .menu ul li a {
-display: block;
 line-height: 43px;
 padding: 0px 27px;
-#	color: #ffffff;
 }
 
-.menu ul li.home a {
-width: 76px;
-height: 43px;
-padding: 0px;
-background: transparent url(img/design/home.png) no-repeat scroll 30px center;
-}
-
+.menu ul li a,
+.menu ul li a.link,
+.menu ul li a.visited,
 .menu ul li a.active,
 .menu ul li a:hover {
-background: transparent url(img/design/menu_active.png) repeat-x scroll left top;
-}
-
-.menu ul li.home a.active,
-.menu ul li.home a:hover {
-background: transparent url(img/design/home.png) no-repeat scroll 30px center;
+text-decoration: none;
+color: black;
+font-weight: normal;
+font-style: normal;
+background: transparent no-repeat scroll 30px center;
 }
 
 /* Style Quattor characteristics on front page. */
@@ -118,7 +106,6 @@ font-weight: bold;
 
 /* Breadcrumb */
 .breadcrumb {
-position: relative;
 display: block;
 width: 1008px;
 background: transparent no-repeat scroll center top;
@@ -138,35 +125,49 @@ list-style-image: none;
 }
 
 .breadcrumb ul li {
-float: left;
-padding-right: 5px;
+display: inline;
+padding-left: 10px;
 background: transparent no-repeat scroll right top;
 }
 
-.breadcrumb ul li a {
-padding-left: 2px;
-padding-right: 2px;
-text-style: italic;
+.breadcrumb ul li.first {
+padding-left: 0px;
 }
 
-.breadcrumb ul li a.first:before {
-content: "";
+.breadcrumb ul li.first:before {
+content: none;
 }
 
-.breadcrumb ul li a:before {
-content: "\00BB ";
+.breadcrumb ul li:before {
+content: "\00BB";
 }
 
+.breadcrumb ul li a,
+.breadcrumb ul li a.link,
+.breadcrumb ul li a.visited,
 .breadcrumb ul li a.active,
 .breadcrumb ul li a:hover {
+padding-left: 10px;
+text-decoration: none;
+/* color: black; */
+font-weight: normal;
+font-style: italic;
 background: transparent repeat-x scroll left top;
+}
+
+.breadcrumb ul li.first a,
+.breadcrumb ul li.first a.link,
+.breadcrumb ul li.first a.visited,
+.breadcrumb ul li.first a.active,
+.breadcrumb ul li.first a:hover {
+padding-left: 0px;
 }
 
 /* Sidebar */
 .sidebar {
 float: right;
 width: 278px;
-background-color: AliceBlue;
+background-color: #00CCFF;
 }
 
 .sidebar ul {
@@ -182,7 +183,6 @@ list-style-image: none;
 }
 
 .search {
-float: center;
 padding-top: 20px;
 padding-left: 10px;
 width: 250px;
