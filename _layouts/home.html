@@ -18,45 +18,51 @@
   {% include head.html %}
 
   <body class="front_page">
-
+    
     <div id="wrapper">
-
+      
       <div id="header">        
         {% include menu.html %}
       </div>
-
+      
       <div id="content">
-
-<div class="main">
-
-<img src="/img/quattor_logo_large.png" />
-
-<h1>fabric management done right</h1>
-
-<dl>
-<dt>Complete</dt>
-<dd>Quattor is a set of tools that work well together to manage the
-  complete lifecycle of machines&mdash;from initial installation, through
-  configuration, to service upgrades. </dd>
-<dt>Flexible</dt>
-<dd>The tools interact via well defined interfaces, allowing
-  alternative implementations and integration existing site-specific
-  tools.</dd>
-<dt>Scalable</dt>
-<dd>Able to manage infrastructures ranging from tens of nodes
-  to <a href="http://www.wallstreetandtech.com/it-infrastructure/216402934">over
-  20000</a>. </dd>
-<dt>Accurate</dt>
-<dd>Extensive validation features for machine descriptions catch
-  configuration errors <em>before</em> they are deployed onto your
-  infrastructure.</dd>
-</dl>
-
-        {% include sidebar.html %}
+        
+        <div id="content_background">
           
-        {% include footer.html %}
+          <div class="main">
 
+            <img src="img/quattor_logo_large.png" />
+            
+            <h1>fabric management done right</h1>
+
+            <dl>
+              <dt>Complete</dt>
+              <dd>Quattor is a set of tools that work well together to manage the
+                complete lifecycle of machines&mdash;from initial installation, through
+                configuration, to service upgrades. </dd>
+              <dt>Flexible</dt>
+              <dd>The tools interact via well defined interfaces, allowing
+                alternative implementations and integration existing site-specific
+                tools.</dd>
+              <dt>Scalable</dt>
+              <dd>Able to manage infrastructures ranging from tens of nodes
+                to <a href="http://www.wallstreetandtech.com/it-infrastructure/216402934">over
+                  20000</a>. </dd>
+              <dt>Accurate</dt>
+              <dd>Extensive validation features for machine descriptions catch
+                configuration errors <em>before</em> they are deployed onto your
+                infrastructure.</dd>
+            </dl>
+            
+          </div>
+
+          {% include sidebar.html %}
+
+        </div>
+        
       </div>
+      
+      {% include footer.html %}
       
     </div>
   </body>

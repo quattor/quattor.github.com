@@ -30,10 +30,10 @@
           <div class="main">
             <h1 class="list_title">{{ page.title }}</h1>
 
-            <div class="breadcrumb">
+            <div class="menu">
               <ul>
-                <li><a href="/" class="first">Home</a>
-                <li><a href="{{ page.url }}" class="current">{{ page.title }}</a>
+                <li><a href="index.html" class="first">Home</a>
+                <li><a href="{{ page.category }}/index.html" class="current">{{ page.category | capitalize }}</a>
               </ul>
             </div>
             

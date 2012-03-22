@@ -114,47 +114,54 @@ img {
 	background: transparent url(img/design/home.png) no-repeat scroll 30px center;
 }
 
+/* Style Quattor characteristics on front page. */
+.main dl dt {
+      font-style: italic;
+      font-weight: bold;
+}
+
 /* Breadcrumb */
 .breadcrumb {
-	/* position: absolute;
-	top: 100px;
-	left: 190px; */
+        float: left;
+	padding: 0px;
 	display: block;
-        padding-top: 10px;
-        padding-bottom: 10px;
 	width: 650px;
-	overflow: hidden;
+	background: transparent no-repeat scroll center top;
 }
 
-.breadcrumb a {
-	padding-right: 10px;
-	padding-left: 20px;
-	font-style: italic;
-	font-size: 1.1em;/*15px*/
-	color: #8b0000;
-	background: transparent no-repeat scroll left center;
+.breadcrumb ul,
+.breadcrumb ul li {
+            display: block;
+        float: left
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	list-style-image: none;
+	background: transparent no-repeat scroll right top;
 }
 
-.breadcrumb a.first {
+.breadcrumb ul li a {
+	display: block;
+	padding: 0px 5px;
+}
+
+.breadcrumb ul li a.current {
+	color: #6c6c6c;
+}
+
+.breadcrumb ul li a.active,
+.breadcrumb ul li a:hover {
+	background: transparent repeat-x scroll left top;
+}
+
+.breadcrumb ul:first-child {
+        content: "" !important;
 	padding-left: 0px;
 	background: transparent none repeat scroll 0px 0px;
 }
 
-.breadcrumb ul li {
-	list-style: none;
-	list-style-image: none;
-}
-
-.breadcrumb ui:first-child {
-        content: "" !important;
-}
-
-.breadcrumb ui li:before {
+.breadcrumb ul li:before {
         content: "\00BB \0020";
-}
-
-.breadcrumb a.current {
-	color: #6c6c6c;
 }
 
 /* Sidebar */
@@ -166,7 +173,7 @@ img {
 
 .sidebar ul {
 	margin: 0px;
-	padding: 20px 20px 0px 0px;
+	padding: 20px 20px 10px 10px;
 }
 
 .sidebar ul li {

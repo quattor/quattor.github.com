@@ -2,7 +2,7 @@
 layout: article
 title: Dummy Blog Item
 category: blog
-image: /img/quattor-logo.png
+image: img/quattor-logo.png
 ---
 
 Blog Entry
