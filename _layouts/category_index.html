@@ -27,6 +27,7 @@
 
           <div class="main">
             <h1 class="list_title">{{ page.title }}</h1>
+            <div class="date"></div>
 
             <div class="breadcrumb">
               <ul>
@@ -46,14 +47,13 @@
                 {% for post in site.posts %}
                 {% if post.category == downcase_title %}
                 <li>
-	          <img src="{{ post.image }}" />
                   <a href="{{ site.baseurl }}{{ post.url }}" class="title">{{ post.title }}</a>
+                  {% if post.date %}
+                  <div class="date">({{ post.date | date: "%d %B %Y" }})</div>
+                  {% endif %}
                   <div class="teaser">
                     {{ post.content | strip_html | truncatewords: 25 }}
                   </div>
-                  {% if post.category == news %}
-                  <div class="date">{{ post.date | date: "%d %B %Y" }}</div>
-                  {% endif %}
                   {% if post.author %}
                   <div class="author">{{ post.author }}</div>
                   {% endif %}

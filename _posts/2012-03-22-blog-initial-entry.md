@@ -2,7 +2,6 @@
 layout: article
 title: 13th Quattor Workshop
 category: blog
-image: img/quattor-logo.png
 ---
 
 Blog Entry

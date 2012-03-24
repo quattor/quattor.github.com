@@ -27,6 +27,7 @@
 
           <div class="main">
             <h1 class="list_title">{{ page.title }}</h1>
+            <div class="date">{{ page.date | date: "%d %B %Y" }}</div>
 
             <div class="breadcrumb">
               <ul>
@@ -36,9 +37,6 @@
               </ul>
             </div>
           
-            {% if page.category == "news" %}
-            <div class="date">{{ page.date | date: "%d %B %Y" }}</div>
-            {% endif %}
             {% if page.author %}
             <div class="author">{{ page.author }}</div>
             {% endif %}

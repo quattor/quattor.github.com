@@ -13,6 +13,11 @@ body *, body :focus, a {
 outline: none;
 }
 
+h1 {
+padding-bottom: 0px;
+margin-bottom: 0px;
+}
+
 img {
 border: none;
 }
@@ -102,6 +107,20 @@ font-style: normal;
 background-color: linen;
 }
 
+h1 + .date {
+display: block;
+color: gray;
+font-size: small;
+height: 20px;
+padding-bottom: 10px;
+}
+
+a + .date {
+display: inline;
+padding-left: 2px;
+padding-right: 2px;
+}
+
 /* Style Quattor characteristics on front page. */
 .main dl dt {
 font-style: italic;
@@ -179,12 +198,21 @@ background-color: transparent;
 }
 
 /* Turn off bullets for lists of posts. */
-.list_news ul,
-.list_news ul li {
+.list_news ul {
 margin: 0px;
 padding: 0px;
+}
+
+.list_news ul,
+.list_news ul li {
 list-style: none;
 list-style-image: none;
+}
+
+.list_news ul li {
+margin: 0px;
+padding-top: 10px;
+padding-bottom: 10px;
 }
 
 /* Ohloh */

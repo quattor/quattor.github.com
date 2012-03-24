@@ -2,7 +2,6 @@
 layout: article
 title: Dummy News Item
 category: news
-image: img/quattor-logo.png
 ---
 
 News Item
