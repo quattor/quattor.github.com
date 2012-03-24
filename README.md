@@ -19,10 +19,11 @@ instead.
 
 The naming scheme for the items in the __posts subdirectory is the date,
 followed by the category (news, blog, documentation), followed by a short
-title. The content of the post should be done in markdown format preceeded by
-a small amount of metadata. Use the existing posts as guidelines for the
-metadata. (There is another category, "review", that is supported; see below
-for how to use this category.)
+title. The content of the post should be done in [markdown
+format](http://daringfireball.net/projects/markdown/) preceeded by a small
+amount of metadata. Use the existing posts as guidelines for the metadata.
+(There is another category, "review", that is supported; see below for how to
+use this category.)
 
 **News**: This is intended for short announcements that would interest users,
 such as release announcements and invitations to meetings of general interest.
@@ -50,6 +51,12 @@ can install Jekyll locally to see how the site will look with your changes
 and/or contributions. Many editors, such as TextMate on the Mac, can render
 markdown documents. This may be an easier solution than installing Jekyll if
 you are only adding content.
+
+To generate the site locally use the following command:
+<code>
+    jekyll --base-url=file:///`pwd`/_site/
+</code>
+With this command all of the links on the site will function correctly. 
 
 Review of Content
 -----------------

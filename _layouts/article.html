@@ -20,9 +20,7 @@
   <body class="not_front_page">
     <div id="wrapper">
 
-      <div id="header">
-        {% include menu.html %}
-      </div>
+      {% include header.html %}
 
       <div id="content">
         <div class="content_bg">
@@ -34,7 +32,7 @@
               <ul>
               <li class="first"><a href="index.html">Home</a>
               <li><a href="{{ page.category }}/index.html">{{ page.category | capitalize }}</a>
-              <li><a href="{{ page.url }}">{{ page.title }}</a>
+              <li><a href="{{ site.baseurl}}{{ page.url }}">{{ page.title }}</a>
               </ul>
             </div>
           

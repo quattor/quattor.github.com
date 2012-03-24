@@ -19,24 +19,14 @@ border: none;
 
 #wrapper {
 position: relative;
-width: 1008px;
+width: 908px;
 margin: 0px auto;
 }
 
 #content {
 float: left;
-margin: 30px 0px 25px 0px;
-}
-
-.not_front_page #content {
-width: 1002px;
-margin: -5px 0px 25px 4px;
-padding-bottom: 12px;
-background: transparent;
-}
-
-.front_page #content {
-width: 1002px;
+width: 902px;
+/* margin: 30px 0px 25px 0px; */
 margin: -5px 0px 25px 4px;
 padding-bottom: 12px;
 background: transparent;
@@ -44,25 +34,34 @@ background: transparent;
 
 .content_bg {
 float: left;
-width: 1002px;
+width: 902px;
 background: transparent;
 }
 
 .main {
 float: left;
-width: 650px;
-padding: 0px 26px 30px 30px;
+width: 550px;
+padding: 0px 25px 0px 25px;
+}
+
+#header {
+float: left;
+width: 908px;
+background-color: linen;
+}
+
+#header img {
+padding-left: 20px;
+padding-top: 5px;
 }
 
 /* Main menu */
 .menu {
 position: relative;
 display: block;
-width: 1008px;
+width: 908px;
 height: 43px;
-margin: 0px -52px;
-padding: 40px 52px 0px 52px;
-background: transparent no-repeat scroll center top;
+background-color: linen;
 }
 
 .menu ul,
@@ -76,26 +75,31 @@ list-style-image: none;
 .menu ul li {
 float: left;
 height: 43px;
-padding-right: 2px;
 line-height: 43px;
-background: transparent no-repeat scroll right top;
 }
 
 .menu ul li a {
 line-height: 43px;
-padding: 0px 27px;
+padding: 0px 20px;
 }
 
 .menu ul li a,
 .menu ul li a.link,
 .menu ul li a.visited,
-.menu ul li a.active,
-.menu ul li a:hover {
+.menu ul li a.active {
 text-decoration: none;
 color: black;
 font-weight: normal;
 font-style: normal;
-background: transparent no-repeat scroll 30px center;
+background-color: linen;
+}
+
+.menu ul li a:hover {
+text-decoration: underline;
+color: black;
+font-weight: normal;
+font-style: normal;
+background-color: linen;
 }
 
 /* Style Quattor characteristics on front page. */
@@ -107,13 +111,11 @@ font-weight: bold;
 /* Breadcrumb */
 .breadcrumb {
 display: block;
-width: 1008px;
-background: transparent no-repeat scroll center top;
+padding-bottom: 10px;
 }
 
 .breadcrumb ul {
 display: block;
-width: 1008px;
 }
 
 .breadcrumb ul,
@@ -127,7 +129,6 @@ list-style-image: none;
 .breadcrumb ul li {
 display: inline;
 padding-left: 10px;
-background: transparent no-repeat scroll right top;
 }
 
 .breadcrumb ul li.first {
@@ -145,14 +146,20 @@ content: "\00BB";
 .breadcrumb ul li a,
 .breadcrumb ul li a.link,
 .breadcrumb ul li a.visited,
-.breadcrumb ul li a.active,
-.breadcrumb ul li a:hover {
+.breadcrumb ul li a.active {
 padding-left: 10px;
 text-decoration: none;
-/* color: black; */
+color: black;
 font-weight: normal;
 font-style: italic;
-background: transparent repeat-x scroll left top;
+}
+
+.breadcrumb ul li a:hover {
+padding-left: 10px;
+text-decoration: underline;
+color: black;
+font-weight: normal;
+font-style: italic;
 }
 
 .breadcrumb ul li.first a,
@@ -166,26 +173,9 @@ padding-left: 0px;
 /* Sidebar */
 .sidebar {
 float: right;
-width: 278px;
-background-color: #00CCFF;
-}
-
-.sidebar ul {
-margin: 0px;
-padding: 20px 20px 10px 10px;
-}
-
-.sidebar ul li {
-margin: 0px;
-padding: 0px;
-list-style: none;
-list-style-image: none;
-}
-
-.search {
 padding-top: 20px;
-padding-left: 10px;
-width: 250px;
+width: 252px;
+background-color: transparent;
 }
 
 /* Turn off bullets for lists of posts. */
@@ -197,12 +187,33 @@ list-style: none;
 list-style-image: none;
 }
 
+/* Ohloh */
+.ohloh {
+padding-top: 10px;
+}
+
+.ohloh span {
+display: block;
+width: 90px;
+padding-left: 10px;
+padding-right: 10px;
+}
+
+.ohloh span.left {
+float: left;
+}
+
+.ohloh span.right {
+float: right;
+}
+
 /* Footer */
 #footer {
 float: left;
 display: block;
-width: 1008px;
+width: 908px;
 color: #9b9b9b;
+background-color: linen;
 }
 
 #footer span {

@@ -20,9 +20,7 @@
   <body class="not_front_page">
     <div id="wrapper">
 
-      <div id="header">
-        {% include menu.html %}
-      </div>
+      {% include header.html %}
 
       <div id="content">
         <div class="content_bg">
@@ -37,6 +35,10 @@
               </ul>
             </div>
             
+            <div class="introduction">
+              {{ page.content | markdownify }}
+            </div>
+            
             {% capture downcase_title %}{{page.title | downcase}}{% endcapture %} 
             <div class="list_news">
               <ul>
@@ -45,7 +47,7 @@
                 {% if post.category == downcase_title %}
                 <li>
 	          <img src="{{ post.image }}" />
-                  <a href="{{ post.url }}" class="title">{{ post.title }}</a>
+                  <a href="{{ site.baseurl }}{{ post.url }}" class="title">{{ post.title }}</a>
                   <div class="teaser">
                     {{ post.content | strip_html | truncatewords: 25 }}
                   </div>
