@@ -216,23 +216,27 @@ padding-top: 10px;
 padding-bottom: 10px;
 }
 
-/* Ohloh */
+/* Ohloh and Google+ */
 .ohloh {
 padding-top: 10px;
 }
 
-.ohloh span {
+.gplus {
+    padding-top: 30px;
+}
+
+.ohloh span, .gplus span {
 display: block;
 width: 90px;
 padding-left: 10px;
 padding-right: 10px;
 }
 
-.ohloh span.left {
+.ohloh span.left, .gplus span left {
 float: left;
 }
 
-.ohloh span.right {
+.ohloh span.right, .gplus span right {
 float: right;
 }
 
