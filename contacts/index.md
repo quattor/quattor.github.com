@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: contacts
 category: contacts
 title: Contacts
 ---
