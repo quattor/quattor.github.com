@@ -4,9 +4,6 @@ title: Pan Configuration Language
 category: documentation
 ---
 
-Pan Overview
-------------
-
 The pan configuration language allows system administrators to
 describe (complete or partial) machine configurations.  These
 descriptions are then compiled into a machine-friendly format (usually

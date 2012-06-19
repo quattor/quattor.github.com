@@ -4,8 +4,7 @@ title: Quattor Overview
 category: documentation
 ---
 
-Introduction
-------------
+Quattor is a fantastic site management framework and toolkit.
 
 Components
 ----------
