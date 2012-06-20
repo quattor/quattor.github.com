@@ -1,7 +1,7 @@
 ---
 layout: article
 title: More traceability in component execution
-category: news
+category: review
 image: img/quattor-logo.png
 ---
 
