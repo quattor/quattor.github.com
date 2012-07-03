@@ -11,6 +11,8 @@ on SourceForge.
 [Follow us on Twitter][twitter] to track Quattor releases and
 announcements.
 
-[discuss]: (https://lists.sourceforge.net/lists/listinfo/quattor-discuss)
-[twitter]: (https://twitter.com/#!/QuattorToolkit)
+You can also see posts on [Google+][google-plus]. 
 
+[discuss]: https://lists.sourceforge.net/lists/listinfo/quattor-discuss
+[twitter]: https://twitter.com/#!/QuattorToolkit
+[google-plus]: https://plus.google.com/106108753304191902209/posts
