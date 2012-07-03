@@ -2,7 +2,7 @@
 layout: article
 title: Migrating to Clojure for Pan Language Implementation
 author: Charles Loomis
-category: blog
+category: review
 ---
 
 The pan configuration language compiler provides the link between
