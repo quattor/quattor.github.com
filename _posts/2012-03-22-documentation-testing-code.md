@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Testing Quattor code
-category: review
+category: documentation
 pygments: true
 image: img/quattor-logo.png
 ---
