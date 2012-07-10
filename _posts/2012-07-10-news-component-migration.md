@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Migration of NCM components to Git+Maven
-category: review
+category: news
 image: img/quattor-logo.png
 ---
 
@@ -11,8 +11,8 @@ Subversion. Where did they go?
 Easy. We are migrating gradually to a new infrastructure, with Git for
 version control and Maven as the build system.
 
-All core components will gradually appear in
-[the Sourceforge Git repository](git://quattor.git.sourceforge.net/gitroot/quattor/core-ncm-components).
+All core components are already in the
+[the Sourceforge Git repository](git://quattor.git.sourceforge.net/gitroot/quattor/core-ncm-components). We'll do the same for the Grid-based ones.
 
 Stay tuned to
 [our Google+ page](https://plus.google.com/u/0/b/106108753304191902209/106108753304191902209/posts)
