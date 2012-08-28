@@ -64,11 +64,15 @@ able to reproduce some points in your distant history.
 ### Simplification of package specifications
 
 The versions and architectures of all packages will become
-optional. If present, Yum will enforce them. If not present, Yum will
-assume _the latest version that satisfies all dependencies_.
+optional. If present, Yum will enforce them. If none is present, Yum
+will assume _the latest version that satisfies all dependencies_.
 
 ### Repository descriptions
 
 Repository descriptions will become closer to Yum's. We will allow to
 define GPG keys, choose whether they should be enforced, which
 repositories will be disabled...
+
+### Backwards-incompatible changes
+
+None is foreseen. Some fields may change names in the distant future.
