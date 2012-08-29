@@ -15,11 +15,11 @@ please click
 For running the automated test suite of a Quattor module, you will
 need:
 
-1. A checkout of perl-LC, perl-CAF and CCM, since they are not in the
-   standard library.
+1. A checkout of perl-LC, perl-CAF, CCM and ncm-ncd, since they are
+   not in the standard library.
 1. Set up `PERL5LIB` environment variable so that the Perl interpreter
-   is able to find LC, CAF and CCM modules. If it is not set, Maven
-   will skip all tests.
+   is able to find LC, CAF, CCM and NCM modules. If it is not set,
+   Maven will skip all tests.
 
 Afterwards, just run
 
