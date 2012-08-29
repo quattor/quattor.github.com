@@ -25,6 +25,9 @@ Afterwards, just run
 
 	mvn test
 
+from the top-leve directory, of from the component's subdirectory if
+you are testing a single NCM component.
+
 You can find a JUnit-friendly summary in the junit_output.xml file.
 
 ### Testing before packaging
