@@ -14,8 +14,8 @@ Guidelines for Content
 ----------------------
 
 Again, the content on this web site is intended for users of Quattor. If it is
-not of interest to users, then put the information on the [Quattor 
-wiki](https://trac.lal.in2p3.fr/Quattor) instead.
+not of interest to users, then put the information on the 
+[Quattor wiki](https://trac.lal.in2p3.fr/Quattor) instead.
 
 The naming scheme for the items in the __posts subdirectory is the date,
 followed by the category (news, blog, documentation), followed by a short
