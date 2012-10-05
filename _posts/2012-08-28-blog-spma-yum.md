@@ -1,7 +1,7 @@
 ---
 layout: article
 title: SPMA with Yum as backend
-category: review
+category: blog
 ---
 
 SPMA is the package manager in Quattor. Essentially, it is a framework
