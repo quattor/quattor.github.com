@@ -10,9 +10,9 @@ appreciated.
 
 ## Shortcomings
 
-You need Yum 3.2.29 or higher. This is the version shipped with SL6.2,
-but not with SL5. On SL5 you'll have to build it yourself, which is
-very easy: just download the SRC RPM and run `rpmbuild --rebuild <srpm>`.
+You need Yum 3.2.29 or higher. This is the version shipped in SL6.2,
+but not with SL5. On SL5 you'll have to build it or download it from
+[Fedoreapeople](http://repos.fedorapeople.org/repos/james/yum-rawhide/epel-5/).
 
 AII is not yet adapted to the new SPMA. As a result, installations
 using the new version will fail.  The adaptation will follow shortly.
