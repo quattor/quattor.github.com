@@ -6,10 +6,8 @@ category: documentation
 
 An introduction to installing Aquilon.
 
-Prerequisites
--------------
+## Prerequisites
 
-##
 # Apache to store profiles
 include { 'rpms/web_server' };
 
@@ -161,11 +159,10 @@ variable QUATTOR_ROOT = "/var/quattor";
     "type", "d",
   ),
 );
-##
 
 
-Feedback
---------
+Now install Aquilon itself
+-------------------------
 
 Comments, bug reports, and feature requests are welcome.  Please
 subscribe to the Quattor discussion list and raise issues there.
