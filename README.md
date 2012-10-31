@@ -4,6 +4,9 @@ Quattor Web Site
 This is the Quattor web site that contains information for *users*. Please do
 not put information here that is intended for the developers of Quattor.
 
+**If you are looking for the Quattor web site itself, try 
+[http://quattor.org](http://quattor.org).**
+
 The site is hosted through GitHub pages and can be modified by cloning this
 repository, making changes, and pushing the changes back into the repository.
 Generally, you should only add new articles to the __posts subdirectory. Do
