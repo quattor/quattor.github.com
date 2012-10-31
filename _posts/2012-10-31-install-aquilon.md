@@ -7,7 +7,9 @@ category: documentation
 An introduction to installing Aquilon
 -------------------------------------
 
-Start by installing the prerequisites described in [Aquilon Prerequisitess](http://quattor.org/documentation/2012/10/31/aquilon-prerequisites.html).
+This guide describes the installation of an Aquilon broker on a Scientific Linux 6 host (It should work for  any RedHat 6 clone).
+
+With your basic OS installed you can then add the prerequisites described in [Aquilon Prerequisites](http://quattor.org/documentation/2012/10/31/aquilon-prerequisites.html).
 
 
 Now install Aquilon itself
