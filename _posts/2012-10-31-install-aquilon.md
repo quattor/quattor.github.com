@@ -7,7 +7,7 @@ category: documentation
 An introduction to installing Aquilon
 -------------------------------------
 
-Start by installing the prerequisites described in Aquilon Prerequisites.
+Start by installing the prerequisites described in [Aquilon Prerequisitess](http://quattor.org/documentation/2012/10/31/aquilon-prerequisites.html).
 
 
 Now install Aquilon itself
