@@ -76,3 +76,11 @@ repositories will be disabled...
 ### Backwards-incompatible changes
 
 None is foreseen. Some fields may change names in the distant future.
+
+## New dependencies
+
+The new component will depend on `yum`, `yum-utils` and
+`yum-versionlock`, in recent enough versions.
+
+The old `spma` and `rpmt-py` packages become obsolete with the new
+component.
