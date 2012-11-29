@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
 
-<html 
-   xmlns="http://www.w3.org/1999/xhtml" 
-   xml:lang="en" 
-   version="XHTML+RDFa 1.0" 
+<html
+   xmlns="http://www.w3.org/1999/xhtml"
+   xml:lang="en"
+   version="XHTML+RDFa 1.0"
    dir="ltr"
    xmlns:content="http://purl.org/rss/1.0/modules/content/"
    xmlns:dc="http://purl.org/dc/terms/"
@@ -16,71 +16,77 @@
    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 
   {% include head.html %}
+  <style type="text/css">
+    body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    }
+  </style>
+  <body>
+    {% include header.html %}
 
-  <body class="front_page">
-    
-    <div id="wrapper">
+    <div class="container">
 
-      {% include header.html %}
-      
-      <div id="content">
-        
-        <div id="content_background">
-          
-          <div class="main">
+      <div class="hero-unit">
 
-            <h1>fabric management done right</h1>
-            
-             <p>Quattor is a <strong>system administration toolkit</strong>
-            providing a powerful, portable, and modular set of tools for the
-            automated installation, configuration, and management of clusters
-            and farms.</p>
-            <p>It is developed as a community effort and provided as
-            <strong><a href="https://github.com/quattor/">open-source software</a></strong>
-            (<a href="http://sourceforge.net/projects/quattor/">SourceForge</a>, 
-            <a href="https://github.com/quattor/">GitHub</a>) under the
-            <strong><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 
-            license</a></strong> and 
-            <strong><a href="http://opensource.org/licenses/eudatagrid.php">EU 
-            DataGrid Software License</a></strong>.</p>
+        <h1>fabric management done right</h1>
 
-            <dl>
-              <dt>Complete</dt>
+        <p>Quattor is a <strong>system administration toolkit</strong>
+          providing a powerful, portable, and modular set of tools for the
+          automated installation, configuration, and management of clusters
+          and farms.</p>
+        <p>It is developed as a community effort and provided as
+          <strong><a href="https://github.com/quattor/">open-source software</a></strong>
+          (<a href="http://sourceforge.net/projects/quattor/">SourceForge</a>,
+          <a href="https://github.com/quattor/">GitHub</a>) under the
+          <strong><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2
+              license</a></strong> and
+          <strong><a href="http://opensource.org/licenses/eudatagrid.php">EU
+              DataGrid Software License</a></strong>.</p>
 
-              <dd>Quattor is a set of tools that work well together to manage the
-                complete lifecycle of machines&mdash;from initial installation, through
-                configuration, to service upgrades. </dd>
-
-              <dt>Flexible</dt>
-
-              <dd>The tools interact via well defined interfaces, allowing
-                alternative implementations and integration existing site-specific
-                tools.</dd>
-
-              <dt>Scalable</dt>
-
-              <dd>Used in academic and commercial environments, managing
-              infrastructures ranging from tens of nodes to <a
-              href="http://www.wallstreetandtech.com/it-infrastructure/216402934">over
-              20000</a>. </dd>
-
-              <dt>Accurate</dt>
-
-              <dd>Extensive validation features for machine descriptions catch
-                configuration errors <em>before</em> they are deployed onto your
-                infrastructure.</dd>
-            </dl>
-            
-          </div>
-
-          {% include sidebar.html %}
-
-        </div>
-        
       </div>
-      
-      {% include footer.html %}
-      
+      <div class="row">
+        <div class="span3">
+          <h2>Complete</h2>
+
+          <p>Quattor is a set of tools that work well together to manage the
+            complete lifecycle of machines&mdash;from initial installation, through
+            configuration, to service upgrades. </p>
+	</div>
+	<div class="span3">
+          <h2>Flexible</h2>
+
+          <p>The tools interact via well defined interfaces, allowing
+            alternative implementations and integration existing site-specific
+            tools.</p>
+	</div>
+	<div class="span3">
+          <h2>Scalable</h2>
+
+          <p>Used in academic and commercial environments, managing
+            infrastructures ranging from tens of nodes to <a
+							     href="http://www.wallstreetandtech.com/it-infrastructure/216402934">over
+              20000</a>. </p>
+	</div>
+	<div class="span3">
+          <h2>Accurate</h2>
+
+          <p>Extensive validation features for machine descriptions catch
+            configuration errors <em>before</em> they are deployed onto your
+            infrastructure.</p>
+	</div>
+
+      {% include sidebar.html %}
+
+      </div>
+
+	{% include footer.html %}
+
     </div>
+        <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
   </body>
 </html>
