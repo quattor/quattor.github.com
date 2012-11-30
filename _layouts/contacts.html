@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<!DOCTYPE html>
 
-<html 
-   xmlns="http://www.w3.org/1999/xhtml" 
-   xml:lang="en" 
-   version="XHTML+RDFa 1.0" 
+<html
+   xmlns="http://www.w3.org/1999/xhtml"
+   xml:lang="en"
+   version="XHTML+RDFa 1.0"
    dir="ltr"
    xmlns:content="http://purl.org/rss/1.0/modules/content/"
    xmlns:dc="http://purl.org/dc/terms/"
@@ -16,39 +16,30 @@
    xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
 
   {% include head.html %}
-  
-  <body class="not_front_page">
-    <div id="wrapper">
 
-      {% include header.html %}
+  <body>
+    {% include header.html %}
 
-      <div id="content">
-        <div class="content_bg">
-
-          <div class="main">
-            <h1 class="list_title">{{ page.title }}</h1>
-            <div class="date"></div>
-
-            <div class="breadcrumb">
-              <ul>
-                <li class="first"><a href="index.html" class="first">Home</a>
-                <li><a href="{{ page.category }}/index.html" class="current">{{ page.category | capitalize }}</a>
-              </ul>
-            </div>
-            
-            <div class="content">
-              {{ page.content | markdownify }}
-            </div>
-          </div>
-
-          {% include sidebar.html %}
-          
-        </div>
+    <div class="container">
+      <div class="row">
+        <ul class="breadcrumb">
+          <li class="first"><a href="index.html" class="first">Home</a><span class="divider">/</span></li>
+          <li><a href="{{ page.category }}/index.html"
+                 class="current">{{ page.category | capitalize }}
+	  </a></li>
+        </ul>
+        <h1 class="list_title">{{ page.title }}</h1>
+	<div class="page-header">
+	  {{ page.content | markdownify }}
+	</div>
       </div>
-
-      {% include footer.html %}
-
+<!--       <div class="row"> -->
+<!-- 	<div class="span2 offset10"> -->
+<!-- 	  {% include sidebar.html %} -->
+<!-- 	</div> -->
+<!--       </div> -->
     </div>
+    {% include footer.html %}
 
   </body>
 </html>
