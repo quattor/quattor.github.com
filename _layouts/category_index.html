@@ -22,51 +22,45 @@
     {% include header.html %}
 
     <div class="container">
-      <div class="row">
-        <ul class="breadcrumb">
-          <li class="first"><a href="index.html" class="first">Home</a><span class="divider">/</span></li>
-          <li><a href="{{ page.category }}/index.html"
-                 class="current">{{ page.category | capitalize }}</a>
-	  </li>
-        </ul>
-      <h1>{{ page.title }}</h1>
-
-      <div class="page-header">
-        {{ page.content | markdownify }}
-      </div>
-      </div>
-      {% capture downcase_title %}{{page.title | downcase}}{% endcapture %}
-      <div class="row">
-	<div class="span8">
+      <div class="span9">
+	<div class="row-fluid">
+          <ul class="breadcrumb">
+            <li class="first"><a href="index.html" class="first">Home</a><span class="divider">/</span></li>
+            <li class="active"><a href="{{ page.category }}/index.html"
+                   class="current">{{ page.category | capitalize }}</a>
+	    </li>
+          </ul>
+	</div> <!-- row-fluid -->
+	<div class="row-fluid">
+	  <div class="page-header">
+	    <h1>{{ page.title }}</h1>
+            {{ page.content | markdownify }}
+	  </div> <!-- page-header -->
+	  {% capture downcase_title %}{{page.title | downcase}}{% endcapture %}
           <ul>
 
             {% for post in site.posts %}
             {% if post.category == downcase_title %}
             <li>
-              <a href="{{ site.baseurl }}{{ post.url }}" class="title">{{ post.title }}</a>
-              {% if post.date %}
-              <div class="date">({{ post.date | date: "%d %B %Y" }})</div>
-              {% endif %}
-              <div class="teaser">
+	      <a href="{{ site.baseurl }}{{ post.url }}" class="title">{{ post.title }}</a>
+	      {% if post.date %}
+	      <div class="date">({{ post.date | date: "%d %B %Y" }})</div>
+	      {% endif %}
+	      <div class="teaser">
 		{{ post.content | strip_html | truncatewords: 25 }}
-              </div>
-              {% if post.author %}
-              <div class="author">{{ post.author }}</div>
-              {% endif %}
+	      </div>
+	      {% if post.author %}
+	      <div class="author">{{ post.author }}</div>
+	      {% endif %}
             </li>
             {% endif %}
             {% endfor %}
 
           </ul>
-	</div>
-	<div class="span3 offset1">
-	  {% include sidebar.html %}
-	</div>
-      </div>
-    </div>
-
-
+	</div> <!-- row-fluid -->
+      </div> <!-- span10 -->
+      {% include sidebar.html %}
+    </div> <!-- container -->
     {% include footer.html %}
-
   </body>
 </html>

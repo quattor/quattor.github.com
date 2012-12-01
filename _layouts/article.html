@@ -22,37 +22,32 @@
     {% include header.html %}
 
     <div class="container">
-      <div class="row">
-	<ul class="breadcrumb">
-	  <li class="active"><a href="index.html">Home</a><span class="divider">/</span></li>
-	  <li><a href="{{ page.category }}/index.html">{{page.category | capitalize}}</a>
-	    <span class="divider">/</span>
-	  </li>
-	  <li><a href="{{ site.baseurl}}{{ page.url }}">{{ page.title }}</a> </li>
-	</ul>
-	<h1>{{ page.title }}</h1>
-	<div class="pull-center"><p>{{ page.date | date: "%d %B %Y" }}</p></div>
+      <div class="span9">
+	<div class="row-fluid">
+	  <ul class="breadcrumb">
+	    <li><a href="index.html">Home</a><span class="divider">/</span></li>
+	    <li><a href="{{ page.category }}/index.html">{{page.category | capitalize}}</a>
+	      <span class="divider">/</span>
+	    </li>
+	    <li class="active"><a href="{{ site.baseurl}}{{ page.url }}">{{ page.title }}</a> </li>
+	  </ul>
+	</div> <!-- row-fluid -->
+	<div class="page-header row-fluid">
+	  <h1>{{ page.title }}</h1>
+	  <p class="date">{{ page.date | date: "%d %B %Y" }}</p>
 	  {% if page.author %}
 	  <div class="author">{{ page.author }}</div>
 	  {% endif %}
-      </div>
-	  <div class="row">
-	    <div class="span8">
-	      {{ page.content | markdownify }}
-	    </div>
-	    <div class="span3 offset1">
-	      {% include sidebar.html %}
-	    </div>
-	  </div>
-	</div>
+	</div> <!-- page-header row-fluid -->
+	<div class="row-fluid">
+	  {{ page.content | markdownify }}
+	</div> <!-- row-fluid  -->
+      </div> <!-- span9 -->
 
-
-      </div>
-    </div>c
+    {% include sidebar.html %}
+    </div>
 
     {% include footer.html %}
-
-</div>
 
 </body>
 </html>
