@@ -26,8 +26,7 @@
 	<div class="row-fluid">
           <ul class="breadcrumb">
             <li class="first"><a href="index.html" class="first">Home</a><span class="divider">/</span></li>
-            <li class="active"><a href="{{ page.category }}/index.html"
-                   class="current">{{ page.category | capitalize }}</a>
+            <li class="active">{{ page.category | capitalize }}
 	    </li>
           </ul>
 	</div> <!-- row-fluid -->
@@ -44,9 +43,9 @@
             <li>
 	      <a href="{{ site.baseurl }}{{ post.url }}" class="title">{{ post.title }}</a>
 	      {% if post.date %}
-	      <div class="date">({{ post.date | date: "%d %B %Y" }})</div>
+	      <span class="muted">({{ post.date | date: "%d %B %Y" }})</span>
 	      {% endif %}
-	      <div class="teaser">
+	      <div class="">
 		{{ post.content | strip_html | truncatewords: 25 }}
 	      </div>
 	      {% if post.author %}
