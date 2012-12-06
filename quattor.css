@@ -1,11 +1,12 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
 
 body {
 margin: 0px;
 padding: 0px;
-font-family: Helvetica, Arial, sans-serif;
-font-size: 0.875em;/*14px*/
+font-family: 'Lato', sans-serif;
+font-size: 11pt;
 color: black;
-background: #ffffff;
+background: url('img/escheresque.png') #e6e6e6;
 }
 
 /* Main content */
@@ -30,11 +31,9 @@ margin: 0px auto;
 
 #content {
 float: left;
-width: 902px;
-/* margin: 30px 0px 25px 0px; */
-margin: -5px 0px 25px 4px;
-padding-bottom: 12px;
-background: transparent;
+width: 100%;
+padding-bottom: 1em;
+background: #eeeeec;
 }
 
 .content_bg {
@@ -52,21 +51,20 @@ padding: 0px 25px 0px 25px;
 #header {
 float: left;
 width: 908px;
-background-color: linen;
+background-color: #eeeeec;
 }
 
-#header img {
-padding-left: 20px;
-padding-top: 5px;
+#logo > img {
+padding: 2em;
 }
 
 /* Main menu */
 .menu {
 position: relative;
 display: block;
-width: 908px;
-height: 43px;
-background-color: linen;
+height: 2em;
+background-color: #eeeeec;
+padding-left: 1em;
 }
 
 .menu ul,
@@ -81,35 +79,41 @@ list-style-image: none;
 float: left;
 height: 43px;
 line-height: 43px;
+margin-left: 1em;
 }
 
 .menu ul li a {
 line-height: 43px;
 padding: 0px 20px;
+background-color: #d3d7df;
+border-radius: 1em;
 }
 
-.menu ul li a,
-.menu ul li a.link,
-.menu ul li a.visited,
-.menu ul li a.active {
+a,
+a.link,
+a.visited,
+a.active {
 text-decoration: none;
-color: black;
+color: #0e6bba;
 font-weight: normal;
 font-style: normal;
-background-color: linen;
+}
+
+a:hover {
+text-decoration: underline;
 }
 
 .menu ul li a:hover {
-text-decoration: underline;
-color: black;
+text-decoration: none;
+color: #eeeeec;
 font-weight: normal;
 font-style: normal;
-background-color: linen;
+background-color: #0e6bba;
 }
 
 h1 + .date {
 display: block;
-color: gray;
+color: #888a85;
 font-size: small;
 height: 20px;
 padding-bottom: 10px;
@@ -117,7 +121,7 @@ padding-bottom: 10px;
 
 a + .date {
 display: inline;
-color: gray;
+color: #888a85;
 padding-left: 2px;
 padding-right: 2px;
 }
@@ -126,6 +130,7 @@ padding-right: 2px;
 .main dl dt {
 font-style: italic;
 font-weight: bold;
+margin-top: 0.5em;
 }
 
 /* Breadcrumb */
@@ -193,7 +198,7 @@ padding-left: 0px;
 /* Sidebar */
 .sidebar {
 float: right;
-padding-top: 20px;
+padding: 25px 25px 0px 25px;
 width: 252px;
 background-color: transparent;
 }
@@ -227,9 +232,9 @@ padding-top: 10px;
 
 .ohloh span, .gplus span {
 display: block;
-width: 90px;
 padding-left: 10px;
 padding-right: 10px;
+height: 48px;
 }
 
 .ohloh span.left, .gplus span left {
@@ -245,10 +250,9 @@ float: right;
 float: left;
 display: block;
 width: 908px;
-color: #9b9b9b;
-background-color: linen;
+color: #babdb6;
 }
 
-#footer span {
+#footer > p {
 text-align: center;
 }
