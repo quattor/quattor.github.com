@@ -1,2 +1,3 @@
 paginate: 10000
 baseurl: http://quattor.github.com/
+pygments: true
