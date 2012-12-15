@@ -97,5 +97,6 @@ That's it!  Deploy, compile, install at your pleasure.
 Eventually, you'll want to disable pan format output, and use only
 JSON and dep.
 
-At UGent, compressed JSON profiles take 1/30 the space of the.  This
-pays off in the load of the Quattor servers during our deployments.
+At UGent, compressed JSON profiles take 1/30 the space of the
+equivalent XML profiles.  This pays off in the load of the Quattor
+servers during our deployments.
