@@ -27,10 +27,8 @@ replace the old `.xml` extension with `.json` or `.json.gz`.
 
 At UGent it looks like this:
 
-```sh
-"/software/components/ccm/profile" = format("%s/%s.json.gz",
-    QUATTOR_PROFILE_URL, OBJECT);
-```
+    "/software/components/ccm/profile" = format("%s/%s.json.gz",
+        QUATTOR_PROFILE_URL, OBJECT);
 
 ## Change the compiled formats
 
@@ -38,9 +36,7 @@ Edit your `quattor.build.xml` file and fix any warnings the compiler
 is showing.  Finally, edit the line `<property name="pan.xml.format"`,
 and turn it into this:
 
-```xml
-<property name="pan.xml.format value="json.gz,pan,dep"/>
-```
+    <property name="pan.xml.format value="json.gz,pan,dep"/>
 
 Compression of the JSON profile is optional but suggested.
 
@@ -60,16 +56,14 @@ latest SDCB Ant tasks.  Get them from
 Before you build, you may need to edit the `build.xml` file and ensure
 your `javac` section looks like this: add
 
-```xml
-<javac srcdir="${src}"
-       destdir="${build.java}"
-       includes="**/*.java"
-       deprecation="on"
-       debug="true"
-       target="1.6"
-       debuglevel="lines,vars,source"
-       optimize="false">
-```
+    <javac srcdir="${src}"
+           destdir="${build.java}"
+           includes="**/*.java"
+           deprecation="on"
+           debug="true"
+           target="1.6"
+           debuglevel="lines,vars,source"
+           optimize="false">
 
 This ensures your Ant task will work on Java 1.6 (as in SL) and 1.7
 (as in more recent platforms).
@@ -82,11 +76,9 @@ them.  Ensure they don't redirect to the XML files anymore.
 Also, if you are enabling profile compression for the first time,
 you'll want to add:
 
-```
-AddEncoding x-gzip .gz .tgz
-```
+    AddEncoding x-gzip .gz .tgz
 
-to yourApache configuration.
+to your Apache configuration.
 
 ## Upgrade AII
 
@@ -94,9 +86,7 @@ Your clients work just fine.  But you'll need to upgrade the installer
 to a version that can deal with the new format.  Just upgrade AII to
 the version shipped with Quattor 12.12, and add
 
-```
-profile_format=json # Or json.gz
-```
+    profile_format=json # Or json.gz
 
 to `/etc/aii/aii-shellfe.conf`.
 
