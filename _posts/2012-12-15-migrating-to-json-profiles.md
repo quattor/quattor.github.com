@@ -41,9 +41,9 @@ and turn it into this:
 Compression of the JSON profile is optional but suggested.
 
 During a while (say, a week), you want to compile all your profiles
-both in Pan and in JSON format.  That way, nodes that don't receive
-updates (f.i, if they are down), will be able to access their profiles
-from their old URLs and adapt to the new ones gradually.
+both in Pan and in JSON format.  That way, nodes that miss some
+updates updates (f.i, if they are down), will be able to access their
+profiles from their old URLs and adapt to the new ones gradually.
 
 You also have to declare the generation of dependency files.
 
@@ -68,7 +68,7 @@ your `javac` section looks like this: add
 This ensures your Ant task will work on Java 1.6 (as in SL) and 1.7
 (as in more recent platforms).
 
-## (Optional) adjust your Web server
+## Adjust your Web server (optional)
 
 If you have any `RewriteRule`s, this is a good moment to revisit
 them.  Ensure they don't redirect to the XML files anymore.
@@ -88,15 +88,21 @@ the version shipped with Quattor 12.12, and add
 
     profile_format=json # Or json.gz
 
-to `/etc/aii/aii-shellfe.conf`.
+to `/etc/aii/aii-shellfe.conf`.  The aiiserver component supports this
+option, too.
 
 ## Conclusion
 
-That's it!  Deploy, compile, install at your pleasure.
+That's it!  Deploy, compile, install at your pleasure.  If any of your
+internal tools parsed the XMLs directly (without CCM) you will have to
+adapt it.  I recommend you to try
+[Elasticsearch](www.elasticsearch.org) and our new
+[data warehouse](https://github.com/quattor/data-warehouse) tool.
 
-Eventually, you'll want to disable pan format output, and use only
+Eventually, you'll want to disable pan format output and use only
 JSON and dep.
 
 At UGent, compressed JSON profiles take 1/30 the space of the
-equivalent XML profiles.  This pays off in the load of the Quattor
-servers during our deployments.
+equivalent XML profiles.  The reduced I/O may speed up your
+compilations.  The load of the Quattor servers during our deployments
+is significantly lower.
