@@ -26,6 +26,47 @@ and place it in your working copy, under
 
 You'll also need CCM as shipped with Quattor 12.12.
 
+### Updating the SCDB ant tasks
+
+In order to regenerate your `profile-info.xml` files, you'll need the
+latest SDCB Ant tasks.  Get them from
+[here](https://svn.lal.in2p3.fr/LCG/QWG/scdb-ant-utils/tags/9.0.1/).
+
+Before you build, you may need to edit the `build.xml` file and ensure
+your `javac` section looks like this: add
+
+    <javac srcdir="${src}"
+           destdir="${build.java}"
+           includes="**/*.java"
+           deprecation="on"
+           debug="true"
+           target="1.6"
+           debuglevel="lines,vars,source"
+           optimize="false">
+
+This ensures your Ant task will work on Java 1.6 (as in SL) and 1.7
+(as in more recent platforms).
+
+You also have to change the filesets that will be copied and used for
+sending the CCM notifications.  By default, SCDB notifies to any hosts
+that have an XML profile.  But there is no XML profile anymore.  So
+open your `quattor-build.xml` (or equivalent file), search the
+`deploy.and.notify` target, and replace the filesets into something
+like this:
+
+    <copy todir="${deploy.xml}">
+      <fileset dir="${build.xml}">
+        <include name="**/*.json" />
+        <include name="**/*.json.gz" />
+      </fileset>
+    </copy>
+    [...]
+    <quattor-notify message="ccm" port="7777">
+      <fileset dir="${build.xml}">
+        <include name="**/*.json.gz />
+      </fileset>
+    </quattor-notify>
+
 ## Change the URL in your CDB to the JSON profile
 
 Replace the contents of `/software/components/ccm/profile`.  In QWG,
@@ -52,27 +93,6 @@ updates updates (f.i, if they are down), will be able to access their
 profiles from their old URLs and adapt to the new ones gradually.
 
 You also have to declare the generation of dependency files.
-
-## Update SCDB Ant task
-
-In order to regenerate your `profile-info.xml` files, you'll need the
-latest SDCB Ant tasks.  Get them from
-[here](https://svn.lal.in2p3.fr/LCG/QWG/scdb-ant-utils/tags/9.0.1/).
-
-Before you build, you may need to edit the `build.xml` file and ensure
-your `javac` section looks like this: add
-
-    <javac srcdir="${src}"
-           destdir="${build.java}"
-           includes="**/*.java"
-           deprecation="on"
-           debug="true"
-           target="1.6"
-           debuglevel="lines,vars,source"
-           optimize="false">
-
-This ensures your Ant task will work on Java 1.6 (as in SL) and 1.7
-(as in more recent platforms).
 
 ## Adjust your Web server (optional)
 
