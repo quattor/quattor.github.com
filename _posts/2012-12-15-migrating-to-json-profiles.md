@@ -5,19 +5,26 @@ category: review
 pygments: true
 ---
 
-Since Panc 9.2 it is possible to compile profiles in the more readable
-JSON format.  And since 9.3 it is possible to use it with our standard
-Ant tasks.  Here are the steps:
+Since the Quattor 12.12 release, it possible to use JSON-formatted
+machine profiles instead of the standard XML profiles.  The JSON
+format is much more readable for humans and its smaller size
+(especially with compression) reduces the load significantly on the
+Quattor server, even for small to medium-sized sites.
 
-## Upgrade the compiler
+Reduced I/O may also speed up your compilations slightly.
 
-If you are using SCDB, download the Ant jar from
+This document describes the steps we took at Ghent University for
+migrating our production infrastructure from XML to compressed JSON
+profiles.
+
+## Software updates
+
+If you are using SCDB, download the Panc Ant jar from
 [SourceForge](https://sourceforge.net/projects/quattor/files/panc/9.3/),
-and place it in your working copy, under `externals/panc/lib/panc.jar`.
+and place it in your working copy, under
+`externals/panc/lib/panc.jar`.
 
-## Upgrade CCM
-
-You'll need CCM as shipped with Quattor 12.12.  Just upgrade!
+You'll also need CCM as shipped with Quattor 12.12.
 
 ## Change the URL in your CDB to the JSON profile
 
@@ -27,8 +34,7 @@ replace the old `.xml` extension with `.json` or `.json.gz`.
 
 At UGent it looks like this:
 
-    "/software/components/ccm/profile" = format("%s/%s.json.gz",
-        QUATTOR_PROFILE_URL, OBJECT);
+    "/software/components/ccm/profile" = format("%s/%s.json.gz", QUATTOR_PROFILE_URL, OBJECT);
 
 ## Change the compiled formats
 
@@ -36,7 +42,7 @@ Edit your `quattor.build.xml` file and fix any warnings the compiler
 is showing.  Finally, edit the line `<property name="pan.xml.format"`,
 and turn it into this:
 
-    <property name="pan.xml.format value="json.gz,pan,dep"/>
+    <property name="formats" value="json.gz,pan,dep"/>
 
 Compression of the JSON profile is optional but suggested.
 
@@ -103,6 +109,4 @@ Eventually, you'll want to disable pan format output and use only
 JSON and dep.
 
 At UGent, compressed JSON profiles take 1/30 the space of the
-equivalent XML profiles.  The reduced I/O may speed up your
-compilations.  The load of the Quattor servers during our deployments
-is significantly lower.
+equivalent XML profiles.
