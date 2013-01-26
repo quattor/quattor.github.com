@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Migrating to JSON profiles
-category: review
+category: documentation
 pygments: true
 ---
 
