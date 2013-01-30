@@ -50,7 +50,8 @@ This is your last experience with SPMA's dependency hell!
 The new SPMA requires:
 
 * `perl-Set-Scalar`, available from the Dag repository
-* In SL5, `python-kitchen`, available from the EPEL repository.
+* In SL5, `python-kitchen`, and `python-elementtree`.  The former is
+  available in the EPEL repository.
 * `yum-plugin-versionlock` (called `yum-versionlock` on SL5)
 * Recent enough Yum and Yum utils.
 
