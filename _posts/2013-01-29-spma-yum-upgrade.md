@@ -53,13 +53,14 @@ The new SPMA requires:
 * In SL5, `python-kitchen`, and `python-elementtree`.  The former is
   available in the EPEL repository.
 * `yum-plugin-versionlock` (called `yum-versionlock` on SL5)
-* Recent enough Yum and Yum utils.
+* Recent enough Yum and Yum utils.  The stock versions for SL6
+  work.  For SL5, we recommend [the RPMs provided by UGent]().
 
 The following lines work for SL5:
 
     "/software/packages" = {
         pkg_repl("perl-Set-Scalar", "1.25-1.el5.rf", "noarch");
-        pkg_repl("yum", "3.2.29-20.el5_from_el6", "noarch");
+        pkg_repl("yum", "3.2.29-20.el5, "noarch");
         pkg_repl("yum-versionlock", "1.1.16-21.el5", "noarch");
         pkg_repl("yum-utils", "1.1.31-4", "noarch");
     };
@@ -78,3 +79,10 @@ With all this done, just deploy.  Use `ant deploy` or your in-home
 equivalent.
 
 The old SPMA will be able to install the new one.
+
+## What's next
+
+With this we cover the basics on how to upgrade to the new SPMA.
+
+However, this is the least important step.  Probably, you have to
+re-think your [upgrade]() and [mirroring]() strategies.
