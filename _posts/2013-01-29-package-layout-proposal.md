@@ -65,7 +65,7 @@ operations.  But it offers any desired granularity:
 * Per node
 * Per machine type.
 * Per repository
-* ...
+* Any other.
 
 ### In the repository server
 
