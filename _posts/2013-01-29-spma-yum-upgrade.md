@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Upgrading to the Yum-based SPMA
-category: documentation
+category: review
 ---
 
 ## Introduction
