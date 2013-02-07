@@ -77,3 +77,6 @@ the server.  The software managing the mirrors and snapshots would
 also set up these symlinks according to the organisation's policy.
 
 Handling these symlinks in a consistent way may not be trivial.
+
+Also, it's unclear how friendly this would be to caching proxies that
+users might put in front of the repository.
