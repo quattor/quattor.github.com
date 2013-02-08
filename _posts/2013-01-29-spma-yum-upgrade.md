@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Upgrading to the Yum-based SPMA
-category: review
+category: documentation
 ---
 
 ## Introduction
@@ -84,5 +84,8 @@ The old SPMA will be able to install the new one.
 
 With this we cover the basics on how to upgrade to the new SPMA.
 
-However, this is the least important step.  Probably, you have to
-re-think your [upgrade]() and [mirroring]() strategies.
+However, this one is the least important step.  Probably, you have to
+re-think your
+[software upgrade]({% post_url 2013-02-07-yum-package-management%})
+and [mirroring]({% post_url 2013-01-29-package-layout-proposal %})
+strategies before upgrading to the new SPMA.
