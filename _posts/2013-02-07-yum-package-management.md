@@ -88,3 +88,13 @@ Wildcards are allowed in the `includepkgs` list.
 You can use Yum's `exclude` directive for blacklisting packages from a
 repository.  In your repository template, that would be the
 `excludepkgs` directive.
+
+## Repository priorities
+
+I don't really recommend using priorities.  They will interact in many
+surprising ways when you want to use specific versions for some
+packages.  Selectively enabling or blacklisting some packages usually
+works better.
+
+In any case, should you really want them, just set a `priority` for
+your repository template.
