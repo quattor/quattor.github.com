@@ -87,6 +87,6 @@ With this we cover the basics on how to upgrade to the new SPMA.
 
 However, this one is the least important step.  Probably, you have to
 re-think your
-[software upgrade]({% post_url 2013-02-07-yum-package-management%})
-and [mirroring]({% post_url 2013-01-29-package-layout-proposal %})
+[software upgrade](documentation/2013/02/07/yum-package-management.html)
+and [mirroring](blog/2013/01/29/package-layout-proposal.html)
 strategies before upgrading to the new SPMA.
