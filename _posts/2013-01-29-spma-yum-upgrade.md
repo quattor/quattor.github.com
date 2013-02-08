@@ -53,8 +53,9 @@ The new SPMA requires:
 * In SL5, `python-kitchen`, and `python-elementtree`.  The former is
   available in the EPEL repository.
 * `yum-plugin-versionlock` (called `yum-versionlock` on SL5)
-* Recent enough Yum and Yum utils.  The stock versions for SL6
-  work.  For SL5, we recommend [the RPMs provided by UGent]().
+* Recent enough Yum and Yum utils.  The stock versions for SL6 work.
+  For SL5, we recommend
+  [the RPMs provided by UGent](http://users.ugent.be/~lmejas/yum-spma-sl5-repo/repodata/).
 
 The following lines work for SL5:
 
