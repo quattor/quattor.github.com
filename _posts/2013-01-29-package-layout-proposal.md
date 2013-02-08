@@ -1,7 +1,7 @@
 ---
 layout: article
 title: A possible package repository architecture for upgrading with Yum
-category: review
+category: blog
 ---
 
 ## Introduction
