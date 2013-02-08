@@ -1,11 +1,9 @@
 ---
 layout: article
-title: More traceability in component execution
-category: review
+title: Getting more traces from component execution
+category: documentation
 image: img/quattor-logo.png
 ---
-
-## Execution of components becomes even more traceable
 
 Starting with version 2.0.0 of the core modules (`CAF`), components
 complying with the
