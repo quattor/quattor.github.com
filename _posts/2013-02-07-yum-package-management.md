@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Managing packages at scale with Yum-based SPMA
-category: documentation
+category: review
 ---
 
 ## Introduction
