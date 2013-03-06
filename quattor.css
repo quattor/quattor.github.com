@@ -195,14 +195,6 @@ font-style: italic;
 padding-left: 0px;
 }
 
-/* Sidebar */
-.sidebar {
-float: right;
-padding: 25px 25px 0px 25px;
-width: 252px;
-background-color: transparent;
-}
-
 /* Turn off bullets for lists of posts. */
 .list_news ul {
 margin: 0px;
