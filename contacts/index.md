@@ -1,7 +1,7 @@
 ---
-layout: contacts
+layout: general
 category: contacts
-title: Contacts
+title: contacts
 ---
 
 The primary means of interacting with the Quattor developers and other
