@@ -1,6 +1,6 @@
 ---
 layout: general
-title: Downloads
+title: downloads
 ---
 
 * RPM packages are available from our [Yum Repositories](http://yum.quattor.org/).
