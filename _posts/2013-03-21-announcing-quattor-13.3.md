@@ -8,7 +8,7 @@ We have just tagged and uploaded to the
 [Yum repositories](http://yum.quattor.org) Quattor 13.3.  Special
 changes include:
 
-## Configuration modules
+## New configuration modules
 
 ### ncm-network
 
@@ -23,13 +23,14 @@ schema is slightly different from the old version, but it adds the
 ability to handle multiple databases, better defined access
 restrictions and much more.
 
-### Other changes
+## Improvements to configuration modules
 
 * `cron`: remove whitespace from log file names, even if the job name
   has them.
 * `sendmail`: bug fixes
 * `spma`: many bug fixes.  Users of the Yum-based SPMA are
   **strongly** recommended to upgrade to this release.
+* `accounts`: account removal is now safer and more reliable.
 
 ## CCM
 
@@ -44,3 +45,8 @@ restrictions and much more.
 
 * It is now possible to enable SSH during the Anaconda phase, making it
   easier to debug installation problems.
+
+## Compatibility notes
+
+* This is the last version of SPMA that keeps copatibility with the
+  old implementation.
