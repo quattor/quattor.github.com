@@ -1,6 +1,5 @@
 ---
 layout: general
-category: contacts
 title: contacts
 ---
 
