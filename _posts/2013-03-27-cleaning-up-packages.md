@@ -62,8 +62,8 @@ few more things.  We have a template with the packages we deem basic
 and all our systems include it.
 
 In an ordinary computation node we have reduced the amount of packages
-from 1272 to X.  Only 174 are actually listed in the profile, and Yum
-has derived the rest.
+from 1272 to a bit more than 700.  Only 174 are actually listed in the
+profile, and Yum has derived the rest.
 
 ## Third bottleneck: complicated workflows
 
