@@ -22,7 +22,8 @@ profiles.
 If you are using SCDB, download the Panc Ant jar from
 [SourceForge](https://sourceforge.net/projects/quattor/files/panc/9.3/),
 and place it in your working copy, under
-`externals/panc/lib/panc.jar`.
+`externals/panc/lib/panc.jar`.  We **strongly suggest** that you use
+the build **with dependencies**.
 
 You'll also need CCM as shipped with Quattor 12.12.
 
@@ -46,6 +47,9 @@ your `javac` section looks like this: add
 
 This ensures your Ant task will work on Java 1.6 (as in SL) and 1.7
 (as in more recent platforms).
+
+Now, build the Ant task, with ant, and copy the jar to your
+`<scdb-trunk>/externals/scdb-ant-utils/lib` directory.
 
 You also have to change the filesets that will be copied and used for
 sending the CCM notifications.  By default, SCDB notifies to any hosts
