@@ -123,8 +123,9 @@ big speedup.
 ## Conclusion
 
 Our workflows at UGent are becoming even simpler.  We have gone from
-installing 1272 packages in a compute node to **`X`**.  And our
-compilation times are halved.
+installing 1500 packages in a batch server to just above 700, with
+only 200 specified in the profile.  And our compilation times are
+halved.
 
 Of course, this comes at a cost.  Once you have committed to the new
 package manager, you **must clean up your package lists** very
