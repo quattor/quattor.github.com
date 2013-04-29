@@ -124,4 +124,5 @@ entry may declare:
   * `verify`: if the repository is to be accessed over HTTPS, whether
     or not verify the server's certificate..
 
-We still can do more things with Yum.  This is an
+Yum can do even more than this.  We'll add support for more features
+as their need arises.
