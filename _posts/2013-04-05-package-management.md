@@ -18,40 +18,33 @@ In their simplest version, we may install a package by just creating
 an empty entry under `/software/packages`:
 
 ```
-"/software/packages/{perl-JSON}" = nlist();
+"/software/packages/{perl-JSON}" ?= nlist();
 ```
 
 With this, we tell the package manager that we want `perl-JSON`
-installed.  We don't care about the version or architecture.  We let
-Yum decide that for us.  Also, if we trust Yum for choosing the
-correct dependencies, we don't need to specify anything more.
+installed. Note that the curly braces are mandatory as package names
+can contain characters that must be escaped in the PAN syntax.
+We don't care about the version or architecture (yum will determine
+that for us) and the use of conditional assignment (?=) ensures that 
+any existing, more specific setting is not over-written.  
+Also, if we trust Yum for choosing the correct dependencies, we don't 
+need to specify anything more.
 
-Imagine we wanted to install `perl-JSON` version 1.2.3, only in its
-x86_64 architecture.  The `pkg_repl` function is the preferred way to
-declare that:
+To specify particular versions and/or architectures, the simplest way
+to declare that is to use a function. Imagine we wanted to install 
+`perl-JSON` version 1.2.3, only in its x86_64 architecture. 
+The `pkg_repl` function is the preferred way to declare that:
 
 ```
 "/software/packages" = pkg_repl("perl-JSON", "1.2.3", "x86_64");
 ```
 
+Note that the package name must be passed to pkg_repl _unescaped_.
 Again, Yum will take care of the dependencies, and will lock only the
 version of `perl-JSON`.
 
-### Complicated layouts
-
-Imagine our code base is terribly complicated, and some templates
-might have declared a specific version for `perl-JSON`, while others
-just don't care.  The templates that care about the version have used
-the `pkg_repl` form above.
-
-Templates that don't care will probably use the `?=` operator for the
-assignment:
-
-```
-"/software/packages/{perl-JSON}" ?= nlist();
-```
-
-**TODO:** What does `pkg_repl("perl-JSON")` actually do?
+If you prefer you can specify all packages using functions, see the section
+[Helper functions for package management](#helper functions for package management).
 
 ### Keeping a family of packages at the same version ###
 
@@ -71,7 +64,7 @@ The above statement will only install `openldap` and its dependencies.
 If we want to install `openldap-devel` we still have to declare it:
 
 ```
-"/software/packages/{openldap-devel}" = nlist();
+"/software/packages/{openldap-devel}" ?= nlist();
 ```
 
 Now we are sure that we'll get the correct version.
@@ -84,8 +77,8 @@ Just remove its entry from the profile:
 "/software/packages/{perl-JSON}" = null;
 ```
 
-this will make the backend remove `perl-JSON` only if it's safe to do
-so.  That is, if no other package in the profile depends on it.
+this will make the backend remove `perl-JSON` only if no other package
+in the profile depends on it.
 
 ## Repository management
 
@@ -141,7 +134,8 @@ They all take the following form:
     "architecture", list("flags"));
 ```
 
-where only the package name is mandatory.
+where only the package name is mandatory. Each function also takes
+care of escaping the package name for you.
 
 
 ### pkg_del
