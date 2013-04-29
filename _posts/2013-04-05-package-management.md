@@ -37,6 +37,22 @@ declare that:
 Again, Yum will take care of the dependencies, and will lock only the
 version of `perl-JSON`.
 
+### Complicated layouts
+
+Imagine our code base is terribly complicated, and some templates
+might have declared a specific version for `perl-JSON`, while others
+just don't care.  The templates that care about the version have used
+the `pkg_repl` form above.
+
+Templates that don't care will probably use the `?=` operator for the
+assignment:
+
+```
+"/software/packages/{perl-JSON}" ?= nlist();
+```
+
+**TODO:** What does `pkg_repl("perl-JSON")` actually do?
+
 ### Keeping a family of packages at the same version ###
 
 The `pkg_repl` form accepts wildcards, and may be used for ensuring
