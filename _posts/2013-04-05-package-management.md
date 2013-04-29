@@ -126,3 +126,55 @@ entry may declare:
 
 Yum can do even more than this.  We'll add support for more features
 as their need arises.
+
+## Helper functions for package management
+
+There are several functions to help with complex package
+manipulations.  The `components/spma/functions` template contains
+their full descriptions.  We list here the simplest (and most
+frequent) uses.
+
+They all take the following form:
+
+```
+"/software/packages" = pkg_<op>("package-name", "package-version",
+    "architecture", list("flags"));
+```
+
+where only the package name is mandatory.
+
+
+### pkg_del
+
+Deletes a package from the profile.  In most cases this is equivalent to
+
+```
+"/software/packages/{a-package}" = null;
+```
+
+This function allows to remove only one **version** or
+**architecture** of such a package, while preserving all others.
+
+Given the way we can now simplify our Pan code, the use of this
+function is probably a
+[code smell](https://en.wikipedia.org/wiki/Code_smell).
+
+### pkg_add
+
+Adds a package to the profile, raising an error if it was already
+defined.  You usually prefer `pkg_repl`, which is idempotent.
+
+### pkg_repl
+
+Adds a package to the profile.  Typically, it replaces any other
+versions of this package.
+
+If given the `multi` flag, versions already defined in the profile are
+preserved.  This is useful if you need to declare multiple kernel
+versions, for instance.
+
+### pkg_ronly
+
+If the package given as an argument exists in the profile, replaces
+its version and/or architecture.  It doesn't add or remove any
+packages.
