@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Installing and removing packages with Quattor
-category: review
+category: documentation
 image: img/quattor-logo.png
 ---
 
