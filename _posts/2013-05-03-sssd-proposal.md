@@ -98,3 +98,14 @@ server itself, are placed as-is inside the domain:
 ## Services
 
 WIP.
+
+## Other considerations
+
+The configuration tree of `ncm-authconfig` is already huge, and this
+adds some more massive subtrees.  Splitting is difficult, since an
+invocation of the `authconfig` command may affect the configurations
+and files handled by many different components.
+
+I think the best we can do is improve the component's code and
+testability.  Ideas on how to split or make this component more
+modular will be greately appreciated.
