@@ -21,14 +21,21 @@ that model SSSD configuration files.
 
 ## Domains
 
-SSSD access control is structured in domains, each domain having a
-provider.  We'll index our domains by provider and then by name:
+Domains are databases containing user information.  We can use several
+domains at the same time.  They have different providers for access
+control, identity, password management...  In the first phase we'll
+implement, only LDAP, simple and local providers.
+
+Domains will be indexed by key, and the `ldap`, `simple` or `local`
+portions will be substructures inside the domain.
 
 ```bash
 prefix "/software/components/authconfig/sssd/domains";
 
-"simple/my_domain" =...
-"ldap/your_domain" =...
+"foo/id_provider" = "simple";
+"foo/simple/allow_users" =...;
+"bar/ldap/bind_dn" =...;
+"bar/id_provider" = "simple";
 ```
 
 The _simple_ provider is described in the
@@ -37,9 +44,10 @@ The Pan data sctructure mimics the file, except that the `simple`
 prefixes are removed.  For instance,
 
 ```bash
-prefix "/software/components/authconfig/sssd/domains/simple/foo";
+prefix "/software/components/authconfig/sssd/domains/foo";
 
-"allow_users" = list("u1", "u2");
+"access_provider" = "simple";
+"simple/allow_users" = list("u1", "u2");
 ```
 
 should generate:
@@ -97,4 +105,19 @@ server itself, are placed as-is inside the domain:
 
 ## Services
 
-WIP.
+NSS and PAM services are implemented in the `/.../sssd/pam` and
+`/.../sssd/nss` subtrees.
+
+
+## Other considerations
+
+The `[sssd]` section is mapped to the `/.../sssd/global` subtree.
+
+The configuration tree of `ncm-authconfig` is already huge, and this
+adds some more massive subtrees.  Splitting is difficult, since an
+invocation of the `authconfig` command may affect the configurations
+and files handled by many different components.
+
+I think the best we can do is improve the component's code and
+testability.  Ideas on how to split or make this component more
+modular will be greately appreciated.
