@@ -67,7 +67,7 @@ types.  We have done some grouping as well, so that all the
 entry in ou
 
 ```bash
-prefix "/software/components/authconfig/sssd/domains/ldap/foo";
+prefix "/software/components/authconfig/sssd/domains/foo/ldap";
 
 "network_timeout" = 10;
 "users/uid_number" = "uidNumber";
@@ -100,13 +100,15 @@ The `krb5_*` entries, used for authenticating to the LDAP
 server itself, are placed as-is inside the domain:
 
 ```bash
-"...domains/ldap/foo/krb5_keytab" = "/etc/keytab";
+"...domains/foo/ldap/krb5_keytab" = "/etc/keytab";
 ```
 
 ## Services
 
 NSS and PAM services are implemented in the `/.../sssd/pam` and
 `/.../sssd/nss` subtrees.
+
+Check the man page for `sssd.conf` for more details.
 
 
 ## Other considerations
