@@ -4,7 +4,7 @@ Quattor Web Site
 This is the Quattor web site that contains information for *users*. Please do
 not put information here that is intended for the developers of Quattor.
 
-**If you are looking for the Quattor web site itself, try 
+**If you are looking for the Quattor web site itself, try
 [http://quattor.org](http://quattor.org).**
 
 The site is hosted through GitHub pages and can be modified by cloning this
@@ -17,7 +17,7 @@ Guidelines for Content
 ----------------------
 
 Again, the content on this web site is intended for users of Quattor. If it is
-not of interest to users, then put the information on the 
+not of interest to users, then put the information on the
 [Quattor wiki](https://trac.lal.in2p3.fr/Quattor) instead.
 
 The naming scheme for the items in the __posts subdirectory is the date,
@@ -56,10 +56,21 @@ markdown documents. This may be an easier solution than installing Jekyll if
 you are only adding content.
 
 To generate the site locally use the following command:
-<code>
-    jekyll --base-url=file:///`pwd`/_site/
-</code>
-With this command all of the links on the site will function correctly. 
+
+```bash
+jekyll --base-url=file:///`pwd`/_site/
+```
+
+for old versions of Jekyll, or
+
+```bash
+jekyll build
+```
+
+for newer versions of Jekyll.
+
+
+With this command all of the links on the site will function correctly.
 
 Review of Content
 -----------------
