@@ -8,7 +8,14 @@ We have just tagged and uploaded to the
 [Yum repositories](http://yum.quattor.org) Quattor 13.9.  Special
 changes include:
 
-## Useability improvements
+## New features
+
+* `ncm-ncd` can now execute
+  [hooks before and after running any components](https://trac.lal.in2p3.fr/Quattor/wiki/Development/PrePostActionsNCMNCD).
+  The API is not yet set in stone, and might change in future
+  releases.
+
+### Useability improvements
 
 * Quattor commands have been renamed, to be more meaningful:
   * `quattor-configure` executes configuration modules, aliasing old
@@ -19,13 +26,6 @@ changes include:
 * `quattor-configure` and `quattor-query` (and their old names) have
   now basic Bash autocompletion support.  The names of the the
   installed components and the most common options will be expanded.
-
-## New features
-
-* `ncm-ncd` can now execute
-  [hooks before and after running any components](https://trac.lal.in2p3.fr/Quattor/wiki/Development/PrePostActionsNCMNCD).
-  The API is not yet set in stone, and might change in future
-  releases.
 
 ## Improvements to configuration modules
 
@@ -56,6 +56,17 @@ changes include:
 * `metaconfig`
   [supports now noaction](https://github.com/quattor/configuration-modules-core/pull/102).
 * The installer works reliably again on SL 6.4.
+
+## Upgrading
+
+We have created a
+[GitHub repository](https://github.com/quattor/config-modules-core-templates)
+for simplifying the upgrades of the core configuration modules.  Just
+clone this repository or download the appropriate tag.
+
+If this approach is useful, future releases will provide
+easy-to-download templates for the Grid modules and the client
+packages.
 
 ## Next release
 
