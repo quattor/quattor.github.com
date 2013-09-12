@@ -34,7 +34,10 @@ changes include:
   [disable it up front](https://github.com/quattor/configuration-modules-core/pull/88).
 * The `add` flag for `ncm-chkconfig` implies
   [restoring the service runlevel to its default values](https://github.com/quattor/configuration-modules-core/pull/99)
-
+* `authconfig` has now partial support for
+  [System Security Service Daemon](https://fedorahosted.org/sssd/).
+  [We implement sasl, sudo and ldap services](https://github.com/quattor/configuration-modules-core/pull/105)
+  for now.
 
 ### Backwards-incompatible changes
 
