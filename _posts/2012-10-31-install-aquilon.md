@@ -11,7 +11,7 @@ Scientific Linux 6 host (It should work for any RedHat 6 clone), with
 a PostgreSQL backend.  Pan templates automating this will be provided.
 
 With your basic OS installed you should add the prerequisites
-described in [Aquilon Prerequisites]({% post_url 2012-10-31-aquilon-prerequisites %}).
+described in [Aquilon Prerequisites](/documentation/2012/10/31/aquilon-prerequisites.html).
 
 You will need kerberos authentication working, either with your own
 server or one provided by your institution.  This is out of the scope
@@ -46,7 +46,7 @@ You have to create a role in your database server for the Aquilon
 broker.  For instance:
 
 ```bash
-# su -l postgres
+$ su -l postgres
 $ createuser -SRD aquilon
 $ createdb --owner aquilon aquilon
 ```
@@ -54,3 +54,25 @@ $ createdb --owner aquilon aquilon
 The last portion can be replaced by a schema in an existing database.
 
 ### Filling in the database
+
+The Aquilon database is a real inventory of your systems.  The first
+time you fill it in will be a painful experience.  You'll have to
+provide it with:
+
+* Organization name
+* Continent(s)
+* Hub(s)
+* Country(ies)
+* City(ies)
+* Building(s)
+* Room(s)
+* Racks, with their location
+* Vendors for different hardware components
+* Models of different hardware components
+* Chassis
+* Machines
+* Interfaces attached to each machine
+* Hosts
+
+A script to import most of this information from existing profiles is
+under work.
