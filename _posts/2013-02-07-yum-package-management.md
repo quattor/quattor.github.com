@@ -74,7 +74,8 @@ That's where Yum's `includepkgs` comes in handy.  You just give the
 list of packages you need from that repository, and for the rest of it
 it will be effectively disabled.  In your repository template:
 
-tructure template repository/rpmforge-el6-x86_64;
+```
+structure template repository/rpmforge-el6-x86_64;
 
 "name" = "rpmforge-el6-x86_64";
 "owner" = "foo@bar";
@@ -83,6 +84,7 @@ tructure template repository/rpmforge-el6-x86_64;
         "url","http://repos.foo.bar/mrepo/RPMforge6-x86_64/RPMS.all")
 );
 "includepkgs" = list("foo");
+```
 
 Wildcards are allowed in the `includepkgs` list.
 
