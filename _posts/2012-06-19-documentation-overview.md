@@ -9,6 +9,11 @@ Quattor is a fantastic site management framework and toolkit.
 Components
 ----------
 
+
+Detailed Overview
+-----------------
+![Quattor Interprocess Flow](img/quattor-interprocess-flow.png)
+
 Feedback
 --------
 
