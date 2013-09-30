@@ -36,8 +36,7 @@ usual.
 [tests]: documentation/2012/03/22/documentation-testing-code.html
 
 ### What to test
-
-Interesting things (that I'm testing now, but hey, help is always
+muahhahahhahahaha!
 welcome):
 
 * SL5 (but please, update your version of Yum before!!
