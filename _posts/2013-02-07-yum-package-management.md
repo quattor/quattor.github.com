@@ -45,7 +45,7 @@ to split the home-grown repository.
 Some of these repositories will be listed only for debugging
 purposes.  This way, we may allow an administrator to run
 
-```
+```bash
 yum  --enablerepo=* install <some-debugging-tool>
 ```
 
@@ -53,12 +53,15 @@ that will be cleaned up after he's done his operations.
 
 Those will be disabled in the repository template, like this:
 
-    structure template repository/foo;
 
-    ...
-    "url" = "http://...";
-    "enabled" = false;
-    ...
+```bash
+structure template repository/foo;
+
+...
+"url" = "http://...";
+"enabled" = false;
+...
+```
 
 ## Blocking a repository except for a few RPMs: the case of RPMforge
 
@@ -74,12 +77,14 @@ That's where Yum's `includepkgs` comes in handy.  You just give the
 list of packages you need from that repository, and for the rest of it
 it will be effectively disabled.  In your repository template:
 
-    structure template repository/rpmforge;
+```bash
+structure template repository/rpmforge;
 
-    ...
-    "url" = "http://...";
-    "enabled" = true; # This is the default
-    "includepkgs" = list("foo", "bar", "baz");
+...
+"url" = "http://...";
+"enabled" = true; # This is the default
+"includepkgs" = list("foo", "bar", "baz");
+```
 
 Wildcards are allowed in the `includepkgs` list.
 
