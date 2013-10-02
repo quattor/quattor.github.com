@@ -20,12 +20,12 @@ profiles.
 ## Software updates
 
 If you are using SCDB, download the Panc Ant jar from
-[SourceForge](https://sourceforge.net/projects/quattor/files/panc/9.3/),
+[SourceForge](https://sourceforge.net/projects/quattor/files/panc/),
 and place it in your working copy, under
-`externals/panc/lib/panc.jar`.  We **strongly suggest** that you use
-the build **with dependencies**.
+`externals/panc/lib/panc.jar`.  You must pick at least version 9.3.
+We **strongly suggest** that you use the build **with dependencies**.
 
-You'll also need CCM as shipped with Quattor 12.12.
+You'll also need CCM as shipped with Quattor 12.12 or newer.
 
 ### Updating the SCDB ant tasks
 
@@ -36,14 +36,16 @@ latest SDCB Ant tasks.  Get them from
 Before you build, you may need to edit the `build.xml` file and ensure
 your `javac` section looks like this: add
 
-    <javac srcdir="${src}"
-           destdir="${build.java}"
-           includes="**/*.java"
-           deprecation="on"
-           debug="true"
-           target="1.6"
-           debuglevel="lines,vars,source"
-           optimize="false">
+```xml
+<javac srcdir="${src}"
+       destdir="${build.java}"
+       includes="**/*.java"
+       deprecation="on"
+       debug="true"
+       target="1.6"
+       debuglevel="lines,vars,source"
+       optimize="false">
+```
 
 This ensures your Ant task will work on Java 1.6 (as in SL) and 1.7
 (as in more recent platforms).
@@ -58,18 +60,20 @@ open your `quattor-build.xml` (or equivalent file), search the
 `deploy.and.notify` target, and replace the filesets into something
 like this:
 
-    <copy todir="${deploy.xml}">
-      <fileset dir="${build.xml}">
-        <include name="**/*.json" />
-        <include name="**/*.json.gz" />
-      </fileset>
-    </copy>
-    [...]
-    <quattor-notify message="ccm" port="7777">
-      <fileset dir="${build.xml}">
-        <include name="**/*.json.gz />
-      </fileset>
-    </quattor-notify>
+```xml
+<copy todir="${deploy.xml}">
+  <fileset dir="${build.xml}">
+    <include name="**/*.json" />
+    <include name="**/*.json.gz" />
+  </fileset>
+</copy>
+[...]
+<quattor-notify message="ccm" port="7777">
+  <fileset dir="${build.xml}">
+    <include name="**/*.json.gz />
+  </fileset>
+</quattor-notify>
+```
 
 ## Change the URL in your CDB to the JSON profile
 
@@ -79,7 +83,9 @@ replace the old `.xml` extension with `.json` or `.json.gz`.
 
 At UGent it looks like this:
 
-    "/software/components/ccm/profile" = format("%s/%s.json.gz", QUATTOR_PROFILE_URL, OBJECT);
+```bash
+"/software/components/ccm/profile" = format("%s/%s.json.gz", QUATTOR_PROFILE_URL, OBJECT);
+```
 
 ## Change the compiled formats
 
@@ -87,7 +93,9 @@ Edit your `quattor.build.xml` file and fix any warnings the compiler
 is showing.  Finally, edit the line `<property name="pan.xml.format"`,
 and turn it into this:
 
-    <property name="formats" value="json.gz,pan,dep"/>
+```xml
+<property name="formats" value="json.gz,pan,dep"/>
+````
 
 Compression of the JSON profile is optional but suggested.
 
@@ -116,7 +124,9 @@ Your clients work just fine.  But you'll need to upgrade the installer
 to a version that can deal with the new format.  Just upgrade AII to
 the version shipped with Quattor 12.12, and add
 
-    profile_format=json # Or json.gz
+```ini
+profile_format=json # Or json.gz
+```
 
 to `/etc/aii/aii-shellfe.conf`.  The aiiserver component supports this
 option, too.
