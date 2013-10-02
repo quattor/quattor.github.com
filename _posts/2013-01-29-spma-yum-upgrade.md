@@ -62,7 +62,7 @@ The following lines work for SL5:
 ```bash
 "/software/packages" = {
     pkg_repl("perl-Set-Scalar", "1.25-1.el5.rf", "noarch");
-    pkg_repl("yum", "3.2.29-20.el5, "noarch");
+    pkg_repl("yum", "3.2.29-20.el5", "noarch");
     pkg_repl("yum-versionlock", "1.1.16-21.el5", "noarch");
     pkg_repl("yum-utils", "1.1.31-4", "noarch");
 };
