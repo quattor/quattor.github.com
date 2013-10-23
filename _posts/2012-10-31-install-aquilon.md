@@ -87,7 +87,7 @@ database_section=database_postgresql
 ```
 
 And fill the `database_postgresql` section with the appropriate
-information:
+information.  For instance:
 
 ```ini
 [database_postgresql]
