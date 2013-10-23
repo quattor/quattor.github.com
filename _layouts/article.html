@@ -34,9 +34,13 @@
 	</div> <!-- row-fluid -->
 	<div class="page-header row-fluid">
 	  <h1>{{ page.title }}</h1>
-	  <p class="date">{{ page.date | date: "%d %B %Y" }}</p>
+          <div class="span2 date"><p>{{ page.date | date: "%d %B %Y" }}</p></div>
+          {% if page.modified %}
+          <div class="span3 date"><p class="muted">reviewed: {{ page.modified | date: "%d %B %Y"}}</p>
+          </div>
+          {% endif %}
 	  {% if page.author %}
-	  <div class="author">{{ page.author }}</div>
+	  <div class="author span12">{{ page.author }}</div>
 	  {% endif %}
 	</div> <!-- page-header row-fluid -->
 	<div class="row-fluid">
