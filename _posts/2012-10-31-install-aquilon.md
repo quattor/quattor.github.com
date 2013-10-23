@@ -2,8 +2,9 @@
 layout: article
 title: Installing Aquilon
 category: documentation
+modified: 2013-10-25
+author: Luis Fernando Muñoz Mejías
 ---
-
 ## Introduction
 
 This guide describes the process to install and have an Aquilon broker
