@@ -4,6 +4,9 @@ title: Aquilon Prerequisites
 category: documentation
 ---
 
+**THIS DOCUMENT IS OBSOLETE** The pre-requisites for Aquilon are now
+in a [Yum repository](http://yum.quattor.org/aquilon)
+
 Dependencies for Aquilon on SL.  If using the Yum-based SPMA, Yum will
 pull them in when installing the Aquilon RPM.
 
