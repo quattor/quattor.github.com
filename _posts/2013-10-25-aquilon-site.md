@@ -30,4 +30,6 @@ want to add hosts to our instance, and produce some useful configuration.
 
 ## Deploying the first configuration
 
+**TODO**: Document the notifysock in /var/quattor/run/sockets!!
+
 ## Conclusion
