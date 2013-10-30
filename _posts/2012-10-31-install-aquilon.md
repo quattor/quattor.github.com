@@ -5,7 +5,20 @@ category: documentation
 modified: 2013-10-25
 author: Luis Fernando Muñoz Mejías
 ---
+
 ## Introduction
+
+Aquilon is the third generation configuration datastore for Quattor
+(The first generation being CDB and the second being SCDB).
+
+It features a broker daemon which has overall ownership of the system
+including template compilation. The broker stores specifc
+configuration in a relational database, generating object templates
+on-the-fly at compile time.
+
+All user interaction takes place over a kerberos secured connection to
+the broker, which delegates sandboxes (taking the form of git
+repositories) when changes to pan templates are needed.
 
 This guide describes the process to install and have an Aquilon broker
 started.  After reading this guide, you may want to continue
