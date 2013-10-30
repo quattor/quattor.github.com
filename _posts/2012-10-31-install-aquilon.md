@@ -87,7 +87,8 @@ Keytab and the URL to the Git repository containing your Pan templates:
 ```ini
 [broker]
 keytab=/etc/krb5.keytab
-git_templates_url=someone@server:path/to/repo
+git_templates_url=someone@server:/var/quattor/template-king
+templatesdir=/var/lib/templates
 ```
 
 Finally, configure the connection to the database.  In
@@ -112,26 +113,48 @@ server=localhost
 The defaults file contains all possible parameters for the supported
 databases.
 
-### Filling in the database
+## Filling in the database
 
 The Aquilon database is a real inventory of your systems.  The first
-time you fill it in will be a painful experience.  You'll have to
-provide it with:
+time you fill it in will be a painful experience.  Check
+[the guide on starting a site](/documentation/2013/10/25/aquilon-site.html)
+for more information.
 
-* Organization name
-* Continent(s)
-* Hub(s)
-* Country(ies)
-* City(ies)
-* Building(s)
-* Room(s)
-* Racks, with their location
-* Vendors for different hardware components
-* Models of different hardware components
-* Chassis
-* Machines
-* Interfaces attached to each machine
-* Hosts
+## Initialising the repositories
 
-A script to import most of this information from existing profiles is
-under work.
+Next is to initialise the 'template king', the "canonical" Git
+repository controlled by the broker.  This is a bare repository in the
+location specified by the `git_templates_url` configuration parameter
+above.  In our case:
+
+```bash
+cd /var/quattor
+git init --bare template-king
+```
+
+After that, you have to prepare a location for the broker to put the
+the Git clones where your users will do their work.  Create one
+directory per Aquilon user inside the directory designated by
+`templatesdir`, and ensure that both the broker and the user can write
+to it.  If all your users belong to the `aquilon` group:
+
+```bash
+mkdir -p /var/lib/templates/{bart,homer,lisa,maggie,marge}
+chown -R aquilon:aquilon /var/lib/templates
+chmod -R 0770 /var/lib/templates/
+```
+## What's next
+
+**TODO**
+
+## Adding more users
+
+**TODO: move to a section dedicated to authentication and authorisation**
+
+Authentication and authorisation are handled with `aq permission`.
+You can see the already defined roles with `aq show_principal --all`.
+And you can add and adjust permissions with:
+
+```bash
+aq permission --principal me@QUATTOR.ORG --role nobody --createuser
+```
