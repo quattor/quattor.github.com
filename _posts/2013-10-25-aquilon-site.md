@@ -59,6 +59,25 @@ In this stage we will be adding a site, so we will use `add_*`
 commands.  Most of the commands we'll use have `show_`, `update_` and
 `del_` counterparts.
 
+## Archetypes, domains...
+
+You need to start by declaring archetypes and the basic domains for
+your Aquilon instance.  Let's imagine we have two archetypes, one for
+Linux hosts under Quattor control and another one for IPMI interfaces
+
+```bash
+aq add_archetype --archetype 'linux' --compilable
+aq add_archetype --archetype 'bmc' --nocompilable
+```
+
+Next come the domains, which are just Git branches with some metadata.
+We'll define a `prod`uction and a `test`ing domains.
+
+```bash
+aq add_domain --domain 'prod'
+aq add_domain --domain 'test'
+```
+
 ## Storing your inventory
 
 The Aquilon database contains the entire inventory of your
@@ -74,13 +93,13 @@ infrastructure.  The meanings of the commands to run should be
 obvious.  We list here an example:
 
 ```bash
-aq add_organization --organization daily_planet
-aq add_hub --hub pacific --organization daily_planet
-aq add_continent --continent america --hub pacific
-aq add_country --country us --continent
-aq add_city --city metropolis --fullname Metropolis --country us --timezone dct
-aq add_building --building hq --city metropolis --address '355, 1000 Broadway'
-aq add_room --room supersecret --building hq
+aq add_organization --organization 'daily_planet'
+aq add_hub --hub 'pacific' --organization 'daily_planet'
+aq add_continent --continent 'america' --hub 'pacific'
+aq add_country --country 'us' --continent 'america'
+aq add_city --city 'metropolis' --fullname 'Metropolis' --country 'us' --timezone 'dct'
+aq add_building --building 'hq' --city 'metropolis' --address '355, 1000 Broadway'
+aq add_room --room 'supersecret' --building 'hq'
 ```
 
 List your own addresses, rooms...  but remember that each step depends
@@ -96,18 +115,18 @@ hardware such as switches.
 For racks, you'll have to specify on which row and column inside that
 row they are.
 
-```sh
-aq add_rack --rackid forlexluthor --row R --column C --building hq
+```bash
+aq add_rack --rackid 'forlexluthor' --row 'R' --column 'C' --building 'hq'
 ```
 
 Next come servers, switches, routers... we'll go for servers,
 _machine_s in Aquilon terms.  Aquilon has to know the exact vendor and
 model for each server, so here we go:
 
-```sh
-aq add_vendor --vendor luthorindustries --comments "Bad guys make good sells"
-aq add_model --model spyserver --vendor luthorindustries --type rackmount
-aq add_machine --machine illegaltapper --model spyserver --rack forlexluthor
+```bash
+aq add_vendor --vendor 'luthorindustries' --comments "Bad guys make good sells"
+aq add_model --model 'spyserver' --vendor 'luthorindustries' --type 'rackmount'
+aq add_machine --machine 'illegaltapper' --model 'spyserver' --rack 'forlexluthor'
 ```
 
 ### Declaring networks
@@ -115,7 +134,8 @@ aq add_machine --machine illegaltapper --model spyserver --rack forlexluthor
 Once we have the hardware in place, it's time to declare the networks
 our hosts live in.
 
-
+**TODO:** Mention `network_*` sections and the
+  `default_gateway_offset` parameter.
 
 ## Declaring your first host
 
@@ -128,7 +148,5 @@ our hosts live in.
 ## Compiling the first host
 
 ## Deploying the first configuration
-
-**TODO**: Document the notifysock in /var/quattor/run/sockets!!
 
 ## Conclusion
