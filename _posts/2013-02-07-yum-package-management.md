@@ -78,12 +78,15 @@ list of packages you need from that repository, and for the rest of it
 it will be effectively disabled.  In your repository template:
 
 ```bash
-structure template repository/rpmforge;
+structure template repository/rpmforge-el6-x86_64;
 
-...
-"url" = "http://...";
-"enabled" = true; # This is the default
-"includepkgs" = list("foo", "bar", "baz");
+"name" = "rpmforge-el6-x86_64";
+"owner" = "foo@bar";
+"protocols" = list(
+  nlist("name","http",
+        "url","http://repos.foo.bar/mrepo/RPMforge6-x86_64/RPMS.all")
+);
+"includepkgs" = list("foo");
 ```
 
 Wildcards are allowed in the `includepkgs` list.
