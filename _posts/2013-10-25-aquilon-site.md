@@ -129,13 +129,45 @@ aq add_model --model 'spyserver' --vendor 'luthorindustries' --type 'rackmount'
 aq add_machine --machine 'illegaltapper' --model 'spyserver' --rack 'forlexluthor'
 ```
 
-### Declaring networks
+#### Network interfaces
+
+Each machine has a number of network interfaces, with their MAC
+addresses.  Don't forget to add them!
+
+```bash
+aq add_interface --interface eth0 --machine 'illegaltapper' --mac 'AA:BB:CC:DD:EE:FF'
+```
+
+## Declaring networks
 
 Once we have the hardware in place, it's time to declare the networks
 our hosts live in.
 
-**TODO:** Mention `network_*` sections and the
-  `default_gateway_offset` parameter.
+We'll use the `add_network` command:
+
+```bash
+aq add_network --network 'leaks' --ip '192.168.1.0' --netmask '255.255.255.0' --city 'metropolis'
+aq add_network --network 'reporters' --ip '192.168.100.0' --netmask '255.255.255.0' --city 'metropolis'
+```
+
+### Wait, how do I define the routers for my networks?
+
+When we declare our networks, Aquilon assumes the first IP address is
+reserved for the router.  If this isn't correct, you have to modify
+the configuration for the broker.  Create a `network_` section, and
+declare the default gateway offset.  For instance, let's assume that
+the gateway for `leaks` network above is on 192.168.1.30.  We edit `/etc/aqd.conf`:
+
+```ini
+[network_leaks]
+default_gateway_offset=30
+```
+
+And finally we restart the broker:
+
+```bash
+service aqd restart
+```
 
 ## Declaring your first host
 
