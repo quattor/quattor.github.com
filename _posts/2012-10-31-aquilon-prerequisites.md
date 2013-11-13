@@ -24,6 +24,8 @@ Aquilon 1.10, version 1.7.1 is needed.  It is part of
 [Repoforge](http://repoforge.org), but as of this writing they haven't
 built it yet.
 
+In the mean time it can be found in [our externals repository](http://yum.quattor.org/externals/).
+
 To build it yourself:
 
 * Grab the SPEC file.
