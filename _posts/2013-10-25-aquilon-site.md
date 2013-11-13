@@ -169,7 +169,36 @@ And finally we restart the broker:
 service aqd restart
 ```
 
+### DNS domains
+
+Our network has some DNS domains.  We have to add them:
+
+```bash
+aq add_dns_domain --dns_domain 'dailyplanet.com'
+```
+
 ## Declaring your first host
+
+Now we can declare a host on our `illegaltapper` machine.
+
+To do so, we have already:
+
+* Stored all the relevant hardware in the database
+* Declared all the network interfaces, with their MAC addresses
+* Declared all the networks it will be connected to
+* Declared all the DNS domains our host will live in
+
+Now, we use all that information to add a `tapping` host:
+
+```bash
+aq add_host --hostname 'tapping.dailyplanet.com' --machine 'illegaltapper' --ip '192.168.1.3'
+```
+
+Congratulations!  You have your first host!  Run `aq show_host --all`
+to see it.
+
+But we aren't done yet.  This host will do nothing.  It's useless.  We
+need to bind it to some personality, and add features to that personality.
 
 ### Personalities and features
 
