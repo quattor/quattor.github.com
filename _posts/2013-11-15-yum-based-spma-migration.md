@@ -32,7 +32,7 @@ Before starting you should understand ...
 
 ## Templates:
 
-We started by creating a new test cluster with a lone test server, it's main difference being having precedence for recent Quattor components in the include path.
+We started by creating a new test cluster with a lone test server, its main difference being having precedence for recent Quattor components in the include path.
 
 I won't dwell on the gory details here, because things have evolved and much of what we did is no longer necessary.
 
@@ -85,9 +85,9 @@ Since our target configuration already had cleaner package lists, we used a temp
 
 We migrated a second test host by:
 
-* moving it's object profile to the temporary cluster
+* moving its object profile to the temporary cluster
 * 1st deploy
-* moving it's object profile to the final Yum based cluster
+* moving its object profile to the final Yum based cluster
 * 2nd deploy
 
 Once all test profiles were on the final Yum based cluster, the temporary cluster was removed.
