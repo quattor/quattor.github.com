@@ -2,7 +2,7 @@
 layout: article
 title: Starting a site with Aquilon
 category: documentation
-modified: 2013-10-25
+modified: 2013-11-16
 author: Luis Fernando Muñoz Mejías
 ---
 
@@ -37,17 +37,28 @@ These are the basic terms in Aquilon operations:
     the cluster, as well as the hosts. Clusters go through a
     completely different schema and build process to how hosts are
     built and therefore have a different archetypes.
-* `domain`: A high level grouping of hosts eg. prod
-* `feature`: A chunk of code for configuring a specific thing, similar
-    to Puppet recipes.
+* `domain`: A set of shared Quattor templates. Entities to be
+  configured live in exactly one domain. A domain is currently
+  implemented as a branch if the template-king git repository.
+* `feature`: A re-useable configuration template that configures a
+  specific thing but does not in itself describe a complete
+  system. (So similar to a chef recipe.) A feature may be included in
+  a personality or anywhere else that PAN template code can be
+  included.
 * `personality`: Analogous to QWG machine types, describes the
     services required but not the instance (selected using plenary
     template information).
 * `plenary`: Template generated on the fly from an external
     source.
-* `sandbox`: A working area owned by a specific user and associated
-    with a group of systems.
-* `service`:   ...
+* `sandbox`: A development area for making changes to (Pan)
+  templates. Each sandbox must be started from a domain and hosts or
+  clusters may be managed into the sandbox to allow for pre-deployment
+  testing. Once the template code is fully tested, it must be
+  published back to the broker and then deployed to the shared domain.
+* `service`: A network-based service such as DNS, DHCP, NTP, etc. Each
+ service can have multiple instances. Service instances must be mapped
+ which allows the administrator to model client hosts connecting to
+ different instances based on location and optionally personality.
 
 ### Before proceeding
 
