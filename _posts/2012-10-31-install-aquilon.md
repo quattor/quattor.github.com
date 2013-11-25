@@ -43,7 +43,8 @@ $ yum -y install aquilon-postgresql
 
 If you want a different database backend, you may simply install the
 `aquilon` RPM and then install the Python bindings to your database.
-Currently, Oracle, PostgreSQL and SQLite are supported.
+Currently, Oracle and PostgreSQL are supported, and SQLite is expected
+to work for development environments.
 
 ## Dropping privileges
 
