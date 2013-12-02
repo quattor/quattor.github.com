@@ -2,7 +2,7 @@
 layout: article
 title: Installing Aquilon
 category: documentation
-modified: 2013-10-25
+modified: 2013-12-02
 author: Luis Fernando Muñoz Mejías
 ---
 
@@ -34,8 +34,9 @@ You will need a kerberos keytab for your server.
 ## Installing Aquilon
 
 With your basic OS installed you should add the
-[Aquilon Yum repository](http://yum.quattor.org/aquilon) to Yum, and
-then
+[Aquilon](http://yum.quattor.org/aquilon) and
+[externals](http://yum.quattor.org/externals) Yum repositories to Yum,
+and then
 
 ```sh
 $ yum -y install aquilon-postgresql
@@ -58,6 +59,7 @@ the shell to git-shell.
 $ groupadd aquilon
 $ useradd -s /usr/bin/git-shell -g aquilon -d /var/quattor aquilon
 ```
+
 ## Setting up the database
 
 You have to create a role in your database server for the Aquilon
@@ -112,7 +114,9 @@ server=localhost
 ```
 
 The defaults file contains all possible parameters for the supported
-databases.
+databases.  The environment in this example is the "purpose" of this
+broker and its associated database: production, unit testing,
+end-to-end testing...
 
 ## Filling in the database
 
@@ -133,20 +137,28 @@ cd /var/quattor
 git init --bare template-king
 ```
 
-After that, you have to prepare a location for the broker to put the
-the Git clones where your users will do their work.  Create one
-directory per Aquilon user inside the directory designated by
-`templatesdir`, and ensure that both the broker and the user can write
-to it.  If all your users belong to the `aquilon` group:
+After that, you have to prepare the directory that will contain your
+sandboxes.  Create one directory per Aquilon user inside the directory
+designated by `templatesdir`, and ensure that both the broker and the
+user can write to it.  If all your users belong to the `aquilon`
+group:
 
 ```bash
 mkdir -p /var/lib/templates/{bart,homer,lisa,maggie,marge}
 chown -R aquilon:aquilon /var/lib/templates
 chmod -R 0770 /var/lib/templates/
 ```
+
 ## What's next
 
-**TODO**
+You can now start your broker daemon, with
+
+```bash
+service aqd start
+```
+
+Next, you should learn how to
+[have a site](/documentation/2013/10/25/aquilon-site).
 
 ## Adding more users
 
