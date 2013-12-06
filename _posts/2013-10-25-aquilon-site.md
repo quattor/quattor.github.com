@@ -72,7 +72,8 @@ can be found in the appendix of the [Aquilon book](http://FIXME).
 
 In this stage we will be adding a site, so we will use `add_*`
 commands.  Most of the commands we'll use have `show_`, `update_` and
-`del_` counterparts.
+`del_` counterparts.  You are recommended to read the help of each
+command before actually running it.
 
 ## Archetypes, domains...
 
@@ -192,6 +193,34 @@ Our network has some DNS domains.  We have to add them:
 aq add_dns_domain --dns_domain 'dailyplanet.com'
 ```
 
+### Personalities and features
+
+Now that we have registered our host in the database, we want to use
+it for something.  We want to give it a purpose, a `personality`.
+
+Personalities are collections of smaller chunks called features.  A
+`feature` is re-usable in many contexts, by different personalities,
+hardware models or archetypes.
+
+While we can bind features to personalities at any point in time, we
+cannot change the personality of a host during its lifetime.  So we
+create the desired personality and some features now:
+
+```bash
+aq add_personality --personality 'illegal-spying-and-tapping' --archetype 'linux'
+aq add_feature --feature 'hushhush' --type host
+aq add_feature --feature 'rootpasswd' --type host
+```
+
+And we bind them together the personality to the `hushhush` feature.
+On the other hand, we want the root password to be set up for the
+entire archetype, so:
+
+```bash
+aq bind_feature --feature 'hushhush' --personality 'illegal-syping-and-tapping' --archetype 'linux'
+aq bind_feature --feature 'rootpasswd' --archetype 'linux'
+```
+
 ## Declaring your first host
 
 Now we can declare a host on our `illegaltapper` machine.
@@ -202,25 +231,45 @@ To do so, we have already:
 * Declared all the network interfaces, with their MAC addresses
 * Declared all the networks it will be connected to
 * Declared all the DNS domains our host will live in
+* Declared a personality for our host
 
 Now, we use all that information to add a `tapping` host:
 
 ```bash
-aq add_host --hostname 'tapping.dailyplanet.com' --machine 'illegaltapper' --ip '192.168.1.3'
+aq add_host --hostname 'tapping.dailyplanet.com' --machine 'illegaltapper' --ip '192.168.1.3' --personality 'illegal-syping-and-tapping'
 ```
 
 Congratulations!  You have your first host!  Run `aq show_host --all`
 to see it.
 
-But we aren't done yet.  This host will do nothing.  It's useless.  We
-need to give it some purpose (personality), and add features to that
-personality.
+But we aren't done yet.  This host is empty!!  And Aquilon won't even
+compile it.  Now it's time to produce Pan code to configure the host.
 
-### Personalities and features
+## Creating your first sandbox
+
+We'll do all our work in sandboxes, and we'll dispose of them when
+their purpose is ready.   So, let's create our first sandbox:
+
+```bash
+aq add_sandbox --sandbox site-init
+```
+
+We'll also associate one host to it:
+
+```bash
+aq manage --sandbox $USER/site-init --hostname 'tapping.dailyplanet.com'
+```
+
+And you can now cd to the `templatesdir` (in our case,
+`/var/lib/templates/$USER/site-init`) and start producing code there.
 
 ## Importing your first templates
 
-## Declaring your first sandbox
+It's now time for some Pan code!  Let's start by setting up the
+archetype.  We'll create a directory for the `linux` archetype, and
+put two Pan templates there: `base` and `final`.
+
+
 
 ## Compiling the first host
 
