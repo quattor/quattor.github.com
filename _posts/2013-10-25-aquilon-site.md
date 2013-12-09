@@ -200,11 +200,11 @@ it for something.  We want to give it a purpose, a `personality`.
 
 Personalities are collections of smaller chunks called features.  A
 `feature` is re-usable in many contexts, by different personalities,
-hardware models or archetypes.
+hardware models.
 
-While we can bind features to personalities at any point in time, we
-cannot change the personality of a host during its lifetime.  So we
-create the desired personality and some features now:
+A host needs to be receive a personality when it is first registered
+in Aquilon, so we add its personality first and bind some features to
+it:
 
 ```bash
 aq add_personality --personality 'illegal-spying-and-tapping' --archetype 'linux'
@@ -212,9 +212,9 @@ aq add_feature --feature 'hushhush' --type host
 aq add_feature --feature 'rootpasswd' --type host
 ```
 
-And we bind them together the personality to the `hushhush` feature.
-On the other hand, we want the root password to be set up for the
-entire archetype, so:
+And we bind the personality to the `hushhush` feature.  On the other
+hand, we want the root password to be set up for the entire archetype,
+so:
 
 ```bash
 aq bind_feature --feature 'hushhush' --personality 'illegal-syping-and-tapping' --archetype 'linux'
