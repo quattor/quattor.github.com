@@ -56,13 +56,16 @@ Pre and post-deployment hooks in ncm-ncd
 * We have fixed some
   [perl warnings in ncm-named](https://github.com/quattor/configuration-modules-core/pull/133).
 
+## Upgrading
+
+You can get the RPMs from the
+[Yum repositories](http://yum.quattor.org).  Templates are provided,
+as usual, in the
+[core template library repository](https://github.com/quattor/template-library-core/tags)
+in Github.
+
 ## Out of this release
 
 Solaris support is improving!  We have received a `pkgtree` utility
 for handling packages with Solaris IPS.  We are also merging an `ips`
 submodule for SPMA.
-
-## Farewell
-
-This will be the last release handled by Luis Fernando Muñoz.  James
-Adams has kindly accepted to take over the role of release manager.
