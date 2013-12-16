@@ -23,14 +23,14 @@
 
     <div class="container">
       <div class="span12">
-	<div class="row-fluid">
+	<div class="row">
           <ul class="breadcrumb">
             <li class="first"><a href="index.html" class="first">Home</a><span class="divider">/</span></li>
             <li class="active">{{ page.category | capitalize }}
 	    </li>
           </ul>
-	</div> <!-- row-fluid -->
-	<div class="row-fluid">
+	</div> <!-- row -->
+	<div class="row">
 	  <div class="page-header">
 	    <h1>{{ page.title }}</h1>
             {{ page.content | markdownify }}
@@ -56,7 +56,7 @@
             {% endfor %}
 
           </ul>
-	</div> <!-- row-fluid -->
+	</div> <!-- row -->
       </div> <!-- span12 -->
     </div> <!-- container -->
     {% include footer.html %}
