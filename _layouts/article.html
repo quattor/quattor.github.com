@@ -23,28 +23,28 @@
 
     <div class="container">
       <div class="col-md-12">
-	<div class="row">
-	  <ul class="breadcrumb">
-	    <li><a href="index.html">Home</a></li>
-	    <li><a href="{{ page.category }}/index.html">{{page.category | capitalize}}</a>
-	    </li>
-	    <li class="active">{{ page.title }}</li>
-	  </ul>
-	</div> <!-- row -->
-	<div class="page-header row">
-	  <h1>{{ page.title }}</h1>
+        <div class="row">
+          <ul class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="{{ page.category }}/index.html">{{page.category | capitalize}}</a>
+            </li>
+            <li class="active">{{ page.title }}</li>
+          </ul>
+        </div> <!-- row -->
+        <div class="page-header row">
+          <h1>{{ page.title }}</h1>
           <div class="col-md-2 date"><p>{{ page.date | date: "%d %B %Y" }}</p></div>
           {% if page.modified %}
           <div class="col-md-3 date"><p class="text-muted">reviewed: {{ page.modified | date: "%d %B %Y"}}</p>
           </div>
           {% endif %}
-	  {% if page.author %}
-	  <div class="author col-md-12">{{ page.author }}</div>
-	  {% endif %}
-	</div> <!-- page-header row -->
-	<div class="row">
-	  {{ page.content | markdownify }}
-	</div> <!-- row  -->
+          {% if page.author %}
+          <div class="author col-md-12">{{ page.author }}</div>
+          {% endif %}
+        </div> <!-- page-header row -->
+        <div class="row">
+          {{ page.content | markdownify }}
+        </div> <!-- row  -->
       </div> <!-- col-md-12 -->
     </div>
 
