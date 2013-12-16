@@ -1,64 +1,44 @@
-<!DOCTYPE html> <!--  PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd"> -->
-
-<html
-   xmlns="http://www.w3.org/1999/xhtml"
-   xml:lang="en"
-   version="XHTML+RDFa 1.0"
-   dir="ltr"
-   xmlns:content="http://purl.org/rss/1.0/modules/content/"
-   xmlns:dc="http://purl.org/dc/terms/"
-   xmlns:foaf="http://xmlns.com/foaf/0.1/"
-   xmlns:og="http://ogp.me/ns#"
-   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-   xmlns:sioc="http://rdfs.org/sioc/ns#"
-   xmlns:sioct="http://rdfs.org/sioc/types#"
-   xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-   xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
-
+<!DOCTYPE html>
+<html lang="en">
   {% include head.html %}
 
   <body>
-
     {% include header.html %}
 
     <div class="container">
-      <div class="span12">
-	<div class="row-fluid">
-          <ul class="breadcrumb">
-            <li class="first"><a href="index.html" class="first">Home</a><span class="divider">/</span></li>
-            <li class="active">{{ page.category | capitalize }}
-	    </li>
-          </ul>
-	</div> <!-- row-fluid -->
-	<div class="row-fluid">
-	  <div class="page-header">
-	    <h1>{{ page.title }}</h1>
-            {{ page.content | markdownify }}
-	  </div> <!-- page-header -->
-	  {% capture downcase_title %}{{page.title | downcase}}{% endcapture %}
-          <ul>
-
-            {% for post in site.posts %}
+      <div class="row">
+        <ul class="breadcrumb">
+          <li class="first"><a href="index.html" class="first">Home</a></li>
+          <li class="active">{{ page.category | capitalize }}</li>
+        </ul>
+      </div> <!-- row -->
+      <div class="row">
+        <div class="page-header">
+          <h1>{{ page.title }}</h1>
+          {{ page.content | markdownify }}
+        </div> <!-- page-header -->
+        {% capture downcase_title %}{{page.title | downcase}}{% endcapture %}
+        <ul>
+          {% for post in site.posts %}
             {% if post.category == downcase_title %}
-            <li>
-	      <a href="{{ site.baseurl }}{{ post.url }}" class="title">{{ post.title }}</a>
-	      {% if post.date %}
-	      <span class="muted">({{ post.date | date: "%d %B %Y" }})</span>
-	      {% endif %}
-	      <div class="">
-		{{ post.content | strip_html | truncatewords: 25 }}
-	      </div>
-	      {% if post.author %}
-	      <div class="author">{{ post.author }}</div>
-	      {% endif %}
-            </li>
+              <li>
+                <a href="{{ site.baseurl }}{{ post.url }}" class="title">{{ post.title }}</a>
+                {% if post.date %}
+                  <span class="text-muted">({{ post.date | date: "%d %B %Y" }})</span>
+                {% endif %}
+                <div class="">
+                  {{ post.content | strip_html | truncatewords: 25 }}
+                </div>
+                {% if post.author %}
+                  <div class="author">{{ post.author }}</div>
+                {% endif %}
+              </li>
             {% endif %}
-            {% endfor %}
-
-          </ul>
-	</div> <!-- row-fluid -->
-      </div> <!-- span12 -->
+          {% endfor %}
+        </ul>
+      </div> <!-- row -->
     </div> <!-- container -->
+
     {% include footer.html %}
   </body>
 </html>

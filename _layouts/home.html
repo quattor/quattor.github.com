@@ -1,64 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   {% include head.html %}
+
   <body>
     {% include header.html %}
+
     <div class="container">
-      <div class="row-fluid">
-	<div class="span12">
-	  <div class="hero-unit page-header">
+      <div class="row">
+        <div class="jumbotron page-header">
+          <h1>Fabric management done right</h1>
+          <p>Quattor is a <strong>system administration toolkit</strong>
+            providing a powerful, portable, and modular set of tools for the
+            automated installation, configuration, and management of clusters
+            and farms.</p>
+          <p>It is developed as a community effort and provided as
+            <strong><a href="https://github.com/quattor/">open-source software</a></strong>
+            (<a href="http://sourceforge.net/projects/quattor/">SourceForge</a>,
+            <a href="https://github.com/quattor/">GitHub</a>) under the
+            <strong><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2
+                license</a></strong> and
+            <strong><a href="http://opensource.org/licenses/eudatagrid.php">EU
+                DataGrid Software License</a></strong>.</p>
+        </div>
 
-            <h1>Fabric management done right</h1>
+        <div class="row">
+          <div class="col-md-3">
+            <h2>Complete</h2>
 
-            <p>Quattor is a <strong>system administration toolkit</strong>
-              providing a powerful, portable, and modular set of tools for the
-              automated installation, configuration, and management of clusters
-              and farms.</p>
-            <p>It is developed as a community effort and provided as
-              <strong><a href="https://github.com/quattor/">open-source software</a></strong>
-              (<a href="http://sourceforge.net/projects/quattor/">SourceForge</a>,
-              <a href="https://github.com/quattor/">GitHub</a>) under the
-              <strong><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2
-		  license</a></strong> and
-              <strong><a href="http://opensource.org/licenses/eudatagrid.php">EU
-		  DataGrid Software License</a></strong>.</p>
-	  </div>
+            <p>Quattor is a set of tools that work well together to manage the
+              complete lifecycle of machines; from initial installation, through
+              configuration, to service upgrades. </p>
+          </div>
+          <div class="col-md-3">
+            <h2>Flexible</h2>
 
-	  <div class="row-fluid">
-            <div class="span3">
-              <h2>Complete</h2>
+            <p>The tools interact via well defined interfaces, allowing
+              alternative implementations and integration with existing site-specific
+              tools.</p>
+          </div>
+          <div class="col-md-3">
+            <h2>Scalable</h2>
 
-              <p>Quattor is a set of tools that work well together to manage the
-                complete lifecycle of machines; from initial installation, through
-		configuration, to service upgrades. </p>
-	    </div>
-	    <div class="span3">
-              <h2>Flexible</h2>
+            <p>Used in academic and commercial environments, managing
+              infrastructures ranging from tens of nodes to <a
+              href="http://www.wallstreetandtech.com/it-infrastructure/216402934">over
+                20000</a>. </p>
+          </div>
+          <div class="col-md-3">
+            <h2>Accurate</h2>
 
-              <p>The tools interact via well defined interfaces, allowing
-                alternative implementations and integration with existing site-specific
-		tools.</p>
-	    </div>
-	    <div class="span3">
-              <h2>Scalable</h2>
+            <p>Extensive validation features for machine descriptions catch
+              configuration errors <em>before</em> they are deployed onto your
+              infrastructure.</p>
+          </div>
 
-              <p>Used in academic and commercial environments, managing
-		infrastructures ranging from tens of nodes to <a
-								 href="http://www.wallstreetandtech.com/it-infrastructure/216402934">over
-		  20000</a>. </p>
-	    </div>
-	    <div class="span3">
-              <h2>Accurate</h2>
-
-              <p>Extensive validation features for machine descriptions catch
-		configuration errors <em>before</em> they are deployed onto your
-		infrastructure.</p>
-	    </div>
-
-	  </div>
-	</div>
+        </div>
       </div>
     </div>
+
     {% include footer.html %}
   </body>
 </html>
