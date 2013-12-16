@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   {% include head.html %}
+
   <body>
     {% include header.html %}
+
     <div class="container">
       <div class="row">
         <ul class="breadcrumb">
@@ -17,6 +19,7 @@
         {{ page.content | markdownify }}
       </div>
     </div>
+
     {% include footer.html %}
   </body>
 </html>
