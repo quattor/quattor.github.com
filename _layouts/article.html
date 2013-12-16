@@ -22,7 +22,7 @@
     {% include header.html %}
 
     <div class="container">
-      <div class="span12">
+      <div class="col-md-12">
 	<div class="row">
 	  <ul class="breadcrumb">
 	    <li><a href="index.html">Home</a><span class="divider">/</span></li>
@@ -34,19 +34,19 @@
 	</div> <!-- row -->
 	<div class="page-header row">
 	  <h1>{{ page.title }}</h1>
-          <div class="span2 date"><p>{{ page.date | date: "%d %B %Y" }}</p></div>
+          <div class="col-md-2 date"><p>{{ page.date | date: "%d %B %Y" }}</p></div>
           {% if page.modified %}
-          <div class="span3 date"><p class="muted">reviewed: {{ page.modified | date: "%d %B %Y"}}</p>
+          <div class="col-md-3 date"><p class="muted">reviewed: {{ page.modified | date: "%d %B %Y"}}</p>
           </div>
           {% endif %}
 	  {% if page.author %}
-	  <div class="author span12">{{ page.author }}</div>
+	  <div class="author col-md-12">{{ page.author }}</div>
 	  {% endif %}
 	</div> <!-- page-header row -->
 	<div class="row">
 	  {{ page.content | markdownify }}
 	</div> <!-- row  -->
-      </div> <!-- span12 -->
+      </div> <!-- col-md-12 -->
     </div>
 
     {% include footer.html %}
