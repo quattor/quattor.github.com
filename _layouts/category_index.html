@@ -43,7 +43,7 @@
             <li>
 	      <a href="{{ site.baseurl }}{{ post.url }}" class="title">{{ post.title }}</a>
 	      {% if post.date %}
-	      <span class="muted">({{ post.date | date: "%d %B %Y" }})</span>
+	      <span class="text-muted">({{ post.date | date: "%d %B %Y" }})</span>
 	      {% endif %}
 	      <div class="">
 		{{ post.content | strip_html | truncatewords: 25 }}
