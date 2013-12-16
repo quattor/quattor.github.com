@@ -4,19 +4,17 @@
   <body>
     {% include header.html %}
     <div class="container">
-      <div class="col-md-12">
-        <div class="row">
-          <ul class="breadcrumb">
-            <li><a href="index.html" class="first">Home</a></li>
-            <li class="active">{{ page.title | capitalize }}</li>
-          </ul>
-        </div>
-        <div class="page-header row">
-          <h1 class="list_title">{{ page.title | capitalize }}</h1>
-        </div>
-        <div class="row">
-          {{ page.content | markdownify }}
-        </div>
+      <div class="row">
+        <ul class="breadcrumb">
+          <li><a href="index.html" class="first">Home</a></li>
+          <li class="active">{{ page.title | capitalize }}</li>
+        </ul>
+      </div>
+      <div class="page-header row">
+        <h1 class="list_title">{{ page.title | capitalize }}</h1>
+      </div>
+      <div class="row">
+        {{ page.content | markdownify }}
       </div>
     </div>
     {% include footer.html %}
