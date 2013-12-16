@@ -18,24 +18,20 @@
           {{ page.content | markdownify }}
         </div> <!-- page-header -->
         {% capture downcase_title %}{{page.title | downcase}}{% endcapture %}
-        <ul>
           {% for post in site.posts %}
             {% if post.category == downcase_title %}
-              <li>
-                <a href="{{ site.baseurl }}{{ post.url }}" class="title">{{ post.title }}</a>
-                {% if post.date %}
-                  <span class="text-muted">({{ post.date | date: "%d %B %Y" }})</span>
-                {% endif %}
-                <div class="">
-                  {{ post.content | strip_html | truncatewords: 25 }}
+              <div class="row">
+                <div class="col-md-2 date">
+                  <p class="date">{% if post.date %}{{ post.date | date: "%d %B %Y" }}{% endif %}</p>
+                  <p class="author text-muted"><small>{% if post.author %}{{ post.author }}{% endif %}</small></p>
                 </div>
-                {% if post.author %}
-                  <div class="author">{{ post.author }}</div>
-                {% endif %}
-              </li>
+                <div class="col-md-10">
+                  <p><a href="{{ site.baseurl }}{{ post.url }}" class="title"><strong>{{ post.title }}</strong></a></p>
+                  <blockquote>{{ post.content | strip_html | truncate: 140 }}</blockquote>
+                </div>
+              </div> <!-- row -->
             {% endif %}
           {% endfor %}
-        </ul>
       </div> <!-- row -->
     </div> <!-- container -->
 
