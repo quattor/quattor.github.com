@@ -128,5 +128,5 @@ For example, a site with an existing installation system could choose to use AII
 ****************************************************************
 ## Feedback
 
-Comments, bug reports, and feature requests [are welcome](/contacts/).
+Comments, bug reports, patches and feature requests [are welcome](/contacts/).
 
