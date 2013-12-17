@@ -24,15 +24,15 @@ it is the single component that admins and users interact with the most during d
 
 ### CDB
 #### 1st Generation
-* CVS based PAN template store.
+* CVS based Pan template store.
 * Deployment workflow integrated with ELFms.
 * Quickly reached scaling limits and was abandoned by the community, but remains in use at CERN for legacy systems.
 
 ### SCDB
 #### 2nd Generation
-* Subversion based PAN template store.
+* Subversion based Pan template store.
 * Additional tooling for tagged deployment based on ant and SVN repository hooks.
-* Sufferes from scaling problems above 2500 systems.
+* Suffers from scaling problems above 2500 systems.
 * Deprecated - Used widely in the community but no further development will be supported.
 
 ### Aquilon
@@ -49,11 +49,11 @@ it is the single component that admins and users interact with the most during d
 ****************************************************************
 ## panc
 
-`panc` is the pan language compiler, it compiles the declarative pan language to a nested tree structure in a variety of output formats including XML and JSON.
+`panc` is the Pan language compiler, it compiles the declarative Pan language to a nested tree structure in a variety of output formats including XML and JSON.
 
 The Quattor toolkit can use both XML and JSON both plain and gzipped, gzipped JSON is recommended due to small size and clarity.
 
-The compiler is normally invoked by some part of the tooling that makes up a CMDB, but can also be used standalone, see [the pan book](http://sourceforge.net/projects/quattor/files/panc/10.0/pan-book.pdf/download) for more details.
+The compiler is normally invoked by some part of the tooling that makes up a CMDB, but can also be used standalone, see [the Pan book](http://sourceforge.net/projects/quattor/files/Panc/10.0/pan-book.pdf/download) for more details.
 
 `panc` is implemented in a mixture of Java and Clojure and runs in a standard JVM, see [Cal's blog post](blog/2012/05/07/review-pan-in-clojure.html) for a peek at the internals.
 
