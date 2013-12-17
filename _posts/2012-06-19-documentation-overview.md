@@ -128,6 +128,5 @@ For example, a site with an existing installation system could choose to use AII
 ****************************************************************
 ## Feedback
 
-Comments, bug reports, and feature requests are welcome.  Please
-subscribe to the Quattor discussion list and raise issues there.
+Comments, bug reports, and feature requests [are welcome](/contacts/).
 
