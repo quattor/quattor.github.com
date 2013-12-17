@@ -37,7 +37,7 @@ it is the single component that admins and users interact with the most during d
 
 ### Aquilon
 #### 3rd Generation
-* New model based around a RDBMS backed broker and Git repositories.
+* New model based around a RDBMS-backed broker and Git repositories.
 * Broker (`aqd`) stores and manipulates asset objects and the relationships between them.
     * Admins and Users communicate with broker using the `aq` client.
     * Owns and writes some configuration itself.
