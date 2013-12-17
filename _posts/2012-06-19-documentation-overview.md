@@ -25,7 +25,7 @@ it is the single component that admins and users interact with the most during d
 ### CDB
 #### 1st Generation
 * CVS based Pan template store.
-* Deployment workflow integrated with ELFms.
+* Deployment workflow integrated with [ELFms](http://elfms.web.cern.ch/elfms/).
 * Quickly reached scaling limits and was abandoned by the community, but remains in use at CERN for legacy systems.
 
 ### SCDB
