@@ -103,7 +103,17 @@ Uses a set of plugins to manage the configuration and state of:
     * Invokes components with changed configuration trees components via `ncm-ncd`.
 
 * `cdp-listend` - Notfication Listener Daemon.
-    * Listens for UDP packets, when one is recieved it launches `ccm-fetch` to fetch new profiles and `ncm-cdispd` to apply them.
+    * Listens for UDP packets on port 7777, when one is recieved it launches `ccm-fetch` to fetch new profiles and `ncm-cdispd` to apply them.
+
+* Configuration Components
+    * Perl modules that are used by `ncm-ncd` to configure a specific service or subsystem on a client system.
+    * Contain any special logic required to interact with a particular service, e.g. special restart handlers.
+    * Two general purpose components are used to handle the majority of services with simple configuration requirements:
+        * `ncm-metaconfig`
+        * `ncm-filecopy`
+    * Components are grouped into two categories:
+        * Components for [core](https://github.com/quattor/configuration-modules-core) services.
+        * Components for services relating specifically for [grid computing](https://github.com/quattor/configuration-modules-grid).
 
 
 ****************************************************************
