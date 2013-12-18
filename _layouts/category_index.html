@@ -22,7 +22,13 @@
             {% if post.category == downcase_title %}
               <div class="row">
                 <div class="col-md-2 date">
-                  <p class="date">{% if post.date %}{{ post.date | date: "%d %B %Y" }}{% endif %}</p>
+                  {% if post.date %}
+                    {% if post.modified %}
+                      <p class="date" title="Updated {{ post.modified | date: '%d %B %Y' }}, originally posted {{ post.date | date: '%d %B %Y' }}">{{ post.modified | date: "%d %B %Y" }} <span class="glyphicon glyphicon-fire"></span></p>
+                    {% else %}
+                      <p class="date">{{ post.date | date: "%d %B %Y" }}</p>
+                    {% endif %}
+                  {% endif %}
                   <p class="author text-muted"><small>{% if post.author %}{{ post.author }}{% endif %}</small></p>
                 </div>
                 <div class="col-md-10">
