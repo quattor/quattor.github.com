@@ -23,10 +23,12 @@
               <div class="row">
                 <div class="col-md-2 date">
                   {% if post.date %}
+                    {% assign date_posted = post.date | date: '%d %B %Y' %}
                     {% if post.modified %}
-                      <p class="date" title="Updated {{ post.modified | date: '%d %B %Y' }}, originally posted {{ post.date | date: '%d %B %Y' }}">{{ post.modified | date: "%d %B %Y" }} <span class="glyphicon glyphicon-fire"></span></p>
+                      {% assign date_modified = post.modified | date: '%d %B %Y' %}
+                      <p class="date" title="Updated {{ date_modified }}, originally posted {{ date_posted }}">{{ date_modified }} <span class="glyphicon glyphicon-fire"></span></p>
                     {% else %}
-                      <p class="date">{{ post.date | date: "%d %B %Y" }}</p>
+                      <p class="date">{{ date_posted }}</p>
                     {% endif %}
                   {% endif %}
                   <p class="author text-muted"><small>{% if post.author %}{{ post.author }}{% endif %}</small></p>
