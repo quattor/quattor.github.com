@@ -18,7 +18,7 @@
         <h1>{{ page.title }}</h1>
         <dl class="dl-horizontal">
           <dt>Written</dt><dd class="date">{{ page.date | date: "%d %B %Y" }}</dd>
-          {% if page.modified %}<dt>Reviewed</dt><dd class="date">{{ page.modified | date: "%d %B %Y"}}</dd>{% endif %}
+          {% if page.modified %}<dt>Updated</dt><dd class="date">{{ page.modified | date: "%d %B %Y"}}</dd>{% endif %}
           {% if page.author %}<dt>Author</dt><dd class="author">{{ page.author }}</dd>{% endif %}
         </dl>
       </div> <!-- row -->
