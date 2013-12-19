@@ -2,7 +2,7 @@
 layout: article
 title: Starting a site with Aquilon
 category: documentation
-modified: 2013-11-16
+modified: 2013-12-19
 author: Luis Fernando Muñoz Mejías
 ---
 
@@ -166,17 +166,23 @@ aq add_network --network 'leaks' --ip '192.168.1.0' --netmask '255.255.255.0' --
 aq add_network --network 'reporters' --ip '192.168.100.0' --netmask '255.255.255.0' --city 'metropolis'
 ```
 
+And now the broker knows about two networks, each with its own
+separate gateways.  Networks can live in different network
+environments (for instance, internal, public...) on which separate policies may
+apply.  Check the help for the `aq add_network_environment` command.
+
 ### Wait, how do I define the routers for my networks?
 
-When we declare our networks, Aquilon assumes the first IP address is
-reserved for the router.  If this isn't correct, you have to modify
-the configuration for the broker.  Create a `network_` section, and
-declare the default gateway offset.  For instance, let's assume that
-the gateway for `leaks` network above is on 192.168.1.30.  We edit `/etc/aqd.conf`:
+When we declare our networks, Aquilon will assume a fixed IP
+(typically the first IP in the range) is the gateway in it.  If this
+isn't correct, you have to modify the configuration for the broker.
+Create a `network_unknown` section, and declare the default gateway offset.
 
 ```ini
-[network_leaks]
+[network_unknown]
 default_gateway_offset=30
+reserved_offsets=1,30,25
+first_usable_offset=40
 ```
 
 And finally we restart the broker:
@@ -184,6 +190,24 @@ And finally we restart the broker:
 ```bash
 service aqd restart
 ```
+
+If some of your networks don't adhere to this convention, you'll need
+to declare their routers in Aquilon.  For instance, let's suppose that
+the gateway in `reporters` network has offset 3:
+
+```bash
+aq add_router --ip '192.168.100.3' --fqdn 'router.reporters.metropolis.com'
+```
+
+If your network is an internal one (the default), some restrictions
+apply:
+
+* Routers must be part of the `reserved_offsets` list.
+* Router offsets must be below the `first_usable_offset`, which the
+  broker uses when assigning IP addresses automatically.
+
+If you need an external network, you have to create it with
+`--network_environment external` in its command line.
 
 ### DNS domains
 
