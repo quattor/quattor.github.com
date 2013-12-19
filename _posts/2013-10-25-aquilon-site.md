@@ -166,7 +166,10 @@ aq add_network --network 'leaks' --ip '192.168.1.0' --netmask '255.255.255.0' --
 aq add_network --network 'reporters' --ip '192.168.100.0' --netmask '255.255.255.0' --city 'metropolis'
 ```
 
-And
+And now the broker knows about two networks, each with its own
+separate gateways.  Networks can live in different network
+environments (f.i, internal, public...) on which separate policies may
+apply.  Check the help for the `aq add_network_environment` command.
 
 ### Wait, how do I define the routers for my networks?
 
