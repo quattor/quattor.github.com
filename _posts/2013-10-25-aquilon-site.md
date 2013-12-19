@@ -201,7 +201,7 @@ apply:
 
 * Routers must be part of the `reserved_offsets` list.
 * Router offsets must be below the `first_usable_offset`, which the
-  broker uses when assigning IP addresses automtically.
+  broker uses when assigning IP addresses automatically.
 
 If you need an external network, you have to create it with
 `--network_environment external` in its command line.
@@ -260,7 +260,7 @@ Now, we use all that information to add a `tapping` host:
 aq add_host --hostname 'tapping.dailyplanet.com' --machine 'illegaltapper' --ip '192.168.1.3' --personality 'illegal-syping-and-tapping'
 ```
 
-Congratulations!  You have your first h1ost!  Run `aq show_host --all`
+Congratulations!  You have your first host!  Run `aq show_host --all`
 to see it.
 
 But we aren't done yet.  This host is empty!!  And Aquilon won't even
