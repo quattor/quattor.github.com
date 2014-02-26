@@ -46,17 +46,22 @@ Quattor software to be installed easily on the tutorial machines.
 Installing Aquilon
 ------------------
 
-Add Aquilon yum repository to the machine.  Do the following install: 
+Add Aquilon yum repository to the machine.
+Create `/etc/yum.repos.d/aquilon.repo` with the following contents:
 
-    $ yum install http://yum.quattor.org/aquilon/repo.rpm
+    [aquilon]
+    name=Quattor - aquilon
+    baseurl=http://yum.quattor.org/aquilon/
+    enabled=1
+    gpgcheck=1
 
 Then afterwards, install the server with:
 
-    $ yum install aquilon server.
+    $ yum install aquilon-postgresql
 
 To start the server, just do the following:
 
-    $ service aquilon start
+    $ service aqd start
 
 Voila!  You have a working Aquilon service.
 
