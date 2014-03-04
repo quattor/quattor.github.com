@@ -18,7 +18,11 @@ This release incorporates a large number of changes, notably:
   * `ncm-accounts` - Fixed [a bug](https://github.com/quattor/configuration-modules-core/issues/2) which prevented removal of unknown accounts in certain situations.
   * `ncm-iptables` - [Support for the 'log' target](https://github.com/quattor/configuration-modules-core/pull/144).
 
-As always, thanks to everyone who contributed, next stop Quattor 14.4.
+Packages are available from our [yum repository](http://yum.quattor.org/14.2.1/), both the RPMs and the repository metadata are signed with [my GPG key](http://yum.quattor.org/GPG/RPM-GPG-KEY-quattor-jrha).
+
+As always, many thanks to everyone who contributed!
+
+Next stop Quattor 14.4.
 
 Complete Changelog
 ==================
