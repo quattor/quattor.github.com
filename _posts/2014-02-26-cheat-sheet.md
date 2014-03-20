@@ -2,6 +2,7 @@
 layout: article
 title: Configuration cheat sheet
 category: documentation
+author: James Adams
 ---
 
 This article is intended as quick reference, or cheat sheet showing examples of a variety of common and simple configuration snippets in Quattor.
@@ -41,7 +42,7 @@ Pin version:
 Pin Architecture:
 
 ```sh
-"/software/packages/" = pkg_repl("config-templates-metaconfig", "", "noarch");
+"/software/packages/{config-templates-metaconfig.noarch}";
 ```
 
 Pin both:
@@ -50,11 +51,14 @@ Pin both:
 "/software/packages/" = pkg_repl("config-templates-metaconfig", "0.1.19-1.el6", "noarch");
 ```
 
-You can also use wildcards for pinning (dangerous but useful)
+You can also use wildcards for pinning.
+Note that this will apply to packages which match and exist the specified version and architecture, others are silently ignored.
 
 ```sh
-"/software/packages/" = pkg_repl("config-templates-*", "0.1.19-1.el6", "noarch");
+"/software/packages" = pkg_repl("python*", "2.6.19-1.el6", "x86_64");
 ```
+
+This would pin `python-devel` and `python-libs` at `2.6.19-1.el6`, but leave `python-urlgrabber` at `3.1.0-6.el5`.
 
 <div class="alert alert-info">
   <p>'noarch' could of course be 'x86_64', 'i686', PKG_ARCH_DEFAULT or a variable depending on your requirements!</p>
@@ -71,13 +75,13 @@ Add a repository
 Ensure a directory exists (and has correct permissions)
 -------------------------------------------------------
 ```sh
-'/software/components/dirperm/paths' = append(SELF,
+'/software/components/dirperm/paths' = append(
     nlist(
         'path', "/opt/temple",
         'owner', "syrinx:syrinx",
         'perm', '0755',
         'type', 'd',
-    ),
+    )
 );
 
 ```
@@ -110,14 +114,12 @@ Download a file from a webserver
 ```sh
 include 'components/download/config';
 
-'/software/components/download/active' = true;
-'/software/components/download/dispatch' = true;
-
-prefix '/software/components/download/files{/opt/java-mess/horrible.jar}';
-'href' = 'https://download.example.com/java-mess/jar/horrible-1.2.3.jar';
-'owner', 'root';
-'group', 'root';
-'perm', '0644';
+prefix '/software/components/download/files{/opt/java-mess/horrible.jar}' = nlist(
+    'href', 'https://download.example.com/java-mess/jar/horrible-1.2.3.jar',
+    'owner', 'root',
+    'group', 'root',
+    'perm', '0644',
+);
 
 ```
 
@@ -139,11 +141,11 @@ Add a user account
 ------------------
 
 ```sh
-prefix '/software/components/accounts/users/alex';
-'uid' = 760401;
-'groups' = list('syrinx');
-'comment' = 'Everything is awesome';
-'homeDir' = '/home/alex';
-'shell' = '/bin/bash';
-
+prefix '/software/components/accounts/users/alex' = nlist(
+    'uid', 760401,
+    'groups', list('syrinx'),
+    'comment', 'Everything is awesome',
+    'homeDir', '/home/alex',
+    'shell', '/bin/bash',
+);
 ```
