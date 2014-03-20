@@ -42,7 +42,7 @@ Pin version:
 Pin Architecture:
 
 ```sh
-"/software/packages/{config-templates-metaconfig.noarch}";
+"/software/packages/{config-templates-metaconfig.noarch}" ?= nlist();
 ```
 
 Pin both:
