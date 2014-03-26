@@ -10,12 +10,12 @@ author: Michel Jouvin
 ## GitHub
 
 To contribute, anyone should have a personal account and fork the quattor repository, do its development and make a pull request for others to review/comment the changes.
-- As soon a pull request has been made, it is tested by Jenkins: green mark next to the commit
-- Everything contributed must work: tested by Jenkins
-- Do not merge your own pull requests without letting others have a chance to review them!
-  - At least 24 hours
-- If you are not a repository owner and want to be notified of pull requests to a repository, subscribe it
-  - Notifications can be received as RSS feeds
+* As soon a pull request has been made, it is tested by Jenkins: green mark next to the commit
+* Everything contributed must work: tested by Jenkins
+* Do not merge your own pull requests without letting others have a chance to review them!
+  * At least 24 hours
+* If you are not a repository owner and want to be notified of pull requests to a repository, subscribe it
+  * Notifications can be received as RSS feeds
  
 Configuration modules: several (a lot?) unmaintained.
 - Move them to a unmaintained/deprecated branch
