@@ -114,7 +114,7 @@ Download a file from a webserver
 ```sh
 include 'components/download/config';
 
-prefix '/software/components/download/files{/opt/java-mess/horrible.jar}' = nlist(
+'/software/components/download/files{/opt/java-mess/horrible.jar}' = nlist(
     'href', 'https://download.example.com/java-mess/jar/horrible-1.2.3.jar',
     'owner', 'root',
     'group', 'root',
@@ -141,7 +141,7 @@ Add a user account
 ------------------
 
 ```sh
-prefix '/software/components/accounts/users/alex' = nlist(
+'/software/components/accounts/users/alex' = nlist(
     'uid', 760401,
     'groups', list('syrinx'),
     'comment', 'Everything is awesome',
