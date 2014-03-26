@@ -10,6 +10,7 @@ author: Michel Jouvin
 ## GitHub
 
 To contribute, anyone should have a personal account and fork the quattor repository, do its development and make a pull request for others to review/comment the changes.
+
 * As soon a pull request has been made, it is tested by Jenkins: green mark next to the commit
 * Everything contributed must work: tested by Jenkins
 * Do not merge your own pull requests without letting others have a chance to review them!
