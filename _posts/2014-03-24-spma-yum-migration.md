@@ -42,11 +42,13 @@ The first step is get a fresh copy of all the standard template libraries that w
 do it is:
 
 1. Clone SCDB repository from GitHub:
+
 ```bash
 git clone https://github.com/quattor/scdb.git
 ```
 1. Download the different template libraries that provide support for Quattor releases, OS versions, grid MW... (use --help for options but without options
 this will put the downloaded materials in /tmp)
+
 ```bash
 scdb/utils/scdb/create-vanilla-SCDB.sh --obsolete
 ```
