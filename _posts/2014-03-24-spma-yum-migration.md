@@ -50,7 +50,7 @@ git clone https://github.com/quattor/scdb.git
 this will put the downloaded materials in /tmp)
 
 ```bash
-scdb/utils/scdb/create-vanilla-SCDB.sh --obsolete
+scdb/utils/scdb/create-vanilla-SCDB.sh --add-legacy
 ```
 
 After this step, all the templates downloaded will be found under /tmp/scdb-vanilla/cfg (if you used the default location at previous step). This will be
@@ -498,6 +498,14 @@ ncm-ncd --configure --all
 ```
 _Note: when upgrading, it will take several YUM runs to get a stable package list. This is an expected behaviour. You may just wait for these runs
 to happen as part of other deployment operations or rerun ncm-spma several times manually._ 
+
+Depending on the history of the node you are trying to upgrade, you may have YUM errors when first deploying because of conflicts with already installed
+RPMs that YUM has not desinstalled yet. You may have to remove these RPMs manually. Among the problematic packages found on some nodes, there was tomcat that had
+to be removed with:
+
+```bash
+rpm -e --nodeps --noscripts `rpm -qa|grep tomcat`
+```
     
 ## Changes to local templates
 
