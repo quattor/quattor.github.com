@@ -5,6 +5,9 @@ author: Michel Jouvin
 category: documentation
 ---
 
+**We apologize but we are fighting with formatting issues in Jekyll: in the meantime, you may want to look at
+https://github.com/quattor/quattor.github.com/blob/master/_posts/2014-03-24-spma-yum-migration.md.**
+
 This documentation is a step-by-step migration guide from legcay SPMA-based package deployment to the new YUM-based deployment, covering both Quattor
 configuration, OS configruation and grid MW configuration.
 
