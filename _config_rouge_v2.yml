@@ -1,0 +1,3 @@
+baseurl: http://quattor.github.com/
+highlighter: rouge
+markdown: redcarpet
