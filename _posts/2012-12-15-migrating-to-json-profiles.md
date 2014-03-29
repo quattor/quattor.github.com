@@ -2,7 +2,8 @@
 layout: article
 title: Migrating to JSON profiles
 category: documentation
-pygments: true
+author: Luis Fernando Muñoz Meijas, Michel Jouvin
+modified: 2014-03-29
 ---
 
 Since the Quattor 12.12 release, it possible to use JSON-formatted
@@ -13,98 +14,59 @@ Quattor server, even for small to medium-sized sites.
 
 Reduced I/O may also speed up your compilations slightly.
 
-This document describes the steps we took at Ghent University for
-migrating our production infrastructure from XML to compressed JSON
+This document describes the steps required for
+migrating our from XML to (compressed) JSON
 profiles.
 
 ## Software updates
 
-If you are using SCDB, download the Panc Ant jar from
-[SourceForge](https://sourceforge.net/projects/quattor/files/panc/),
-and place it in your working copy, under
-`externals/panc/lib/panc.jar`.  You must pick at least version 9.3.
-We **strongly suggest** that you use the build **with dependencies**.
+### Quattor releases
 
-You'll also need CCM as shipped with Quattor 12.12 or newer.
+You need Quattor version 13.1.4 (SPMA-based deployment) or a version >= 14.2.2 (YUM-based deployment). You must download the appropriate
+templates from `template-library-core` if you don't have them already.
 
-### Updating the SCDB ant tasks
+*Note: you can use `utils/scdb/create-vanilla-SCDB.sh` from `scdb` repository as an easy way to download them.*
 
-In order to regenerate your `profile-info.xml` files, you'll need the
-latest SDCB Ant tasks.  Get them from
-[here](https://svn.lal.in2p3.fr/LCG/QWG/scdb-ant-utils/tags/9.0.1/).
+If you are using SCDB, you move your clusters to these new versions by editing their `cluster.build.properties` file.
 
-Before you build, you may need to edit the `build.xml` file and ensure
-your `javac` section looks like this: add
 
-```xml
-<javac srcdir="${src}"
-       destdir="${build.java}"
-       includes="**/*.java"
-       deprecation="on"
-       debug="true"
-       target="1.6"
-       debuglevel="lines,vars,source"
-       optimize="false">
-```
+### SCDB
 
-This ensures your Ant task will work on Java 1.6 (as in SL) and 1.7
-(as in more recent platforms).
+If you are using SCDB, you must be sure to use a recent version, typically the last one you get by running the script suggested above. The critical
+components are:
 
-Now, build the Ant task, with ant, and copy the jar to your
-`<scdb-trunk>/externals/scdb-ant-utils/lib` directory.
+* `scdb-ant-utils` >= 9.0.2
+* `panc` >= 9.3
 
-You also have to change the filesets that will be copied and used for
-sending the CCM notifications.  By default, SCDB notifies to any hosts
-that have an XML profile.  But there is no XML profile anymore.  So
-open your `quattor-build.xml` (or equivalent file), search the
-`deploy.and.notify` target, and replace the filesets into something
-like this:
-
-```xml
-<copy todir="${deploy.xml}">
-  <fileset dir="${build.xml}">
-    <include name="**/*.json" />
-    <include name="**/*.json.gz" />
-  </fileset>
-</copy>
-[...]
-<quattor-notify message="ccm" port="7777">
-  <fileset dir="${build.xml}">
-    <include name="**/*.json.gz />
-  </fileset>
-</quattor-notify>
-```
-
-## Change the URL in your CDB to the JSON profile
-
-Replace the contents of `/software/components/ccm/profile`.  In QWG,
-that probably means editing `standard/quattor/client/config` and
-replace the old `.xml` extension with `.json` or `.json.gz`.
-
-At UGent it looks like this:
-
-```bash
-"/software/components/ccm/profile" = format("%s/%s.json.gz", QUATTOR_PROFILE_URL, OBJECT);
-```
+*Note: recent versions of SCDB changes the default directory for profiles from `build/xml` to `build/profiles`. If you want to retain the previous
+setting, you need to define property `build.profiles` property to `xml` in your `quattor.build.properties` file (in root directory of your 
+configuration database).*
 
 ## Change the compiled formats
-
-Edit your `quattor.build.xml` file and fix any warnings the compiler
-is showing.  Finally, edit the line `<property name="pan.xml.format"`,
-and turn it into this:
-
-```xml
-<property name="formats" value="json.gz,pan,dep"/>
-````
-
-Compression of the JSON profile is optional but suggested.
 
 During a while (say, a week), you want to compile all your profiles
 both in Pan and in JSON format.  That way, nodes that miss some
 updates updates (f.i, if they are down), will be able to access their
-profiles from their old URLs and adapt to the new ones gradually.
+profiles from their old URLs and adapt to the new ones gradually. Until you change
+the profile URL (see below), generating new profile formats doesn't affect your machines,
+as long as the XML (pan) format is still produced.
 
-You also have to declare the generation of dependency files.
+### SCDB
+
+To generate the JSON format in addition to the XML format, you need to add or edit the
+file `quattor.build.properties` in the root directory of your configuration database (same directory
+as the one containing `quattor.build.xml`) and add the line:
+
+```
+pan.formats=pan,json,dep
+```
+
+*Note: adjust the format list to match your needs. Use `pan.gz` and/or `json.gz` if you want to use compressed profiles.*
+
+When all your nodes picked up their JSON profile (check your http logs on the deployment server), you can
+remove `pan` from the property `pan.formats`.
+
+*Note: avoid editing `quattor.build.xml` which is a standard file that is regularly updated to provide new features.*
 
 ## Adjust your Web server (optional)
 
@@ -120,27 +82,21 @@ to your Apache configuration.
 
 ## Upgrade AII
 
-Your clients work just fine.  But you'll need to upgrade the installer
-to a version that can deal with the new format.  Just upgrade AII to
-the version shipped with Quattor 12.12, and add
+You need to upgrade your deployment server to one of the Quattor version mentionned above and then your need to
+instruct AII to use JSON profile rather than the XML one. This is done by editing `/etc/aii/aii-shellfe.conf` or 
+using `ncm-aiiserver` if your deployment server is managed with Quattor (recommended).
 
 ```ini
 profile_format=json # Or json.gz
 ```
 
-to `/etc/aii/aii-shellfe.conf`.  The aiiserver component supports this
-option, too.
-
 ## Conclusion
 
 That's it!  Deploy, compile, install at your pleasure.  If any of your
 internal tools parsed the XMLs directly (without CCM) you will have to
-adapt it.  I recommend you to try
+adapt it.  WE recommend you to try
 [Elasticsearch](www.elasticsearch.org) and our new
 [data warehouse](https://github.com/quattor/data-warehouse) tool.
-
-Eventually, you'll want to disable pan format output and use only
-JSON and dep.
 
 At UGent, compressed JSON profiles take 1/30 the space of the
 equivalent XML profiles.
