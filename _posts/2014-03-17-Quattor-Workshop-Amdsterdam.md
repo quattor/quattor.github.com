@@ -177,7 +177,7 @@ Future work
 ### ncm-metaconfig
 
 Long
-[https://github.com/quattor/configuration-modules-core/pull/137 controversial discussion]
+[https://github.com/quattor/configuration-modules-core/pull/137](controversial discussion)
 on a pull request for changing the metaconfig schema to make easier
 definining file name from variable or reusing the file name defined in
 metaconfig in other components.
@@ -255,7 +255,7 @@ remove certain packages
 
 New schema used:
 
-* `/software/catalogues` A list of catalogues (package groups) to
+* `/software/catalogues` - A list of catalogues (package groups) to
   install
 * `/software/requests` - A list of additional packages to install
 * `/software/uninstall` - A list of packages to uninstall
@@ -279,18 +279,19 @@ New schema used:
 * `/software/requests` has been used to replace `/software/packages`
   because on Solaris `/software/packages` is full of irrelevant
   information (in particular configuration modules RPMS).
+
+Discussion
+
 * Probably need to rework the way we configure components so that the
   components/xxx/config.pan is doing what is appropriate for any
   platform
 * Another alternative would be make the components which are platform
   dependend part of the OS templates
 * To be discussed in more details on the mailing list
-
-Luis: uninstall idea is something that could be implemented in the
+* Luis: uninstall idea is something that could be implemented in the
 mainstream ncm-spma as blacklisted packages, indepedent of the
 repository
-
-* Currently blacklisting is done in the YUM repository configuration
+  * Currently blacklisting is done in the YUM repository configuration
 
 ### Componenent Status
 
