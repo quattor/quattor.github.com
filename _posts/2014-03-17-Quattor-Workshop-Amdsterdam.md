@@ -177,7 +177,7 @@ Future work
 ### ncm-metaconfig
 
 Long
-[https://github.com/quattor/configuration-modules-core/pull/137](controversial discussion)
+[controversial discussion](https://github.com/quattor/configuration-modules-core/pull/137)
 on a pull request for changing the metaconfig schema to make easier
 definining file name from variable or reusing the file name defined in
 metaconfig in other components.
