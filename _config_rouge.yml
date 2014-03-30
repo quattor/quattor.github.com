@@ -2,3 +2,6 @@ baseurl: http://quattor.github.com/
 pygments: false
 rouge: true
 markdown: redcarpet
+redcarpet:
+    extensions: [with_toc_data]
+    
