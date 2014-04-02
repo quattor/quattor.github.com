@@ -192,7 +192,7 @@ templates through SVN.
     #   - new templates: svn add
     #   - missing templates: if they are site-specific (like HW description templates), "svn revert" them. Else "svn rm" them. 
     ```
-    1. Recompile, check that no unexpected changes were involved in profiles and commit your renamed templates. In particular check that there is
+1. Recompile, check that no unexpected changes were involved in profiles and commit your renamed templates. In particular check that there is
     no change in the OS version used or in the kernel version (if there is something wrong, report it as an issue in repository template-library-standard).
     
     ```bash
@@ -553,9 +553,9 @@ Depending on the history of the node you are trying to upgrade, you may have YUM
 RPMs that YUM has not desinstalled yet. You may have to remove these RPMs manually. Among the problematic packages found on some nodes, there was tomcat that had
 to be removed with:
 
-    ```bash
-    rpm -e --nodeps --noscripts `rpm -qa|grep tomcat`
-    ```
+```bash
+rpm -e --nodeps --noscripts `rpm -qa|grep tomcat`
+```
     
 Also when updating an existing SL5 system to sl5x (L5.10), there is a 2 (related) known issues with package:
 
