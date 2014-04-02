@@ -192,7 +192,7 @@ templates through SVN.
     #   - new templates: svn add
     #   - missing templates: if they are site-specific (like HW description templates), "svn revert" them. Else "svn rm" them. 
     ```
-    1. Recompile, check that no unexpected changes were involved in profiles and commit your renamed templates. In particular check that there is
+1. Recompile, check that no unexpected changes were involved in profiles and commit your renamed templates. In particular check that there is
     no change in the OS version used or in the kernel version (if there is something wrong, report it as an issue in repository template-library-standard).
     
     ```bash
@@ -547,14 +547,30 @@ list is not compatible with SPMA that is still running on the machine. Then:
     ncm-ncd --configure --all
     ```
 _Note: when upgrading, it will take several YUM runs to get a stable package list. This is an expected behaviour. You may just wait for these runs
-to happen as part of other deployment operations or rerun ncm-spma several times manually._ 
+to happen as part of other deployment operations or execute `yum distro-sync` (accept actions proposed except if you have a good reason not to do so)._ 
 
 Depending on the history of the node you are trying to upgrade, you may have YUM errors when first deploying because of conflicts with already installed
 RPMs that YUM has not desinstalled yet. You may have to remove these RPMs manually. Among the problematic packages found on some nodes, there was tomcat that had
 to be removed with:
 
-    ```bash
-    rpm -e --nodeps --noscripts `rpm -qa|grep tomcat`
+```bash
+rpm -e --nodeps --noscripts `rpm -qa|grep tomcat`
+```
+    
+Also when updating an existing SL5 system to sl5x (L5.10), there is a 2 (related) known issues with package:
+
+* YUM suggests to remove `iwlwifi-5150-ucode` but if you do it, it will complain it needs it and it cannot find it. Don't follow the advice: keep it. If
+you unfortunately deleted it, reinstall it from your old OS distribution (it is not part of sl5x). This warning should disappear after fixing the second one.
+* Package `iwl5150-firmware` is both in EPEL and SL (with the same version) and this causes problems to YUM. A workaround is to blacklist this package in 
+your SL or EPL repository (SL suggested). This is done by adding in your repository template:
+
+    ```
+    # These packages are in EPEL already...
+    "excludepkgs" = {
+      append('iwl5150-firmware');
+      append('iwl6000-firmware');
+      SELF;
+    };
     ```
     
 ## Changes to local templates
