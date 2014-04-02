@@ -77,6 +77,8 @@ The server is starting on port 4000 by default.
 Jekyll is not using the pages you wrote directly but is generating the site from these pages. As a consquence, you need to **restart the server** after
 every page modification you want to see.
 
+For more information on using Jekyll at GitHub and troubleshooting problems, you may want to visit [GitHub Jekyll](https://help.github.com/articles/using-jekyll-with-pages)
+page.
 
 ## Jekyll Markdown tricks
 
