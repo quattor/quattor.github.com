@@ -102,7 +102,7 @@ is not very pretty for bulleted list but this is even worst with numbered list: 
 To include fenced code blocks without breaking the item list, the fenced blocks (including delimiters) must be idented with a number of space equals to
 `4 * list level`. Below is an example:
 
-```Markdown
+```
 1. This is a numbered list.
 1. I'm going to include a fenced code block as part of this bullet:
 
