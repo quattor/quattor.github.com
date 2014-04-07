@@ -22,7 +22,7 @@ profiles.
 
 ### Quattor releases
 
-You need Quattor version 13.1.4 (SPMA-based deployment) or a version >= 14.2.2 (YUM-based deployment). You must download the appropriate
+You need Quattor version 13.1.4 (SPMA-based deployment) or a version >= 14.4.0 (YUM-based deployment). You must download the appropriate
 templates from `template-library-core` if you don't have them already.
 
 *Note: you can use `utils/scdb/create-vanilla-SCDB.sh` from `scdb` repository as an easy way to download them.*
@@ -44,12 +44,18 @@ configuration database).*
 
 ## Change the compiled formats
 
-During a while (say, a week), you want to compile all your profiles
+During a certain period (say, a week), you will want to compile all your profiles
 both in Pan and in JSON format.  That way, nodes that miss some
-updates updates (f.i, if they are down), will be able to access their
-profiles from their old URLs and adapt to the new ones gradually. Until you change
-the profile URL (see below), generating new profile formats doesn't affect your machines,
-as long as the XML (pan) format is still produced.
+updates (f.i, if they are down), will be able to access their
+profiles from their old URLs (old XML format) and adapt to the new ones gradually. 
+
+Until you change
+the profile URL, generating new profile formats doesn't affect your machines,
+as long as the XML (pan) format is still produced. To have the machines switching to using the JSON profile, you
+need to define the following variable in your site configuration (if you are using the standard template library):
+```
+variable QUATTOR_PROFILE_FORMAT ?= 'json';
+```
 
 ### SCDB
 
@@ -63,7 +69,7 @@ pan.formats=pan,json,dep
 
 *Note: adjust the format list to match your needs. Use `pan.gz` and/or `json.gz` if you want to use compressed profiles.*
 
-When all your nodes picked up their JSON profile (check your http logs on the deployment server), you can
+When all your nodes have picked up their JSON profile (check your http logs on the deployment server), you can
 remove `pan` from the property `pan.formats`.
 
 *Note: avoid editing `quattor.build.xml` which is a standard file that is regularly updated to provide new features.*
@@ -82,19 +88,24 @@ to your Apache configuration.
 
 ## Upgrade AII
 
-You need to upgrade your deployment server to one of the Quattor version mentionned above and then your need to
-instruct AII to use JSON profile rather than the XML one. This is done by editing `/etc/aii/aii-shellfe.conf` or 
-using `ncm-aiiserver` if your deployment server is managed with Quattor (recommended).
+You need to upgrade your deployment server to one of the Quattor version mentioned above and then your need to
+instruct AII to use JSON profile rather than the XML one. This is done by editing `/etc/aii/aii-shellfe.conf`.
 
 ```ini
 profile_format=json # Or json.gz
+```
+
+If your deployment server is managed with Quattor using the standard template library (recommended), this is done automatically as soon as you
+have defined the following variable:
+```
+variable QUATTOR_PROFILE_FORMAT ?= 'json';
 ```
 
 ## Conclusion
 
 That's it!  Deploy, compile, install at your pleasure.  If any of your
 internal tools parsed the XMLs directly (without CCM) you will have to
-adapt it.  WE recommend you to try
+adapt it.  We recommend you to try
 [Elasticsearch](www.elasticsearch.org) and our new
 [data warehouse](https://github.com/quattor/data-warehouse) tool.
 
