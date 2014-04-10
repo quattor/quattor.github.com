@@ -26,6 +26,7 @@ comments: true
         </dl>
       </div> <!-- row -->
       <hr>
+      <div class="toc"></div>
       <div class="row">
         {{ page.content | markdownify }}
       </div> <!-- row  -->
@@ -47,6 +48,7 @@ comments: true
       <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
     </div>
     {% endif %}
+    
     {% include footer.html %}
   </body>
 </html>
