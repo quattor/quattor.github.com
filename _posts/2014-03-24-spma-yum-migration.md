@@ -509,10 +509,14 @@ not appropriate to a large number of WNs for example). To do this, you should ke
 and deploy them. Once they have been deployed, connect to the machine, that should have received the new profile and failed to deploy it as the package
 list is not compatible with SPMA that is still running on the machine. Then:
 
-1. On SL5, remove perl-AppConfig-caf and upgrade YUM (URL given for SL5x, update to your version if necessary but should work with any SL5)
+1. Remove `perl-AppConfig-caf` if it is insatlled (always necessary on SL5)
 
     ```bash
     rpm -e --nodeps perl-AppConfig-caf
+    ```
+1. On SL5, upgrade YUM (URL given for SL5x, update to your version if necessary but should work with any SL5)
+
+    ```bash
     rpm -e --nodeps yum-conf
     rpm -U http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_addons/yum-3.2.29-9.el5.noarch.rpm \
            http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_addons/yum-utils-1.1.31-4.noarch.rpm \
@@ -520,12 +524,17 @@ list is not compatible with SPMA that is still running on the machine. Then:
            http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5x-x86_64/SL/yum-versionlock-1.1.16-21.el5.noarch.rpm \
            http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_epel/python-kitchen-1.1.1-1.el5.noarch.rpm
     ```
-1. If libtorque is installed on the system, remove it:
+1. If `libtorque` is installed on the system, remove it:
 
     ```bash
     rpm -e --nodeps libtorque
     ```
-1. Install new ncm-spma dependencies from EPEL
+1. If `libganglia-3_1_0` is installed on the system, remove it:
+
+    ```bash
+    rpm -e --nodeps libganglia-3_1_0
+    ```
+1. Install new `ncm-spma` dependencies from EPEL
 
     ```bash
     # SL5
@@ -534,9 +543,10 @@ list is not compatible with SPMA that is still running on the machine. Then:
            http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_epel/perl-File-HomeDir-0.86-1.el5.noarch.rpm
     # SL6
     rpm -U http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6x-x86_64/Packages/perl-AppConfig-1.66-6.el6.noarch.rpm \
+           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6x-x86_64/yum-plugin-priorities-1.1.30-14.el6.noarch.rpm \
            http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6_epel/perl-Set-Scalar-1.25-2.el6.noarch.rpm
     ```
-1. Upgrade ncm-spma to last version:
+1. Upgrade `ncm-spma` to last version:
 
     ```bash
     rpm -U http://yum.quattor.org/14.2.1/ncm-spma-14.2.1-1.noarch.rpm
