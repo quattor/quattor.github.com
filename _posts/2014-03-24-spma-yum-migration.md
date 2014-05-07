@@ -543,7 +543,7 @@ list is not compatible with SPMA that is still running on the machine. Then:
            http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_epel/perl-File-HomeDir-0.86-1.el5.noarch.rpm
     # SL6
     rpm -U http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6x-x86_64/Packages/perl-AppConfig-1.66-6.el6.noarch.rpm \
-           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6x-x86_64/yum-plugin-priorities-1.1.30-14.el6.noarch.rpm \
+           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6x-x86_64/Packages/yum-plugin-priorities-1.1.30-14.el6.noarch.rpm \
            http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6_epel/perl-Set-Scalar-1.25-2.el6.noarch.rpm
     ```
 1. Upgrade `ncm-spma` to last version:
