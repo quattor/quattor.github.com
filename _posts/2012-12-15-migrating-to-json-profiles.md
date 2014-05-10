@@ -44,18 +44,33 @@ configuration database).*
 
 ## Change the compiled formats
 
-During a certain period (say, a week), you will want to compile all your profiles
+During a certain period, you will want to compile all your profiles
 both in Pan and in JSON format.  That way, nodes that miss some
-updates (f.i, if they are down), will be able to access their
+updates (for example, if they are down or have a `ncm-spma` error preventing execution
+of `ncm-ccm`), will be able to access their
 profiles from their old URLs (old XML format) and adapt to the new ones gradually. 
 
 Until you change
 the profile URL, generating new profile formats doesn't affect your machines,
 as long as the XML (pan) format is still produced. To have the machines switching to using the JSON profile, you
 need to define the following variable in your site configuration (if you are using the standard template library):
+
 ```
 variable QUATTOR_PROFILE_FORMAT ?= 'json';
 ```
+
+After making this change, you'll have to deploy the new configuration twice to have the node picking its JSON profile: first deployment
+will update the URL to be used for the next deployment. After doing these two deployments, you should be able to identify nodes that
+are still picking their XML profiles by checking the `httpd` logs on your deployment server. Typically, a command like the following
+one should give you the list of nodes that have not switched to JSON profiles:
+
+```bash
+# Adjust the date in the grep command to match the day/time you did the change
+grep 'profiles/.*xml' /etc/httpd/logs/access_log | grep '10/May/2014:15' | awk '{print $7}' | sort -u
+```
+
+**It is strongly recommanded to fix all the problematic nodes before generating only JSON profiles, else you will loose control on these nodes.
+You also need the period to be long enough to allow nodes which are down to get a chance to be restarted, as these nodes will not appear in the `httpd`logs.**
 
 ### SCDB
 
@@ -82,7 +97,9 @@ them.  Ensure they don't redirect to the XML files anymore.
 Also, if you are enabling profile compression for the first time,
 you'll want to add:
 
-    AddEncoding x-gzip .gz .tgz
+```
+AddEncoding x-gzip .gz .tgz
+```
 
 to your Apache configuration.
 
@@ -97,13 +114,16 @@ profile_format=json # Or json.gz
 
 If your deployment server is managed with Quattor using the standard template library (recommended), this is done automatically as soon as you
 have defined the following variable:
+
 ```
 variable QUATTOR_PROFILE_FORMAT ?= 'json';
 ```
 
 ## Conclusion
 
-That's it!  Deploy, compile, install at your pleasure.  If any of your
+That's it!  Deploy, compile, install at your pleasure.  
+
+If any of your
 internal tools parsed the XMLs directly (without CCM) you will have to
 adapt it.  We recommend you to try
 [Elasticsearch](www.elasticsearch.org) and our new
