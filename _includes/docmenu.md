@@ -12,7 +12,7 @@
   * Installation
   * Configuration
   * Pan compiler
-  * Components
+  * [Components](/documentation/components.html)
 
 ###### Other
  * HowTos
