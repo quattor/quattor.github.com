@@ -17,9 +17,9 @@
           <h1>{{ page.title }}</h1>
           {{ page.content | markdownify }}
         </div> <!-- page-header -->
-        {% capture downcase_title %}{{page.title | downcase}}{% endcapture %}
+        {% capture downcase_category %}{{page.category | downcase}}{% endcapture %}
           {% for post in site.posts %}
-            {% if post.category == downcase_title %}
+            {% if post.category == downcase_category %}
               <div class="row">
                 <div class="col-md-2 date">
                   {% if post.date %}
