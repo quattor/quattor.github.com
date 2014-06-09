@@ -3,6 +3,7 @@ layout: article
 title: Quattor 14.5.0 released
 category: news
 author: James Adams
+modified: 2014-06-09
 ---
 
 Another troublesome release cycle, but Quattor 14.5.0 has finally been released!
