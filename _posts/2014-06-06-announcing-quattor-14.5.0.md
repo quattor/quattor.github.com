@@ -17,6 +17,49 @@ As always, many thanks to everyone who contributed!
 
 The next release should be 14.6.0, exciting changes already lined up include EL7 support and Solaris support for ncm-cron.
 
+
+Obsolete Components
+-------------------
+At the last workshop the following components were identified as being unmaintained and unused and so have been removed from configuration-modules-core.
+
+In most cases their functionality has been superseeded by `ncm-metaconfig`
+
+If you find that you are have a desperate need for one or more of them, speak up!
+
+* `ncm-alternatives`
+* `ncm-cups`
+* `ncm-diskless_server`
+* `ncm-drbd`
+* `ncm-hostsaccess`
+* `ncm-iscsitarget`
+* `ncm-krb5clt`
+* `ncm-linuxha`
+* `ncm-mailaliases`
+* `ncm-networkupstools`
+* `ncm-oramonserver`
+* `ncm-pacemaker`
+* `ncm-pakiti`
+* `ncm-php`
+* `ncm-pine`
+* `ncm-portmap`
+* `ncm-pvss`
+* `ncm-raidman`
+* `ncm-rproxy`
+* `ncm-runlevel`
+* `ncm-selinux`
+* `ncm-serialclient`
+* `ncm-sindes_getcert`
+* `ncm-slocate`
+* `ncm-squid`
+* `ncm-srvtab`
+* `ncm-sshkeys`
+* `ncm-state`
+* `ncm-tftpd`
+* `ncm-tomcat`
+* `ncm-xen`
+* `ncm-zephyrclt`
+
+
 Changelog
 ---------
 
