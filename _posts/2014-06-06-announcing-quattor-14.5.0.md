@@ -28,10 +28,8 @@ In most cases their functionality has been superseeded by `ncm-metaconfig`
 If you find that you are have a desperate need for one or more of them, speak up!
 
 * `ncm-alternatives`
-* `ncm-cups`
 * `ncm-diskless_server`
 * `ncm-drbd`
-* `ncm-hostsaccess`
 * `ncm-iscsitarget`
 * `ncm-krb5clt`
 * `ncm-linuxha`
