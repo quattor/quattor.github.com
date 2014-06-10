@@ -8,10 +8,11 @@
     <div class="container">
       <div class="row">
         <ul class="breadcrumb">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="{{ page.category }}/index.html">{{page.category | capitalize}}</a>
-          </li>
-          <li class="active">{{ page.title }}</li>
+          <li><a href="/">Home</a></li>
+          {% if page.title != 'Documentation' %}<li><a href="/{{ page.category }}/">{{page.category | capitalize}}</a></li>{% endif %}
+          {% if page.subcategory %}<li><a href="/{{ page.category }}/{{ page.subcategory }}/">{{page.subcategory | capitalize}}</a></li>{% endif %}
+          {% assign crumbs = page.title | split: '/' %}
+          {% for crumb in crumbs %}<li class="active">{{ crumb | strip }}</li>{% endfor %}
         </ul>
         <h1>{% if page.subcategory %}{{ page.subcategory | capitalize }} &ndash; {% endif %}{{ page.title }}</h1>
         <dl class="dl-horizontal">
