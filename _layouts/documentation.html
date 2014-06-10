@@ -14,12 +14,12 @@
           <li class="active">{{ page.title }}</li>
         </ul>
         <h1>{% if page.subcategory %}{{ page.subcategory | capitalize }} &ndash; {% endif %}{{ page.title }}</h1>
-          <dl class="dl-horizontal">
-            {% if page.date %}<dt>Written</dt><dd class="date">{{ page.date | date: "%d %B %Y" }}</dd>{% endif %}
-            {% if page.modified %}<dt>Updated</dt><dd class="date">{{ page.modified | date: "%d %B %Y"}}</dd>{% endif %}
-            {% if page.author %}<dt>Author</dt><dd class="author">{{ page.author }}</dd>{% endif %}
-          </dl>
-          <hr>
+        <dl class="dl-horizontal">
+          {% if page.date %}<dt>Written</dt><dd class="date">{{ page.date | date: "%d %B %Y" }}</dd>{% endif %}
+          {% if page.modified %}<dt>Updated</dt><dd class="date">{{ page.modified | date: "%d %B %Y"}}</dd>{% endif %}
+          {% if page.author %}<dt>Author</dt><dd class="author">{{ page.author }}</dd>{% endif %}
+        </dl>
+        <hr>
       </div>
       <div class="row">
         <div class="col-md-2">
