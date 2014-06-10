@@ -23,7 +23,9 @@
       </div>
       <div class="row">
         <div class="col-md-2">
-          {% capture docmenu %}{% include docmenu.md %}{% endcapture %}
+          {% capture menufile %}docmenu.md{% endcapture %}
+          {% if page.menu %}{% capture menufile %}{{ page.menu }}{% endcapture %}{% endif %}
+          {% capture docmenu %}{% include {{menufile}} %}{% endcapture %}
           {{ docmenu | markdownify }}
         </div>
         <div class="col-md-10 page-content">
