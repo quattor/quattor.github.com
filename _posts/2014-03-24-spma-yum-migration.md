@@ -8,9 +8,10 @@ category: documentation
 This documentation is a step-by-step migration guide from legcay SPMA-based package deployment to the new YUM-based deployment, covering both Quattor
 configuration, OS configruation and grid MW configuration.
 
+
 ## Introduction
 
-Starting with release Quattor 13.2, Quattor switched from legacy SPMA-based deployments to YUM-based deployments. One year later, YUM-based deployment is
+Starting with release Quattor 13.2, Quattor switched from legacy SPMA-based deployments to YUM-based deployments. And since March 2014, YUM-based deployment is
 the only supported method for several components of the template library, in particular OS templates and grid templates. 
 
 Despite what may suggest the unchanged configuration module name for software deployment, ncm-spma, you cannot run both SPMA and YUM on the same machine.
@@ -26,11 +27,11 @@ and install them. In addition, at each run it can upgrade the packages to the la
 updates. But this changes a little bit the way you achieve a controlled deployment of packages with well defined upgrade times. What used to be done
 by updating package list is now achieved through the use of immutable package repositories (also called YUM snapshots).
 
-This documentation describes the main steps needed to update a machine from Quattor 13.1 and SPMA-based deployment to Quattor 14.2.1 or later) and 
+This documentation describes the main steps needed to update a machine from Quattor 13.1 and SPMA-based deployment to Quattor 14.6.0 (or later) and 
 YUM-based deployment. It also describes how to keep a unified deployment server for both Quattor versions. And it introduces some tools developed by the 
 Quattor community to help managing YUM repositories and YUM snapshots.
 
-__Short summary: all Quattor sites are encouraged to move quickly to Quattor 14.2.1 (or later) release and YUM-based deployment. Apart from a few operational
+__Short summary: all Quattor sites are encouraged to move quickly to Quattor 14.6.0 (or later) release and YUM-based deployment. Apart from a few operational
 changes for a sustainable management of YUM snapshots, the change should be easy, with very few modifications required to your site configuration.__
 
 _Most of the examples provided below assume a SCDB context. With small variations they apply the same way to Aquilon, except that the path where you put the templates may differ._
@@ -124,15 +125,19 @@ Note that you can safely upgrade from Quattor versions prior to 13.1.3, includin
 This version is entirely compatible with previous one and the upgrade has already been done successfully at many different sites.
 
 
-### Upgrade your Quattor deployment server to 13.1.3
+### Upgrade your Quattor deployment server to 14.6.0 or later
 
-To be able to deploy with the same deployment server both Quattor 13.1 and Quattor 14.2.1 nodes, you deployment server __must run__ version 13.1.3.
-A deployment server running 14.2.1 (anything later than 13.1.x) __will not be able__ to deploy machines using Quattor 13.1.3 (or before).
+To be able to deploy with the same deployment server both Quattor 13.1 and Quattor 14.6.0 (or later) nodes, you deployment server __must run__ version 14.6.0 or later.
+A deployment server running 14.6.0 (anything later than 13.1.x) __will not be able__ to deploy machines using Quattor 13.1.3 (or before).
 
-_Note: an alternative is to have two deployment servers: one running 13.1.3 for nodes configured with Quattor 13.1.x (or before), one running 14.2.1 for nodes
-configured with Quattor 14.2.1. As this may lead to some management complexity, this is not the recommended option and it is not described here._
+_Note: a previous version of this article recommended to use Quattor 13.1.3 on the deployment server. 14.6.0 introduces an improved version of the deployment server that support deployement
+of both YUM-managed and SPMA-managed machines and since then is the recommended version for the deployment (AII) server. This is now the only supported option._
 
-If your deployment server is managed by Quattor (by itself!), this step should have already been completed as part of previous step. If this is not the case
+If your deployment server is managed by Quattor (by itself!), you can easily upgrade it to 14.6.0 or later (after getting the last version of the template library, see below) 
+by editing the file 
+`cluster.build.properties` in the cluster the deployment server belongs to and changing the quattor version used in the include path to whatever is appropriate.
+
+If this is not the case
 you should consider doing it: this is the easiest way to maintain the Quattor deployment server after its initial installation.
 
 If your deployment server is not managed by Quattor, the easiest way to upgrade it is to configure a YUM repository for the Quattor release. You can do this 
@@ -141,7 +146,7 @@ by creating a quattor.repo file in /etc/yum.repo.d with the following contents (
 ```
 [quattor]
 name=quattor
-baseurl=http://yum.quattor.org/13.1.2
+baseurl=http://yum.quattor.org/14.6.0
 enabled=1
 gpgcheck=0
 ```
@@ -202,9 +207,9 @@ templates through SVN.
     ```
 
 
-### Add templates for Quattor 14.2.1
+### Add templates for Quattor 14.6.0
 
-If you have not done it yet as part of the first steps, you need to add templates for configuring Quattor version 14.2.1. If you already have them,
+If you have not done it yet as part of the first steps, you need to add templates for configuring Quattor version 14.6.0. If you already have them,
 you may want to ensure that you have the last version following the same procedure. This is easily done with:
 
 1. Update the working copy of your local configuration database to last revision and compile it
@@ -215,15 +220,15 @@ you may want to ensure that you have the last version following the same procedu
     rm -Rf build.saved
     cp -R build build.saved
     ```
-1. Copy reference template directory "quattor/14.2.1" to your local configuration database quattor/ directory
+1. Copy reference template directory "quattor/14.6.0" to your local configuration database quattor/ directory
 
     ```bash
-    cp -R /tmp/scdb-vanilla/cfg/quattor/14.2.1 cfg/quattor
+    cp -R /tmp/scdb-vanilla/cfg/quattor/14.6.0 cfg/quattor
     ```
 1. Add all the files to SVN:
 
     ```bash
-    svn add cfg/quattor/14.2.1
+    svn add cfg/quattor/14.6.0
     ```
 1. Compile the updated configuration and check that it completes successfully
 
@@ -238,7 +243,7 @@ you may want to ensure that you have the last version following the same procedu
 1. Commit changes
 
     ```bash
-    svn commit -m 'Add templates for Quattor 14.2.1'
+    svn commit -m 'Add templates for Quattor 14.6.0'
     ```
 
 ### Add/update OS templates sl5.x and sl6.x
@@ -425,10 +430,6 @@ want to upgrade to emi-3, you can do the following:
     # Use OS templates for generic major version (required)
     variable OS_FLAVOUR_ENABLED ?= true;
     
-    # Better defined a the node profile but you can define it here
-    # for simplicity to start...
-    variable AII_V2_INSTALL ?= true;
-    
     # YUM Repository snapshots (match your local configuration, see previous section on YUM snapshots)
     # YUM_SNAPSHOT_DATE is typically used in repository templates to build the full URL of the snapshot
     # See template-library-examples repository
@@ -447,10 +448,13 @@ want to upgrade to emi-3, you can do the following:
     svn mv cfg/clusters/emi-2/profiles/mytest.dom.ain.pan cfg/clusters/emi-3/profiles
     ```
 
+*Note: a previous version of this article mentionned that it was required to define variable `AII_V2_INSTALL`. This is no longer the case
+and it is now recommended to remove it.*
+
 ### Updating the new cluster build properties
 
 Edit the new cluster file cluster.build.properties with the following changes
-* In the include patch, change the grid version used to grid/umd-3 and the Quattor version to quattor/14.2.1
+* In the include patch, change the grid version used to grid/umd-3 and the Quattor version to quattor/14.6.0
 * Add the following line:
 
 ```
@@ -534,7 +538,8 @@ list is not compatible with SPMA that is still running on the machine. Then:
     ```bash
     rpm -e --nodeps libganglia-3_1_0
     ```
-1. Install new `ncm-spma` dependencies from EPEL
+1. Install new `ncm-spma` dependencies from EPEL (an alternative to this step is to add the EPEL and Quattor repositories in the YUM configuration
+and use `yum` rather than `rpm` in next step)
 
     ```bash
     # SL5
@@ -549,7 +554,7 @@ list is not compatible with SPMA that is still running on the machine. Then:
 1. Upgrade `ncm-spma` to last version:
 
     ```bash
-    rpm -U http://yum.quattor.org/14.2.1/ncm-spma-14.2.1-1.noarch.rpm
+    rpm -U http://yum.quattor.org/14.6.0/ncm-spma-14.6.0-1.noarch.rpm
     ```
 1. Reconfigure the node with the last profile
     
