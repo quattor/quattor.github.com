@@ -60,11 +60,11 @@ None.
 
 ### FILES
 
-- `/etc/ssh/sshd\_config`
+- `/etc/ssh/sshd_config`
 
     The SSH daemon configuration file.
 
-- `/etc/ssh/ssh\_config`
+- `/etc/ssh/ssh_config`
 
     The SSH client configuration file.
 

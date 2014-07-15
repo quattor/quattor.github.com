@@ -39,7 +39,7 @@ The configuration information for the component.  It is an nlist of
 
 - module : string
 
-    Module to render the configuration file. See ["CONFIGURATION MODULES"](#CONFIGURATION MODULES)
+    Module to render the configuration file. See ["CONFIGURATION MODULES"](#configuration-modules)
     below.
 
 - daemon ? string
@@ -73,7 +73,7 @@ The following formats my be rendered:
 
 - general
 
-    Uses Perl's [Config::General](http://search.cpan.org/perldoc?Config::General). This leads to configuration files
+    Uses Perl's [Config::General](https://metacpan.org/pod/Config::General). This leads to configuration files
     similar to this one:
 
         <nlist>
@@ -88,25 +88,25 @@ The following formats my be rendered:
 
 - tiny
 
-    Uses Perl's [Config::Tiny](http://search.cpan.org/perldoc?Config::Tiny), typically for `key = value` files or
+    Uses Perl's [Config::Tiny](https://metacpan.org/pod/Config::Tiny), typically for `key = value` files or
     INI-like files with sections separated by `[section]` headers.
 
 - yaml
 
-    Uses Perl's [YAML::XS](http://search.cpan.org/perldoc?YAML::XS) for rendering YAML configuration files.
+    Uses Perl's [YAML::XS](https://metacpan.org/pod/YAML::XS) for rendering YAML configuration files.
 
 - json
 
-    Uses [JSON::XS](http://search.cpan.org/perldoc?JSON::XS) for rendering JSON configuration files.
+    Uses [JSON::XS](https://metacpan.org/pod/JSON::XS) for rendering JSON configuration files.
 
 - properties
 
-    Uses [Config::Properties](http://search.cpan.org/perldoc?Config::Properties) for rendering Java-style configuration
+    Uses [Config::Properties](https://metacpan.org/pod/Config::Properties) for rendering Java-style configuration
     files.
 
 - Any other string
 
-    Uses [Template::Toolkit](http://search.cpan.org/perldoc?Template::Toolkit) for rendering configuration files in formats
+    Uses [Template::Toolkit](https://metacpan.org/pod/Template::Toolkit) for rendering configuration files in formats
     supplied by the user.
 
     The name of the template is given by this field. It __must__ be a path
