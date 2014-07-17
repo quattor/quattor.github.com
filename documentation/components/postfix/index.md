@@ -5,7 +5,7 @@ category: documentation
 subcategory: components
 menu: 'components.md'
 ---
-*** ERROR: unterminated L<...> at line 37 in file (unknown)
+*** ERROR: unterminated L&lt;...&gt; at line 37 in file (unknown)
  at `/usr/bin/pod2markdown` line 29.
 ### NAME
 

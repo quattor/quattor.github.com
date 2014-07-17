@@ -59,7 +59,7 @@ Requires lemon-agent rpm to be installed.
 
 none known.
 
-Miroslav Siket <miroslav.siket@cern.ch>, Dennis Waldron <>
+Miroslav Siket &lt;miroslav.siket@cern.ch&gt;, Dennis Waldron &lt;&gt;
 
 ### SEE ALSO
 

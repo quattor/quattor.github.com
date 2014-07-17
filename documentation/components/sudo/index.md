@@ -22,7 +22,7 @@ On top, it provides the following fields:
     behaviour either for users or hosts, or for the whole sudo
     application. This structure will be explained later.
 
-- "/software/components/sudo/<user|run\_as|host|cmd>\_aliases :
+- "/software/components/sudo/&lt;user|run\_as|host|cmd&gt;\_aliases :
 optional
 
     Named lists of lists of strings containing the alias information.  The

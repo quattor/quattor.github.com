@@ -141,7 +141,7 @@ mandatory. The available fields are:
 - uid
 
     the uid value for this account. Mandatory. This is interpreted as the
-    base uid value for pool accounts (i.e. poolSize > 0).
+    base uid value for pool accounts (i.e. poolSize &gt; 0).
 
 - poolStart
 
@@ -270,4 +270,4 @@ ncm-accounts but by [ncm-authconfig](https://metacpan.org/pod/ncm-authconfig).
 
 [ncm-authconfig](https://metacpan.org/pod/ncm-authconfig)
 
-Luis Fernando Muñoz Mejías <Luis.Fernando.Munoz.M>
+Luis Fernando Muñoz Mejías &lt;Luis.Fernando.Munoz.M&gt;

@@ -48,26 +48,26 @@ user:
 
     List of services that will have ACLs associated to them.
 
-- `/software/components/useraccess/{users`,roles}/<id>/kerberos4
+- `/software/components/useraccess/{users`,roles}/&lt;id&gt;/kerberos4
 
     It is a list of the users who can log in using Kerberos v4
     tickets. The contents of this list will be appropriately formatted and
     written into ~/.klogin.
 
-- `/software/components/useraccess/{users`,roles}/<id>/kerberos5
+- `/software/components/useraccess/{users`,roles}/&lt;id&gt;/kerberos5
 
     It is a list of the users who can log using Kerberos v5 tickets. The
     contents of this list will be appropriately formatted and written into
     ~/.k5login.
 
-- `/software/components/useraccess/{users`,roles}/<id>/ssh\_keys\_urls
+- `/software/components/useraccess/{users`,roles}/&lt;id&gt;/ssh\_keys\_urls
 
     It is a list containing the __absolute URLs__ where the public keys
     granted to login as this user can be found. The URL can have any
     schema LWP::UserAgent supports, and it has been tested with http://,
     https:// and file:// . Local files are admitted, if wanted.
 
-- `/software/components/useraccess/{users`,roles}/<id>/ssh\_keys
+- `/software/components/useraccess/{users`,roles}/&lt;id&gt;/ssh\_keys
 
     It is a list containing the __exact lines__ to be added to
     ~/.ssh/authorized\_keys.
@@ -75,7 +75,7 @@ user:
     The preferred way for adding authorized\_keys is ssh\_keys\_urls, but if
     you are happy filling your templates with garbage, serve yourself. :P
 
-- `/software/components/useraccess/{users`,roles}/<id>/acls
+- `/software/components/useraccess/{users`,roles}/&lt;id&gt;/acls
 
     It is a list of the ACL-controlled services the user is allowed to log
     in. This only applies to PAM controlled services. SSH is not (not
@@ -85,14 +85,14 @@ user:
     __not__ force the service to use ACLs at all. To do so, add the service
     to `/software/components/useraccess/acl`\_services .
 
-- `/software/components/useraccess/{users`,roles}/<id>/roles
+- `/software/components/useraccess/{users`,roles}/&lt;id&gt;/roles
 
     List of strings. It contains the lists of roles the user belongs
     to. Roles can be nested.
 
     It is a compile-time error to add an user to a non-existing role.
 
-- `/software/components/useraccess/users`/<id>/managed\_credentials
+- `/software/components/useraccess/users`/&lt;id&gt;/managed\_credentials
 
     List of authentication methods the component will configure (and thus,
     fully control) for the user. It is a list of strings, with possible
@@ -108,23 +108,23 @@ user:
 Both `kerberos4` and `kerberos5` share the same structure. It
 contains the following fields:
 
-- `/software/components/useraccess`/<id>/kerberosX/realm : mandatory
+- `/software/components/useraccess`/&lt;id&gt;/kerberosX/realm : mandatory
 
     Kerberos' realm for authentication (the part behind the @ in
     .klogin). For instance, CERN.CH .
 
-- `/software/components/useraccess`/<id>/kerberosX/principal :
+- `/software/components/useraccess`/&lt;id&gt;/kerberosX/principal :
 mandatory
 
     Principal identity for the user in the Kerberos ticket server.
 
-- `/software/components/useraccess`/<id>/kerberosX/instance :
+- `/software/components/useraccess`/&lt;id&gt;/kerberosX/instance :
 optional
 
     "Instance" identity for the user. This is a sub-identity, and it's
     optional.
 
-- `/software/components/useraccess`/<id>/kerberosX/host : optional
+- `/software/components/useraccess`/&lt;id&gt;/kerberosX/host : optional
 
     Host from which the ticket must come for this identity. It is
     currently ignored.

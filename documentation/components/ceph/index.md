@@ -5,12 +5,12 @@ category: documentation
 subcategory: components
 menu: 'components.md'
 ---
-Use of uninitialized value in pattern match (m//) at `/usr/share/perl5/Pod/Markdown.pm` line 357, <$fh> line 114.
-Use of uninitialized value in pattern match (m//) at `/usr/share/perl5/Pod/Markdown.pm` line 360, <$fh> line 114.
-Use of uninitialized value in string eq at `/usr/share/perl5/Pod/Markdown.pm` line 370, <$fh> line 114.
-Use of uninitialized value in pattern match (m//) at `/usr/share/perl5/Pod/Markdown.pm` line 357, <$fh> line 116.
-Use of uninitialized value in pattern match (m//) at `/usr/share/perl5/Pod/Markdown.pm` line 360, <$fh> line 116.
-Use of uninitialized value in string eq at `/usr/share/perl5/Pod/Markdown.pm` line 370, <$fh> line 116.
+Use of uninitialized value in pattern match (m//) at `/usr/share/perl5/Pod/Markdown.pm` line 357, &lt;$fh&gt; line 114.
+Use of uninitialized value in pattern match (m//) at `/usr/share/perl5/Pod/Markdown.pm` line 360, &lt;$fh&gt; line 114.
+Use of uninitialized value in string eq at `/usr/share/perl5/Pod/Markdown.pm` line 370, &lt;$fh&gt; line 114.
+Use of uninitialized value in pattern match (m//) at `/usr/share/perl5/Pod/Markdown.pm` line 357, &lt;$fh&gt; line 116.
+Use of uninitialized value in pattern match (m//) at `/usr/share/perl5/Pod/Markdown.pm` line 360, &lt;$fh&gt; line 116.
+Use of uninitialized value in string eq at `/usr/share/perl5/Pod/Markdown.pm` line 370, &lt;$fh&gt; line 116.
 ### NAME
 
 ncm-ceph: Configuration module for CEPH
@@ -74,7 +74,7 @@ Following package dependencies should be installed to run the component:
 - perl-Data-Structure-Util 
 - perl-Config-Tiny 
 - perl-Test-Deep
-- perl-Data-Compare >= 1.23 !
+- perl-Data-Compare &gt;= 1.23 !
 - perl-Git-Repository
 
 This version of Data-Compare can be found on http://www.city-fan.org/ftp/contrib/perl-modules/

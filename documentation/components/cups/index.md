@@ -109,9 +109,9 @@ None.
 
 None known.
 
-Michel Jouvin <jouvin@lal.in2p3.fr>
+Michel Jouvin &lt;jouvin@lal.in2p3.fr&gt;
 
-Luis Fernando Muñoz Mejías <>
+Luis Fernando Muñoz Mejías &lt;&gt;
 
 ### VERSION
 

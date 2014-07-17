@@ -42,25 +42,25 @@ NCM::chkconfig - NCM chkconfig component
     sshd`) are protected from being turned off via the default setting,
     but please do not rely on this.
 
-- `/software/components/chkconfig/service`/<service>/off : string ("\[0-7\]\*")
-- `/software/components/chkconfig/service`/<service>/on : string ("\[0-7\]\*")
+- `/software/components/chkconfig/service`/&lt;service&gt;/off : string ("\[0-7\]\*")
+- `/software/components/chkconfig/service`/&lt;service&gt;/on : string ("\[0-7\]\*")
 
-    Sets the service <service> on/off on specified run levels. The run
+    Sets the service &lt;service&gt; on/off on specified run levels. The run
     levels are specified as string of numbers, the same way as with
     `chkconfig`\-command. If the string is empty, system default is taken
     (see `man chkconfig(8)` for exact details).
 
-- `/software/components/chkconfig/service`/<service>/name : string 
+- `/software/components/chkconfig/service`/&lt;service&gt;/name : string 
 
     If set, the value is used as the name of the service instead of using the 
-    <service> path as a name. 
+    &lt;service&gt; path as a name. 
 
-- `/software/components/chkconfig/service`/<service>/reset : string ("\[0-7\]\*")
+- `/software/components/chkconfig/service`/&lt;service&gt;/reset : string ("\[0-7\]\*")
 
     Resets the service on defined run levels. Reset with no run levels specified 
     affects every run level. 
 
-- `/software/components/chkconfig/service`/<service>/add : boolean
+- `/software/components/chkconfig/service`/&lt;service&gt;/add : boolean
 
     If the value is true, adds service for management by chkconfig (if not
     already the case), otherwise the option is ignored. Please note that
@@ -71,12 +71,12 @@ NCM::chkconfig - NCM chkconfig component
     will be run. This will restore service runlevel to its default values
     and protect from any manual changes of runlevels by `/sbin/chkconfig.`
 
-- `/software/components/chkconfig/service`/<service>/del : boolean
+- `/software/components/chkconfig/service`/&lt;service&gt;/del : boolean
 
     If the value is true, removes service from management by chkconfig, otherwise
     the option is ignored. 
 
-- `/software/components/chkconfig/service`/<service>/startstop : boolean
+- `/software/components/chkconfig/service`/&lt;service&gt;/startstop : boolean
 
     If true, the service is also started/stopped when the service is
     added, removed or turned off/on. The component tries to check whether
@@ -98,7 +98,7 @@ None.
 - __reset__ behaviour should check against current config?
 - __startstop__ logic depends on init script, will mindlessly start some services despite them running already
 
-Teemu Sidoroff <Teemu.S>
+Teemu Sidoroff &lt;Teemu.S&gt;
 
 ### SEE ALSO
 

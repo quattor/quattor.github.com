@@ -343,8 +343,8 @@ none known.
 
 S
 
-- Thorsten Kleinwort <Thorsten.Kleinwort@cern.ch>
-- John Monteiro <John.M>
+- Thorsten Kleinwort &lt;Thorsten.Kleinwort@cern.ch&gt;
+- John Monteiro &lt;John.M&gt;
 
 ### SEE ALSO
 

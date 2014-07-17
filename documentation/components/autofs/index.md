@@ -96,9 +96,9 @@ None.
 
 None known.
 
-David Groep <davidg@nikhef.nl>
+David Groep &lt;davidg@nikhef.nl&gt;
 
-David Groep <davidg@nikhef.nl>, Michel Jouvin <>
+David Groep &lt;davidg@nikhef.nl&gt;, Michel Jouvin &lt;&gt;
 
 ### VERSION
 

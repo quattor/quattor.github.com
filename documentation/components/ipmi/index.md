@@ -43,7 +43,7 @@ This component doesn't touch any file.
 
 None.
 
-Guillaume PHILIPPON <>
+Guillaume PHILIPPON &lt;&gt;
 
 ### SEE ALSO
 

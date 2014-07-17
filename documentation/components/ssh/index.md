@@ -72,7 +72,7 @@ None.
 
 None known.
 
-Teemu Sidoroff <Teemu.S>
+Teemu Sidoroff &lt;Teemu.S&gt;
 
 ### SEE ALSO
 

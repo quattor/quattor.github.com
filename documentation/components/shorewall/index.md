@@ -33,7 +33,7 @@ none.
 
 none known.
 
-Stijn De Weirdt <>
+Stijn De Weirdt &lt;&gt;
 
 ### SEE ALSO
 

@@ -76,12 +76,12 @@ The following formats my be rendered:
     Uses Perl's [Config::General](https://metacpan.org/pod/Config::General). This leads to configuration files
     similar to this one:
 
-        <nlist>
-          <another nlist>
+        &lt;nlist&gt;
+          &lt;another nlist&gt;
             scalar value
             another scalar value
-          </another nlist>
-        </nlist>
+          &lt;/another nlist&gt;
+        &lt;/nlist&gt;
         list_element 0
         list_element 1
         list_element 2

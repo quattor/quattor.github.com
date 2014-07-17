@@ -90,7 +90,7 @@ Set the behaviour for interface eth\[i\]. This overrides the default setting.
 
 ### CHANNEL BONDING
 
-(see <kernel>/Documentation/networking/bonding.txt for more info on the driver options)
+(see &lt;kernel&gt;/Documentation/networking/bonding.txt for more info on the driver options)
 
 To enable channel bonding with quattor using devices eth0 and eth1 to form bond0, proceed as follows:
 

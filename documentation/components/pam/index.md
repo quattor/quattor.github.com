@@ -35,7 +35,7 @@ NCM::pam - NCM pam configuration component
 		),
 		"auth", list(
 			pam_include("system-auth"),
-			nlist("required", pam_module_if("uid >= 500")),
+			nlist("required", pam_module_if("uid &gt;= 500")),
 			nlist("required", pam_acl_allow("ssh_allow")),
 		),
 	),

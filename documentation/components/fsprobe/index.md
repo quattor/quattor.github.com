@@ -41,7 +41,7 @@ CERN-CC-fsprobe
 
 None known.
 
-Tim Bell <>
+Tim Bell &lt;&gt;
 
 ### SEE ALSO
 ncm::hwprobe

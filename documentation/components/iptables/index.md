@@ -170,11 +170,11 @@ The __"out\_interface"__ define the output interface for the packet.
 
 The __"target"__ define the target for the packet: "log", "accept" or "drop".
 
-#### function add\_rule(<table>, <rule>)
+#### function add\_rule(&lt;table&gt;, &lt;rule&gt;)
 
 This function add a new entry rule to the resource list
 
-    "/software/components/iptables/<table>/rules"
+    "/software/components/iptables/&lt;table&gt;/rules"
 
 ### DEPENDENCIES
 
