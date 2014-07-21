@@ -11,6 +11,27 @@ As always, many thanks to everyone who contributed!
 
 The next release should be 14.8.0, the [backlog](https://gist.github.com/jrha/4f42a3757aea4d2054e8) for which is already huge.
 
+Main New Features and Fixes
+---------------------------
+
+* AII can install both 13.1.x (SPMA-managed) and 14.x (YUM-managed) machines: this is now the **recommended** and **only supported** version of AII.
+A site updating to 14.6.0 is recommended to upgrade its AII server first: this is the only version of AII capable of installing 14.6.0 machines.
+
+* `ncm-cdispd` now properly reexecutes failed components every time a new profile is received, even though their configuration was not changed.
+Previous versions were not doing this and this could result in a machine staying in a partially configured state.
+
+* Grid template library also received a significant number of fixes for UMD-3 services. One of them is related to ncm-xrootd being blocked during 
+restart of xrootd services with the effect of stalling ncm-ncd and thus preventing further deployment (until the ncm-ncd time out) and 
+letting xrootd stopped. 
+
+Known issues
+------------
+
+* `ncm-xrootd`: the fix describes above unfortunately contains a mistake that let xrootd disk instances unmanaged by xrootd startup script after 
+executing the component (see https://github.com/quattor/configuration-modules-grid/pull/29). If you run into this problem, you may want to get the 
+fixed version (that will be part of 14.8) from http://quattorsrv.lal.in2p3.fr/packages/site/ncm-xrootd-14.6.1-SNAPSHOT20140716143750.noarch.rpm: 
+this will require you to edit cfg/quattor/14.6.0/components/xrootd/config.pan to update the RPM version.
+
 
 Changelog
 ---------
