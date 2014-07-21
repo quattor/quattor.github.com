@@ -1,6 +1,3 @@
----
-comments: true
----
 <!DOCTYPE html>
 <html lang="en">
   {% include head.html %}
@@ -11,22 +8,25 @@ comments: true
     <div class="container">
       <div class="row">
         <ul class="breadcrumb">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="{{ page.category }}/index.html">{{page.category | capitalize}}</a>
-          </li>
-          <li class="active">{{ page.title }}</li>
+          <li><a href="/">Home</a></li>
+          {% if page.title != 'Documentation' %}<li><a href="/{{ page.category }}/">{{page.category | capitalize}}</a></li>{% endif %}
+          {% if page.subcategory %}<li><a href="/{{ page.category }}/{{ page.subcategory }}/">{{page.subcategory | capitalize}}</a></li>{% endif %}
+          {% assign crumbs = page.title | split: '/' %}
+          {% for crumb in crumbs %}<li class="active">{{ crumb | strip }}</li>{% endfor %}
         </ul>
-        <h1>{{ page.title }}</h1>
-          <dl class="dl-horizontal">
-            <dt>Written</dt><dd class="date">{{ page.date | date: "%d %B %Y" }}</dd>
-            {% if page.modified %}<dt>Updated</dt><dd class="date">{{ page.modified | date: "%d %B %Y"}}</dd>{% endif %}
-            {% if page.author %}<dt>Author</dt><dd class="author">{{ page.author }}</dd>{% endif %}
-          </dl>
-          <hr>
+        <h1>{% if page.subcategory %}{{ page.subcategory | capitalize }} &ndash; {% endif %}{{ page.title }}</h1>
+        <dl class="dl-horizontal">
+          {% if page.date %}<dt>Written</dt><dd class="date">{{ page.date | date: "%d %B %Y" }}</dd>{% endif %}
+          {% if page.modified %}<dt>Updated</dt><dd class="date">{{ page.modified | date: "%d %B %Y"}}</dd>{% endif %}
+          {% if page.author %}<dt>Author</dt><dd class="author">{{ page.author }}</dd>{% endif %}
+        </dl>
+        <hr>
       </div>
       <div class="row">
         <div class="col-md-2">
-          {% capture docmenu %}{% include docmenu.md %}{% endcapture %}
+          {% capture menufile %}docmenu.md{% endcapture %}
+          {% if page.menu %}{% capture menufile %}{{ page.menu }}{% endcapture %}{% endif %}
+          {% capture docmenu %}{% include {{menufile}} %}{% endcapture %}
           {{ docmenu | markdownify }}
         </div>
         <div class="col-md-10 page-content">
@@ -34,25 +34,6 @@ comments: true
         </div>
       </div> <!-- row  -->
     </div>
-    {% if page.comments %}
-    <hr>
-    <div class="container">
-      <div id="disqus_thread"></div>
-      <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES * * */
-        var disqus_shortname = 'quattor'; // required: replace example with your forum shortnam
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();       </script>
-      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </div>
-    {% endif %}
-
     {% include footer.html %}
-    </script>
   </body>
 </html>
