@@ -10,3 +10,4 @@ If you don't find the documentation you need here, tell us!
 
 ### Configuration Modules (Components)
 * [14.6.0](/documentation/14.6.0/components/)
+* [14.8.0](/documentation/14.8.0/components/)
