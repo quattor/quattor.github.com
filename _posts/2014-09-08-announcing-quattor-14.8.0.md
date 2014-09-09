@@ -52,7 +52,7 @@ Changelog
 * [__ncm-resolver__: Merge stderr and stdout when checking for timeouts](https://github.com/quattor/configuration-modules-core/pull/223)
 * [__ncm-spma__: retry full update when userpkgs are not allowed](https://github.com/quattor/configuration-modules-core/pull/265)
 * [__ncm-spma__: yum-complete-transaction requires -y option to run without interruption](https://github.com/quattor/configuration-modules-core/pull/295)
-* [ncm-sudo noaction support](https://github.com/quattor/configuration-modules-core/pull/240)
+* [__ncm-sudo__: noaction support](https://github.com/quattor/configuration-modules-core/pull/240)
 * [__ncm-useraccess__: add an additional ownership check on .ssh dir](https://github.com/quattor/configuration-modules-core/pull/263)
 
 ### ncm-lib-blockdevices
