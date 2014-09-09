@@ -16,7 +16,6 @@ Changelog
 ---------
 
 ### template-library-core
-* [__13.1.4 release__: 13.1.3 + some modified configuration modules](https://github.com/quattor/template-library-core/pull/34)
 * [Fix too restrictive check for boot interface MTU configuration](https://github.com/quattor/template-library-core/pull/56)
 * [__Quattor schema__: make /system/kernel mandatory and /system/kernel/version optional](https://github.com/quattor/template-library-core/pull/54)
 
