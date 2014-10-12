@@ -15,7 +15,7 @@ author: Michel Jouvin
 
 Worked well since last workshop
 
-* More mand more automation, including list of pending issues by milesones at http://quattor.org/release (updated every 2-3h)
+* More and more automation, including list of pending issues by milesones at http://quattor.org/release (updated every 30 mn)
 
 Jenkins not working for some of the Quattor components: lack of time at UGent to fix the problem, not clear why it happened
 
@@ -46,6 +46,8 @@ Planned reinstallation of stratuslab-srv01: save nexus and yum repository conten
 ## Site Report
 
 ### UGent
+
+See [slides](https://indico.cern.ch/event/328445/session/0/contribution/0/material/slides/0.pdf)
 
 No more EL5... but EL7 started
 
@@ -80,7 +82,7 @@ Migration of hybrid Quattor/vendor tool to Quattor only
 Still on hold
 
 * IPA (Kerberos-based infrastructure for authentication from RH)
-  * Done only for replacing Cindes but not yet for user accounts
+  * Done only for replacing Sindes but not yet for user accounts
 * Aquilon: not yet there...
   * Would like to couple it with (private) GitHub workflow, e.g. Aquilon merge opening a pull request allowing peer review and closing the PR
   triggering the actual merge
@@ -99,6 +101,8 @@ Open issues
 
 
 ## EL7 Support
+
+See [slides](https://indico.cern.ch/event/328445/session/0/contribution/1/material/slides/0.pdf)
 
 RHEL and CentOS already released, SL7 coming
 
@@ -146,7 +150,7 @@ Major issues
 ncm-chkconfig vs. ncm-systemd
 
 * Need to find a way to abstract the difference from the profiles
-* Common schema? not necessarily easy as the paradygms are very different: target vs. run level
+* Common schema? not necessarily easy as the paradigms are very different: target vs. run level
 * Define a set of functions that would be exposed by both components and will abstract at a higher level the service description?
 * Problem of dependency management: need to have one component able to work on all platforms to avoid a nightmare
   * Reuse the CAF::Service approach with a component that do whatever is appropriate on a specific platform, overloading the methods appropriately
@@ -178,7 +182,7 @@ RAL interested by having a look at OpenNebula components.
 
 ## Toward a larger use ncm-metaconfig
 
-Configuration rendering format via existing PErl module
+Configuration rendering format via existing Perl module
 
 * Json
 * Yaml
@@ -191,8 +195,8 @@ Still some missing sophisticated rendering options like list of string rendered 
 Templating option through Template::Toolkit (TT)
 
 * TT implemented in Perl and Python
-* File format devined in .tt files
-* Very powerful... but not preserving whitespace: normally ok for config files
+* File format defined in .tt files
+* Very powerful... but preserving whitespace can be tricky: normally ok for config files
 * config-templates repo available on GitHub for many services (http://github.com/hpcugent)
 * Also written json2tt to test template rendering with a profile
 
@@ -242,7 +246,18 @@ Future roadmap
   
 ## Template Library
 
-(no notes)
+Detailed presentation by Michel of the current layout of the library.
+
+No showstopper identified preventing the use of the template library by Aquilon
+
+* Aquilon should ignore the ``personality`` and ``machine-types`` namespaces that are implemented through personality and OS definition in the database
+* Some adjustements probably needed, mostly in ``template-library-grid``, between templates in ``personality`` and ``features`` namespaces
+  * Some things currently in ``personality`` should be moved to ``features``: easy to do in a backward compatible way for SCDB users
+  
+Agreement that we should foster the adoption of the template library at every site
+
+* OS + core + standard should really be useful/appropriate everywhere
+* Paranoid checks (!!!) about backward-compatibility of changes: a strong requirement to allow confident upgrades between versions
 
 ## Documentation - Communication
 
@@ -337,7 +352,9 @@ Author recommended to get rid of it as it is now unmaintained
 
 * Suggested perl [No-Worries](http://search.cpan.org/dist/No-Worries) as a replacement
   * Also done by Lionel, with a pretty similar API
-  * Need to check with Lionel the status of No-Worries and whether it is hosted in an open way...
+  * Perl 5 License (Artistic 1 & GPL 1) should be ok for us
+  * Checked with Lionel: No-Worries is really a public module, conversely to perl-LC, with open sources and (best-effort) support
+    * Last release: April 2014
 
 Strategy proposed
 
@@ -353,3 +370,8 @@ Open a master issue for perl-LC replacement with sub-issues per perl-LC areas (f
 ## Main Issues and Next Milestones
 
 Review of 14.10 issues done.
+
+## Conclusion
+
+Next workshop in Grenoble (France), March 3-5, 2015.
+
