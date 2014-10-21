@@ -46,7 +46,9 @@ or "timing" must be specified.
 
 - __command__ : string (required)
 
-    Command line to execute, including all its options.
+    Command line to execute, including all its options. Any output
+    from the command will be appended to a log file created automatically
+    by the component, see __log__ below.
 
     Default : None
 
