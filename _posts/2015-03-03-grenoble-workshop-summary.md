@@ -11,3 +11,137 @@ author: Michel Jouvin
 [Agenda](https://indico.cern.ch/event/372683/timetable/)
 
 
+## Round table - Expectations
+
+* Release: solve the issues with release process
+* RH 7 support
+* Information on how to use Quattor more efficiently
+
+## Site news
+
+RAL: Aquilon is now in production
+* Private cloud, including a VM provisionning prototype service
+  * Also need to do some cleanup in Aquilon when the VM is shut down
+* Ceph
+* Template library used
+* Interest of new groups for Aquilon: idea is to share the Aquilon instance
+
+MS
+* Focus on support finer granularity changes: main challenge is allowing non expert user to use Aquilon/Quattor
+* Quattor Remote Deployer: still used for virtualization but no manpower to implement the necessary improvements
+
+
+## Platform Support
+
+UGent manages RHEL7 machines since last summer. Several minor issues with pull requests open:
+- AII Kickstart config
+  - KS variant available but misnamed `rhel7rc` instead of `el7`
+- LVM: several commands require --force flag
+
+Major issue: `ncm-chkconfig`, started to work `ncm-systemd`
+* RHEL7 provides a `chkconfig` wrapper but `--list` doesn't work
+* `ncm-systemd` can digest the `ncm-chkconfig` configuration, opening the path for some "backward compatibility": details still to be figured out
+* Gabor: the service configuration should be independent of a particular component, as it is the case for interfaces...
+  * Preference for `/software/services`
+  * Service description should be as generic/high-level as possible: enable/disable components
+* New schema: see https://github.com/quattor/configuration-modules-core/pull/424/files
+   * Agreement to start with this schema for the component specific schema
+   * For `/software/services`, no ability to define unit type (only `service` can be configured) or target (default target only)
+   
+Grub2: no need to write a new component to start but will probably be needed to support reverting or definining explicit versions of 
+kernel, kernel arguments
+* Main issue is to get the mapping between a grub entry value and a kernel version: no trivial match between kernel version in Quattor config and
+the kernel title in Grub conf
+
+UGent deadline for solving all issues: June
+
+MS reports problems with `ncm-pam`: should open an issue
+
+## ncm-spma new approach by MS - J. Novy
+
+A different `yum.pm` to ensure convergence to the defined state in one run, like it was the case wit `SPMA`
+* MS runs `ncm-spma` only at boot time, so very rarely
+* All packages not need must be removed at the first run
+
+Use a first fake install (in fact only the transaction contents is generated) in a test chroot to know what the list should be.
+* Performance similar to current `yum.pm` implementation
+* Also use YUM `FastestMirror` plugin
+
+Complete rewrite of `yum.pm`: need to be exposed on GitHub for further discussions
+
+
+## Release process and current release status
+
+14.12 didn't come out because of the changes in the way unit tests are run during the build process
+* Before: RPMs were built, unit tests were run and then release was tagged
+* Now: unit tests are required to run successfully for the release being tagged
+  * Required to build templates for metaconfig modules
+  * In principle a good change: unit tests have to succeed on all supported platforms or they are not useful.
+  
+Supported platforms at this time: EL5, EL6, EL7
+* Solaris: should add it as a supported platform starting with 15.4
+  * Do not build packages but run the unit tests as part of the release process
+
+There is also the issue of providing versions more recent than EPEL for some package in Quattor externals: general agreement that is should be avoided
+as much as possible
+* Providing our own version of a package create an obligation to maintain it
+* Open question: TTConfig. Version in EPEL doesn't work for some metaconfig services, need to see if we can work around.
+
+Currently, the release is blocked by a couple of metaconfig services that don't pass the unit tests
+* Move these services to next release to unblock the release process
+* Still the problem of EL5: more tests failing...
+  * Release without EL5 tests: check and list problematic services on EL5, acceptable to have metaconfig services unsupported in EL5
+  
+Nexus central repo: need to ensure that enough people have the right to do new releases of build tools
+* Michel to check
+
+### Quattor externals
+
+Agreement to replace existing `externals` repo on `yum.quattor.org` by the new structure`currently under `.externals
+* Add EL5 and EL7
+* Duplicate panc for every platform
+
+perl-AppConfig-caf: move to last 13.1 release
+
+Update the template library to use these new repos instead of `quattorsrv.lal.in2p3.fr`
+
+
+
+## Fine grained access control to configuration modification
+
+SCDB: GRIF experienced with access control based on SVN but did not prove to add any real value and had drawbacks, in particular causing 
+unnecessary forks
+* In fact template access control doesn't bring much control on configuration changes: any template can change any part of the config
+
+RAL: would be interested to give admin rights on some machines to people with little admin expertise or not well integrated with the core team
+* Currently, protect the standard library from direct modifications through commit hooks: a pull request is required
+  * Requiring a pull request/peer review for everything doesn't seem desirable and would not scale
+* No real need for restricting changes to some part of the configuration, rather to limit changes to some machines
+  * This should be implemented after the compilation and before deployment, looking at affected machines: may be doable a the broker level, not
+  requiring compiler changes
+  * But this would require some sort of host grouping and ownership in Aquilon
+  * Difficult in SCDB as no real authentication against the deployment server: only SVN transaction is authenticated
+  
+
+## CCM
+
+JSON and types: JSON has untyped data which is a problem when building configuration files where the data should be types
+* Stijn added a the ability to do a "typed interpretation" of JSON data (open PR): giving the same results as an XML profiles for unit tests
+  * Can be enabled/disabled by a property in CCM
+* Agreement to put it disabled in 15.2 and enabled by default in 15.4 after testing by sites
+
+ncm-query: need to support more output formats (like JSON) and add unit tests for output formats
+* Proposal
+  * move output formatting to a CCM module (CCMFormatter?)
+  * Move ncm-query to CCM repo
+
+ncm-query tab completion: current implementation is killed by the time to get the information from the database
+* Proposal: cache all paths present in the profile in a text file and use this file for time completion
+  * Could be done transparently fy `CCM/Fetch.pm`
+    
+XML profile support remains and no intention to drop it!
+* Problem with XML profiles fixed in December: will be part of next release
+
+  
+
+
