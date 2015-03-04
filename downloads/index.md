@@ -13,8 +13,9 @@ title: downloads
 
         <h5>Get client and server RPMs from:</h5>
         <p><a class='btn btn-primary' href='http://yum.quattor.org/'><span class="octicon octicon-package"></span>&nbsp;<b>yum.quattor.org</b></a></p>
+        <p>Read about <a href='/documentation/2014/11/27/configuring-quattor-repos.html'>configuring quattor repositories</a> with yum.</p>
 
-        <p>To make use of the template library, read about our <a href='http://www.quattor.org/documentation/2014/06/06/how-to-use-template-library.html'>supported workflows</a>.</p>
+        <p>To make use of the template library, read about our <a href='/documentation/2014/06/06/how-to-use-template-library.html'>supported workflows</a>.</p>
     </div>
     <div class='col-md-3'>
         <h3>Pan</h3>
