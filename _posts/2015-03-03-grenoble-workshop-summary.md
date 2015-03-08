@@ -126,8 +126,8 @@ RAL: would be interested to give admin rights on some machines to people with li
 ## CCM
 
 JSON and types: JSON has untyped data which is a problem when building configuration files where the data should be types
-* Stijn added a the ability to do a "typed interpretation" of JSON data (open PR): giving the same results as an XML profiles for unit tests
-  * Can be enabled/disabled by a property in CCM
+* Stijn added a the ability to do a "typed interpretation" of JSON data: giving the same results as an XML profiles for unit tests
+  * Idea is to have it enabled/disabled by a property in CCM
 * Agreement to put it disabled in 15.2 and enabled by default in 15.4 after testing by sites
 
 ncm-query: need to support more output formats (like JSON) and add unit tests for output formats
@@ -137,7 +137,7 @@ ncm-query: need to support more output formats (like JSON) and add unit tests fo
 
 ncm-query tab completion: current implementation is killed by the time to get the information from the database
 * Proposal: cache all paths present in the profile in a text file and use this file for time completion
-  * Could be done transparently fy `CCM/Fetch.pm`
+  * Could be done transparently by `CCM/Fetch.pm`
     
 XML profile support remains and no intention to drop it!
 * Problem with XML profiles fixed in December: will be part of next release
@@ -177,10 +177,11 @@ TT Toolkit template are very powerfull and can replace perl codes... but they ma
   
 `ncm-metaconfig`: high level interface to `TextRender`
 * Files managed by `metaconfig` are called `services`
-  * File name can now be defined in a global variable: see examples
+  * File name can now be defined in a global variable (see examples) but unfortunatly the variable cannot be used yet in configuration path
+  assignments (see https://github.com/quattor/pan/issues/77)
 * Can bind the contents to a schema
-* Can restart a daemon (or a list of daemons) in case of changes using `CAF::Service`
-  * When using the list of daemons (`daemons` property), an action can be specified on the daemon
+* Can restart a list of daemons in case of changes using `CAF::Service`
+  * `daemons` property: an action can be specified on the daemon (`daemon` property has been obsoleted at the previous workshop)
 * Support usual `FileWriter` attributes
 * Includes ability to unit test service TT templates
   * Uses `Test::Quattor::TextRender::metaconfig` internally
@@ -301,4 +302,5 @@ ULB started also some developments based on the initial dashboard prototype
   
 To be discussed - Thursday
 - metaconfig: why service test files are not under src/test/metaconfig?
+- Close https://github.com/quattor/maven-tools/issues/33
   
