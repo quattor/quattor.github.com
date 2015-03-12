@@ -20,7 +20,7 @@ author: Michel Jouvin
 ## Site news
 
 RAL: Aquilon is now in production
-* Private cloud, including a VM provisionning prototype service
+* Private cloud, including a VM provisioning prototype service
   * Also need to do some cleanup in Aquilon when the VM is shut down
 * Ceph
 * Template library used
@@ -36,9 +36,9 @@ MS
 UGent manages RHEL7 machines since last summer. Several minor issues with pull requests open:
 - AII Kickstart config
   - KS variant available but misnamed `rhel7rc` instead of `el7`
-- LVM: several commands require --force flag
+- LVM: several commands require `--force` flag
 
-Major issue: `ncm-chkconfig`, started to work `ncm-systemd`
+Major issue: `ncm-chkconfig`, started to work on `ncm-systemd`
 * RHEL7 provides a `chkconfig` wrapper but `--list` doesn't work
 * `ncm-systemd` can digest the `ncm-chkconfig` configuration, opening the path for some "backward compatibility": details still to be figured out
 * Gabor: the service configuration should be independent of a particular component, as it is the case for interfaces...
@@ -59,9 +59,9 @@ MS reports problems with `ncm-pam`: should open an issue
 
 ## ncm-spma new approach by MS - J. Novy
 
-A different `yum.pm` to ensure convergence to the defined state in one run, like it was the case wit `SPMA`
+A different `yum.pm` to ensure convergence to the defined state in one run, like it was the case with `SPMA`
 * MS runs `ncm-spma` only at boot time, so very rarely
-* All packages not need must be removed at the first run
+* All packages not needed must be removed at the first run
 
 Use a first fake install (in fact only the transaction contents is generated) in a test chroot to know what the list should be.
 * Performance similar to current `yum.pm` implementation
@@ -73,19 +73,19 @@ Complete rewrite of `yum.pm`: need to be exposed on GitHub for further discussio
 ## Release process and current release status
 
 14.12 didn't come out because of the changes in the way unit tests are run during the build process
-* Before: RPMs were built, unit tests were run and then release was tagged
+* Before: Unit tests were run as a separate step, then RPMs were built and release was tagged.
 * Now: unit tests are required to run successfully for the release being tagged
   * Required to build templates for metaconfig modules
   * In principle a good change: unit tests have to succeed on all supported platforms or they are not useful.
   
 Supported platforms at this time: EL5, EL6, EL7
-* Solaris: should add it as a supported platform starting with 15.4
+* Solaris 11: should add it as a supported platform starting with 15.4
   * Do not build packages but run the unit tests as part of the release process
 
 There is also the issue of providing versions more recent than EPEL for some package in Quattor externals: general agreement that is should be avoided
 as much as possible
-* Providing our own version of a package create an obligation to maintain it
-* Open question: TTConfig. Version in EPEL doesn't work for some metaconfig services, need to see if we can work around.
+* Providing our own version of a package creates an obligation to maintain it
+* Open question about Template Toolkit. Version in EPEL doesn't work for some metaconfig services, need to see if we can work around.
 
 Currently, the release is blocked by a couple of metaconfig services that don't pass the unit tests
 * Move these services to next release to unblock the release process
@@ -97,9 +97,10 @@ Nexus central repo: need to ensure that enough people have the right to do new r
 
 ### Quattor externals
 
-Agreement to replace existing `externals` repo on `yum.quattor.org` by the new structure`currently under `.externals
-* Add EL5 and EL7
+Agreement to replace existing `externals` repo on `yum.quattor.org` by the new structure based on archs and OS versions
+* Add EL5 and EL7 to the preliminary new `externals`
 * Duplicate panc for every platform
+* Previous `externals` now in `legacy`
 
 perl-AppConfig-caf: move to last 13.1 release
 
@@ -125,7 +126,9 @@ RAL: would be interested to give admin rights on some machines to people with li
 
 ## CCM
 
-JSON and types: JSON has untyped data which is a problem when building configuration files where the data should be types
+JSON and types: the way we are reading JSON profiles (`JSON::XS`) results in typed information being lost
+* Booleans, numbers and strings all interpreted as strings
+* A problem when building configuration files where the data should be types
 * Stijn added a the ability to do a "typed interpretation" of JSON data: giving the same results as an XML profiles for unit tests
   * Idea is to have it enabled/disabled by a property in CCM
 * Agreement to put it disabled in 15.2 and enabled by default in 15.4 after testing by sites
@@ -199,33 +202,18 @@ how to allow site-specific services
   * James: must not lead to less site sharing and a bigger mess...
   
 Issue to be addressed with the building process of TT files: currently done in the `test` phase which is not intended to produce anything required to
-build the package: need to enhance the build toools to allow doing it in the  `compile` phase.
+build the package: need to enhance the build tools to allow doing it in the  `compile` phase.
 * See https://github.com/quattor/maven-tools/issues/40
 
 ### First candidates for ncm-metaconfig replacement
 
-Core configuration modules
-* ncm-aiiserver
-* ncm-cdp
-* ncm-ganglia / ncm-gmetad / ncm-gmond
-* ncm-hostaccess
-* ncm-icinga: to be checked (doing some chkconfig stuff)
-* ncm-libvirtd
-* ncm-nagios
-* ncm-nsca
-* ncm-ofed?
-* ncm-openldap
-* ncm-openvpn
-* ncm-pnp4nagios
-* ncm-postfix: already using TT files
-* ncm-sysconfig: prologue/epilogue handling could be a problem
-
-Deprecated: ncm-fsprobe
+Core configuration modules: see quattor/configuration-modules-core#434
+* Deprecated: ncm-fsprobe
 
 Need to do the same review for grid components.
-* Start with the components still relying on ncm-templates: use `CAF::TextRender` when a component remains needed (e.g. `glitestartup`)
+* Start with the components still relying on ncm-templates: use `CAF::TextRender` where the need for a dedicated component remains (e.g. `glitestartup`)
 
-Some components may required the ability to configure path where part of the path is a variable
+Some components may require the ability to configure path where part of the path is a variable
 * See https://github.com/quattor/pan/issues/77
   
 ## Documentation - W. Depypere
@@ -241,7 +229,7 @@ Documentation source: currently a mix of inline documentation for Perl modules a
 * Config modules pod files
   * Broken link and reference to bugs, dependencies
   * Hard coded references to people / email addresses
-  * Special characters are often not properly escaped wit `C<< >>`
+  * Special characters are often not properly escaped with `C<< >>`
 
 Current build tools don't check the pod syntax for pod files
 * Only for the .pm files
