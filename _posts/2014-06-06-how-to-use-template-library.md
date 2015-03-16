@@ -115,6 +115,19 @@ Use `--help` to get a list of all the available options. A typical use of `get-t
 get-template-library -F 14.5.0
 ```
 
+Option `--pull-request` allows to integrate a pull request not yet merged, typically for testing, in the downloaded template library. 
+When using this option, the quattor version should be `HEAD` rather than a specific release, else it will generally lead to unpredictable
+results. The option value has the format `repository:user:source_branch:[target_branch]` with:
+
+* `repository`: the name of the repository (without the GitHub user) the pull request belongs to. The repository name is assumed to be the same
+for the source and target branches.
+* `user`: the userid of the user who created the pull request (whose source repository belongs to).
+* `source_branch`: the source branch of the pull request in `user` repository.
+* `target_branch`: the name of the target branch or tag of the pull request in the `quattor` repository. For a repository with a master branch it can
+be ommitted and will be the `master` branch if the version is `HEAD` else it will be the tag corresponding to the version ( `template-library-` prefix
+in the tag name can be ommitted). For a repository without a master branch, `target_branch` is required and must be the branch to use if the version
+is `HEAD` else it must be `branch-version`.
+
 ### create-vanilla-SCDB.sh
 
 Another way to download the template library is to
