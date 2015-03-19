@@ -286,9 +286,8 @@ ULB started also some developments based on the initial dashboard prototype
 * Need to pull a request to get it merged in to the  `dashboard` repo
 
 
+## Conclusions
 
-  
-To be discussed - Thursday
-- metaconfig: why service test files are not under src/test/metaconfig?
-- Close https://github.com/quattor/maven-tools/issues/33
-  
+Next workshop (the 20th!) at LAL in Orsay
+* the [first workshop](https://trac.lal.in2p3.fr/Quattor/wiki/Meetings/Workshops/20060322) happened at LAL, Spring 2006
+* Michel will start a Doodle for the second half of September
