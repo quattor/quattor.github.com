@@ -3,15 +3,20 @@ layout: general
 title: contacts
 ---
 
-The primary means of interacting with the Quattor developers and other
-Quattor users is through the ["Quattor Discuss" mailing list][discuss]
-on SourceForge.
+Quattor is developed and supported entirely by the community that uses it, there are no full-time paid developers.
 
-[Follow us on Twitter][twitter] to track Quattor releases and
-announcements.
+We encourage everyone to get involved in the Quattor community and we're eager to help you out!
 
-You can also see posts on [Google+][google-plus]. 
+We can be found on the following mailing lists:
 
-[discuss]: https://lists.sourceforge.net/lists/listinfo/quattor-discuss
-[twitter]: https://twitter.com/#!/QuattorToolkit
+* [quattor-discuss] &mdash; Where we discuss general questions and help each other fix problems.
+* [quattor-devel] &mdash; Covering issues relating to core code, libraries and the development process.
+
+All our code and documentation (including this website) is hosted on GitHub, if you find bugs or things that could be improved, please open an issue and/or pull request on GitHub.
+If you're not sure which repository to open the issue again (there are a lot) please ask!
+
+We can occasionally be found posting on [Google+][google-plus].
+
+[quattor-discuss]: https://lists.sourceforge.net/lists/listinfo/quattor-discuss
+[quattor-devel]: https://lists.sourceforge.net/lists/listinfo/quattor-devel
 [google-plus]: https://plus.google.com/106108753304191902209/posts
