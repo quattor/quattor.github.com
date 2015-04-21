@@ -7,7 +7,7 @@
 
 ##### Quattor
   * [Quattor overview](/documentation/2012/06/19/documentation-overview.html)
-  * [SCDB Installation] (https://trac.lal.in2p3.fr/Quattor/wiki/Download/SCDB)
+  * [SCDB Installation] (/documentation/2015/03/25/SCDB-installation.html)
   * [Pan compiler](/documentation/2012/06/19/documentation-pan-book.html)
   * [Configuration Modules](/documentation/14.8.0/components/)
   * [Template Library](http://www.quattor.org/documentation/2014/06/06/how-to-use-template-library.html)
