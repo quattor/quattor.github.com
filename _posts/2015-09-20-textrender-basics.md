@@ -26,7 +26,7 @@ while the functionality is actually provided by
 and its parent class [`CAF::TextRender`][caf_textrender_docs].
 
 Starting from the `15.4` release, one can render text using a `CCM::Element` instance as `contents`,
-instead of hash references. (This is also what `ncm-metaconfig` (since 15.4) and the test
+instead of hash references. (This is also what `ncm-metaconfig` (since `15.4`) and the test
 framework (since `1.44`) use).
 
 For this purpose, the `CCM::TextRender` module was created as a drop-in replacement
@@ -47,8 +47,8 @@ Basic usage has 2 main modes:
 
 ```perl
 use EDG::WP4::CCM::TextRender;
-my $module = 'mymodule';
-my $element = $config->getElement("/my/path");
+my $module = 'mydaemon/main';
+my $element = $config->getElement("/software/components/myproject/mydaemon");
 my $trd = EDG::WP4::CCM::TextRender->new($module, $element, log => $self);
 print "$trd"; # stringification
 ```
@@ -57,10 +57,10 @@ print "$trd"; # stringification
 
 ```perl
 use EDG::WP4::CCM::TextRender;
-my $module = "mymodule";
+my $module = "mydaemon/main";
 my $contents = {a => 1, b => 2};
 my $trd = EDG::WP4::CCM::TextRender->new($module, $contents, log => $self);
-my $fh = $trd->filewriter('/some/path');
+my $fh = $trd->filewriter('/etc/mydaemon.conf');
 die "Problem rendering the text" if (!defined($fh));
 $fh->close();
 ```
@@ -68,7 +68,7 @@ $fh->close();
 Besides the logger, the 2 main parameters are the `module` and the `contents`.
 The `contents` is a `CCM::Element` instance or a hash-reference
 with the data that is used to generate
-the text (e.g. `$cfg->getElement('/some/pan/path')` or a hashref `{a => 1, b => 2}`).
+the text (e.g. `$cfg->getElement('/software/components/myproject/mydaemon')` or a hashref `{a => 1, b => 2}`).
 
 The `module` is what defines how the text is generated.
 
@@ -85,29 +85,38 @@ Or, for any other value, `Template::Toolkit` (TT) is used,
 and the `module` then indicates the relative path of the template to use.
 The absolute path of the TT files is determined by 2 optional parameters:
 the absolute `includepath` (defaults to `/usr/share/templates/quattor`)
-shouldn't be modified, but the `relpath` (defaults to `metaconfig`) should.
+and the `relpath` (defaults to `metaconfig`).
 
-A module `mytest/main` with relpath `mycode` will use a
-TT file `/usr/share/templates/quattor/mycode/mytest/main.tt`.
+E.g. a module `mydaemon/main` with relpath `myproject` will use a
+TT file `/usr/share/templates/quattor/myproject/mydaemon/main.tt`.
+
+As a general rule, the `includepath` should not be modified, but the `relpath`
+should be specific to the configuration task (in the example above, all TT files
+related to the `myproject` component should be grouped under
+`/usr/share/templates/quattor/myproject`).
+
 The `relpath` is important for creating the TT files: when the
 `INCLUDE` directive is used, TT searches starting from the `includepath`,
 so in this example the `main.tt` might look like
 
 ```
 [% data.name %]
-[% INCLUDE 'shared/data' %]
+[% INCLUDE 'myproject/shared/data' %]
 ```
 
-which will look for the absolute file `/usr/share/templates/quattor/shared/data.tt`.
+which will try to include the TT file with
+absolute filename `/usr/share/templates/quattor/myproject/shared/data.tt`.
 
-`TextRender` does not allow you to include files from a directory lower then `relpath`
-(e.g. `module` `../cleverhack` will not work).
+`TextRender` does not allow you to include files from a directory lower than `relpath`
+(e.g. a `module` named `../cleverhack` will not allow you to access files outside of the
+`/usr/share/templates/quattor` directory).
 
 # Template::Toolkit
 
 [`Template::Toolkit`][TT_home] is a templating framework
 
 Example template
+
 ```
 Hello [% world %]
 
@@ -329,3 +338,5 @@ gives
 "/c/t" = true; # boolean
 "/d" = "test"; # string
 ```
+
+TODO: The example is missing the unittests
