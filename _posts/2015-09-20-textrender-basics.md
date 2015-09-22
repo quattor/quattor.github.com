@@ -6,11 +6,10 @@ category: blog
 ---
 
 Generating structured text is best done with the `TextRender` module.
-This document guides through the functionality provided by the module.
+This document provides a guide to its functionality.
 
-In practise however, you should be exposed the `perl` side as little as possible,
-and follow one of the following guides:
-* [use `ncm-metaconfig`][metaconfig_blog], which is the metacomponent built around
+To limit exposure to the perl side of things, please follow one of the following guides:
+* [use ncm-metaconfig][metaconfig_blog], which is the meta-component built around
 `TextRender`.
 * embed `TextRender` in other components or tools as described in the [3rd part of
 this series][othercomps_blog].
@@ -22,8 +21,8 @@ this series][othercomps_blog].
 
 Throughout this document, we will refer to `TextRender` as a class,
 while the functionality is actually provided by
-[`CCM::TextRender`][ccm_textrender_docs] (or `EDG::WP4::CCM::TextRender` to be precise)
-and its parent class [`CAF::TextRender`][caf_textrender_docs].
+[CCM::TextRender][ccm_textrender_docs] (or `EDG::WP4::CCM::TextRender` to be precise)
+and its parent class [CAF::TextRender][caf_textrender_docs].
 
 Starting from the `15.4` release, one can render text using a `CCM::Element` instance as `contents`,
 instead of hash references. (This is also what `ncm-metaconfig` (since `15.4`) and the test
@@ -65,7 +64,8 @@ die "Problem rendering the text" if (!defined($fh));
 $fh->close();
 ```
 
-Besides the logger, the 2 main parameters are the `module` and the `contents`.
+Creating a `TextRender` instance requires 2 arguments `module` and `contents`.
+
 The `contents` is a `CCM::Element` instance or a hash-reference
 with the data that is used to generate
 the text (e.g. `$cfg->getElement('/software/components/myproject/mydaemon')` or a hashref `{a => 1, b => 2}`).
@@ -79,9 +79,9 @@ It is either one of the following reserved values
  * *tiny* (using `Config::Tiny`),
  * *general* (using `Config::General`) [**deprecated**]
 
-(The builtin modules can have issues with reproducability, e.g. ordering or a default timestamp.)
+(The built-in modules can have issues with reproducibility, e.g. ordering or a default timestamp.)
 
-Or, for any other value, `Template::Toolkit` (TT) is used,
+`Template::Toolkit` (TT) is used for any other value,
 and the `module` then indicates the relative path of the template to use.
 The absolute path of the TT files is determined by 2 optional parameters:
 the absolute `includepath` (defaults to `/usr/share/templates/quattor`)
@@ -113,7 +113,7 @@ absolute filename `/usr/share/templates/quattor/myproject/shared/data.tt`.
 
 # Template::Toolkit
 
-[`Template::Toolkit`][TT_home] is a templating framework
+[Template::Toolkit][TT_home] is a templating framework
 
 Example template
 
@@ -136,7 +136,7 @@ Hello Quattor
 ```
 
 Further information on TT:
- * [A nice writeup of the basics of TT][TT_basics_pnce]
+ * [A nice write-up of the basics of TT][TT_basics_pnce]
  * [TT examples section][TT_home_examples]
  * [Older TT PCmag article][TT_linuxmag_old] (but some examples are outdated)
  * [ncm-metaconfig TT files][ncm_metaconfig_TT_subdir] (TT files are in the subdirectories)
@@ -149,11 +149,11 @@ Further information on TT:
 
 ## Minimal version
 
-As quattor supports `EL5` and because the templating framework is deeply integrated in e.g. `CCM`, the minimal
-required version of the TT framework is 2.18.
+Because quattor supports `EL5` and the templating framework is deeply integrated in e.g. `CCM`, the minimal
+required version of the TT framework is `2.18`.
 
 This is a rather old version, with some notable missing VMethods compared to recent ones, in particular
-* the scalar methods `.lower` and `.upper` do not work, one should use resp `FILTER lower` and `FILTER upper`.
+* the scalar methods `.lower` and `.upper` do not work, one should use `FILTER lower` and `FILTER upper`, respectively.
 * automagic array/hash VMethods for scalars
 
 Value based unittests are essential to detect any differences across the supported OSes.
@@ -161,7 +161,7 @@ Value based unittests are essential to detect any differences across the support
 ## Newline / chomp behaviour
 
 TT can easily generate unwanted/unneeded newlines.
-The [`chomp` behaviour][TT_whitespace_chomp] can be summarised as follows
+The [chomp behaviour][TT_whitespace_chomp] can be summarised as follows
 
 Name     |  Tag Modifier
 ---------|--------------
@@ -175,10 +175,10 @@ GREEDY   |       ~
 
 # Unittesting with Test::Quattor::RegexpTest
 
-Testing the generated text (and in particular the TT files used to generate it)
-can be done via regular expressions and e.g. the `like` method from `Test::More`.
+Testing the generated text (and thus indirectly the TT files used)
+can be done through regular expressions and e.g. the `like` method from `Test::More`.
 
-[`Test::Quattor::RegexpTest`][regexptest_docs] provides an easy way to do this.
+[Test::Quattor::RegexpTest][regexptest_docs] provides an easy way to do this.
 
 A `RegexpTest` is a text file with 3 blocks separated by a `---` marker.
 
@@ -211,30 +211,32 @@ my $rt = Test::Quattor::RegexpTest->new(
 $rt->test();
 ```
 
-With the default flags, each line is compiled as a multiline regular expression and matched against the text.
-The matches are also checked if they are ordered. In the example above `line 3` is expected to match in the text
+With the default flags, each line is compiled as a multiline regular expression and is matched against the text.
+The test also checks if the matches occur in the same order as they are defined in the `RegexpTest`.
+In the example above `line 3` is expected to match in the text
 following `line 1`. But it does not need to be the next line (e.g. there could be a `line 2` in between).
-Each match is a test and each verification of the ordering also.
+Both the matches and the order verifications are (separate) tests.
 
 [regexptest_docs]: http://docs-test-maven-tools.readthedocs.org/en/latest/maven-tools/RegexpTest/
 
 # CCM::TextRender
 
-By default, `CCM::TextRender` will add the following
-* there is a `CCM` variable namespace inserted with following data and methods
-  * `CCM.contents` a (weak copy of) the contents hash references. This gives you access to e.g. the variables via
+`CCM::TextRender` provides additional functionality compared to the `CAF::TextRender` (and regular TT):
+* a `CCM` namespace is inserted with
+  * a (weak copy of) the contents' hashref `CCM.contents`. By default, there is no convenient way to
+  get all the variables passed via `contents` (i.e. the keys from the hashref). With `CCM.contents` however,
+  one can use e.g.
 ```
 [% FOREACH pair IN CCM.contents.pairs %]
 [% pair.key %] = [% pair.value %]
 [% END %]
 ```
-   (By default, there is no clean way to get all the variables (i.e. keys from hash reference) passed via `contents`)
-  * extra methods
+  * extra functions
    * `CCM.ref()` returns the (internal) perl type of the argument
-   * `CCM.is_list()`, `CCM.is_hash` and `CCM.is_scalar()` return if the argument is resp.  a list, hash or scalar
-   * `CCM.escape()` and `CCM.unescape()` the `escape` and `unescape` methods
+   * `CCM.is_list()`, `CCM.is_hash` and `CCM.is_scalar()` test if the argument is a list, hash or scalar, respectively.
+   * `CCM.escape()` and `CCM.unescape()` the `escape` and `unescape` functions
 
- * if `contents` is an element instance
+ * if `contents` is an `Element` instance
   * use `$element->getTree` to generate the hash reference that is passed on as `contents` to TT;
     options for `getTree` are passed via the `element` option
   * all pan scalars (`boolean`, `string`, `long` and `double`) are converted to `CCM::TT::Scalar` instances
@@ -243,26 +245,26 @@ By default, `CCM::TextRender` will add the following
 
 ## `element` option
 
-Options for `getTree` are passed with as a hashref via the `element` option.
+Options for `getTree` are passed as a hashref via the `element` option.
 
 There are a number of predefined conversions
  * `doublequote`, `singlequote` wraps any (pan type) string in double or single quotes (not type aware)
- * `yesno`, `truefalse` (and the uppercase vairants `YESNO` and `TRUEFALSE`) converts boolean
-    to resp. `yes`/`no` and `true`/`false`
+ * `yesno` and `truefalse` (and the uppercase variants `YESNO` and `TRUEFALSE`) convert a boolean
+    to `yes`/`no` and `true`/`false`, respectively.
 
-For more details, see the `CCM::TextRender` documentation
+For more details, see the [CCM::TextRender documentation][ccm_textrender_docs].
 
 ## CCM::TT::Scalar
 
 The `CCM::TT::Scalar` instances in TT give you access to the scalar types in TT via some custom VMethods
 (together with the usual TT scalar VMethods).
-Additional methods are (
- * `.is_boolean`, `.is_string`, `.is_double` and `is_long` return if the variable is resp. a boolean, string, double or long
+Additional methods are
+ * `.is_boolean`, `.is_string`, `.is_double` and `is_long` test if the variable is a boolean, string, double or long, respectively.
  * `.get_value` return the value
  * `.get_type` return the type
 
-Warning: when using `JSON` templates, access to the pan `long` and `double` requires CCM typed JSON (via the
-`json_typed` configuration option in `ccm.conf` (and changing it requires a new profile or a `ccm-fetch --force`).
+Warning: when using `JSON` templates, access to the pan `long` and `double` type requires CCM typed JSON (via the
+`json_typed` configuration option in `ccm.conf` (and changing it requires a new profile or a `ccm-fetch --force`)).
 
 ## pan format example
 
@@ -296,7 +298,7 @@ Individual elements are dealt with via `CCM/pan_element.tt`
 ```
 
 The `doublequote` element option is set to produce
-a doublequoted string if `data` is a string and the `truefalse` option to
+a doublequoted string if `data` is a string; the `truefalse` option to
 generate `true` or `false` value if `data` is a boolean
 (this conversion is handled by the `->getTree` method that
 creates the hashref passed to the TT framework from the `Element` instance).
@@ -339,4 +341,21 @@ gives
 "/d" = "test"; # string
 ```
 
-TODO: The example is missing the unittests
+A value based unittest for this could be
+```
+Base pan output test from the /
+contentspath is not relevant, uses CCM.contents anyway
+---
+renderpath=/
+rendermodule=pan
+contentspath=/
+element=truefalse,doublequote
+---
+^"/a" = 1; # long$
+^"/b" = 1.5; # double$
+^"/c/f" = false; # boolean$
+^"/c/t" = true; # boolean$
+^"/d" = "test"; # string$
+```
+
+(The meaning of the flags will be explained in the [3rd part of the series][othercomps_blog]).
