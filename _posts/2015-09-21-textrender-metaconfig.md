@@ -30,6 +30,9 @@ this series][othercomps_blog].
 The metaconfig component is a component that has a number of `service`s,
 each service is the file to generate.
 
+The metaconfig component contains a `dict` called `service` where the
+keys of the `dict` are the names of the files to be generated.
+
 The pan configuration of such a service can be
 
 ```pan
@@ -55,8 +58,10 @@ Other optional attributes are `mode`, `owner`, `group`, `backup` and `preamble` 
 What follows is a step-by-step guide how to add a new service to `ncm-metaconfig`,
 which consists of creating
 * a pan schema for the service
-* the TT file(s) to generate the text (assuming the builtin `TextRender` modules are not sufficient)
+* the [Template::Toolkit][textrender_blog_TT] (TT) file(s) to generate the text (assuming the builtin `TextRender` modules are not sufficient)
 * unittests to verify the expected format
+
+[textrender_blog_TT]: http://quattor.github.io/blog/2015/09/20/textrender-basics.html#templatetoolkit
 
 ## Prepare environment
 
@@ -184,10 +189,12 @@ type example_service = {
 
 ```
 
-* `long`, `boolean` and `string` are pan builtin types (see the panbook for more info)
+* `long`, `boolean` and `string` are pan builtin types (see the [panbook][panbook_types] for more info)
 * `type_hostname` is a type that is available from the main `pan/types` template as part of the core template library.
 * the template namespace `metaconfig/example` does not match the location of the file, but this is intentional
 and is resolved by the unittests. During the tests, the `ncm-metaconfig/target/pan` directory will be created with correct sub-structure.
+
+[panbook_types]: http://quattor-pan.readthedocs.org/en/latest/pan-book/pan-book.html#properties-and-primitive-types
 
 ### Create config template for metaconfig component (optional)
 
@@ -526,7 +533,7 @@ to raise any unexpected changes to the schema and/or the TT files.
 
 #### Caveats
 
-There a few attention points:
+There are a few attention points:
 
 * the `pairs` VMethod sorts alphabetically on the key,
 making the output reproducible. But this makes it harder to control
