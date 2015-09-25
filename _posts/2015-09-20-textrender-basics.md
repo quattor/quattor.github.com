@@ -358,4 +358,6 @@ element=truefalse,doublequote
 ^"/d" = "test"; # string$
 ```
 
-(The meaning of the flags will be explained in the [3rd part of the series][othercomps_blog]).
+(The meaning of the flags will be explained in the [3rd part of the series][othercomps_blog_flags]).
+
+[othercomps_blog_flags]: http://quattor.github.io/blog/2015/09/22/textrender-outside-metaconfig.html#regexptests-flags
