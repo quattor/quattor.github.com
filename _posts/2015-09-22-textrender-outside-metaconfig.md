@@ -124,8 +124,36 @@ my $trd = EDG::WP4::CCM::TextRender->new(
 (In metaconfig, the `relpath` is always `metaconfig`,
 and the namespace is e.g. `metaconfig/myservice`)
 
+### Error handling
 
-### TT perl unittest:
+`TextRender` **never** logs any error, it is left entirely to the consumer to handle any errors.
+The reason in case of failure is held in a `fail` attribute of the `TextRender` instance.
+
+There are 2 main ways to detect failures:
+* using the [get_text][objecttext_get_text] method explicitly, which returns `undef` in case of rendering failure
+```
+if(! defined($trd->get_text())) {
+    $self->error("Rendering XYZ failed: $trd->{fail}.");
+}
+```
+* using [filewriter][objecttext_filewriter] method (if you are going to write the contents to file).
+This returns `undef` in case of rendering failure (and a vaild `CAF::FileWriter` instance otherwise).
+```
+my $fh = $trd->filewriter('/path/to/file');
+if(defined($fh)) {
+    my $changed = $fh->close();
+} else {
+    $self->error("Rendering XYZ failed: $trd->{fail}.");
+}
+```
+(The `defined($fh)` is required, do not simply use `if($fh)` due to stringification
+of `CAF::FileWriter`, as explained in the example below).
+
+TODO: the links now are for CAF::TextRender, will be moved to CAF::ObjectText in 15.10
+[objecttext_get_text]: http://docs-test-comps.readthedocs.org/en/latest/CAF/textrender/#get_text
+[objecttext_filewriter]: http://docs-test-comps.readthedocs.org/en/latest/CAF/textrender/#filewriter
+
+### TT perl unittest
 A dedicated test module `Test::Quattor::TextRender::Component` exists to testing of
 TT files outside metaconfig. It is advised to add a single perl unittests `01_tt.t`
 under `ncm-mycomponent/src/test/perl`, with contents
@@ -215,3 +243,369 @@ If you want to achieve this, open an issue in the relevant github repository
 to get help.)
 
 # Example
+
+We will have a look at snippets of [ncm-authconfig][ncm_authconfig] (based on `15.8` version).
+This component manages the system authentication services, one of them is [SSSD][sssd].
+
+`SSSD` itself has a relative simple configuration, and in case of any changes, restarting the `sssd`
+daemon is sufficient. So it could be handled by `metaconfig` on it's own,
+but it is part of `authconfig` component
+because it has impact on the whole authentication system. In particular, enabling/disabling `SSSD`
+is done with the `authconfig` tool (which involves a lot more than simply enabling/disabling the `sssd`
+daemon).
+
+[ncm_authconfig]: http://docs-test-comps.readthedocs.org/en/latest/components/authconfig/
+[sssd]: https://fedorahosted.org/sssd/
+
+## Component
+
+The following files (relative from the `configuration-modules-core` base directory)
+are relevant for this example.
+
+```
+ncm-authconfig/src/test/perl/01_tt.t
+ncm-authconfig/src/test/perl/configure-sssd.t
+ncm-authconfig/src/main/perl/authconfig.pm
+ncm-authconfig/src/main/resources/domains/ldap.tt
+ncm-authconfig/src/main/resources/generic.tt
+ncm-authconfig/src/main/resources/sssd.tt
+ncm-authconfig/src/main/resources/tests/regexps
+ncm-authconfig/src/main/resources/tests/regexps/ldap
+ncm-authconfig/src/main/resources/tests/regexps/ldap/value
+ncm-authconfig/src/main/resources/tests/regexps/generic
+ncm-authconfig/src/main/resources/tests/regexps/generic/value
+ncm-authconfig/src/main/resources/tests/regexps/basic
+ncm-authconfig/src/main/resources/tests/regexps/basic/value
+ncm-authconfig/src/main/resources/tests/profiles
+ncm-authconfig/src/main/resources/tests/profiles/generic.pan
+ncm-authconfig/src/main/resources/tests/profiles/ldap.pan
+ncm-authconfig/src/main/resources/tests/profiles/basic.pan
+```
+
+These are
+* the component `authconfig.pm` itself
+* the TT files and regexptests in `ncm-authconfig/src/main/resources`
+* the perl TT unittest `01_tt.t`
+* a perl unittest `configure-sssd.t`
+
+### Configure
+
+The main `Configure` method has (related to the `SSSD` configuration itself)
+
+```
+...
+
+sub Configure
+{
+    my ($self, $config) = @_;
+
+    my $t = $config->getElement("/software/components/authconfig")->getTree();
+
+...
+
+    if ($t->{method}->{sssd}->{enable}) {
+        $restart ||= $self->configure_sssd($t->{method}->{sssd});
+    }
+
+...
+
+```
+
+The `ncm-authconfig` schema has a boolean for each supported authentication method.
+If `sssd` is enabled, the `enable_sssd` method is called and
+adds the relevant arguments to the `authconfig` commandline.
+Clearly this kind of logic lies outside the scope of `metaconfig`, and using a dedicated
+component is the only solution.
+
+(This is legacy code, a better way to get the profile configuration is to use
+```
+my $t = $config->getTree($self->prefix());
+```)
+
+### SSSD configuration generation
+
+```perl
+...
+use EDG::WP4::CCM::TextRender;
+
+...
+
+use constant SSSD_FILE => '/etc/sssd/sssd.conf';
+use constant SSSD_TT_MODULE => 'sssd';
+use constant NSCD_LOCK => '/var/lock/subsys/nscd';
+
+...
+
+sub configure_sssd
+{
+    my ($self, $config) = @_;
+
+    my $trd = EDG::WP4::CCM::TextRender->new(
+            SSSD_TT_MODULE,
+            $config,
+            relpath => 'authconfig',
+            log => $self,
+        );
+
+    # can't be empty string, is at least '[sssd]'
+    if ($trd) {
+        my $fh = $trd->filewriter(SSSD_FILE, log => $self, mode => 0600);
+        my $changed = $fh->close();
+
+        if ($changed) {
+            CAF::Process->new([qw(/sbin/service sssd restart)],
+                              log => $self)->run();
+            if ($?) {
+                $self->error("Failed to restart SSSD");
+            }
+        }
+
+        return $changed;
+    } else {
+        $self->error("Unable to render template sssd: $trd->{fail}");
+        return;
+    }
+}
+
+```
+
+In the `sssd` example, the rendering error is catched via `if($trd)`,
+which is possible only for 2 reasons:
+* the rendered `sssd` configfile is never empty (it contains at the very least the `[sssd]`)
+* the `TextRender` instance has overloaded stringification (i.e. `"$trd"` is the content
+of the rendering) and stringification is a fallback for the boolean overload via
+[magic autogeneration][perl_overload_magic]. The `TextRender` stringification always produces a
+string (also in case of error).
+So when perl evaluates the `TextRender` instance in boolean context (due to the `if()`),
+it will look for an overloaded `bool`, which doesn't exists, and then evaluate the boolean value
+following the fallbacks, of which stringifcation exists. An empty string is false in boolean context,
+anything else it true).
+
+(`CAF::FileWriter` also has auto stringification, and this is why `if(defined($fh))`
+is required to correctly detect rendering errors.)
+
+
+[perl_overload_magic]: http://perldoc.perl.org/overload.html#Magic-Autogeneration
+
+(More legacy code:
+* using `constant` for constants is discouraged,
+we should switch to `Readonly`, in which case the code above becomes
+```
+...
+use Readonly;
+
+...
+
+Readonly my $SSSD_FILE => '/etc/sssd/sssd.conf';
+
+...
+    my $fh = $trd->filewriter($SSSD_FILE, log => $self, mode => 0600);
+...
+
+```
+* the restart should be handled by `CAF::Service` as follows
+```
+            CAF::Service->new(['sssd'], log => $self)->restart();
+            if ($?) {
+                $self->error("Failed to restart SSSD");
+            }
+```
+)
+
+### TT files
+
+The configuration of `SSSD` is in `.ini` format, but `sssd` has a finer
+substructue then what the builtin `tiny` module allows. This allows for
+a detailed schema, which requires TT rendering.
+
+The main `sssd.tt` TT file looks as follows
+
+```
+[sssd]
+domains = [% domains.keys.join(',') %]
+
+[% INCLUDE authconfig/generic.tt dict=global list=['services'] bool=["try_inotify"] %]
+[pam]
+[% INCLUDE authconfig/generic.tt dict=pam %]
+[nss]
+[% INCLUDE authconfig/generic.tt dict=nss bool=["filter_users_in_groups"] %]
+
+[% FOREACH d IN domains.pairs -%]
+[domain/[% d.key %]]
+[%  FOREACH pair IN d.value.pairs -%]
+[%-      SWITCH pair.key -%]
+[%-          CASE ['local'] -%]
+[%              INCLUDE "authconfig/generic.tt" dict=pair.value bool=["create_homedir", "remove_homedir"] %]
+[%-          CASE ['simple'] -%]
+[%              INCLUDE "authconfig/generic.tt" dict=pair.value prefix="${pair.key}_"
+                                                list=['allow_users','deny_users','allow_groups','deny_groups'] %]
+[%-          CASE ['ldap'] -%]
+[%              INCLUDE "authconfig/domains/${pair.key}.tt" desc=pair.value %]
+[%      END -%]
+[%- END -%]
+[% INCLUDE authconfig/generic.tt dict=d.value exclude=['ldap','local','simple']
+                                 bool=["case_sensitive", "proxy_fast_alias", "enumerate", "cache_credentials"] %]
+[%- END %]
+```
+
+(More legacy code: can probably be simplified a lot using e.g.
+the type information if an element instance is passed).
+
+### TT unittests
+
+An example of a `RegexpTest` looks like
+
+```
+Value based regexp test
+---
+//software
+rendermodule=sssd
+contentspath=/software/components/authconfig/method/sssd
+---
+^\[sssd\]$
+^domains = test1$
+^config_file_version = 2$
+^debug_level = 528$
+^reconnection_retries = 3$
+```
+
+Only part of the profile under `/software/components/authconfig/method/sssd` is relevant
+and is passed as `contentspath`.
+
+The corresponding perl unittest `01_tt.t` is
+
+```
+use strict;
+use warnings;
+
+use Test::More;
+use Test::Quattor::TextRender::Component;
+
+my $t = Test::Quattor::TextRender::Component->new(
+    component => 'authconfig')->test();
+
+done_testing();
+```
+
+### Perl unittests
+
+There is a regular perl unittest to test the logic in `configure_sssd` method, e.g.
+test if a the `sssd` daemon is restarted via `CAF::Service`.
+
+```
+...
+
+use strict;
+use warnings;
+use Test::More;
+use Test::Quattor;
+use NCM::Component::authconfig;
+use CAF::FileWriter;
+use CAF::Object;
+use Test::MockModule;
+use Readonly;
+use Test::Quattor::TextRender::Base;
+
+$CAF::Object::NoAction = 1;
+
+my $caf_trd = mock_textrender();
+
+my $close_return;
+
+...
+
+my $mock = Test::MockModule->new("CAF::FileWriter");
+
+$mock->mock("close", sub {
+   my ($self) = @_;
+   return $close_return;
+   });
+
+my $cmp = NCM::Component::authconfig->new("authconfig");
+
+=pod
+
+=head2 Simple run
+
+The file is opened and the daemon is restarted.
+
+=cut
+
+$close_return = 1;
+
+ok($cmp->configure_sssd({}), "First call changes something");
+
+my $fh = get_file($SSSD_FILE);
+
+isa_ok($fh, "CAF::FileWriter", "File was opened");
+
+is(*$fh->{options}->{mode}, 0600, "File has correct permissions");
+
+my $cmd = get_command($RESTART_CMD);
+
+ok($cmd, "Daemon was restarted");
+
+ok(!$cmp->{ERROR}, "No errors reported in basic execution");
+
+=pod
+
+=head2 Error conditions
+
+How the component handles its internal errors.
+
+=over
+
+=item * The restart command fails
+
+=cut
+
+set_command_status($RESTART_CMD, 1);
+
+$cmp->configure_sssd({});
+
+is($cmp->{ERROR}, 1, "Errors reported when the restart fails");
+
+set_command_status($RESTART_CMD, 0);
+
+=pod
+
+=item * The template cannot be rendered correctly
+
+=cut
+
+$close_return = 0;
+
+# Barfs due to no hashref or element instance
+$cmp->configure_sssd(undef);
+
+is($cmp->{ERROR}, 2, "Error while rendering the template is reported");
+
+done_testing();
+
+```
+
+These unittests focus on the logic of the method instead of the rendered text:
+* in the first test, the file returns a forced change,
+and it is checked that this results in a call to the service restart command.
+* the second test mocks a failed service restart, and it is verified that an error is logged
+in that case. 
+* the third test verifies that an error is logged when `TextRender` fails
+
+Details of the `Test::Quattor` testsuite are beyond the scope of this document,
+but following bits help to understand the internals:
+* Both `CAF::FileWriter` and `CAF::Process` are mocked by the `use Test::Quattor` call.
+This results in easy methods to access the created `CAF::FileWriter` and `CAF::Process` instances
+via `get_file` and `get_command`, respectively. There also exists methods to set e.g.
+the exitcode of a `CAF::Process` instance via `set_command_status`.
+* The `$cmp->{ERRORS}` (and similar `$cmp->{WARNINGS}`) counter exists
+for any regular component instance, see the `Component` documentation.
+It keeps track of the number of times an error was logged.
+In the test environment however, the `Test::Quattor::Component` class
+is used instead of real `CNM::Component`, and this test class has a counter for each log action
+(e.g. `->{INFO}` keeps track of the number of times
+an `->info()` log action was called).
+This is a bit confusing and will be streamlined in a new release of the test tools.
+
+
+TODO: are link to the `Test::Quattor` documentation once added to the documentation generation.
+TODO: add link to `Component` documentation as part of `ncm-ncd`
