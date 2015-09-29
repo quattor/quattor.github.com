@@ -15,8 +15,5 @@ We can be found on the following mailing lists:
 All our code and documentation (including this website) is hosted on GitHub, if you find bugs or things that could be improved, please open an issue and/or pull request on GitHub.
 If you're not sure which repository to open the issue again (there are a lot) please ask!
 
-We can occasionally be found posting on [Google+][google-plus].
-
 [quattor-discuss]: https://lists.sourceforge.net/lists/listinfo/quattor-discuss
 [quattor-devel]: https://lists.sourceforge.net/lists/listinfo/quattor-devel
-[google-plus]: https://plus.google.com/106108753304191902209/posts
