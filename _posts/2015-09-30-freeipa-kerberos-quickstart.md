@@ -17,7 +17,7 @@ yum install ipa-server
 ipa-server-install -a VerySecretPassword --hostname=aquilon.example.com -r EXAMPLE.COM -p VerySecretPassword -n example.com -U
 ```
 
-* Add a new principal (in our case:aquilon/aquilon.example.com)
+* Add a new principal (in our case:aqd/aquilon.example.com)
 
 ```bash
 ipa service-add --force
@@ -26,6 +26,6 @@ ipa service-add --force
 * Generate keytab
 
 ```bash
-ipa-getkeytab -s aquilon.example.com -p aquilon/aquilon.example.com@EXAMPLE.COM -k /etc/krb5.keytab
+ipa-getkeytab -s aquilon.example.com -p aqd/aquilon.example.com@EXAMPLE.COM -k /etc/krb5.keytab
 Keytab successfully retrieved and stored in: /etc/krb5.keytab
 ```
