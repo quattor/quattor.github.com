@@ -17,7 +17,7 @@ yum install ipa-server
 ipa-server-install -a VerySecretPassword --hostname=aquilon.example.com -r EXAMPLE.COM -p VerySecretPassword -n example.com -U
 ```
 
-* Add a new principal (in our case:aquilon/aquilon.example.com)
+* Add a new principal (in our case:aqd/aquilon.example.com)
 
 ```bash
 ipa service-add --force
