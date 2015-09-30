@@ -26,7 +26,7 @@ Each release of the pan compiler is accompanied by an updated "Pan
 Book".  It contains an introduction to the language, detailed
 reference, and instructions for installation and use.
 
-Look in the [file distribution area][panc] of SourceForge to find the
+Look at the [release page][panc] in GitHub to find the
 version of the book you're looking for. It is availabe in both PDF and
 EPUB formats.
 
@@ -34,6 +34,9 @@ Feedback
 --------
 
 Comments, bug reports, and feature requests are welcome.  Please
-subscribe to the Quattor discussion list and raise issues there.
+register in GitHub to [raise issue][panc-issues]. You are also encourage to subscribe 
+to the Quattor discussion list to get support from the community.
 
-[panc]: http://sourceforge.net/projects/quattor/files/panc/
+[panc]: https://github.com/quattor/pan/releases
+[panc-issues]: https://github.com/quattor/pan/issues
+
