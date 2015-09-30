@@ -26,6 +26,6 @@ ipa service-add --force
 * Generate keytab
 
 ```bash
-ipa-getkeytab -s aquilon.example.com -p aquilon/aquilon.example.com@EXAMPLE.COM -k /etc/krb5.keytab
+ipa-getkeytab -s aquilon.example.com -p aqd/aquilon.example.com@EXAMPLE.COM -k /etc/krb5.keytab
 Keytab successfully retrieved and stored in: /etc/krb5.keytab
 ```
