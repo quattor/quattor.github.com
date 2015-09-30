@@ -498,7 +498,7 @@ The `main.tt` can be refactored in 2 TT files:
 
 ```
 name = {
-[%- FOREACH pair IN CCM.contents %]
+[%- FOREACH pair IN CCM.contents.pairs %]
 [%     INCLUDE metaconfig/example/element.tt key=pair.key value=pair.value FILTER indent %]
 [%- END %]
 }
