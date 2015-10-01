@@ -77,7 +77,7 @@ Keytab and the URL to the Git repository containing your Pan templates:
 ```ini
 [broker]
 keytab=/etc/krb5.keytab
-git_templates_url=someone@server:/var/quattor/template-king
+git_templates_url=aquilon@localhost:/var/quattor/template-king
 templatesdir=/var/lib/templates
 ```
 
