@@ -137,6 +137,12 @@ chown -R aquilon:aquilon /var/lib/templates
 chmod -R 0770 /var/lib/templates/
 ```
 
+Create missing log directory
+```bash
+mkdir -p /var/log/aquilon
+chown -R aquilon:aquilon /var/log/aquilon
+```
+
 ## What's next
 
 You can now start your broker daemon, with
