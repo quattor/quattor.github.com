@@ -54,6 +54,9 @@ broker.  If you are using a local PostgreSQL instance, you'll probably do:
 
 ```sh
 # su -l postgres
+$ pg_ctl init
+$ exit
+# systemctl restart postgresql
 $ createuser -SRD aquilon
 $ createdb --owner aquilon aquilon
 ```
@@ -123,6 +126,7 @@ above.  In our case:
 mkdir /var/quattor
 cd /var/quattor
 git init --bare template-king
+chown -R aquilon:aquilon /var/quattor
 ```
 
 After that, you have to prepare the directory that will contain your
@@ -137,6 +141,12 @@ chown -R aquilon:aquilon /var/lib/templates
 chmod -R 0770 /var/lib/templates/
 ```
 
+Create missing run directory
+```bash
+mkdir -p /var/run/aquilon
+chown -R aquilon:aquilon /var/run/aquilon
+```
+
 Create missing log directory
 ```bash
 mkdir -p /var/log/aquilon
@@ -149,6 +159,12 @@ You can now start your broker daemon, with
 
 ```bash
 service aqd start
+```
+
+Initialize the database
+```bash
+# aqdb_shell.py
+aquilon@localhost> Base.metadata.create_all()
 ```
 
 Next, you should learn how to
