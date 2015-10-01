@@ -120,6 +120,7 @@ location specified by the `git_templates_url` configuration parameter
 above.  In our case:
 
 ```bash
+mkdir /var/quattor
 cd /var/quattor
 git init --bare template-king
 ```
