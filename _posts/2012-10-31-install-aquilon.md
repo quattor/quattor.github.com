@@ -47,19 +47,6 @@ If you want a different database backend, you may simply install the
 Currently, Oracle and PostgreSQL are supported, and SQLite is expected
 to work for development environments.
 
-## Dropping privileges
-
-Aquilon shouldn't run with root privileges.  Just create an account
-and a group for it.  In this guide will use `aquilon:aquilon`, and
-we'll place its home directory in `/var/quattor`.  The account will
-host our canonical Git repository, so we'll probably want to restrict
-the shell to git-shell.
-
-```sh
-$ groupadd aquilon
-$ useradd -s /usr/bin/git-shell -g aquilon -d /var/quattor aquilon
-```
-
 ## Setting up the database
 
 You have to create a role in your database server for the Aquilon
