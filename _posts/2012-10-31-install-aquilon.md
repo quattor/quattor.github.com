@@ -29,7 +29,8 @@ You will need kerberos authentication working, either with your own
 server or one provided by your institution.  This is out of the scope
 of this document.
 
-You will need a kerberos keytab for your server.
+You will need a kerberos keytab for your server for service "cdb". You
+can change it with environnement variable AQSERVICE.
 
 ## Installing Aquilon
 
@@ -39,7 +40,7 @@ With your basic OS installed you should add the
 and then
 
 ```sh
-$ yum -y install aquilon-postgresql
+$ yum -y install aquilon
 ```
 
 If you want a different database backend, you may simply install the
@@ -167,17 +168,42 @@ Initialize the database
 aquilon@localhost> Base.metadata.create_all()
 ```
 
+You can now test your installation with the following command
+```bash
+# aq.py status --noauth
+Aquilon Broker Unknown
+Server: aquilon.lal.in2p3.fr
+Database: postgresql+psycopg2://aquilon:PASSWORD@localhost/
+Sandboxes: /var/lib/templates
+```
 Next, you should learn how to
 [have a site](/documentation/2013/10/25/aquilon-site).
 
 ## Adding more users
 
-**TODO: move to a section dedicated to authentication and authorisation**
+**TODO: move to  section dedicated to authentication and authorisation**
 
-Authentication and authorisation are handled with `aq permission`.
-You can see the already defined roles with `aq show_principal --all`.
+Authentication and authorisation are handled with `aq.py permission`.
+You can see the already defined roles with `aq.py show_principal --all`.
 And you can add and adjust permissions with:
 
 ```bash
-aq permission --principal me@QUATTOR.ORG --role nobody --createuser
+aq.py permission --principal me@QUATTOR.ORG --role nobody --createuser
+```
+
+## FAQ
+
+# aq.py status exit with error : Server not found in Kerberos database
+Your keytab is probably incorrect. Verify it with command
+```bash
+[root@aquilon ~]# klist -k /etc/krb5.keytab
+Keytab name: FILE:/etc/krb5.keytab
+KVNO Principal
+---- --------------------------------------------------------------------------
+   3 aquilon$@LAL.IN2P3.FR
+   3 aquilon$@LAL.IN2P3.FR
+   3 aquilon$@LAL.IN2P3.FR
+   3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
+   3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
+   3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
 ```
