@@ -2,7 +2,7 @@
 layout: article
 title: Installing Aquilon
 category: documentation
-modified: 2013-12-02
+modified: 2015-10-02
 author: Luis Fernando Muñoz Mejías
 ---
 
@@ -25,9 +25,9 @@ started.  After reading this guide, you may want to continue
 [setting up your site](/documentation/2013/10/25/aquilon-site.html)
 with Aquilon.
 
-You will need kerberos authentication working, either with your own
-server or one provided by your institution.  This is out of the scope
-of this document.
+You will need an EL7 machine with kerberos authentication working, either
+with your own server or one provided by your institution.  
+This is out of the scope of this document.
 
 You will need a kerberos keytab for your server.
 
@@ -66,7 +66,7 @@ The last portion can be replaced by a schema in an existing database.
 ## Configuring the daemon
 
 Next, edit `/etc/sysconfig/aqd` and adjust it to your needs.  The
-default values should work on most EL6 setups.
+default values should work on most EL7 setups.
 
 Then, edit the broker configuration itself.  You can find all the
 available parameters and their defaults in
