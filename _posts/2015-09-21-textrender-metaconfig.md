@@ -58,7 +58,7 @@ Other optional attributes are `mode`, `owner`, `group`, `backup` and `preamble` 
 What follows is a step-by-step guide how to add a new service to `ncm-metaconfig`,
 which consists of creating
 * a pan schema for the service
-* the [Template::Toolkit][textrender_blog_TT] (TT) file(s) to generate the text (assuming the builtin `TextRender` modules are not sufficient)
+* the [Template::Toolkit][textrender_blog_TT] file(s) (TT for short) to generate the text (assuming the builtin `TextRender` modules are not sufficient)
 * unittests to verify the expected format
 
 [textrender_blog_TT]: {% post_url 2015-09-20-textrender-basics %}#templatetoolkit

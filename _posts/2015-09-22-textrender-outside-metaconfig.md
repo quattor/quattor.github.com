@@ -19,7 +19,7 @@ In these cases, a component or perl module is required. This was briefly touched
 in the 1st part introducing [TextRender][textrender_blog].
 
 This final part will go into more detail how to integrate the convenient way of
-writing `Template::Toolkit` (TT for short) and unittests from `metaconfig`
+writing `Template::Toolkit` (TT) and unittests from `metaconfig`
 with regular component development and testing.
 
 [textrender_blog]: {% post_url 2015-09-20-textrender-basics %}
