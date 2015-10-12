@@ -63,8 +63,8 @@ These are the basic terms in Aquilon operations:
 
 ### Before proceeding
 
-Some understanding of Quattor's [architecture]() and the
-[Pan language]() are expected before reading this document.
+Some understanding of Quattor's [architecture](/documentation/2012/06/19/documentation-overview.html) and the
+[Pan language](http://quattor-pan.readthedocs.org/en/latest/) are expected before reading this document.
 
 We'll interact with the broker using the `aq` command, which has lots
 of sub-commands.  Each sub-command has a detailed help, and man pages
