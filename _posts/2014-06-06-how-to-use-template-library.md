@@ -20,7 +20,7 @@ One of the key design principle for the template library is that every modificat
 template library should not have to modify anything in its site configuration when upgrading to a new version of the template library: the resulting
 configuration should remain the same, except for bug fixes and necessary configuration updates. __Every exception to this rule (unfortunately there are
 a few...) is always documented and well advertised.__ On the other hand, it is expected that sites don't modify the template library without
-pushing back their changes (see [How to contribute?](#how-to-contribute?)). Site customization must be done through documented variables 
+pushing back their changes (see [How to contribute?](#how-to-contribute)). Site customization must be done through documented variables 
 (the main source of information is the [Quattor Wiki](https://trac.lal.in2p3.fr/Quattor/wiki/Doc)). If a configuration option that you require is
 missing, you are welcome to open an issue in the appropriate Git repository on GitHub.
 
@@ -163,7 +163,7 @@ This is especially true of the `standard` subset that all the other subsets depe
 to install the template from a Quattor release than from the master of the Git repositories: despite our attempt to have the master always
 working, only Quattor releases go through the whole testing process.
 
-To do the upgrade, the easiest is to get a fresh version of the template library following the [procedure](#how-to-get-it?) described above. Then
+To do the upgrade, the easiest is to get a fresh version of the template library following the [procedure](#how-to-get-it) described above. Then
 from the directory `/tmp/scdb-vanilla/cfg, the template library can be imported to a production SCDB or Aquilon. For SCDB, a script
 helping with the update is available: see [Quattor Wiki](https://trac.lal.in2p3.fr/Quattor/wiki/Download/QWGTemplates/Install).
 

@@ -44,7 +44,7 @@ Again, Yum will take care of the dependencies, and will lock only the
 version of `perl-JSON`.
 
 If you prefer you can specify all packages using functions, see the section
-[Helper functions for package management](#helper functions for package management).
+[Helper functions for package management](#helper-functions-for-package-management).
 
 ### Keeping a family of packages at the same version ###
 

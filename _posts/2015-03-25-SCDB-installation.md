@@ -263,7 +263,7 @@ in an existing repository.*
 
 ### SCDB Initialisation
 
-If you followed this documentation and executed the step about [Subversion initialisation](#subversion-initialisation-and-configuration), you should have a Subversion 
+If you followed this documentation and executed the step about [Subversion initialisation](#subversion-installation-and-configuration), you should have a Subversion 
 repository ready for use by SCDB. Be sure to use http/https to access the repository as  the standalone access won't work (this is a limitation of the build
 script). 
 
