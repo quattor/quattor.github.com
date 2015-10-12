@@ -13,13 +13,13 @@ Intended audience: system administrators who already have Quattor managed system
 
 At the very least, you should read:
 
-* [SPMA with Yum as backend](blog/2012/08/28/blog-spma-yum.html)
+* [SPMA with Yum as backend](/blog/2012/08/28/blog-spma-yum.html)
 * [Mirroring the Quattor Yum repositories](/documentation/2013/01/11/mirroring-yum.html)
-* [A possible package repository architecture for upgrading with Yum](blog/2013/01/29/package-layout-proposal.html) 
+* [A possible package repository architecture for upgrading with Yum](/blog/2013/01/29/package-layout-proposal.html) 
 * [Upgrading to the Yum-based SPMA](/documentation/2013/01/29/spma-yum-upgrade.html)
 * [Release notes for Quattor 13.02](/documentation/2013/02/07/quattor-13.02-notes.html)
 * [Managing packages at scale with Yum-based SPMA](/documentation/2013/02/07/yum-package-management.html)
-* [Experiences with package cleanup](blog/2013/03/27/cleaning-up-packages.html)
+* [Experiences with package cleanup](/blog/2013/03/27/cleaning-up-packages.html)
 * [Installing and removing packages with Quattor](/documentation/2013/04/05/package-management.html)
 
 Before starting you should understand ...

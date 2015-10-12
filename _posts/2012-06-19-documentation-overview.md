@@ -55,7 +55,7 @@ The Quattor toolkit can use both XML and JSON both plain and gzipped, gzipped JS
 
 The compiler is normally invoked by some part of the tooling that makes up a CMDB, but can also be used standalone, see [the Pan book](http://sourceforge.net/projects/quattor/files/Panc/10.0/pan-book.pdf/download) for more details.
 
-`panc` is implemented in a mixture of Java and Clojure and runs in a standard JVM, see [Cal's blog post](blog/2012/05/07/review-pan-in-clojure.html) for a peek at the internals.
+`panc` is implemented in a mixture of Java and Clojure and runs in a standard JVM, see [Cal's blog post](/blog/2012/05/07/review-pan-in-clojure.html) for a peek at the internals.
 
 
 ****************************************************************
