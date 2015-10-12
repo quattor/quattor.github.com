@@ -39,7 +39,7 @@ More detailed information about the options can be found on the website (__SEE A
 
 - `/software/components/gmetad/scalability` : string
 
-    Optional flag to enable or disable scalability mode. 
+    Optional flag to enable or disable scalability mode.
     Valid values are `on` and `off`.
 
 - `/software/components/gmetad/file` : string

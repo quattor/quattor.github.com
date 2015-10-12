@@ -56,7 +56,7 @@ NCM::grub - NCM grub configuration component
     "/software/components/grub/args" = ""; will unset all kernel arguments
 
     If 'fulcontrol' is false then an empty or undefined value leaves the
-    current arguments untouched. The removal of a current argument is done 
+    current arguments untouched. The removal of a current argument is done
     by preceding the argument with a "-". Examples:
 
     "/software/components/grub/args" = "apm=off"; will set the apm=off for the default kernel or change a previous defined (eg apm=on) argument.

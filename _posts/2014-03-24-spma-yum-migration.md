@@ -12,7 +12,7 @@ configuration, OS configruation and grid MW configuration.
 ## Introduction
 
 Starting with release Quattor 13.2, Quattor switched from legacy SPMA-based deployments to YUM-based deployments. And since March 2014, YUM-based deployment is
-the only supported method for several components of the template library, in particular OS templates and grid templates. 
+the only supported method for several components of the template library, in particular OS templates and grid templates.
 
 Despite what may suggest the unchanged configuration module name for software deployment, ncm-spma, you cannot run both SPMA and YUM on the same machine.
 Quattor 13.2 and later supports only YM-based deployments. Quattor 13.1.x series is the last version to
@@ -23,12 +23,12 @@ all their dependencies (and dependencies of their dependencies...). The maintena
 barrier for using Quattor for usages not covered for the template library.
 
 On the other hand, YUM allows to build package list that contain only the (main) packages required for a service and is able to find all the required dependencies
-and install them. In addition, at each run it can upgrade the packages to the last version available in the repositories. This simplifies a lot deployment of 
+and install them. In addition, at each run it can upgrade the packages to the last version available in the repositories. This simplifies a lot deployment of
 updates. But this changes a little bit the way you achieve a controlled deployment of packages with well defined upgrade times. What used to be done
 by updating package list is now achieved through the use of immutable package repositories (also called YUM snapshots).
 
-This documentation describes the main steps needed to update a machine from Quattor 13.1 and SPMA-based deployment to Quattor 14.6.0 (or later) and 
-YUM-based deployment. It also describes how to keep a unified deployment server for both Quattor versions. And it introduces some tools developed by the 
+This documentation describes the main steps needed to update a machine from Quattor 13.1 and SPMA-based deployment to Quattor 14.6.0 (or later) and
+YUM-based deployment. It also describes how to keep a unified deployment server for both Quattor versions. And it introduces some tools developed by the
 Quattor community to help managing YUM repositories and YUM snapshots.
 
 __Short summary: all Quattor sites are encouraged to move quickly to Quattor 14.6.0 (or later) release and YUM-based deployment. Apart from a few operational
@@ -63,9 +63,9 @@ database". And the examples also assume that you run commands fromthe parent of 
 
 If you know that all your existing machines are already configured with Quattor 13.1.3, you can skip this step.
 
-Check if your local configuration database is already using the last template layout: if this is the case, you should have a quattor directory with one 
-subdirectory per Quattor version in it (one of these directory could be called "legacy" and contain Quattor version older than 13.1). If you don't have 
-this directory in your configuration database, you are still using the old configuration database layout. 
+Check if your local configuration database is already using the last template layout: if this is the case, you should have a quattor directory with one
+subdirectory per Quattor version in it (one of these directory could be called "legacy" and contain Quattor version older than 13.1). If you don't have
+this directory in your configuration database, you are still using the old configuration database layout.
 
 In both cases, proceed as follows:
 
@@ -90,7 +90,7 @@ contents for version 13.1.3.
     svn add cfg/quattor (or svn add cfg/quattor/13.1.3)
     ```
 1. Remove from standard directory in your local configuration database all templates now provided by the Quattor release templates:
-    
+
     ```bash
     svn rm cfg/standard/quattor
     svn rm cfg/standard/pan
@@ -133,14 +133,14 @@ A deployment server running 14.6.0 (anything later than 13.1.x) __will not be ab
 _Note: a previous version of this article recommended to use Quattor 13.1.3 on the deployment server. 14.6.0 introduces an improved version of the deployment server that support deployement
 of both YUM-managed and SPMA-managed machines and since then is the recommended version for the deployment (AII) server. This is now the only supported option._
 
-If your deployment server is managed by Quattor (by itself!), you can easily upgrade it to 14.6.0 or later (after getting the last version of the template library, see below) 
-by editing the file 
+If your deployment server is managed by Quattor (by itself!), you can easily upgrade it to 14.6.0 or later (after getting the last version of the template library, see below)
+by editing the file
 `cluster.build.properties` in the cluster the deployment server belongs to and changing the quattor version used in the include path to whatever is appropriate.
 
 If this is not the case
 you should consider doing it: this is the easiest way to maintain the Quattor deployment server after its initial installation.
 
-If your deployment server is not managed by Quattor, the easiest way to upgrade it is to configure a YUM repository for the Quattor release. You can do this 
+If your deployment server is not managed by Quattor, the easiest way to upgrade it is to configure a YUM repository for the Quattor release. You can do this
 by creating a quattor.repo file in /etc/yum.repo.d with the following contents (repository for 13.1.3 is the same as for 13.1.2):
 
 ```
@@ -176,7 +176,7 @@ your local copy of standard/:
 1. Rename all your .tpl templates in standard/ into .pan. You can use the following command (ensure you are in a bash shell):
 
     ```bash
-    for file in `find cfg/standard -name '*.tpl'`; do svn mv "$file" "${file/%.tpl/.pan}"; done 
+    for file in `find cfg/standard -name '*.tpl'`; do svn mv "$file" "${file/%.tpl/.pan}"; done
     ```
 1. Recompile, check that no changes were involved in profiles and commit your renamed templates
 
@@ -195,11 +195,11 @@ templates through SVN.
     svn status
     # Review the changes:
     #   - new templates: svn add
-    #   - missing templates: if they are site-specific (like HW description templates), "svn revert" them. Else "svn rm" them. 
+    #   - missing templates: if they are site-specific (like HW description templates), "svn revert" them. Else "svn rm" them.
     ```
 1. Recompile, check that no unexpected changes were involved in profiles and commit your renamed templates. In particular check that there is
     no change in the OS version used or in the kernel version (if there is something wrong, report it as an issue in repository template-library-standard).
-    
+
     ```bash
     external/ant/bin/ant
     utils/profiles/compare_xml [-v]    ---> should display no changed profiles
@@ -340,7 +340,7 @@ and machines will receive the updates when for some reasons ncm-spma runs as a r
 behaviour if you think that controlled deployment of packages is a critical feature for your configuration management tool.
 
 With YUM, you can achieve a control of package deployment similar to SPMA by using YUM repository snapshots, referred as YUM snapshots in this documentation.
-A YUM snapshot should be seen as an **immutable** YUM repository: as a result a machine associated with a YUM snapshot will never receive any 
+A YUM snapshot should be seen as an **immutable** YUM repository: as a result a machine associated with a YUM snapshot will never receive any
 package change, until you move it to a new snapshot. In fact this is a great concept and a great feature!
 
 The drawback is that you need a tool to manage snapshots, else they will quickly turn into a management nightmare. There is no tools provided by YUM
@@ -353,7 +353,7 @@ immutable by design but you can decide not to update a snapshot. This approach i
 and part of SCDB repository, even though it has nothing specific to SCDB. This tools is `yum_snapshot`, located in directory `utils/misc` of the SCDB
 repository.
 
-Another decision you will have to make with snapshots is how you organize them. Generally they are organised by the date they were created. 
+Another decision you will have to make with snapshots is how you organize them. Generally they are organised by the date they were created.
 You may be temptated by having separate snapshot dates for different repositories. This is really up to you to decide. But you should keep in mind
 that snapshots are essentially zero-byte and pretty quick to create. Thus, as a recommended starting point, it is better to snapshot all the repositories
 you are using in the same operation, at the same date, as a consistent set of packages that are known to work properly with each others.
@@ -363,12 +363,12 @@ with others...), you should resist updating the snapshot (meaning that you will 
 a new snapshot with the fixed repository (and all the others). Then you can move your machines to the new snapshot, this will be seen as a configuration
 change and the package deployment will happen immediately at the time you have choosen for the deployment.
 
-### yum_snapshot script 
+### yum_snapshot script
 
 This script developed as part of Quattor to help with the YUM snapshot management has nothing Quattor specific. It is build over the idea that you have a
 local mirror of all the YUM repository you are using and if builds *in the same file system* as the mirror a snapshot for the mirror you specify.
-This is done by reproducing the repository structure of the mirror and creating a hard link for every file found. At the end, except if it is an 
-OS repository, YUM metadata are updated using another script, `update_yum_repos` (at the same location), that you need to install at the same place as 
+This is done by reproducing the repository structure of the mirror and creating a hard link for every file found. At the end, except if it is an
+OS repository, YUM metadata are updated using another script, `update_yum_repos` (at the same location), that you need to install at the same place as
 `yum_snapshot`.
 
 _Note: how to manage mirrors is outside the scope of this documentation. If you are using a SL6 machine to manage your YUM mirros, you can use `yum-repo`
@@ -381,8 +381,8 @@ yum_snapshot accepts the following options:
 Usage:    yum_snapshot [--snapshot-dir /path/to/snapshot] [--update] [--previous snapshot] [--verbose] --snapshot-name snap_name repository_path
 ```
 * `--snapshot-dir` specificies the directory parent of every snapshot. Under this parent, the script creates one directory per day a snapshot is created.
-And the snapshot itself is put under this date directory (flat directory for all snapshots). 
-* The YUM snapshot name, specified by 
+And the snapshot itself is put under this date directory (flat directory for all snapshots).
+* The YUM snapshot name, specified by
 `--snapshot-name`, is the YUM repository name of the snapshot.
 * `repository_path` is the path of the YUM mirror
 * `--previous-snapshot` can be used to start the new snapshot from the contents of a previous one, including the metadata. This may speed up the
@@ -429,7 +429,7 @@ want to upgrade to emi-3, you can do the following:
     ```
     # Use OS templates for generic major version (required)
     variable OS_FLAVOUR_ENABLED ?= true;
-    
+
     # YUM Repository snapshots (match your local configuration, see previous section on YUM snapshots)
     # YUM_SNAPSHOT_DATE is typically used in repository templates to build the full URL of the snapshot
     # See template-library-examples repository
@@ -442,7 +442,7 @@ want to upgrade to emi-3, you can do the following:
     ```bash
     svn commit -m 'Adding cluster emi-3'
     ```
-1. Choose one test machine in your original cluster and move it to the new one   
+1. Choose one test machine in your original cluster and move it to the new one
 
     ```bash
     svn mv cfg/clusters/emi-2/profiles/mytest.dom.ain.pan cfg/clusters/emi-3/profiles
@@ -462,7 +462,7 @@ cluster.pan.dep.ignore=""
 ```
 
 This new line is required to ensure that any change to a template defining a YUM repository will trig a profile recompilation. This is not the default
-behaviour as it was useless with SPMA. For this to work, you may have to update quattor.build.xml from /tmp/scdb-vanilla in the top directory of your 
+behaviour as it was useless with SPMA. For this to work, you may have to update quattor.build.xml from /tmp/scdb-vanilla in the top directory of your
 SCDB installation.
 
 
@@ -557,12 +557,12 @@ and use `yum` rather than `rpm` in next step)
     rpm -U http://yum.quattor.org/14.6.0/ncm-spma-14.6.0-1.noarch.rpm
     ```
 1. Reconfigure the node with the last profile
-    
+
     ```bash
     ncm-ncd --configure --all
     ```
 _Note: when upgrading, it will take several YUM runs to get a stable package list. This is an expected behaviour. You may just wait for these runs
-to happen as part of other deployment operations or execute `yum distro-sync` (accept actions proposed except if you have a good reason not to do so)._ 
+to happen as part of other deployment operations or execute `yum distro-sync` (accept actions proposed except if you have a good reason not to do so)._
 
 Depending on the history of the node you are trying to upgrade, you may have YUM errors when first deploying because of conflicts with already installed
 RPMs that YUM has not desinstalled yet. You may have to remove these RPMs manually. Among the problematic packages found on some nodes, there was tomcat that had
@@ -571,12 +571,12 @@ to be removed with:
 ```bash
 rpm -e --nodeps --noscripts `rpm -qa|grep tomcat`
 ```
-    
+
 Also when updating an existing SL5 system to sl5x (L5.10), there is a 2 (related) known issues with package:
 
 * YUM suggests to remove `iwlwifi-5150-ucode` but if you do it, it will complain it needs it and it cannot find it. Don't follow the advice: keep it. If
 you unfortunately deleted it, reinstall it from your old OS distribution (it is not part of sl5x). This warning should disappear after fixing the second one.
-* Package `iwl5150-firmware` is both in EPEL and SL (with the same version) and this causes problems to YUM. A workaround is to blacklist this package in 
+* Package `iwl5150-firmware` is both in EPEL and SL (with the same version) and this causes problems to YUM. A workaround is to blacklist this package in
 your SL or EPL repository (SL suggested). This is done by adding in your repository template:
 
     ```
@@ -587,7 +587,7 @@ your SL or EPL repository (SL suggested). This is done by adding in your reposit
       SELF;
     };
     ```
-    
+
 ## Changes to local templates
 
 The new generation of OS templates and grid MW templates, as well as the use of YUM, may require some adaptations in the site-specific templates.
@@ -637,7 +637,7 @@ The new generation of grid MW templates, `umd-3`, has a slightly modified layout
 * `common` has been renamed `feature`
 * `machine-types` has been renamed `machine-types/grid`
 * `defaults/glite` has been renamed `defaults/grid`
- 
+
 Normally, only the change of `machine-types` namespace should really affect local site configuration. If you want to have site templates working
 with both old and new templates, you can use the same trick as described for OS templates:
 
@@ -647,7 +647,7 @@ include { if_exists('machine-types/grid/wn') };
 # Previous templates
 include { if_exists('machine-types/wn') };
 ```
- 
+
 ### YUM-compliant package lists
 
 If you have some site-specific service definition that contain locally maintained package lists, you should remove versions (and architecture) from
@@ -656,9 +656,9 @@ packages in the configuration as this may result in conflicting requirements bet
 if you want to lock a version, the easiest is often to have a YUM snapshot with the desired version as the latest version.
 
 If you want your service definition to work both with SPMA and YUM, you cannot provide the same list. The recommended approach is to have two
-different package lists implemented as two different templates, 
+different package lists implemented as two different templates,
 the existing one for SPMA and a new list that will contain only the main package(s) for YUM. The template for YUM should have the smae name as
-the SPMA one with suffix `-yd`. For example is you have a template `feature/myservice/rpms/config.pan`for SPMA, you should create a `feature/myservice/rpms/config-yd.pan`. In the 
+the SPMA one with suffix `-yd`. For example is you have a template `feature/myservice/rpms/config.pan`for SPMA, you should create a `feature/myservice/rpms/config-yd.pan`. In the
 service configuration template that will include the package list, you should use the following statement:
 
 ```

@@ -99,6 +99,6 @@ contains three fields:
         "query_filter" = "(an-ldap-filter)";
         "result_format" = "%s";
 
-    
+
 
 

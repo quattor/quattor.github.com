@@ -35,7 +35,7 @@ NCM::syslog - adding entries and editing `/etc/syslog.conf`
 
 - `/software/components/syslog/config`/
 
-    The configuration items 
+    The configuration items
 
 ### DEPENDENCIES
 

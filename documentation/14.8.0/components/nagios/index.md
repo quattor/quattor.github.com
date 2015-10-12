@@ -26,9 +26,9 @@ named just like the tags for the appropriate Nagios object.
 
 - `/software/components/nagios/cgi`
 
-    Configuration of the Nagios web interface. 
+    Configuration of the Nagios web interface.
     This path is optional. If it exists, the settings will be
-    written in `/etc/nagios/cgi.cfg`. 
+    written in `/etc/nagios/cgi.cfg`.
 
 - `/software/components/nagios/hosts`
 

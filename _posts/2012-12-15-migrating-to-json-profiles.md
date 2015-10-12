@@ -39,7 +39,7 @@ components are:
 * `panc` >= 9.3
 
 *Note: recent versions of SCDB changes the default directory for profiles from `build/xml` to `build/profiles`. If you want to retain the previous
-setting, you need to define property `build.profiles` property to `xml` in your `quattor.build.properties` file (in root directory of your 
+setting, you need to define property `build.profiles` property to `xml` in your `quattor.build.properties` file (in root directory of your
 configuration database).*
 
 ## Change the compiled formats
@@ -48,7 +48,7 @@ During a certain period, you will want to compile all your profiles
 both in Pan and in JSON format.  That way, nodes that miss some
 updates (for example, if they are down or have a `ncm-spma` error preventing execution
 of `ncm-ccm`), will be able to access their
-profiles from their old URLs (old XML format) and adapt to the new ones gradually. 
+profiles from their old URLs (old XML format) and adapt to the new ones gradually.
 
 Until you change
 the profile URL, generating new profile formats doesn't affect your machines,
@@ -121,7 +121,7 @@ variable QUATTOR_PROFILE_FORMAT ?= 'json';
 
 ## Conclusion
 
-That's it!  Deploy, compile, install at your pleasure.  
+That's it!  Deploy, compile, install at your pleasure.
 
 If any of your
 internal tools parsed the XMLs directly (without CCM) you will have to

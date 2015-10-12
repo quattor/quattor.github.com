@@ -24,7 +24,7 @@ Other sectiond may be added
 
 Each item is a parameter in the '\[main\]' section of the puppet.conf file. Below the mandaroy parameters
 
-- `logdir` : 
+- `logdir` :
 
     Puppet log dir. Defaults to `/var/log/puppet.`
 
@@ -35,7 +35,7 @@ Each item is a parameter in the '\[main\]' section of the puppet.conf file. Belo
 #### `/software/components/puppet/hieraconf`
 
 Defines the configuration for hiera. Each item is a key definition in the `/etc/puppet/hiera.yaml` file. Here are the default values.
-The default is 
+The default is
 
     ---
     :backends:
@@ -69,9 +69,9 @@ The parameters of each item are.
         version of the module.
 
         = back
-        = back 
+        = back
 
-        
+
 
         ### TODO
 

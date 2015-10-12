@@ -11,7 +11,7 @@ nfs: NCM component for NFS entries in `/etc/exports` and `/etc/fstab`
 
 ### DESCRIPTION
 
-The _nfs_ component manages entries for NFS in the `/etc/exports` 
+The _nfs_ component manages entries for NFS in the `/etc/exports`
 and the `/etc/fstab` files.
 
 ### RESOURCES
@@ -19,7 +19,7 @@ and the `/etc/fstab` files.
 #### `/software/components/nfs/exports`
 
 This is a list of named lists with "path" giving the export path and
-"hosts" being a nlist of host/option entries where the key is the escaped host name and 
+"hosts" being a nlist of host/option entries where the key is the escaped host name and
 the value the export options(e.g. for "nfsclient.example.org(rw)",
 key will be escape("nfsclient.example.org") and value will be 'rw').  Note that the values in "hosts"
 may NOT contain embedded spaces and should not contain the enclosing '()'.  This restriction is not checked in

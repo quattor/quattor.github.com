@@ -15,7 +15,7 @@ NCM::fmonagent - NCM Lemon Monitoring Agent configuration component
 
     Creates configuration file(s) and restarts the lemon-agent service.
     In case of the single file configuration the files
-    is defined in the CDB template as file and in case of split file as 
+    is defined in the CDB template as file and in case of split file as
     a directory where the following structure is expected:
 
     	top_dir/general.conf
@@ -24,7 +24,7 @@ NCM::fmonagent - NCM Lemon Monitoring Agent configuration component
     	top_dir/sensors/
 
     Component will try in this case to modify the top\_dir/general.conf,
-    top\_dir/transport/udp.conf, top\_dir/metrics/default.conf and for each 
+    top\_dir/transport/udp.conf, top\_dir/metrics/default.conf and for each
     sensor top\_dir/sensors/sensor\_name.conf files.
 
 - Unconfigure()

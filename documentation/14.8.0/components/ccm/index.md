@@ -23,7 +23,7 @@ manpage for more details.
 The location of the configuration file.  Normally this should not be
 changed.
 
-#### 
+####
 
 #### profile
 

@@ -20,11 +20,11 @@ cdp-listend daemon.
 #### configfile (/etc/cdp-listend.conf)
 
 The location of the configuration file.  Normally this should not be
-changed. 
+changed.
 
 #### port
 
-The port used by the daemon.  
+The port used by the daemon.
 
 #### nch
 

@@ -29,19 +29,19 @@ you will need:
   running a minimal, updated version of a RHEL 6 (or compatible).
 
 * One machine to act as the client.  This machine should also be
-  running a minimal, updated version of RHEL 6 (or compatible).  
+  running a minimal, updated version of RHEL 6 (or compatible).
 
 You will need to have root access to both of these machines.
 
 You will also need some basic information about these machines:
 
-* DNS hostnames for the machines 
+* DNS hostnames for the machines
 * IP addresses of the machines
 * An open network between the two machines
 * Access from these machines to external repositories
 
 The access to the external repositories are critical to allow the
-Quattor software to be installed easily on the tutorial machines. 
+Quattor software to be installed easily on the tutorial machines.
 
 Installing Aquilon
 ------------------
@@ -83,7 +83,7 @@ detailed knowledge about the Quattor Toolkit and Quattor best
 practices.
 
 In particular, you will need to investigate further the following
-topics: 
+topics:
 
 * Using Quattor to install a machine from scratch.
 * Configuring the security for the Quattor system.
@@ -96,7 +96,7 @@ Feedback
 
 Comments, bug reports, and feature requests are welcome.  Please
 subscribe to the Quattor discussion list and raise issues there.  See
-the [contact][qcontacts] area of the Quattor web site. 
+the [contact][qcontacts] area of the Quattor web site.
 
 [qdocs]: http://quattor.org/documentation/
 [qcontacts]: http://quattor.org/contacts/

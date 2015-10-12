@@ -14,12 +14,12 @@ NCM::chkconfig - NCM chkconfig component
 - Configure()
 
     Updates runlevel information for system services by using __chkconfig__ that are
-    defined in `/software/components/chkconfig`/. 
+    defined in `/software/components/chkconfig`/.
 
-    Also starts/stops those services that have option `startstop` set to true in 
-    and have one of the following options specified: 
-    `add` or `del` option is true, `on` or `off` option is specified either 
-    without specific runlevels, or with runlevel value that contains the current runlevel. 
+    Also starts/stops those services that have option `startstop` set to true in
+    and have one of the following options specified:
+    `add` or `del` option is true, `on` or `off` option is specified either
+    without specific runlevels, or with runlevel value that contains the current runlevel.
 
     The optional _default_ key decides what will happen with services that are not explicitly
     configured. Default is to ignore them, but a vakue of _off_ instead disables anything
@@ -50,15 +50,15 @@ NCM::chkconfig - NCM chkconfig component
     `chkconfig`\-command. If the string is empty, system default is taken
     (see `man chkconfig(8)` for exact details).
 
-- `/software/components/chkconfig/service`/&lt;service&gt;/name : string 
+- `/software/components/chkconfig/service`/&lt;service&gt;/name : string
 
-    If set, the value is used as the name of the service instead of using the 
-    &lt;service&gt; path as a name. 
+    If set, the value is used as the name of the service instead of using the
+    &lt;service&gt; path as a name.
 
 - `/software/components/chkconfig/service`/&lt;service&gt;/reset : string ("\[0-7\]\*")
 
-    Resets the service on defined run levels. Reset with no run levels specified 
-    affects every run level. 
+    Resets the service on defined run levels. Reset with no run levels specified
+    affects every run level.
 
 - `/software/components/chkconfig/service`/&lt;service&gt;/add : boolean
 
@@ -74,7 +74,7 @@ NCM::chkconfig - NCM chkconfig component
 - `/software/components/chkconfig/service`/&lt;service&gt;/del : boolean
 
     If the value is true, removes service from management by chkconfig, otherwise
-    the option is ignored. 
+    the option is ignored.
 
 - `/software/components/chkconfig/service`/&lt;service&gt;/startstop : boolean
 

@@ -15,7 +15,7 @@ Working type definitions can be found in the README file.
 
 The _network_ component sets the network settings through `/etc/sysconfig/network` and the various files in `/etc/sysconfig/network`-scripts. Currently only support eth\* devices.
 
-For restarting, a sleep value of 15 is used to make sure the restarted network is fully restarted (routing may need some time to come up completely). Because of this, adding/changing lots of things may cause some slowdown. 
+For restarting, a sleep value of 15 is used to make sure the restarted network is fully restarted (routing may need some time to come up completely). Because of this, adding/changing lots of things may cause some slowdown.
 New/changed settings are first tested by probing the CDB server on the port where the profile should be found. If this fails, the previous settings are reused.
 
 ### RESOURCES
@@ -95,7 +95,7 @@ Set the behaviour for interface eth\[i\]. This overrides the default setting.
 To enable channel bonding with quattor using devices eth0 and eth1 to form bond0, proceed as follows:
 
 include pro\_software\_component\_network;
-                                                                             
+
 
 "/system/network/interfaces/eth0/bootproto"="none";
 "/system/network/interfaces/eth0/master"="bond0";
@@ -105,10 +105,10 @@ include pro\_software\_component\_network;
 
 "/system/network/interfaces/bond0" = NETWORK\_PARAMS;
 "/system/network/interfaces/bond0/driver" = "bonding";
-                                                                             
+
 
 include pro\_software\_component\_modprobe;
-"/software/components/modprobe/modules" = push(nlist("name","bonding","alias","bond0")); 
+"/software/components/modprobe/modules" = push(nlist("name","bonding","alias","bond0"));
 "/software/components/modprobe/modules" =
 push(nlist("name","bonding","options","mode=6 miimon=100"));
 
@@ -116,9 +116,9 @@ push(nlist("name","bonding","options","mode=6 miimon=100"));
 
 ### VLAN support
 
-Use the vlan\[0-9\]{0-4} interface devices and set the the explicit device name and physdev. 
-The VLAN ID is the number of the '.' in the device name. Physdev is mandatory for vlan\[0-9\]{0-4} device. 
-An example: 
+Use the vlan\[0-9\]{0-4} interface devices and set the the explicit device name and physdev.
+The VLAN ID is the number of the '.' in the device name. Physdev is mandatory for vlan\[0-9\]{0-4} device.
+An example:
 "/system/network/interfaces/vlan0" = VLAN\_NETWORK\_PARAMS;
 "/system/network/interfaces/vlan0/device" = "eth0.3";
 "/system/network/interfaces/vlan0/physdev" = "eth0";

@@ -14,13 +14,13 @@ The Quattor template library is a set of generic pan templates that allow to con
 A site administrator using the template library to configure supported services
 has mainly to provide the necessary information specific to the site/machine to customize the behaviour
 of the standard templates. Depending on the type of configuration database used, this site is provided through site-specific pan templates (SCDB) that
-contain mainly variable declarations or through a relational database (Aquilon). 
+contain mainly variable declarations or through a relational database (Aquilon).
 
 One of the key design principle for the template library is that every modification is made with backward compatibility in mind. A site relying on the
 template library should not have to modify anything in its site configuration when upgrading to a new version of the template library: the resulting
 configuration should remain the same, except for bug fixes and necessary configuration updates. __Every exception to this rule (unfortunately there are
 a few...) is always documented and well advertised.__ On the other hand, it is expected that sites don't modify the template library without
-pushing back their changes (see [How to contribute?](#how-to-contribute)). Site customization must be done through documented variables 
+pushing back their changes (see [How to contribute?](#how-to-contribute)). Site customization must be done through documented variables
 (the main source of information is the [Quattor Wiki](https://trac.lal.in2p3.fr/Quattor/wiki/Doc)). If a configuration option that you require is
 missing, you are welcome to open an issue in the appropriate Git repository on GitHub.
 
@@ -41,7 +41,7 @@ specific services like grid EMI/UMD middleware, StratusLab cloud middleware and 
 Each subset is made of several templates, organized in different directories. Among these directories, some of them have specific purposes and represent
 the public interface to the subset:
 
-* `features`: configure a particular service (one directory per feature), 
+* `features`: configure a particular service (one directory per feature),
 intended to be included with other features to a base OS configuration to define a specific machine
 configuration, generally through set of features defined as `personality`.
 * `personality`: a set of features used together to provide a higher-level service (e.g. nfs-server). Used mainly with SCDB as Aquilon defines
@@ -67,7 +67,7 @@ to satisfy one dependency of the `quattor` subset.
 
 ### Grid Middleware
 
-Stored under `cfg/grid` in SCDB, this subset contains one directory per EMI/UMD version. The associated Git repo is 
+Stored under `cfg/grid` in SCDB, this subset contains one directory per EMI/UMD version. The associated Git repo is
 [template-library-grid](https://github.com/quattor/template-library-grid)). This subset is entirely optional.
 
 It provides all the templates, particularly `personalities` and `features` required to configure the grid services.
@@ -75,7 +75,7 @@ It provides all the templates, particularly `personalities` and `features` requi
 
 ### StratusLab
 
-Stored under `cfg/cloud` in SCDB, this subset contains one directory per StratusLab version. The associated Git repo is 
+Stored under `cfg/cloud` in SCDB, this subset contains one directory per StratusLab version. The associated Git repo is
 [template-library-stratuslab](https://github.com/quattor/template-library-stratuslab)). This subset is entirely optional.
 
 It provides all the templates, particularly `personalities` and `features` required to configure StratusLab services.
@@ -84,7 +84,7 @@ It provides all the templates, particularly `personalities` and `features` requi
 ### Examples
 
 This subset is SCDB-specific and provides an example of site configuration, stored under `cfg/sites` and `cfg/clusters`.
-The associated Git repo for this subset is 
+The associated Git repo for this subset is
 [template-library-examples](https://github.com/quattor/template-library-examples)). This subset is entirely optional and is normally
 not used in a production SCDB.
 
@@ -115,7 +115,7 @@ Use `--help` to get a list of all the available options. A typical use of `get-t
 get-template-library -F 14.5.0
 ```
 
-Option `--pull-request` allows to integrate a pull request not yet merged, typically for testing, in the downloaded template library. 
+Option `--pull-request` allows to integrate a pull request not yet merged, typically for testing, in the downloaded template library.
 When using this option, the quattor version should be `HEAD` rather than a specific release, else it will generally lead to unpredictable
 results. The option value has the format `repository:user:source_branch:[target_branch]` with:
 
@@ -131,12 +131,12 @@ is `HEAD` else it must be `branch-version`.
 ### create-vanilla-SCDB.sh
 
 Another way to download the template library is to
-use the script [create-vanilla-SCDB.sh](https://github.com/quattor/scdb/blob/master/utils/scdb/create-vanilla-SCDB.sh) in repository 
+use the script [create-vanilla-SCDB.sh](https://github.com/quattor/scdb/blob/master/utils/scdb/create-vanilla-SCDB.sh) in repository
 (scdb[https://github.com/quattor/scdb/blob/master/utils/scdb]. This script will create a new SCDB with all the SCDB tools, use the previous script
 to download the template library and compile the SCDB examples. The new SCDB, by default, is in `/tmp/scdb-vanilla` and the template library itself
 is in the `cfg` subdirectory of this directory.
 
-_Note: if you are interested by getting the template library validation resulting from the compilation of the examples, it is recommended to use 
+_Note: if you are interested by getting the template library validation resulting from the compilation of the examples, it is recommended to use
 this script whether you are using SCDB or not._
 
 A typical use of this script involves the following steps:

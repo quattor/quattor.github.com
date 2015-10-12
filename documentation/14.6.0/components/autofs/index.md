@@ -7,7 +7,7 @@ menu: 'components.md'
 ---
 ### NAME
 
-ncm-autofs: NCM component to manage autofs configuration. 
+ncm-autofs: NCM component to manage autofs configuration.
 
 ### DESCRIPTION
 

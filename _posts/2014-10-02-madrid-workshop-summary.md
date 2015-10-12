@@ -70,7 +70,7 @@ Buildid in profiles (schema extended)
 * But every compilation triggers a full rebuild
 * No ability to do a coordinated restart of services or reboot of machines: looking for ideas..
   * pre/post deployment hook in ncm-ncd?
-  
+
 Ceph evaluation still in progress, including integration with Quattor
 
 Started with OpenNebula: writing a new configuration rather than reusing StratusLab one
@@ -86,7 +86,7 @@ Still on hold
 * Aquilon: not yet there...
   * Would like to couple it with (private) GitHub workflow, e.g. Aquilon merge opening a pull request allowing peer review and closing the PR
   triggering the actual merge
-  
+
 EL7 compute cluster expected beginning of next year: need to sort out support in Quattor by then
 
 Improved monitoring of Quattor deployments: would be good to provide standard plugins for doing it
@@ -126,7 +126,7 @@ A few issues fixed
 * ncm-spma having problems with packages providing features corresponding to other packages: need userpkgs_retry=true
   * Why not to set userpkgs_retry to true by default as there is no known drawback: just split the YUM transaction in 2 different transactions:
   to be discussed in an issue in GitHub
-  
+
 New AII features for EL7
 
 * Use static network configuration in AII (pxe/setifnames=true)
@@ -136,7 +136,7 @@ New AII features for EL7
 * Ability to postpone base_package installation in %post phase to have the necessary repo available
   * Not specific to EL7
   * Discuss on GitHub if ks/packagesinpost should be true by default
-  
+
 Major issues
 
 * grub2 support: requires a new component
@@ -154,10 +154,10 @@ ncm-chkconfig vs. ncm-systemd
 * Define a set of functions that would be exposed by both components and will abstract at a higher level the service description?
 * Problem of dependency management: need to have one component able to work on all platforms to avoid a nightmare
   * Reuse the CAF::Service approach with a component that do whatever is appropriate on a specific platform, overloading the methods appropriately
-  
+
 
 ## OpenNebula support
-  
+
 4 components
 
 * ncm-opennebula
@@ -170,8 +170,8 @@ ncm-chkconfig vs. ncm-systemd
   * Mapping of network interfaces to vnets
 * Metaconfig templates
 * RPC calls to ONE via Net::Opennebula
-  * This module is not yet distributed, should be soon in CPAN, could put the RPM in quattor_externals 
-  
+  * This module is not yet distributed, should be soon in CPAN, could put the RPM in quattor_externals
+
 Preliminary template library not on GitHub yet
 
 * ncm-opennebula, AII hooks also to be commited
@@ -241,9 +241,9 @@ Future roadmap
 * Clojure migration (v10.3+)
   * Persistent data structures
   * Native clojure task management
-  
-  
-  
+
+
+
 ## Template Library
 
 Detailed presentation by Michel of the current layout of the library.
@@ -253,7 +253,7 @@ No showstopper identified preventing the use of the template library by Aquilon
 * Aquilon should ignore the ``personality`` and ``machine-types`` namespaces that are implemented through personality and OS definition in the database
 * Some adjustements probably needed, mostly in ``template-library-grid``, between templates in ``personality`` and ``features`` namespaces
   * Some things currently in ``personality`` should be moved to ``features``: easy to do in a backward compatible way for SCDB users
-  
+
 Agreement that we should foster the adoption of the template library at every site
 
 * OS + core + standard should really be useful/appropriate everywhere
@@ -364,9 +364,9 @@ Strategy proposed
   * Trivial but better than asking people to set the no update flag themselves
 * Update perl-CAF to use something else than perl-LC internally
   * Transparent to CAF users
-  
+
 Open a master issue for perl-LC replacement with sub-issues per perl-LC areas (files, processes, exceptions, syslog...)
-  
+
 ## Main Issues and Next Milestones
 
 Review of 14.10 issues done.
