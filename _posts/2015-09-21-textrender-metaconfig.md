@@ -22,8 +22,8 @@ step-by-step tutorial how to add a new `service` under `metaconfig` control.
 The usage of `TextRender` in other components or tools as described in the [3rd part of
 this series][othercomps_blog].
 
-[textrender_blog]: http://quattor.github.io/blog/2015/09/20/textrender-basics.html
-[othercomps_blog]: http://quattor.github.io/blog/2015/09/22/textrender-outside-metaconfig.html
+[textrender_blog]: {% post_url 2015-09-20-textrender-basics %}
+[othercomps_blog]: {% post_url 2015-09-22-textrender-outside-metaconfig %}
 
 ## ncm-metaconfig
 
@@ -61,7 +61,7 @@ which consists of creating
 * the [Template::Toolkit][textrender_blog_TT] (TT) file(s) to generate the text (assuming the builtin `TextRender` modules are not sufficient)
 * unittests to verify the expected format
 
-[textrender_blog_TT]: http://quattor.github.io/blog/2015/09/20/textrender-basics.html#templatetoolkit
+[textrender_blog_TT]: {% post_url 2015-09-20-textrender-basics %}#templatetoolkit
 
 ## Prepare environment
 

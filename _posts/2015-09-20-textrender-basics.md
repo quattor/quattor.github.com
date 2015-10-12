@@ -14,8 +14,8 @@ To limit exposure to the perl side of things, please follow one of the following
 * embed `TextRender` in other components or tools as described in the [3rd part of
 this series][othercomps_blog].
 
-[metaconfig_blog]: http://quattor.github.io/blog/2015/09/21/textrender-metaconfig.html
-[othercomps_blog]: http://quattor.github.io/blog/2015/09/22/textrender-outside-metaconfig.html
+[metaconfig_blog]: {% post_url 2015-09-21-textrender-metaconfig %}
+[othercomps_blog]: {% post_url 2015-09-22-textrender-outside-metaconfig %}
 
 # TextRender: `CAF` and `CCM`
 
@@ -360,4 +360,4 @@ element=truefalse,doublequote
 
 (The meaning of the flags will be explained in the [3rd part of the series][othercomps_blog_flags]).
 
-[othercomps_blog_flags]: http://quattor.github.io/blog/2015/09/22/textrender-outside-metaconfig.html#regexptests-flags
+[othercomps_blog_flags]: {% post_url 2015-09-22-textrender-outside-metaconfig %}#regexptests-flags

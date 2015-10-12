@@ -22,8 +22,8 @@ This final part will go into more detail how to integrate the convenient way of
 writing `Template::Toolkit` (TT for short) and unittests from `metaconfig`
 with regular component development and testing.
 
-[textrender_blog]: http://quattor.github.io/blog/2015/09/20/textrender-basics.html
-[metaconfig_blog]: http://quattor.github.io/blog/2015/09/21/textrender-metaconfig.html
+[textrender_blog]: {% post_url 2015-09-20-textrender-basics %}
+[metaconfig_blog]: {% post_url 2015-09-21-textrender-metaconfig %}
 
 # metaconfig migration
 
@@ -227,7 +227,7 @@ contentspath=/
 element=truefalse,doublequote
 ```
 
-[textrender_blog_panexample]: http://quattor.github.io/blog/2015/09/20/textrender-basics.html#pan-format-example
+[textrender_blog_panexample]: {% post_url 2015-09-20-textrender-basics %}#pan-format-example
 
 ### component perl unittests
 Component perl unittests (other than the `01_tt.t` to test the TT files),
