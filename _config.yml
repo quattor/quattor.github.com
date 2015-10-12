@@ -3,3 +3,4 @@ pygments: true
 markdown: redcarpet
 redcarpet:
     extensions: [with_toc_data]
+exclude: [vendor]
