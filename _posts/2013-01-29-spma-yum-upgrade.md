@@ -9,6 +9,6 @@ based on Yum.
 
 The initial page describing the migration from SPMA package deployment to YUM 
 package deployment has been revised and enhanced to reflect the improvements of
-YUM integration into Quattor. Refer to the [new page](documentation/2014/03/24/spma-yum-migration.html)
+YUM integration into Quattor. Refer to the [new page](/documentation/2014/03/24/spma-yum-migration.html)
 to get more information.
 
