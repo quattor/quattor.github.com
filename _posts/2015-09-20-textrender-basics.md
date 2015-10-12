@@ -2,7 +2,7 @@
 layout: article
 title: TextRender basics
 author: Stijn De Weirdt
-category: blog
+category: documentation
 ---
 
 Generating structured text is best done with the `TextRender` module.
