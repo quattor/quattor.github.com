@@ -25,7 +25,7 @@ contains three fields:
 - `main`
 
     An nlist with all the possible configuration values for
-    `/etc/postfix/main.cf`. See ["main(5) for more details."](#main-5-for-more-details)
+    `/etc/postfix/main.cf`. See main(5) for more details.
 
 - `master`
 
