@@ -9,7 +9,7 @@ Packages are available from our [yum repository](http://yum.quattor.org/14.6.0/)
 
 As always, many thanks to everyone who contributed!
 
-The next release should be 14.8.0, the [backlog](https://gist.github.com/jrha/4f42a3757aea4d2054e8) for which is already huge.
+The next release should be 14.8.0, the [backlog](http://www.quattor.org/release/) for which is already huge.
 
 Main New Features and Fixes
 ---------------------------
