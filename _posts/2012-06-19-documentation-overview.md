@@ -122,7 +122,7 @@ Uses a set of plugins to manage the configuration and state of:
 The diagram below shows how all these pieces fit together. As long as the interfaces are preserved any of the components can be replaced.
 For example, a site with an existing installation system could choose to use AII for DHCP only and modify their existing system to install and run the quattor client during initial installation.
 
-![Quattor Interprocess Flow](img/quattor-interprocess-flow.png)
+![Quattor Interprocess Flow](/img/quattor-interprocess-flow.png)
 
 
 ****************************************************************
