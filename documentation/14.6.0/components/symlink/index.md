@@ -2,7 +2,7 @@
 layout: documentation
 title: symlink
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 Be sure to put a blank line before and after every formatting command

@@ -2,7 +2,7 @@
 layout: documentation
 title: ldconf
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME

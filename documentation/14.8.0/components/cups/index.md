@@ -2,7 +2,7 @@
 layout: documentation
 title: cups
 category: documentation
-subcategory: components
+subcategory: 14.8.0/components
 menu: 'components.md'
 ---
 Be sure to put a blank line before and after every formatting command

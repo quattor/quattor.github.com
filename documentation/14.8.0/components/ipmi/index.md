@@ -2,7 +2,7 @@
 layout: documentation
 title: ipmi
 category: documentation
-subcategory: components
+subcategory: 14.8.0/components
 menu: 'components.md'
 ---
 ### NAME

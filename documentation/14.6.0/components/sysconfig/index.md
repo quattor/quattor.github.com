@@ -2,7 +2,7 @@
 layout: documentation
 title: sysconfig
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME

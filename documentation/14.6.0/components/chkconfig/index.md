@@ -2,7 +2,7 @@
 layout: documentation
 title: chkconfig
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME
