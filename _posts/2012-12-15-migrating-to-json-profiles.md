@@ -126,7 +126,7 @@ That's it!  Deploy, compile, install at your pleasure.
 If any of your
 internal tools parsed the XMLs directly (without CCM) you will have to
 adapt it.  We recommend you to try
-[Elasticsearch](www.elasticsearch.org) and our new
+[Elasticsearch](https://www.elastic.co/) and our new
 [data warehouse](https://github.com/quattor/data-warehouse) tool.
 
 At UGent, compressed JSON profiles take 1/30 the space of the
