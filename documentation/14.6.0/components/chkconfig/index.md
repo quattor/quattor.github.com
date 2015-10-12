@@ -90,8 +90,6 @@ None.
 
 ### BUGS
 
-- [https://savannah.cern.ch/bugs/?45924](https://savannah.cern.ch/bugs/?45924)
-
     The component should better integrate with the standard boot sequence
     (not start services that will get started anyway later).
 
@@ -102,4 +100,4 @@ Teemu Sidoroff &lt;Teemu.S&gt;
 
 ### SEE ALSO
 
-ncm-ncd(1), chkconfig(8), http://cern.ch/quattor
+`ncm-ncd(1)`, `chkconfig(8)`

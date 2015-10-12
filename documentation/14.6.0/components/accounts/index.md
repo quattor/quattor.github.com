@@ -13,9 +13,9 @@ ncm-accounts: NCM component to manage the local accounts on the machine.
 
 The _accounts_ component manages the local accounts on a machine. LDAP
 authentication depends on the LDAP configuration, which is handled by
-[ncm-authconfig](https://metacpan.org/pod/ncm-authconfig).
+[ncm-authconfig](documentation/14.6.0/components/authconfig/index.html.
 
-Shadowing of passwords is also controlled by [ncm-authconfig](https://metacpan.org/pod/ncm-authconfig).
+Shadowing of passwords is also controlled by [ncm-authconfig](documentation/14.6.0/components/authconfig/index.html.
 
 ### FUNCTIONS
 
@@ -264,10 +264,10 @@ __won't__ be fixed.
 The component has been tested with `files` as the primary source on
 `/etc/nsswitch.conf` for _group_ and _passwd_. Different settings may
 produce strange behaviour. These settings are not controlled by
-ncm-accounts but by [ncm-authconfig](https://metacpan.org/pod/ncm-authconfig).
+ncm-accounts but by [ncm-authconfig](documentation/14.6.0/components/authconfig/index.html.
 
 ### SEE ALSO
 
-[ncm-authconfig](https://metacpan.org/pod/ncm-authconfig)
+[ncm-authconfig](documentation/14.6.0/components/authconfig/index.html
 
 Luis Fernando Muñoz Mejías &lt;Luis.Fernando.Munoz.M&gt;
