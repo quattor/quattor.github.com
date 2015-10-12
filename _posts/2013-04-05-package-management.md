@@ -25,14 +25,14 @@ With this, we tell the package manager that we want `perl-JSON`
 installed. Note that the curly braces are mandatory as package names
 can contain characters that must be escaped in the PAN syntax.
 We don't care about the version or architecture (yum will determine
-that for us) and the use of conditional assignment (?=) ensures that 
-any existing, more specific setting is not over-written.  
-Also, if we trust Yum for choosing the correct dependencies, we don't 
+that for us) and the use of conditional assignment (?=) ensures that
+any existing, more specific setting is not over-written.
+Also, if we trust Yum for choosing the correct dependencies, we don't
 need to specify anything more.
 
 To specify particular versions and/or architectures, the simplest way
-to declare that is to use a function. Imagine we wanted to install 
-`perl-JSON` version 1.2.3, only in its x86_64 architecture. 
+to declare that is to use a function. Imagine we wanted to install
+`perl-JSON` version 1.2.3, only in its x86_64 architecture.
 The `pkg_repl` function is the preferred way to declare that:
 
 ```
@@ -44,7 +44,7 @@ Again, Yum will take care of the dependencies, and will lock only the
 version of `perl-JSON`.
 
 If you prefer you can specify all packages using functions, see the section
-[Helper functions for package management](#helper functions for package management).
+[Helper functions for package management](#helper-functions-for-package-management).
 
 ### Keeping a family of packages at the same version ###
 

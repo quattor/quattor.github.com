@@ -2,7 +2,7 @@
 layout: documentation
 title: ganglia
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME
@@ -18,7 +18,7 @@ ganglia
 #### `/software/components/ganglia`
 
 The configuration information for the component.  Each field should
-be described in this section. 
+be described in this section.
 
 \#
 \### Author(s): Guillaume PHILIPPON

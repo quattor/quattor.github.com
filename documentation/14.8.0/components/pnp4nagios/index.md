@@ -2,7 +2,7 @@
 layout: documentation
 title: pnp4nagios
 category: documentation
-subcategory: components
+subcategory: 14.8.0/components
 menu: 'components.md'
 ---
 ### DESCRIPTION
@@ -11,7 +11,7 @@ This component configures the nagios/icinga addon, pnp4nagios
 
 ### FILES
 
-This component touches the following files: 
+This component touches the following files:
 `/etc/pnp4nagios/npcd.cfg`
 /etc/pnp4nagios/config.php
 `/etc/pnp4nagios/nagios.cfg`
@@ -21,7 +21,7 @@ This component touches the following files:
 
 These are the top-level fields provided by the component. For
 information on any of these fields' structure, please look pnp4nagios
-documentation. 
+documentation.
 
 - `/software/components/pnp4nagios/npcd`
 

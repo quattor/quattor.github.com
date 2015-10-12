@@ -81,7 +81,7 @@ areas where Clojure features may help are below.
     data between profiles, but implements this by hand with
     copy-on-write.  Using clojure persistent data structures promises
     to be both more efficient and transparent to the pan compiler
-    implementation. 
+    implementation.
 * Pan is currently compiled to a custom instruction set that is then
     interpreted when building machine profiles.  Translation of the
     templates to functions and namespaces in clojure will also for the
@@ -95,7 +95,7 @@ areas where Clojure features may help are below.
     the compiler.  The standard memoization features in clojure will
     again simplify the implementation and allow such caching for other
     similar tasks.
-    
+
 Towards the Future
 ------------------
 
@@ -106,4 +106,4 @@ Future articles will describe the changes and report on the code and
 performance benchmarks.
 
 [sf-panc-files]: http://sourceforge.net/projects/quattor/files/panc/
-[clojure]: http://clojure.org 
+[clojure]: http://clojure.org

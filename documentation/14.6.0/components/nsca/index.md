@@ -2,7 +2,7 @@
 layout: documentation
 title: nsca
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### DESCRIPTION
@@ -13,7 +13,7 @@ In Nagios terms, they are known as passive check results (i.e. not initated by N
 
 ### COMPONENT STRUCTURE
 
-This component can be used to configure an NSCA daemon and/or NSCA client. 
+This component can be used to configure an NSCA daemon and/or NSCA client.
 The daemon is only configured if its configuration exists under `/software/components/nsca/daemon`,
 the client part is configured if the configuration under `/software/components/nsca/send` is defined.
 

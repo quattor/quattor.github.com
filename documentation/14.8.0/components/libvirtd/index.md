@@ -2,7 +2,7 @@
 layout: documentation
 title: libvirtd
 category: documentation
-subcategory: components
+subcategory: 14.8.0/components
 menu: 'components.md'
 ---
 ### DESCRIPTION
@@ -16,7 +16,7 @@ The base path for all of the configuration parameters is
     `/software/components/libvirtd.`  The following sections describe the
     elements that are permitted directly below this base path.  With
     further parameters described in each section.  All parameters are
-    optional.  Except the configuration file location. 
+    optional.  Except the configuration file location.
 
 #### libvirtd\_config (R '/etc/libvirt/libvirtd.conf')
 
@@ -54,7 +54,7 @@ This section contains the authentication parameters.
 
 #### tls
 
-This section contains the parameters for TLS. 
+This section contains the parameters for TLS.
 
 - key\_file: full path to key file
 - cert\_file: full path to certificate file
@@ -63,7 +63,7 @@ This section contains the parameters for TLS.
 
 #### authz
 
-This section contains the authorization parameters. 
+This section contains the authorization parameters.
 
 - tls\_no\_verify\_certificate: 0 or 1, defaults to verification
 - tls\_allowed\_dn\_list: list of allowed DNs
@@ -71,7 +71,7 @@ This section contains the authorization parameters.
 
 #### processing
 
-This section contains the parameters used to control the processing. 
+This section contains the parameters used to control the processing.
 
 - max\_clients: maximum number of clients
 - min\_workers: minimum number of workers

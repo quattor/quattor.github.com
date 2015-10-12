@@ -2,7 +2,7 @@
 layout: documentation
 title: gmond
 category: documentation
-subcategory: components
+subcategory: 14.8.0/components
 menu: 'components.md'
 ---
 ### DESCRIPTION
@@ -18,7 +18,7 @@ Please read Ganglia's documentation on the configuration of gmond for details.
 
 - `/software/components/gmond/file` : string
 
-    The location of the configuration file. The correct value differs between 
+    The location of the configuration file. The correct value differs between
     Ganglia 3.0 (/etc/gmond.conf) and Ganglia 3.1 (/etc/ganglia/gmond.conf).
     There is no default value.
 
@@ -37,12 +37,12 @@ Please read Ganglia's documentation on the configuration of gmond for details.
 
 - `/software/components/gmond/udp`\_send\_channel
 
-    List of UDP channels to send information to. 
+    List of UDP channels to send information to.
     Per channel the attributes mcast\_join, mcast\_if, host, port and ttl may be configured.
 
 - `/software/components/gmond/udp`\_recv\_channel
 
-    List of UDP channels to receive information from. 
+    List of UDP channels to receive information from.
     Per channel the attributes mcast\_join, mcast\_if, bind, port, family and an acl may be configured.
 
 - `/software/components/gmond/tcp`\_accept\_channel
@@ -68,6 +68,6 @@ Please read Ganglia's documentation on the configuration of gmond for details.
 
 ### SEE ALSO
 
-See 
+See
 http://ganglia.wiki.sourceforge.net/
 for documentation on Ganglia and gmond.

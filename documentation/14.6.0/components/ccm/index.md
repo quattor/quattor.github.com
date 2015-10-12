@@ -2,7 +2,7 @@
 layout: documentation
 title: ccm
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME
@@ -23,7 +23,7 @@ manpage for more details.
 The location of the configuration file.  Normally this should not be
 changed.
 
-#### 
+####
 
 #### profile
 

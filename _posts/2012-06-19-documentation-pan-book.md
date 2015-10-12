@@ -34,7 +34,7 @@ Feedback
 --------
 
 Comments, bug reports, and feature requests are welcome.  Please
-register in GitHub to [raise issue][panc-issues]. You are also encourage to subscribe 
+register in GitHub to [raise issue][panc-issues]. You are also encourage to subscribe
 to the Quattor discussion list to get support from the community.
 
 [panc]: https://github.com/quattor/pan/releases

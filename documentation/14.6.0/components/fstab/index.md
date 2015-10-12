@@ -2,7 +2,7 @@
 layout: documentation
 title: fstab
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### DESCRIPTION
@@ -21,6 +21,6 @@ https://twiki.cern.ch/twiki/bin/view/FIOgroup/TsiCDBBlockDevices
 
 ### SEE ALSO
 
-[ncm-filesystems](https://metacpan.org/pod/ncm-filesystems)
+[ncm-filesystems](documentation/14.6.0/components/filesystems/index.html
 
 Luis Fernando Muñoz Mejías, &lt;Luis.Fernando.Munoz.M&gt;

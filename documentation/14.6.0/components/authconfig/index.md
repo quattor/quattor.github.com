@@ -2,7 +2,7 @@
 layout: documentation
 title: authconfig
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME
@@ -45,7 +45,7 @@ authconfig. Also, "files" cannot be disabled.
 
 #### `/software/components/authconfig/method/{}/enable`
 
-Enable of disable this method. Unlisted methods are 
+Enable of disable this method. Unlisted methods are
 always disabled.
 
 ### SEE ALSO

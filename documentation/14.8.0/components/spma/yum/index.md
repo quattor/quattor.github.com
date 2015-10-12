@@ -2,7 +2,7 @@
 layout: documentation
 title: spma / yum
 category: documentation
-subcategory: components
+subcategory: 14.8.0/components
 menu: 'components.md'
 ---
 ### NAME
@@ -54,16 +54,16 @@ Quattor, please check
 
 - `/software/components/spma/userpkgs`\_retry : boolean
 
-    Yum-based spma might get confused and fails when it tries 
-    to remove packages when `userpkgs` is `no` while installing 
-    new ones. Typically it will (try to) remove a 
-    leaf package, that is also to be installed as a dependency of a new 
+    Yum-based spma might get confused and fails when it tries
+    to remove packages when `userpkgs` is `no` while installing
+    new ones. Typically it will (try to) remove a
+    leaf package, that is also to be installed as a dependency of a new
     to-be-installed package.
 
-    With `userpkgs_retry` set to `true`, the package update process 
-    will be retried in case of failure in 2 steps, a first retry while 
-    preserving the installed packages, and if this retry was succesful, 
-    followed by a second retry where it will (try to) remove leaf packages 
+    With `userpkgs_retry` set to `true`, the package update process
+    will be retried in case of failure in 2 steps, a first retry while
+    preserving the installed packages, and if this retry was succesful,
+    followed by a second retry where it will (try to) remove leaf packages
     again.
 
 - `/software/components/spma/userprio` : string ("yes|no")

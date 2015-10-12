@@ -2,7 +2,7 @@
 layout: documentation
 title: etcservices
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME
@@ -36,7 +36,7 @@ The services file contains an entry for each  service.  Each entry has the form:
 service-name: This is the official Internet service name.
 port/protocol: This field is composed of the port number and protocol through  which  the service is provided.
 aliases: This is a list of alternate names by which the service might be requested.
- 
+
 
 ### DEPENDENCIES
 

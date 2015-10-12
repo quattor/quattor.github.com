@@ -25,7 +25,7 @@ from letting some dependencies free.
 
 The diagram below shows how we could mirror one repository:
 
-![Repository mirroring and snapshotting](img/repository-mirrors.png)
+![Repository mirroring and snapshotting](/img/repository-mirrors.png)
 
 The upstream repo would be mirrored with `rsync`, `reposync`, `wget`,
 or whatever other tool.

@@ -63,12 +63,11 @@ These are the basic terms in Aquilon operations:
 
 ### Before proceeding
 
-Some understanding of Quattor's [architecture]() and the
-[Pan language]() are expected before reading this document.
+Some understanding of Quattor's [architecture](/documentation/2012/06/19/documentation-overview.html) and the
+[Pan language](http://quattor-pan.readthedocs.org/en/latest/) are expected before reading this document.
 
 We'll interact with the broker using the `aq` command, which has lots
-of sub-commands.  Each sub-command has a detailed help, and man pages
-can be found in the appendix of the [Aquilon book](http://FIXME).
+of sub-commands.  Each sub-command has a detailed help.
 
 In this stage we will be adding a site, so we will use `add_*`
 commands.  Most of the commands we'll use have `show_`, `update_` and

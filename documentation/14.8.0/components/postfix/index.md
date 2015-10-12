@@ -2,7 +2,7 @@
 layout: documentation
 title: postfix
 category: documentation
-subcategory: components
+subcategory: 14.8.0/components
 menu: 'components.md'
 ---
 *** ERROR: unterminated L<...> at line 37 in file (unknown)
@@ -25,7 +25,7 @@ contains three fields:
 - `main`
 
     An nlist with all the possible configuration values for
-    `/etc/postfix/main.cf`. See ["main(5) for more details."](#main-5-for-more-details)
+    `/etc/postfix/main.cf`. See main(5) for more details.
 
 - `master`
 
@@ -99,6 +99,6 @@ contains three fields:
         "query_filter" = "(an-ldap-filter)";
         "result_format" = "%s";
 
-    
+
 
 

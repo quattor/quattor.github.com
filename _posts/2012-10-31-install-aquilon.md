@@ -158,7 +158,7 @@ service aqd start
 ```
 
 Next, you should learn how to
-[have a site](/documentation/2013/10/25/aquilon-site).
+[have a site](/documentation/2013/10/25/aquilon-site.html).
 
 ## Adding more users
 
