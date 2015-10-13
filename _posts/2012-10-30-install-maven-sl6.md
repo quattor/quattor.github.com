@@ -1,7 +1,8 @@
 ---
 layout: article
 title: How to install maven in SL6
-category: blog
+category: documentation
+redirect_from: "/blog/2012/10/30/install-maven-sl6.html"
 ---
 
 Maven is not present in default repositories for SL6. For many people administrating and doing development with quattor it is convenient to develop in the same platform as the machines that are managed.

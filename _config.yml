@@ -7,3 +7,4 @@ redcarpet:
 exclude: [vendor]
 gems:
   - jekyll-feed
+  - jekyll-redirect-from
