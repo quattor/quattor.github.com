@@ -51,8 +51,8 @@ Major issue: `ncm-chkconfig`, started to work on `ncm-systemd`
 * New schema: see https://github.com/quattor/configuration-modules-core/pull/424/files
    * Agreement to start with this schema for the component specific schema
    * For `/software/services`, no ability to define unit type (only `service` can be configured) or target (default target only)
-   
-Grub2: no need to write a new component to start but will probably be needed to support reverting or definining explicit versions of 
+
+Grub2: no need to write a new component to start but will probably be needed to support reverting or definining explicit versions of
 kernel, kernel arguments
 
 * Main issue is to get the mapping between a grub entry value and a kernel version: no trivial match between kernel version in Quattor config and
@@ -85,7 +85,7 @@ Complete rewrite of `yum.pm`: need to be exposed on GitHub for further discussio
 * Now: unit tests are required to run successfully for the release being tagged
   * Required to build templates for metaconfig modules
   * In principle a good change: unit tests have to succeed on all supported platforms or they are not useful.
-  
+
 Supported platforms at this time: EL5, EL6, EL7
 
 * Solaris 11: should add it as a supported platform starting with 15.4
@@ -102,7 +102,7 @@ Currently, the release is blocked by a couple of metaconfig services that don't 
 * Move these services to next release to unblock the release process
 * Still the problem of EL5: more tests failing...
   * Release without EL5 tests: check and list problematic services on EL5, acceptable to have metaconfig services unsupported in EL5
-  
+
 Nexus central repo: need to ensure that enough people have the right to do new releases of build tools
 
 * Michel to check
@@ -123,7 +123,7 @@ Update the template library to use these new repos instead of `quattorsrv.lal.in
 
 ## Fine grained access control to configuration modification
 
-SCDB: GRIF experienced with access control based on SVN but did not prove to add any real value and had drawbacks, in particular causing 
+SCDB: GRIF experienced with access control based on SVN but did not prove to add any real value and had drawbacks, in particular causing
 unnecessary forks
 
 * In fact template access control doesn't bring much control on configuration changes: any template can change any part of the config
@@ -137,7 +137,7 @@ RAL: would be interested to give admin rights on some machines to people with li
   requiring compiler changes
   * But this would require some sort of host grouping and ownership in Aquilon
   * Difficult in SCDB as no real authentication against the deployment server: only SVN transaction is authenticated
-  
+
 
 ## CCM
 
@@ -159,12 +159,12 @@ ncm-query tab completion: current implementation is killed by the time to get th
 
 * Proposal: cache all paths present in the profile in a text file and use this file for time completion
   * Could be done transparently by `CCM/Fetch.pm`
-    
+
 XML profile support remains and no intention to drop it!
 
 * Problem with XML profiles fixed in December: will be part of next release
 
-  
+
 ## TextRender and metaconfig
 
 Getting Started doc for `TextRender` available at https://github.com/stdweird/maven-tools/blob/getting_started/TextRender.md
@@ -187,14 +187,14 @@ Rendering can be done in several formats, defined by the *module*
   * Template location is defined by `includepath` and `relpath`
   * When using `metaconfig` they are pre-defined
   * See examples in the doc for TT Toolkit usage. A basic example is:
-  
+
     ```
     perl -e 'use Template; my $tttext="Hello [% world %]\n"; Template->new()->process(\$tttext, { world => "Quattor" });'
     ```
 
   * Several advanced features: loops, newline management
   * Possibility to expose to the TT template some pan configuration properties or some functions defined in the component
-  
+
 TT Toolkit template are very powerfull and can replace perl codes... but they may also be a source of bugs! Thus the need for unit tests
 
 * A test framework developed: `Test::Quattor::RegexpTest`
@@ -202,7 +202,7 @@ TT Toolkit template are very powerfull and can replace perl codes... but they ma
 * Allow regexp pattern matching on `TextRender` output: ordered list of regexp can be defined
   * By default, regexp are compiled multilines
   * Possibility to negate regexps, either all of thems or a single one (COUNT statement)
-  
+
 `ncm-metaconfig`: high level interface to `TextRender`
 
 * Files managed by `metaconfig` are called `services`
@@ -216,7 +216,7 @@ TT Toolkit template are very powerfull and can replace perl codes... but they ma
   * Uses `Test::Quattor::TextRender::metaconfig` internally
   * Requires one or more profiles in the service `tests/profile` directory and one or more files containing regexps to apply to the profiles
   * Also requires a Perl test file for the service under `ncm-metaconfig` `src/test/perl` directory (by convention `service-name.t`)
-  
+
 Defining site-specific services: currently TT files have to be shipped with `ncm-metaconfig` RPM, thus they have to be developed under `ncm-metaconfig`
 directory
 
@@ -227,7 +227,7 @@ how to allow site-specific services
   * This must maintain the ability to unit test things
   * More discussion needed: see https://github.com/quattor/configuration-modules-core/issues/436
   * James: must not lead to less site sharing and a bigger mess...
-  
+
 Issue to be addressed with the building process of TT files: currently done in the `test` phase which is not intended to produce anything required to
 build the package: need to enhance the build tools to allow doing it in the  `compile` phase.
 
@@ -246,7 +246,7 @@ Need to do the same review for grid components.
 Some components may require the ability to configure path where part of the path is a variable
 
 * See https://github.com/quattor/pan/issues/77
-  
+
 ## Documentation - W. Depypere
 
 Currently
@@ -286,7 +286,7 @@ Components that can be configured: Nova, Glance, Cipher Keystone
 * Nova and Glance used in prod at IPHC
 * Includes mysql backend and RabbitMQ
   * memcache to be added in the future
-  
+
 IPHC uses standard OpenStack RPM
 
 Quattor configuration relies on filecopy/metaconfig
@@ -298,7 +298,7 @@ OpenStack templates will be put in a repo `template-library-openstack`
 * Examples to be put in the `template-library-examples` master branch
   * `create-vanilla-SCDB` will need to be adjusted to download it, ideally selectively
   * Need to tag it as part of the release
-  
+
 ### Other cloud platforms
 
 StratusLab available and maintained
@@ -307,8 +307,8 @@ OpenNebula: UGent has a set of private templates, used partly by RAL
 
 * Will try to start a `template-library-opennebula` repo in 15.4
   * Also required a `ncm-opennebula` update: currently a pull request is open
-  
-  
+
+
 ## Dashboards
 
 Current dashboard prototype allowing to browse information in SCDB and/or Aquilon and to report the nodes that in install state in AII/PXE

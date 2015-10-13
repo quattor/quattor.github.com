@@ -2,7 +2,7 @@
 layout: documentation
 title: ofed
 category: documentation
-subcategory: components
+subcategory: 14.8.0/components
 menu: 'components.md'
 ---
 ### NAME
@@ -16,7 +16,7 @@ NCM::ofed - NCM ofed configuration component
     This component configures OFED.
 
 - `/software/components/ofed/openib`
-- config 
+- config
 Config file loaction for openib (default `/etc/infiniband/openib.conf`).
 - options
 Config options

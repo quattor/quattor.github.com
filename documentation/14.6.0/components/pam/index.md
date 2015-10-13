@@ -2,7 +2,7 @@
 layout: documentation
 title: pam
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME
@@ -12,9 +12,9 @@ NCM::pam - NCM pam configuration component
 ### SYNOPSIS
 
     ### declare what pam modules are available.
-    "/software/components/pam/modules" = npush("krb5", 
+    "/software/components/pam/modules" = npush("krb5",
 	nlist("path", "/lib/security/$ISA/pam_krb5.so"));
-    "/software/components/pam/modules" = npush("cracklib", 
+    "/software/components/pam/modules" = npush("cracklib",
 	nlist("path", "/lib/security/$ISA/pam_cracklib.so"));
 
     ### declare what services we expect to already exist
@@ -69,28 +69,28 @@ NCM::pam - NCM pam configuration component
 
     contains an nlist of services that are being controlled by this
     component. Any service controlled will have it's PAM configuration
-    completely replaced by this module. Stacked or included PAM 
+    completely replaced by this module. Stacked or included PAM
     configurations
-    (i.e. configurations that use pam\_stack.so or the include directive) 
+    (i.e. configurations that use pam\_stack.so or the include directive)
     must ensure that the
-    service being stacked is already defined. 
+    service being stacked is already defined.
     For each service, the value
     will be an nlist keyed off the module type (auth, account, session,
     password). The value for each module type is an ordered list of
     mappings. Each mapping is an nlist that is keyed off the action (i.e. required, optional, etc),.
-    Only a single action is expected in each nlist. 
+    Only a single action is expected in each nlist.
 
     The nlist may contain the key "predefined" with a boolean value. If set
     to true, then this service name is expected to be on the system, but will not
-    be actively managed by this component. 
+    be actively managed by this component.
     For example, the "system-auth"
-    service can be listed with this value, which will allow other services 
+    service can be listed with this value, which will allow other services
     to stack/include
-    that service configuration, without requiring that this component 
+    that service configuration, without requiring that this component
     take over management of the "system-auth" component.
 
-    PAM config files for 
-    services which are not 
+    PAM config files for
+    services which are not
     specified within this list will not be touched.
 
 - `/software/components/pam/acls`: nlist

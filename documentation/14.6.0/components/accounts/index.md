@@ -2,7 +2,7 @@
 layout: documentation
 title: accounts
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME
@@ -13,9 +13,9 @@ ncm-accounts: NCM component to manage the local accounts on the machine.
 
 The _accounts_ component manages the local accounts on a machine. LDAP
 authentication depends on the LDAP configuration, which is handled by
-[ncm-authconfig](https://metacpan.org/pod/ncm-authconfig).
+[ncm-authconfig](documentation/14.6.0/components/authconfig/index.html.
 
-Shadowing of passwords is also controlled by [ncm-authconfig](https://metacpan.org/pod/ncm-authconfig).
+Shadowing of passwords is also controlled by [ncm-authconfig](documentation/14.6.0/components/authconfig/index.html.
 
 ### FUNCTIONS
 
@@ -85,7 +85,7 @@ It updates a structure\_accounts (return value may be assigned to "/software/com
 #### keep\_user\_group(user\_or\_group:string or list of string)
 
 This functions adds a user or group to the kept\_users or kept\_groups resources. The
-argument can be a string or list of strings. The return value can be assigned to 
+argument can be a string or list of strings. The return value can be assigned to
 `/software/components/accounts/kept`\_users or `/software/components/accounts/kept`\_groups.
 
 ### RESOURCES
@@ -134,7 +134,7 @@ mandatory. The available fields are:
 
     the shell for the user. If it is defined as an empty string, the current shell
     is preserved for an existing account (for a new account, it will remain undefined,
-    meaning that the default shell on the system will be used). 
+    meaning that the default shell on the system will be used).
 
     Defaults to `/bin/bash.`
 
@@ -219,7 +219,7 @@ default is false.  The root account can never be removed.
 #### `/software/components/accounts/preserved`\_accounts
 
 This property may have 3 values: 'none', 'system', 'dyn\_user\_group'. It controls
-the accounts/groups that have to be preserved when 'remove\_unknown' is true 
+the accounts/groups that have to be preserved when 'remove\_unknown' is true
 (it has no effect when remove\_unknown=false).
 
 The effect of each possible value is
@@ -233,7 +233,7 @@ The effect of each possible value is
 
     all accounts/groups in the system range and in the
     range used for dynamic uid/gid allocation by useradd command, ie. all
-    accounts/groups with uid/gid less or equal to GID/UID\_MAX as defined in 
+    accounts/groups with uid/gid less or equal to GID/UID\_MAX as defined in
     `/etc/login.defs`, are preserved. The exact list of accounts preserved
     depends on UID/GID\_MAX value. It is possible to use login\_defs/uid\_max and
     login\_defs/gid\_max properties to control the preserved ranges. Not that
@@ -264,10 +264,10 @@ __won't__ be fixed.
 The component has been tested with `files` as the primary source on
 `/etc/nsswitch.conf` for _group_ and _passwd_. Different settings may
 produce strange behaviour. These settings are not controlled by
-ncm-accounts but by [ncm-authconfig](https://metacpan.org/pod/ncm-authconfig).
+ncm-accounts but by [ncm-authconfig](documentation/14.6.0/components/authconfig/index.html.
 
 ### SEE ALSO
 
-[ncm-authconfig](https://metacpan.org/pod/ncm-authconfig)
+[ncm-authconfig](documentation/14.6.0/components/authconfig/index.html
 
 Luis Fernando Muñoz Mejías &lt;Luis.Fernando.Munoz.M&gt;

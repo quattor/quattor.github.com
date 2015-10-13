@@ -2,7 +2,7 @@
 layout: documentation
 title: symlink
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 Be sure to put a blank line before and after every formatting command
@@ -27,7 +27,7 @@ A list of symbolic links to create or delete.  Each entry
 must be of the structure\_symlink\_entry type which has the following
 fields: name, target, delete, exists, replace.
 
-'name' is the symbolic link name, 'target' is the link target, other fields are boolean. 'delete' means delete the link rather than create. 'exists' means check the target exists when creating or check the link exists when deleting. 
+'name' is the symbolic link name, 'target' is the link target, other fields are boolean. 'delete' means delete the link rather than create. 'exists' means check the target exists when creating or check the link exists when deleting.
 
 'replace' is an option taking one or several of the several following suboptions : all, dir, dirempty, file, link, none. Each suboption can have the following values : 'yes', 'no', a string interpreted as a file extension used to rename the existing object with the link name. If a suboption value is empty, it is interpreted as 'yes'. If value is 'yes', replacement is enabled but existing object is not renamed, except if a default extension has been defined with 'none' or 'all' or if it is a non empty directory (renamed with a default extension).
 
@@ -44,9 +44,9 @@ fields: name, value.  Contextual variables are global.
 A list of global options used as default for all links creation/deletion. Supported options are the same as options supported in the link definition (see above), with the exception of 'delete'.
 
 ### EXAMPLES
- 
 
-    "/software/components/symlink/links" = 
+
+    "/software/components/symlink/links" =
       list(nlist(
              "name",    "/usr/bin/tcsh",
              "target",   "/bin/tcsh",
@@ -54,7 +54,7 @@ A list of global options used as default for all links creation/deletion. Suppor
             )
       );
 
-    "/software/components/symlink/links" = 
+    "/software/components/symlink/links" =
       list(nlist(
              "name",    "/atlas",
              "target",   "/atlas_prod/@@uname@@",
@@ -62,13 +62,13 @@ A list of global options used as default for all links creation/deletion. Suppor
             )
       );
 
-    "/software/components/symlink/context" = 
+    "/software/components/symlink/context" =
       list(nlist(
              "name",    "ostype",
              "value",   "@@uname@@",
             )
       );
-    "/software/components/symlink/links" = 
+    "/software/components/symlink/links" =
       list(nlist(
              "name",    "/atlas",
              "target",   "/atlas_prod/{ostype}",
@@ -77,10 +77,10 @@ A list of global options used as default for all links creation/deletion. Suppor
       );
 
     ### Allow replacement of empty directories and links
-    "/software/components/symlink/options/replace/dirempty" = ".saved"; 
+    "/software/components/symlink/options/replace/dirempty" = ".saved";
     "/software/components/symlink/options/replace/link" = "yes";
 
-    "/software/components/symlink/links" = 
+    "/software/components/symlink/links" =
       list(nlist(
              "name",    "/usr/local",
              "target",   "/lal_prod/{ostype}",

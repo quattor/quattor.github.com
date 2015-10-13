@@ -5,40 +5,40 @@ category: documentation
 author: Michel Jouvin
 ---
 
-This page contains a step-by-step installation guide for Quattor SCDB, the second generation of Quattor configuration database, 
+This page contains a step-by-step installation guide for Quattor SCDB, the second generation of Quattor configuration database,
 and its associated deployment tools. It also contains some instructions to troubleshoot SCDB issues, in particular failure to deploy changes.
 
 ***SCDB is now considered a legacy configuration database. If you start a new site you are encouraged to look at [Aquilon](/documentation/2012/10/31/install-aquilon.html), the new configuration
 database, that provides more flexible workflows and an improved scalability.***
 
-SCDB relies on several underlying services not specific to Quattor, like Apache, Subversion, 
+SCDB relies on several underlying services not specific to Quattor, like Apache, Subversion,
 DHCP, TFTP. Installing SCDB involves installing these services and configure them for Quattor use. As these services can be used for
-other purposes than Quattor, the actual details of the service configurations can be potentially site-specific and instructions given here 
-may need to be adapted. For the sake of simplicity, the configuration steps for the underlying services assume that these services are 
+other purposes than Quattor, the actual details of the service configurations can be potentially site-specific and instructions given here
+may need to be adapted. For the sake of simplicity, the configuration steps for the underlying services assume that these services are
 dedicated to Quattor.
 
-The instructions in this documentation assume the following conventions: 
+The instructions in this documentation assume the following conventions:
 
 * SVN server is `svn.example.org`. This clearly needs to be updated to reflect your host/domain name.
 * The URL of the associated SVN repository is `http://svn.example.org/svn/quattor`: may be changed to suit your needs.
 * TFTP server root directory is the default one, `/tftpboot`.
- 
-Having these services dedicated to Quattor is not at all a requirement. If you want to use an already existing instances of these services, 
-you'll need to tweak the proposed configuration to fit in your existing configuration. This may require information not present in this guide: 
-in this case refer to the service documentation. If you have no specific constraint and you aren't familiar with these services, 
+
+Having these services dedicated to Quattor is not at all a requirement. If you want to use an already existing instances of these services,
+you'll need to tweak the proposed configuration to fit in your existing configuration. This may require information not present in this guide:
+in this case refer to the service documentation. If you have no specific constraint and you aren't familiar with these services,
 you are probably better to stick with a configuration as close as possible with the one used in examples.
 
-*Note: this documentation tries to be as generic as possible as far as OS versions are concerned, but the commands used in examples have 
-been tested only on Scientific Linux 6. 
+*Note: this documentation tries to be as generic as possible as far as OS versions are concerned, but the commands used in examples have
+been tested only on Scientific Linux 6.
 They may need to be modified when underlying services like SVN or DHCP are hosted on another platform.*
 
-**Important: when you will have succeeded in installing and configuring Quattor, it is recommended to add a profile for your deployment server so 
+**Important: when you will have succeeded in installing and configuring Quattor, it is recommended to add a profile for your deployment server so
 that it will be managed by Quattor! This will help to keep it consistent and up-to-date.**
 
 
 ## OS Installation
 
-To proceed with the next steps, you need to install a basic RHEL or derivative 
+To proceed with the next steps, you need to install a basic RHEL or derivative
 server configuration by any means appropriate to you (CD-Rom, Kickstart, imaging...).
 Configure the network according to your site requirements and ensure that you have
 a network connection with the outside world.
@@ -84,7 +84,7 @@ yum install aii-pxelinux ncm-ncd ncm-ccm
 
 The Quattor server needs to run a Web server to serve profiles,
 kickstart configuration files and execute the CGI script at the end of
-a host installation to change PXE boot to local disk. In addition, 
+a host installation to change PXE boot to local disk. In addition,
 you may want to use this Web server for serving YUM repositories if you
 don't already have one for this purpose.
 
@@ -103,13 +103,13 @@ SCDB has no strong requirement concerning Apache configuration. It
 needs two distinct URLs for two different purposes :
 
  * Profiles: host profiles are all stored under the same parent URL, for
-   example `/var/www/quattor/profiles`. 
+   example `/var/www/quattor/profiles`.
    The files in this area are produced by the pan
    compiler when executing `ant deploy`.
  * Kickstart configuration files: this URL is used to store the
    Kickstart configuration file for each host, for example `/var/www/quattor/ks`. These files are
    produced by `aii-shellfe --configure`.
-   
+
 In addition, you may want to configure the area (*directory*) used for serving
 YUM repositories if you use the same server for this.
 
@@ -118,7 +118,7 @@ Recommended setting for these areas are :
  * Restrict access to profile and Kickstart configuration to IP
    adresses (or subnets) matching Quattor-managed hosts, as these files may
    contain sensitive information like encrypted passwords or MySQL
-   passwords (cleartext).   
+   passwords (cleartext).
  * Configure all these areas to ignore any `index.html` file and
    auto-indexing.
 
@@ -163,10 +163,10 @@ even though that is the only installation option documented here. You can even
 choose to use a Subversion server outside of your site, if you think
 the network connection is good enough.
 
-*Note: Quattor has no requirement regarding the name of the directory where SVN repository is located and 
-the URL associated with the repository. Even a repository non dedicated to SCDB (with already existing contents) can be used. 
-The examples in this page are based on a repository created as part of the SCDB installation and associated with URL 
-`http://svn.example.org/svn/quattor`. If you are not familiar with SVN and SVN management, you are probably better to use a configuration 
+*Note: Quattor has no requirement regarding the name of the directory where SVN repository is located and
+the URL associated with the repository. Even a repository non dedicated to SCDB (with already existing contents) can be used.
+The examples in this page are based on a repository created as part of the SCDB installation and associated with URL
+`http://svn.example.org/svn/quattor`. If you are not familiar with SVN and SVN management, you are probably better to use a configuration
 as close as possible to the examples.*
 
 If you need to install a Subversion server, use YUM. Don't forget to install the Apache module which is
@@ -176,10 +176,10 @@ in a separate RPM. A typical SVN installation is done with the following command
 yum install subversion mod_dav_svn
 ```
 
-After installing, you have to configure the Subversion server. Refer to Subversion [web site](https://subversion.apache.org) 
+After installing, you have to configure the Subversion server. Refer to Subversion [web site](https://subversion.apache.org)
 for details. Configuration the SVN server typically involves:
 * Creation of directory which will be the parent for SVN repositories (this example uses `/var/svn`):
- 
+
   ```bash
   mkdir -p /var/svn
   ```
@@ -192,8 +192,8 @@ for details. Configuration the SVN server typically involves:
   ```
 
 Apache SVN module configuration (`/etc/httpd/conf.d/subversion.conf`)
-must be edited to configure URL used by SVN (examples in this page assume this is `/svn`)  
-and bind it to the directory created at the previous step. A typical example, based on previously created repository 
+must be edited to configure URL used by SVN (examples in this page assume this is `/svn`)
+and bind it to the directory created at the previous step. A typical example, based on previously created repository
 (adjust paths to reflect your configuration) is:
 
 ```apacheconf
@@ -246,7 +246,7 @@ For Quattor, you need to create a repository with the usual structure inside it 
  * `tags`: used by SCDB administration tool to do deployment
  * `branches` (optional): for alternative developments
 
-Assuming the repository has already been created (see previous step) and that its URL is `http://svn.example.org/quattor`, 
+Assuming the repository has already been created (see previous step) and that its URL is `http://svn.example.org/quattor`,
 one of the possible methods to initialise this structure is:
 
 ```bash
@@ -263,9 +263,9 @@ in an existing repository.*
 
 ### SCDB Initialisation
 
-If you followed this documentation and executed the step about [Subversion initialisation](#subversion-initialisation-and-configuration), you should have a Subversion 
+If you followed this documentation and executed the step about [Subversion initialisation](#subversion-installation-and-configuration), you should have a Subversion
 repository ready for use by SCDB. Be sure to use http/https to access the repository as  the standalone access won't work (this is a limitation of the build
-script). 
+script).
 
 To create your initial SCDB with the standard templates and the associated examples, follow the following steps:
 
@@ -274,8 +274,8 @@ To create your initial SCDB with the standard templates and the associated examp
   ```bash
   git clone https://github.com/quattor/scdb.git scdb_src
   ```
-  
-* Go into the directory containing the clone and execute the command below to create your initial configuration database with SCDB tools, 
+
+* Go into the directory containing the clone and execute the command below to create your initial configuration database with SCDB tools,
 the template library and the site template examples. The configuration database will be createad in directory `scdb` (you may use another name
 but the next steps in documentation assumes this name). The directory must not exist (use option `-F` to remove it if it exists):
 
@@ -321,7 +321,7 @@ but the next steps in documentation assumes this name). The directory must not e
 ## SCDB Deployment Service Configuration
 
 This section explains how to install and configure the scripts
-use by SCDB deployment service. These two scripts communicate using either SSH 
+use by SCDB deployment service. These two scripts communicate using either SSH
 if they are executed on
 different hosts or sudo if both run on the same host. Depending on
 the method used, you will need to configure one or the other.
@@ -331,22 +331,22 @@ the method used, you will need to configure one or the other.
 SCDB deployment uses a pair of cooperating scripts:
 
 * SVN post-commit hook script: this script is launched when `ant deploy` creates a new deployment tag. This scripts run on the SVN server.
-* Deployment script: this script is launched by the post-commit hook script to do the real work. It runs on the Quattor deployment server (which 
+* Deployment script: this script is launched by the post-commit hook script to do the real work. It runs on the Quattor deployment server (which
 may be different from the SVN server).
 
-Both scripts are distributed as part of [SCDB](https://github.com/quattor/scdb) (directory `src/hooks`). They need to be copied at the appropriate 
+Both scripts are distributed as part of [SCDB](https://github.com/quattor/scdb) (directory `src/hooks`). They need to be copied at the appropriate
 location on the appropriate server:
 
-* The SVN hook script [src/hooks/post-commit.py](https://github.com/quattor/scdb/blob/master/src/hooks/post-commit.py) must be copied to the `hook` 
+* The SVN hook script [src/hooks/post-commit.py](https://github.com/quattor/scdb/blob/master/src/hooks/post-commit.py) must be copied to the `hook`
 directory of the SVN repository on the SVN server (using the naming convention of this guide, it would be `/var/svn/quattor/hooks`)
-and given executable permission for Apache user. 
-* The other script, [src/hooks/build-tag.py](https://github.com/quattor/scdb/blob/master/src/hooks/build-tag.py) must be installed (root executable) 
+and given executable permission for Apache user.
+* The other script, [src/hooks/build-tag.py](https://github.com/quattor/scdb/blob/master/src/hooks/build-tag.py) must be installed (root executable)
 in `/root/quattor/scripts` on the Quattor server.
 
-Both scripts use the same configuration file, `/etc/quattor-deploy.conf`, see SCDB 
-[server-side customisations](#scdb-server-side-scripts) for details. The configuration file is **required** (one must exist on each host 
-if you run SVN server and Quattor deployment server on different hosts). 
-If you use a configuration based on suggested defaults and a SVN server and Quattor deployment server co-located on the same host, a typical 
+Both scripts use the same configuration file, `/etc/quattor-deploy.conf`, see SCDB
+[server-side customisations](#scdb-server-side-scripts) for details. The configuration file is **required** (one must exist on each host
+if you run SVN server and Quattor deployment server on different hosts).
+If you use a configuration based on suggested defaults and a SVN server and Quattor deployment server co-located on the same host, a typical
 configuration file is:
 
 ```cfg
@@ -361,21 +361,21 @@ repository_url=http://svn.example.org/svn/quattor
 svn_cache: /scratch/quattor-deployment/svncache
 ```
 
-*Note: there used to be a Shell/Perl version of these scripts. These scripts are now **obsolete**. The configuration file format of the 
+*Note: there used to be a Shell/Perl version of these scripts. These scripts are now **obsolete**. The configuration file format of the
 new scripts is **different**, even though the name may be the same. Please upgrade to the last version if you are still using the old scripts.*
 
-`build-tag.py` also requires the file `quattor.build.properties` to be created in the parent of the directory specified in `svn_cache` paramater 
-of the above configuration file. 
-A [template](https://github.com/quattor/scdb/blob/master/src/hooks/quattor.build.properties) of this file is available in SCDB distribution, in `src/hooks` directory. 
+`build-tag.py` also requires the file `quattor.build.properties` to be created in the parent of the directory specified in `svn_cache` paramater
+of the above configuration file.
+A [template](https://github.com/quattor/scdb/blob/master/src/hooks/quattor.build.properties) of this file is available in SCDB distribution, in `src/hooks` directory.
 It must be edited to reflect your local configuration.
 
 
 ### Creation of SSH Keys
 
-*Note: this step is necessary only if the SVN server and the Quattor deployment server are not the same host. 
-Otherwise, it is recommended to use [#sudoConfiguration sudo] instead.* 
+*Note: this step is necessary only if the SVN server and the Quattor deployment server are not the same host.
+Otherwise, it is recommended to use [#sudoConfiguration sudo] instead.*
 
-When `ssh` is used between the SVN server and the Quattor server, it is necessary to configure SSH keys 
+When `ssh` is used between the SVN server and the Quattor server, it is necessary to configure SSH keys
 to allow a password-less ssh connection (there is no way to enter a password in the script).
 To configure these keys, you need to:
 
@@ -385,18 +385,18 @@ To configure these keys, you need to:
   ssh -b 2048
   ```
 
-* Log in to the Subversion server as the same user as your SVN server (generally Apache account), copy the file with extension `.pub` 
+* Log in to the Subversion server as the same user as your SVN server (generally Apache account), copy the file with extension `.pub`
 generated in the previous step (to the directory `~/.ssh`)
-* Try to ssh to the Quattor deployment server from the SVN server using the same account as 
+* Try to ssh to the Quattor deployment server from the SVN server using the same account as
 the one used by the deployment script. If it doesn't successfully to login without password, check your SSH configuration.
- 
+
 ### sudo configuration
 
-*Note: this step is necessary only if you use `sudo` for the communication between the SVN server and the Quattor deployment server. 
-This requires both services to run on the same host and is the recommended communication method in this situation. If both services 
-run on different hosts, you need to use and configure [ssh](#creation-of-ssh-keys) instead.* 
+*Note: this step is necessary only if you use `sudo` for the communication between the SVN server and the Quattor deployment server.
+This requires both services to run on the same host and is the recommended communication method in this situation. If both services
+run on different hosts, you need to use and configure [ssh](#creation-of-ssh-keys) instead.*
 
-To configure `sudo` for SCDB, use the `visudo` utility and enter the following lines in the `sudo ` configuration (be sure to 
+To configure `sudo` for SCDB, use the `visudo` utility and enter the following lines in the `sudo ` configuration (be sure to
 use the appropriate path and account in your configuration):
 
 ```
@@ -415,15 +415,15 @@ is to copy the `example` site and customise a few files, as described below.
 
 ### RPM Repositories
 
-Pan templates are used to define the YUM repositories that will be used install packages. You can find in the 
+Pan templates are used to define the YUM repositories that will be used install packages. You can find in the
 [cfg/sites/examples/repository](https://github.com/quattor/template-library-examples/tree/master/sites/example/repository)
 URLs of YUM repositories: they should provide a good starting poing for upstream repositories (and they should have
 been copied to your site if you created it from the examples) but feel free to update the URLs if you know sources
 more appropriate to your site. You should keep the same template name as they are the name expected by default
 by other parts of the template library.
- 
-When you have successfully 
-configured your first node, you may want to look at how to use 
+
+When you have successfully
+configured your first node, you may want to look at how to use
 [YUM repository snapshots](/documentation/2014/03/24/spma-yum-migration.html#managing-yum-snapshots) with Quattor.
 
 *Note: if you use YUM snapshots that are not under the same path, be sure to add the required Apache configuration to serve them.*
@@ -441,7 +441,7 @@ grid site configuration. This is done in the template
 `site/glite/config.pan` found in your site directory. Look at
 comments to understand what you need to modify.
 
-*Note: do not be afraid of putting incorrect values in your gLite parameters, this can easily be refined later. As a general rule, keep the example values 
+*Note: do not be afraid of putting incorrect values in your gLite parameters, this can easily be refined later. As a general rule, keep the example values
 if you don't understand how to change them.*
 
 
@@ -464,11 +464,11 @@ defined in this file is `cluster.pan.includes` which set the path used by the pa
 
 You need to create a template describing the hardware configuration of
 your machines. This is generally placed in the `hardware` sub-directory of
-the site directory. Look at the examples, copy one with a configuration close to yours as a starting point. The name of the hardware template 
-is is internal and merely for convenience, it will be associated with a host name later. If your site has a convention for naming or tagging pieces of 
+the site directory. Look at the examples, copy one with a configuration close to yours as a starting point. The name of the hardware template
+is is internal and merely for convenience, it will be associated with a host name later. If your site has a convention for naming or tagging pieces of
 hardware, it would make sense to use that here.
 
-*Note: our recommendation is to derive the names of machines from their location rather than their hostnames as hostnames may be migrated 
+*Note: our recommendation is to derive the names of machines from their location rather than their hostnames as hostnames may be migrated
 to different hardware later on.*
 
 ### Adding a machine to site/databases.pan
@@ -479,7 +479,7 @@ entry for the machine name in both variables of
 with the machine name, second variable defines the hardware template
 associated with the machine.
 
-In both variables, the key is the escaped host name. In the first case the value is an IP address, in the second it is the name of the template (relative to your site 
+In both variables, the key is the escaped host name. In the first case the value is an IP address, in the second it is the name of the template (relative to your site
 name in sites directory) that you created in the previous step.
 
 ### Creating a Machine Profile
@@ -491,7 +491,7 @@ you want to create.
 
 ### Compiling and deploying the first profile
 
-At this point you should be able to compile and deploy your first profile! With SCDB, this is 
+At this point you should be able to compile and deploy your first profile! With SCDB, this is
 done with the command `ant deploy`. To execute successfully this command, you must first commit
 your changes to Subversion. Good practice is to take the following steps to avoid committing
 broken changes:
@@ -506,9 +506,9 @@ external/ant/bin/ant deploy
 *Note: you can also use `ant deploy` for the first step. Deployment will be blocked until the changes are committed.*
 
 If the `ant deploy` succeeded, you should find a profile file created on the Quattor deployment server for the host
-in the directory that you configured to store the profiles during Apache configuration (`/var/www/quattor/profiles` 
+in the directory that you configured to store the profiles during Apache configuration (`/var/www/quattor/profiles`
 based on the example provided). The profile name starts with the hostname, followed by the extension `.json`
-(or `.xml` if you chose to use XML profiles). If you don't find a profile in this directory after a successful 
+(or `.xml` if you chose to use XML profiles). If you don't find a profile in this directory after a successful
 execution of `ant deploy`, follow the instructions at the end of this page to troubleshoot the deployment
 scripts.
 
@@ -533,7 +533,7 @@ Install the DHCP server with the following YUM command:
 yum install dhcp
 ```
 
-If you had no DHCP server before, a basic DHCP configuration (`/etc/dhcp/dhcpd.conf`) follows 
+If you had no DHCP server before, a basic DHCP configuration (`/etc/dhcp/dhcpd.conf`) follows
 (update hosts/domain name/addresses appropriately):
 
 ```
@@ -560,8 +560,8 @@ group {
 ```
 
 We recommend using `/etc/dhcp/dhcpd.quattor.conf` for declaring static parameters related to PXE
-or specific to DHCP usage by Quattor and including another file (`/etc/dhcp/dhcpd.aii.conf`) that 
-will contain the host entries managed by Quattor AII: 
+or specific to DHCP usage by Quattor and including another file (`/etc/dhcp/dhcpd.aii.conf`) that
+will contain the host entries managed by Quattor AII:
 
 ```
 group {
@@ -583,7 +583,7 @@ group {
 Create `/etc/dhcp/dhcpd.aii.conf` as an empty file. This file is the one you'll need to add in
 `/etc/aii/aii-dhcp.conf` (see [below](#aii-shellfe-configuration)).
 
-There is absolutely no reason to run a dedicated DHCP server for Quattor. Using the recommended 
+There is absolutely no reason to run a dedicated DHCP server for Quattor. Using the recommended
 layout of DHCP configuration file makes easy to share a DHCP
 server between Quattor and non Quattor usage. If you already have a DHCP server configured and running,
 the proposed configuration should be easy to add: just include the proposed `/etc/dhcp/dhcpd.quattor.conf`
@@ -602,9 +602,9 @@ yum install tftp-server
 ```
 
 The TFTP server is run by `xinetd`. In the default configuration provided by the OS installation, it is generally
-disabled. Enable it by editing `/etc/xinetd.d/tftp`, modifying `disable` parameter from `yes` to `no`. 
+disabled. Enable it by editing `/etc/xinetd.d/tftp`, modifying `disable` parameter from `yes` to `no`.
 
-The option `server_args` allows the TFTP root directory to be defined. By default, it is `/tftpboot`. If you wish to use another location you will need 
+The option `server_args` allows the TFTP root directory to be defined. By default, it is `/tftpboot`. If you wish to use another location you will need
 to update this option and to define the variable `AII_NBP_DIR` to refer to this directory during the [next step](#aii-shellfe-configuration).
 
 
@@ -631,9 +631,9 @@ There are two AII configuration files that need to be customised to reflect your
   nbpdir = /tftpboot/quattor/pxelinux.cfg
   ```
 
-* `/etc/aii/aii-dhcp.conf`: check that `dhcpconf` and `restartcmd` commands match your configuration and edit them if necessary. 
+* `/etc/aii/aii-dhcp.conf`: check that `dhcpconf` and `restartcmd` commands match your configuration and edit them if necessary.
 The file referred toby `dhcpconf` (`/etc/dhcp/dhcpd.aii.conf` if you used the suggested name when configuring DHCP server)
-must be writable from the AII server. `restartcmd` may execute a command on a remote host 
+must be writable from the AII server. `restartcmd` may execute a command on a remote host
 through appropriate means (for example, a SSH command without password).
 
 In addition, there are a few variables to customise in site templates to reflect
@@ -655,14 +655,14 @@ in the SCDB distribution.
 
 For every OS version you plan to deploy with Quattor, you should mirror the upstream YUM repository with appropriate tools if you don't have it already at your
 site. Note that an OS-related YUM repository
-is not made of single directory, so `wget` will not make a usable mirror. `reposync` is a better option. You may also look at 
-[sync_yum_repos](https://github.com/quattor/scdb/blob/master/utils/yum/sync_yum_repos) in SCDB which is a wrapper above `reposync` that 
-helps to automate repository mirroring or [mrepo](http://dag.wiee.rs/home-made/mrepo/) 
+is not made of single directory, so `wget` will not make a usable mirror. `reposync` is a better option. You may also look at
+[sync_yum_repos](https://github.com/quattor/scdb/blob/master/utils/yum/sync_yum_repos) in SCDB which is a wrapper above `reposync` that
+helps to automate repository mirroring or [mrepo](http://dag.wiee.rs/home-made/mrepo/)
 which provides a framework for mirroring repositories from various sources.
 
-Once you have the OS repository mirror available, you need to add the boot files used for the PXE installation to the AII server. They consist of two 
-files (`vmlinuz` and `initrd.img`) 
-generally located in the `images/pxeboot` directory of the distribution. You need to copy these files to a directory specific to the OS version/architecture that must be created in the 
+Once you have the OS repository mirror available, you need to add the boot files used for the PXE installation to the AII server. They consist of two
+files (`vmlinuz` and `initrd.img`)
+generally located in the `images/pxeboot` directory of the distribution. You need to copy these files to a directory specific to the OS version/architecture that must be created in the
 same directory as the `pxelinux.cfg` directory under the TFTP server root (see variable `AII_NBP_DIR` configured in  previous step for the exact path).
 The directory name must have the usual Quattor format for OS version/architecture with all `-` replaced by `_` (e.g. sl530_x86_64).
 
@@ -675,14 +675,14 @@ post-installation script, a CGI script on the Quattor server is called by the ho
 device in the BIOS. Quattor will properly configure PXE to boot either from the local disk or from the installer
 as requested by the `aii-shellfe` command.*
 
-The script, [aii-installack.cgi](https://github.com/quattor/scdb/blob/master/src/cgis/aii-installack.cgi), 
+The script, [aii-installack.cgi](https://github.com/quattor/scdb/blob/master/src/cgis/aii-installack.cgi),
 can be found in the SCDB directory `src/cgis`. It must be placed on the Web server running on the Quattor
 server, in the directory for CGI scripts (by default `/var/www/cgi-bin/`).
 
 The apache server must be able to run the script as root. The recommended configuration is to
 have `sudo` installed and use `visudo` to add the following to
 `/etc/sudoers`:
- 
+
 ```
 Cmnd_Alias   AIIACKCGI=/usr/sbin/aii-shellfe
 apache ALL = NOPASSWD: AIIACKCGI
@@ -725,15 +725,15 @@ This script is triggered at the end of every commit: it is called a *post-commit
 `ant deploy`, when creating the deployment tag. Note that, as it is a *post-commit* hook, the commit succeeds even if the script encounters
 an error. The main role of this script to launch the [deployment script](#deployment-script) after performing a few checks.
 
-It must be installed on the Subversion server, inside the `hooks` directory of the SCDB repository (the storage directory of the repository itself, 
-not a working copy). 
+It must be installed on the Subversion server, inside the `hooks` directory of the SCDB repository (the storage directory of the repository itself,
+not a working copy).
 For this, you need a write access to the directory containing the repository on the Subversion server.
-This script *must be* named `post-commit` and be executable by the account the SVN server is running under (typically the Apache account). 
+This script *must be* named `post-commit` and be executable by the account the SVN server is running under (typically the Apache account).
 This script is released as part of [SCDB](https://github.com/quattor/scdb/blob/master/src/hooks/post-commit.py).
 
-This script requires a configuration file, `/etc/quattor-deploy.conf` (common with the [deployment script](#deployment-script) when running on the 
+This script requires a configuration file, `/etc/quattor-deploy.conf` (common with the [deployment script](#deployment-script) when running on the
 same host).
-All the configuration options supported and their default values are defined at the beginning of the script. The configuration file has several sections. 
+All the configuration options supported and their default values are defined at the beginning of the script. The configuration file has several sections.
 One of them, `[scdb]`, is common to the hook script and the deployment script. The main options available and their default values are:
 
 ```cfg
@@ -779,24 +779,24 @@ tags_branch: /tags
 trunk_branch: /trunk
 ```
 
-The only required options for which no default value is provided is `repository_url` in the `[scdb]` section, which must match the root URL 
+The only required options for which no default value is provided is `repository_url` in the `[scdb]` section, which must match the root URL
 of your SVN repository (as returned by `svn info`).
 
-*Note on using `sudo`: recent versions of `sudo` disable the use of `sudo` without a tty by default. This **must** be changed in order to use `sudo` 
+*Note on using `sudo`: recent versions of `sudo` disable the use of `sudo` without a tty by default. This **must** be changed in order to use `sudo`
 in the context of the deployement script. To do this, run `visudo` and comment out the line `Defaults    requiretty`.*
 
 ### Deployment Script
 
-This script is launched by the [hook script](#subversion-hook-script) and does the real work by updating the working copy of the SCDB repository on the Quattor server to the tag to created 
+This script is launched by the [hook script](#subversion-hook-script) and does the real work by updating the working copy of the SCDB repository on the Quattor server to the tag to created
 by `ant deploy` and by calling the appropriate `ant` tasks.
 
-It needs to be installed on the Quattor server and will be called through sudo or ssh by the hook script (you need to configure a SSH key without password between 
-your Subversion server and your Quattor server if ssh is used). The default location to install the script is `/root/quattor/scripts` but you can put it wherever you want 
+It needs to be installed on the Quattor server and will be called through sudo or ssh by the hook script (you need to configure a SSH key without password between
+your Subversion server and your Quattor server if ssh is used). The default location to install the script is `/root/quattor/scripts` but you can put it wherever you want
 as long as you update the hook script configuration accordingly (see previous section). The source of this script is in [SCDB](https://github.com/quattor/scdb/blob/master/src/hooks/build-tag.py).
 
-This script requires a configuration file, `/etc/quattor-deploy.conf` (common with the [hook script](#subversion-hook-script) when running on the 
-same host). 
-All the configuration options supported and their default values are defined at the beginning of the script. The configuration file has several sections. One of them, `[scdb]`, 
+This script requires a configuration file, `/etc/quattor-deploy.conf` (common with the [hook script](#subversion-hook-script) when running on the
+same host).
+All the configuration options supported and their default values are defined at the beginning of the script. The configuration file has several sections. One of them, `[scdb]`,
 is common to the hook script and the deployment script. The main options available and their default values are:
 
 ```
@@ -806,7 +806,7 @@ ant_cmd: external/ant/bin/ant
 # ant options (passed through env variable ANT_OPTS)
 #ant_opts: -Xmx2048M
 # ant stdout: allow to redirect ant output to a file for debugging purposes (default is PIPE)
-# Default changed to a file because of problem in subprocess module if the 
+# Default changed to a file because of problem in subprocess module if the
 # output is very large (Python 2.4) leading to the parent/child communication
 # to hang.
 ant_stdout: /tmp/ant-deploy-notify.log
@@ -833,10 +833,10 @@ tags_branch: /tags
 trunk_branch: /trunk
 ```
 
-The only required options for which no default value is provided is `repository_url` in the `[scdb]` section, which must match the root URL 
+The only required options for which no default value is provided is `repository_url` in the `[scdb]` section, which must match the root URL
 of your SVN repository (as returned by `svn info`).
 
-This script needs to be able to find the file [quattor.build.properties](https://github.com/quattor/scdb/blob/master/src/hooks/quattor.build.properties) 
+This script needs to be able to find the file [quattor.build.properties](https://github.com/quattor/scdb/blob/master/src/hooks/quattor.build.properties)
 in the parent directory of
 the SCDB local cache (by default, the parent directory for this script location, explicitly defined by `svn_cache` in the script configuration file).
 
@@ -848,8 +848,8 @@ In addition to the specific problems mentioned below, you may look at the [SCDB 
 If there is a problem during deployment, after entering command `ant deploy`, the command should return an explicit error message. In addition,
 it is possible to optionally define a list of people who will receive an email when an error occurs. This is done with
 `notify_to` configuration option of the [hook script](#subversion-hook-script).
-If the `notify_to` people don't receive an email about the deployment failure, 
-check your SMTP configuration and your notification parameters. 
+If the `notify_to` people don't receive an email about the deployment failure,
+check your SMTP configuration and your notification parameters.
 
 *Note : a common error message is about the deployment script already running: as stated in the message, it is necessary to retry later
 as only one deployment can occur at any time.*
@@ -859,12 +859,12 @@ testing `build-tag.py` and then the hook script, as explained in the following s
 
 ### Troubleshooting the deployment script
 
-**To troubleshoot the deployment script, `build-tag.py`, you must log on the Quattor server as the user configured to run the 
+**To troubleshoot the deployment script, `build-tag.py`, you must log on the Quattor server as the user configured to run the
 deployment script (generally `root`).**
 
 The step-by-step procedure to troubleshoot the deployment script is as follows (commands given assume that the script is installed in `/root/quattor/scripts`):
 
-1. Look in `/etc/quattor-deploy.conf` the location of the SVN cache on the Quattor server. If it is not defined, the default location is `/root/quattor/svncache`. 
+1. Look in `/etc/quattor-deploy.conf` the location of the SVN cache on the Quattor server. If it is not defined, the default location is `/root/quattor/svncache`.
 In the following steps, replace this default location by whatever is appropriate at your site.
 1. Check the last tag checked out with the following command:
 
@@ -873,8 +873,8 @@ In the following steps, replace this default location by whatever is appropriate
   ---> look at the current tag name, everything after /tags/ in the URL (without the leading /)
   ```
 
-1. Check the tag has been successfully checked out. If the following command updates anything or returns an error, it means the script attempt to switch to this tag 
-was unsuccessful. If the command fails again, retry it until it is successful. Failure to switch to a tag is generally related to a Subversion server problem, 
+1. Check the tag has been successfully checked out. If the following command updates anything or returns an error, it means the script attempt to switch to this tag
+was unsuccessful. If the command fails again, retry it until it is successful. Failure to switch to a tag is generally related to a Subversion server problem,
 not to Quattor itself : check Subversion server logs for more information.
 
   ```bash
@@ -887,7 +887,7 @@ not to Quattor itself : check Subversion server logs for more information.
   /root/quattor/scripts/build-tag.py --debug TAG-VALUE
   ```
 
-If the SVN cache is empty (not recognized as a valid SVN working copy by `svn info`), you need to identify the 
+If the SVN cache is empty (not recognized as a valid SVN working copy by `svn info`), you need to identify the
 last tag in `tags` branch of the Quattor SCDB repository using:
 
 ```bash
@@ -900,17 +900,17 @@ svn ls REPOSITORY_URL/tags/YEAR/MONTH
 
 ### Troubleshooting the SVN hook script
 
-**Most of the deployment problems, after initial configuration, are related to the [deployment script](#troubleshooting-the-deployment-script). As the hook 
-script mainly launches the deployment script, it is important to complete the checks described in the previous section before troubleshooting the 
+**Most of the deployment problems, after initial configuration, are related to the [deployment script](#troubleshooting-the-deployment-script). As the hook
+script mainly launches the deployment script, it is important to complete the checks described in the previous section before troubleshooting the
 SVN hook script.**
 
-The main cause of problems in the hook script is related to launching the deployment script from the hook script. The reason for the problems and the troubleshooting 
+The main cause of problems in the hook script is related to launching the deployment script from the hook script. The reason for the problems and the troubleshooting
 steps are different whether you use `sudo` or `ssh` to run the deployment script on the Quattor deployment server.
- * `ssh`: the most common reason is invalid SSH keys for communication between the SVN server and the Quattor server or an invalid configuration. 
- To troubleshoot this, log in to the Subversion server as the same user as your SVN server (generally Apache account) and try to ssh to the 
+ * `ssh`: the most common reason is invalid SSH keys for communication between the SVN server and the Quattor server or an invalid configuration.
+ To troubleshoot this, log in to the Subversion server as the same user as your SVN server (generally Apache account) and try to ssh to the
  Quattor deployment server using the same account as the one used by the deployment script (typically  `root` but check your configuration file).
- * `sudo`: log in to the Subversion server as the same user as your SVN server (generally Apache account) and try to sudo under the deployment account 
- (the one used to run the deployment script, typically `root` but check your configuration). One well-known issue with recent versions of `sudo` is 
+ * `sudo`: log in to the Subversion server as the same user as your SVN server (generally Apache account) and try to sudo under the deployment account
+ (the one used to run the deployment script, typically `root` but check your configuration). One well-known issue with recent versions of `sudo` is
  that you need to enable the use of `sudo` by processes without a tty (this must be done with `visudo`, see [sudo configuration](#sudo-configuration) for details).
 
 When you have confirmed the ability to successfully launch the deployment script, try to execute the hook script under the SVN server account. This involves the following steps:

@@ -55,7 +55,7 @@ The Quattor toolkit can use both XML and JSON both plain and gzipped, gzipped JS
 
 The compiler is normally invoked by some part of the tooling that makes up a CMDB, but can also be used standalone, see [the Pan book](http://sourceforge.net/projects/quattor/files/Panc/10.0/pan-book.pdf/download) for more details.
 
-`panc` is implemented in a mixture of Java and Clojure and runs in a standard JVM, see [Cal's blog post](blog/2012/05/07/review-pan-in-clojure.html) for a peek at the internals.
+`panc` is implemented in a mixture of Java and Clojure and runs in a standard JVM, see [Cal's blog post](/blog/2012/05/07/review-pan-in-clojure.html) for a peek at the internals.
 
 
 ****************************************************************
@@ -122,7 +122,7 @@ Uses a set of plugins to manage the configuration and state of:
 The diagram below shows how all these pieces fit together. As long as the interfaces are preserved any of the components can be replaced.
 For example, a site with an existing installation system could choose to use AII for DHCP only and modify their existing system to install and run the quattor client during initial installation.
 
-![Quattor Interprocess Flow](img/quattor-interprocess-flow.png)
+![Quattor Interprocess Flow](/img/quattor-interprocess-flow.png)
 
 
 ****************************************************************

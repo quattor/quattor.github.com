@@ -2,7 +2,7 @@
 layout: documentation
 title: nrpe
 category: documentation
-subcategory: components
+subcategory: 14.8.0/components
 menu: 'components.md'
 ---
 ### DESCRIPTION
@@ -83,7 +83,7 @@ All fields are mandatory, unless it is explicitly stated:
 
 - `/software/components/nrpe/include` : string \[\]
 
-    List of external file names that should be included. 
+    List of external file names that should be included.
 
 - `/software/components/nrpe/include`\_dir : string \[\]
 

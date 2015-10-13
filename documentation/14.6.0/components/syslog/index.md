@@ -2,7 +2,7 @@
 layout: documentation
 title: syslog
 category: documentation
-subcategory: components
+subcategory: 14.6.0/components
 menu: 'components.md'
 ---
 ### NAME
@@ -35,7 +35,7 @@ NCM::syslog - adding entries and editing `/etc/syslog.conf`
 
 - `/software/components/syslog/config`/
 
-    The configuration items 
+    The configuration items
 
 ### DEPENDENCIES
 
