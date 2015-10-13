@@ -161,7 +161,7 @@ none known.
 
 S
 
-German Cancio <German.Cancio@cern.ch>, Stephen Childs <Stephen.C>
+German Cancio &lt;German.Cancio@cern.ch&gt;, Stephen Childs &lt;Stephen.C&gt;
 
 ### SEE ALSO
 

@@ -47,7 +47,7 @@ The default is
 
 #### `/software/components/puppet/nodefiles`
 
-named list of node specific manifests. The component will run "puppet --apply `/etc/puppet/manifests`/<file>" for each item <file> of the nlist.
+named list of node specific manifests. The component will run "puppet --apply `/etc/puppet/manifests/<file>`" for each item `<file>` of the nlist.
 The parameters of each item are.
 
 - `contents` : string

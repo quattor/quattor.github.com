@@ -23,7 +23,7 @@ This forced each new service and most upgrades to go through
 time-consuming trial and error cycles: list the expected packages,
 deploy, read the error messages, fix those messages, iterate.
 
-### Fix: Yum
+### Fix: YUM
 
 With the proper configuration, Yum will handle dependencies in the way
 we want them.
@@ -79,7 +79,7 @@ Adding a new RPM to the infrastructure would require:
 
 That's a lot.  Especially if the new RPM is just a version bump.
 
-### Fix: Yum
+### Fix: YUM again
 
 The new workflow is simpler:
 

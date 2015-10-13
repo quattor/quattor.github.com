@@ -29,9 +29,7 @@ ncm-directoryservices
 
 None known.
 
-Nick Williams <Nick.W>
-
-Nick Williams <Nick.W>
+Nick Williams &lt;Nick.W&gt;
 
 ### VERSION
 

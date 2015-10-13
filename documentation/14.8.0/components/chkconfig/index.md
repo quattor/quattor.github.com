@@ -45,7 +45,7 @@ NCM::chkconfig - NCM chkconfig component
 - `/software/components/chkconfig/service/<service>/off : string ("[0-7]*")`
 - `/software/components/chkconfig/service/<service>/on : string ("[0-7]*")`
 
-    Sets the service <service> on/off on specified run levels. The run
+    Sets the service `<service>` on/off on specified run levels. The run
     levels are specified as string of numbers, the same way as with
     `chkconfig`\-command. If the string is empty, system default is taken
     (see `man chkconfig(8)` for exact details).
@@ -53,7 +53,7 @@ NCM::chkconfig - NCM chkconfig component
 - `/software/components/chkconfig/service/<service>/name : string`
 
     If set, the value is used as the name of the service instead of using the
-    <service> path as a name.
+    `<service>` path as a name.
 
 - `/software/components/chkconfig/service/<service>/reset : string ("[0-7]*")`
 
@@ -115,7 +115,7 @@ None.
 - __reset__ behaviour should check against current config?
 - __startstop__ logic depends on init script, will mindlessly start some services despite them running already
 
-Teemu Sidoroff <Teemu.S>
+Teemu Sidoroff &lt;Teemu.S&gt;
 
 ### SEE ALSO
 

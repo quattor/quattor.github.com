@@ -76,6 +76,7 @@ The following formats my be rendered:
     Uses Perl's [Config::General](https://metacpan.org/pod/Config::General). This leads to configuration files
     similar to this one:
 
+```pan
         <nlist>
           <another nlist>
             scalar value
@@ -85,6 +86,7 @@ The following formats my be rendered:
         list_element 0
         list_element 1
         list_element 2
+```
 
 - tiny
 
@@ -194,7 +196,7 @@ And now, we only have to specify the contents:
     "s1/a" = 42;
     "s2/b" = "hitchicker";
 
-##### And that's it
+##### That's it
 
 That's it!  When you deploy your configuration you should see your
 `/etc/foo.ini` in the correct location.

@@ -50,7 +50,7 @@ None.
 
 None known.
 
-Vladimir Bahyl <Vladimir.B>
+Vladimir Bahyl &ltVladimir.B&gt;
 
 ### SEE ALSO
 

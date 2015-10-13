@@ -270,4 +270,4 @@ ncm-accounts but by [ncm-authconfig](/documentation/14.8.0/components/authconfig
 
 [ncm-authconfig](/documentation/14.8.0/components/authconfig/index.html)
 
-Luis Fernando Muñoz Mejías <Luis.Fernando.Munoz.M>
+Luis Fernando Muñoz Mejías &lt;Luis.Fernando.Munoz.M&gt;
