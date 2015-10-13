@@ -16,7 +16,7 @@ author: Michel Jouvin
 
 Unit tests are run on EL5, EL6 and EL7 as part of the release process
 
- * `build_all_repos` script takes care of setting the environment required on a freshly installed machine (VM)
+ * [build_all_repos](https://raw.githubusercontent.com/quattor/release/master/src/scripts/build_all_repos.sh) script takes care of setting the environment required on a freshly installed machine (VM)
  * This script basically set a clean environment for Quattor development: could be used for other things
  
  
@@ -66,7 +66,7 @@ Reduce the number to two: devel and discuss.
 
 ### Quattor Dashboard
  
-Developed by Samy based on the Quattor console by James
+Developed by Samir based on the Quattor dashboard by James and the Aquilon console by Frazer
 
  * Directly parsing JSON profiles
    * If using XML profiles for deployment and other tools, just add generation of JSON in addition to XML
@@ -84,11 +84,11 @@ Improvements suggested
 
 1 release every ~3 weeks
 
-Recent changes: implementation of staged deployment in the broker
+Recent changes: implementation of staged deployment of personalities in the broker
 
-* 3 stages defined: test, production, previous
+* 3 stages defined: next (test), current (production), previous
 * Ability to move hosts from one stage to another one
-* Ability to "promote" test as production (and production as previous): all hosts affected
+* Ability to "promote" test (`next`) as production (`current`) (and production as previous): all hosts affected
 
 Python 2.7 is recommended but should work with Python 2.6
 
