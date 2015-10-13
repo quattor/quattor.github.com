@@ -72,7 +72,7 @@ grep 'profiles/.*xml' /etc/httpd/logs/access_log | grep '10/May/2014:15' | awk '
 **It is strongly recommanded to fix all the problematic nodes before generating only JSON profiles, else you will loose control on these nodes.
 You also need the period to be long enough to allow nodes which are down to get a chance to be restarted, as these nodes will not appear in the `httpd`logs.**
 
-### SCDB
+### Using JSON profiles with SCDB
 
 To generate the JSON format in addition to the XML format, you need to add or edit the
 file `quattor.build.properties` in the root directory of your configuration database (same directory

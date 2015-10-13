@@ -167,11 +167,11 @@ None.
 
 ### BUGS
 
-#### Linux
+#### Linux bugs
 
     None known.
 
-#### Solaris
+#### Solaris bugs
 
     Editing the NCM-CRON BEGIN: and/or the NCM-CRON END: tag within a crontab will
     cause unpredictable behaviour. Possible behavours are duplicate entries or
