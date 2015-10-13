@@ -21,7 +21,7 @@ not of interest to users, then put the information on the
 [Quattor wiki](https://trac.lal.in2p3.fr/Quattor) instead.
 
 The naming scheme for the items in the __posts subdirectory is the date,
-followed by the category (news, blog, documentation), followed by a short
+followed by the category (`news` or `documentation`), followed by a short
 title. The content of the post should be done in [markdown
 format](http://daringfireball.net/projects/markdown/) preceeded by a small
 amount of metadata. Use the existing posts as guidelines for the metadata.
@@ -30,9 +30,6 @@ use this category.)
 
 **News**: This is intended for short announcements that would interest users,
 such as release announcements and invitations to meetings of general interest.
-
-**Blog**: This category should contain longer articles of general interest
-that would interest users and people in the fabric management community.
 
 **Documentation**: This category contains short articles documenting the
 features of the Quattor toolkit, for example, a getting started guide or
@@ -82,7 +79,7 @@ website. You can see the articles undergoing review at the /review/index.html
 page. Content you write should be posted there first with an invitation for
 review sent to the developers' mailing list.
 
-News items probably need only minimal review. Blog and Documentation entries
+News items probably need only minimal review. Documentation entries
 may need longer and more detailed review by others in the developer community.
 Use your best judgement on how long to leave something in review before moving
 it into a visible category.
