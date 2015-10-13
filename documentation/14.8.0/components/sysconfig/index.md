@@ -23,7 +23,7 @@ before or after the key-value pair definitions.
     This is an nlist which has the file name (unescaped) as the key, and
     the content information as the value.  The value is an nlist.
 
-- `/software/components/sysconfig/files`/<fname>/
+- `/software/components/sysconfig/files/<fname>/`
 
     This is a nlist containing key-value pairs.  Both are strings.
     There are two special keys "prologue" and "epilogue" which contain

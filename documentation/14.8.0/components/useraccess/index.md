@@ -11,7 +11,7 @@ The useraccess NCM component allows to manage the different ways an user
 can get into a machine. Currently it configures Kerberos access, SSH
 public keys access and specific services via ACLs.
 
-It is meant to replace (and improve) ncm-access\_control . It provides
+It is meant to replace (and improve) ncm-access_control. It provides
 much cleaner interface, way better documentation and far better
 granularity support. It rocks, really! ;)
 
@@ -20,7 +20,7 @@ that user__
 
 ### BASIC COMPONENT STRUCTURE
 
-Besides the classic component\_structure fields, it provides two more
+Besides the classic component_structure fields, it provides two more
 fields, named `users` and `roles`. `users` will contain the
 authorization information for each user, and `roles` will contain a
 set of credentials for users to accept. Both `users` and `roles`
@@ -44,38 +44,38 @@ user:
     necessary when the change is in a file external to the configuration,
     referred by a URL.
 
-- `/software/components/useraccess/acl`\_services
+- `/software/components/useraccess/acl_services`
 
     List of services that will have ACLs associated to them.
 
-- `/software/components/useraccess/{users`,roles}/<id>/kerberos4
+- `/software/components/useraccess/{users,roles}/<id>/kerberos4`
 
     It is a list of the users who can log in using Kerberos v4
     tickets. The contents of this list will be appropriately formatted and
     written into ~/.klogin.
 
-- `/software/components/useraccess/{users`,roles}/<id>/kerberos5
+- `/software/components/useraccess/{users,roles}/<id>/kerberos5`
 
     It is a list of the users who can log using Kerberos v5 tickets. The
     contents of this list will be appropriately formatted and written into
     ~/.k5login.
 
-- `/software/components/useraccess/{users`,roles}/<id>/ssh\_keys\_urls
+- `/software/components/useraccess/{users,roles}/<id>/ssh_keys_urls`
 
     It is a list containing the __absolute URLs__ where the public keys
     granted to login as this user can be found. The URL can have any
     schema LWP::UserAgent supports, and it has been tested with http://,
     https:// and file:// . Local files are admitted, if wanted.
 
-- `/software/components/useraccess/{users`,roles}/<id>/ssh\_keys
+- `/software/components/useraccess/{users,roles}/<id>/ssh_keys`
 
     It is a list containing the __exact lines__ to be added to
-    ~/.ssh/authorized\_keys.
+    ~/.ssh/authorized_keys.
 
-    The preferred way for adding authorized\_keys is ssh\_keys\_urls, but if
+    The preferred way for adding authorized_keys is ssh_keys_urls, but if
     you are happy filling your templates with garbage, serve yourself. :P
 
-- `/software/components/useraccess/{users`,roles}/<id>/acls
+- `/software/components/useraccess/{users,roles}/<id>/acls`
 
     It is a list of the ACL-controlled services the user is allowed to log
     in. This only applies to PAM controlled services. SSH is not (not
@@ -83,20 +83,20 @@ user:
 
     __IMPORTANT NOTE__ this will add athe user to the given ACL, but will
     __not__ force the service to use ACLs at all. To do so, add the service
-    to `/software/components/useraccess/acl`\_services .
+    to `/software/components/useraccess/acl_services .`
 
-- `/software/components/useraccess/{users`,roles}/<id>/roles
+- `/software/components/useraccess/{users,roles}/<id>/roles`
 
     List of strings. It contains the lists of roles the user belongs
     to. Roles can be nested.
 
     It is a compile-time error to add an user to a non-existing role.
 
-- `/software/components/useraccess/users`/<id>/managed\_credentials
+- `/software/components/useraccess/users/<id>/managed_credentials`
 
     List of authentication methods the component will configure (and thus,
     fully control) for the user. It is a list of strings, with possible
-    values "ssh\_keys", "kerberos4" and "kerberos5".
+    values "ssh_keys", "kerberos4" and "kerberos5".
 
     It defaults to control all credentials, change it if you want to
     control something by some other means. For instance, CERN uses a
@@ -108,23 +108,23 @@ user:
 Both `kerberos4` and `kerberos5` share the same structure. It
 contains the following fields:
 
-- `/software/components/useraccess`/<id>/kerberosX/realm : mandatory
+- `/software/components/useraccess/<id>/kerberosX/realm` : mandatory
 
     Kerberos' realm for authentication (the part behind the @ in
     .klogin). For instance, CERN.CH .
 
-- `/software/components/useraccess`/<id>/kerberosX/principal :
+- `/software/components/useraccess/<id>/kerberosX/principal` :
 mandatory
 
     Principal identity for the user in the Kerberos ticket server.
 
-- `/software/components/useraccess`/<id>/kerberosX/instance :
+- `/software/components/useraccess/<id>/kerberosX/instance` :
 optional
 
     "Instance" identity for the user. This is a sub-identity, and it's
     optional.
 
-- `/software/components/useraccess`/<id>/kerberosX/host : optional
+- `/software/components/useraccess/<id>/kerberosX/host` : optional
 
     Host from which the ticket must come for this identity. It is
     currently ignored.
@@ -281,4 +281,4 @@ with `passwd -l`. Depending on how you configured SSH, a locked user
 may still be able to log-in with his public key. You can run `ncm-ncd
 --unconfigure useraccess` to temporarily lock all accounts, before
 removing the user's entry from CDB. Or remove manually .k\*login and
-.ssh/authorized\_keys.
+.ssh/authorized_keys.

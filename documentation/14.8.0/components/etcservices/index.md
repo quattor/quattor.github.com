@@ -52,7 +52,7 @@ none.
 
 none known.
 
-Juan.Pelegrin <Juan.P>
+Juan.Pelegrin &lt;Juan.P&gt;
 
 ### SEE ALSO
 

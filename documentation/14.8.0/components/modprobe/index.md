@@ -47,7 +47,7 @@ None.
 
 Cannot clean out "install" and "remove" lines again.
 
-Hugo Cacote <Hugo.C>
+Hugo Cacote &lt;Hugo.C&gt;
 
 ### SEE ALSO
 

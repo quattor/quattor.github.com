@@ -76,6 +76,7 @@ The following formats my be rendered:
     Uses Perl's [Config::General](https://metacpan.org/pod/Config::General). This leads to configuration files
     similar to this one:
 
+```pan
         <nlist>
           <another nlist>
             scalar value
@@ -85,6 +86,7 @@ The following formats my be rendered:
         list_element 0
         list_element 1
         list_element 2
+```
 
 - tiny
 

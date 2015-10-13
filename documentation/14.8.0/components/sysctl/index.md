@@ -59,7 +59,7 @@ None.
 
 None known.
 
-Benjamin Chardi <Benjamin.Chardi.M>
+Benjamin Chardi &lt;Benjamin.Chardi.M&gt;
 
 ### SEE ALSO
 

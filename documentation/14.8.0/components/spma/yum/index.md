@@ -155,7 +155,7 @@ This component honors the __\--noaction__ mode.
 The typing of the CDB entries is yet to be done: for now, all of them are
 strings.
 
-Original author: German Cancio <German.C>
+Original author: German Cancio &lt;German.C&gt;
 
 Author of the Yum-based package manager: Luis Fernando Muñoz Mejías
 

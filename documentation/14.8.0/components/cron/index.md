@@ -180,13 +180,13 @@ None.
     Editing BETWEEN the tags will cause the edits to be overwritten the next time
     ncm-cron runs.
 
-Charles Loomis <charles.loomis@cern.ch>
+Charles Loomis &lt;charles.loomis@cern.ch&gt;
 
 S
 
-Guillaume Philippon <>
+Guillaume Philippon
 
-Mark Wilson <Mark.Wilson@MorganStanley.com>
+Mark Wilson &lt;Mark.Wilson@MorganStanley.com&gt;
 
 ### VERSION
 
