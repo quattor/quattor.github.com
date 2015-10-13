@@ -1,5 +1,9 @@
+name: Quattor
+description: Quattor news and documentation
 highlighter: pygments
 markdown: redcarpet
 redcarpet:
     extensions: [with_toc_data]
 exclude: [vendor]
+gems:
+  - jekyll-feed
