@@ -2,6 +2,7 @@
 layout: documentation
 category: documentation
 title: Documentation
+redirect_from: "/blog/"
 ---
 
 This page contains high-level documentation of the core tools of the Quattor Toolkit.
