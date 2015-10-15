@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Summary of 20th Quattor workshop (29/9-1/10/2015, LAL)
+title: Summary of 20th Quattor workshop (2015-09-29 to 2015-10-01, LAL)
 category: news
 author: Michel Jouvin
 ---
@@ -17,7 +17,7 @@ author: Michel Jouvin
 Unit tests are run on EL5, EL6 and EL7 as part of the release process
 
  * [build_all_repos](https://raw.githubusercontent.com/quattor/release/master/src/scripts/build_all_repos.sh) script takes care of setting the environment required on a freshly installed machine (VM)
- * This script basically set a clean environment for Quattor development: could be used for other things
+ * This script basically sets up a clean environment for Quattor development: could be used for other things
  
  
 ## Documentation
@@ -32,8 +32,8 @@ Julien: initial installation issues
      
 ReadTheDocs as the central place for documentation
 
- * Because pan compiler and Aquilon are not part of the Quattor release, keep them separate for the moment but every else in one ReadTheDocs container/project
- * PR open to build config module doc from pod text inside the perl files or from pan annotation: get rid of the pod files that tend to be unmaintained
+ * Because pan compiler and Aquilon are not part of the Quattor release, keep them separate for the moment but everything else in one ReadTheDocs container/project
+ * PR open to build config module doc from pod text inside the perl files or from Pan annotation: get rid of the pod files that tend to be unmaintained
 
 On the web site, remove the connection to Disqus?
 
@@ -82,7 +82,7 @@ Improvements suggested
  
 ### Aquilon
 
-1 release every ~3 weeks
+New release every ~3 weeks
 
 Recent changes: implementation of staged deployment of personalities in the broker
 
@@ -96,7 +96,7 @@ Python 2.7 is recommended but should work with Python 2.6
    
 ULB tested Aquilon deployment but failed
 
- * Kerberos configuration: no Krb available at ULB
+ * Kerberos configuration: no Kerberos available at ULB
  * Config files provided by the RPM refer to /ms filesystem
  * Used the last version available as a RPM: pretty old...
  
@@ -123,32 +123,32 @@ Stijn working on a Download module to implement the core features required by nc
 TextRender: Remove support for Config::General
 
  * No guarantee about the line order: better replaced with a TT file called `general`.
- * This ordering issue is a problem for unit testing and also trigs unnecessary restart of daemons, if any associated with changes
+ * This ordering issue is a problem for unit testing and also triggers unnecessary restart of daemons, if any associated with changes
  
 CCM namespace added to TT files allowing to check profile data, for exemple test the type of resource/property
 
 * `CCM.is_list()`, `CCM.is_hash()`...
   * Allow to base the output on the type defined in the schema rather than duplicate the information in the code with the risk of inconsistency
 * `CCM.element()` allows some control on what `getTree()` is doing like the string value to use for booleans
-* Makes it possible to replace `ncm-query` with a TT file... (currently implemented for the `--pan` format)
+* Makes it possible to replicate `ncm-query` style output with a TT file... (currently implemented for the `--pan` format)
 
-When metaconfig is not appropriate, it is easy to build a new component that use CAF::TextRender to produce the output files from the profile
+When metaconfig is not appropriate, it is easy to build a new component that uses CAF::TextRender to produce the output files from the profile
 
  * See the documentation about the steps involved
  * In particular error handling must be implemented by the component: TextRender is not doing anything with errors (even no logging)
 
-Very detailed blog post for quattor.org web site contributed by Stijn
+Very detailed article for quattor.org web site contributed by Stijn
 
-* Very nice doc: should merge it asap
-* Long-term: restructure this doc into a doc closed to the related source (CAF, ncm-metaconfig) pushed to ReadTheDocs and a blog entry summarizing the topic and containing references to ReadTheDocs.
+* Very nice doc: should merge it ASAP
+* Long-term: restructure some of this into documentation that is kept with the related source code (CAF, ncm-metaconfig) pushed to ReadTheDocs and a blog entry summarizing the topic and containing references to ReadTheDocs.
 
 
 ### CCM
 
-New `ccm` command allowing to read a profile: alternative to `ncm-query`
+New `ccm` command allows users to read part of or all of a profile: alternative to `ncm-query`
 
  * Based on TextRender
- * Supporting additional output formats
+ * Supports additional output formats such as json, yaml and pan style xml
  
 
 ### Configuration Modules
@@ -158,11 +158,11 @@ Define `our $VERSION` with the `no-snapshot-version` and add `no-snapshot-versio
 * Write a script to do the mass modification
 * Similar modification already done in CCM
 * The version information allows to also refer versions in the RPM dependencies
-* See https://github.com/quattor/maven-tools/pull/62/files for details
+* See [the pull-request](https://github.com/quattor/maven-tools/pull/62/files) for details
 
-LAL has a use case for a component ensuring that a specific file is not existing and deleting it if it is the case: typically to remove a file that could have been installed by a RPM and that for some reason is considered a source of problems
+LAL has a use case for a component that ensures a specific file does not exist (deleting it if it does): typically to remove a file that could have been installed by a RPM and that for some reason is considered a source of problems
 
 * No real use case seen for such a feature by the community: if this is only for a file installed by a RPM, better to modify the RPM (does not apply to the particular case mentionned by LAL). If the file can be added by other means, better to configure a cron job.
-* A better approach for this particular need would be to use the YUM `post-transaction-actions` plugin that allows to define actions to do after the installation of some (or all) RPMs (fine control possible on the situation that trigs the action).
+* A better approach for this particular need would be to use the YUM `post-transaction-actions` plugin that allows to define actions to do after the installation of some (or all) RPMs (fine control possible on the situation that triggers the action).
 
 
