@@ -62,13 +62,13 @@ There is no need to create a TT-specific schema, one has to use the components s
 
 ### packaging
 In order to package the TT files as part of the component,
-a new build plugin needs to be added to the `pom.xml` under
+a 2 build plugins need to be added to the `pom.xml` under
 ```
   <build>
     <pluginManagement>
       <plugins>
 ```
-The configuration of the plugin is
+The configuration of the plugins is
 ```
 <plugin>
   <artifactId>maven-resources-plugin</artifactId>
@@ -95,6 +95,26 @@ The configuration of the plugin is
       </configuration>
     </execution>
   </executions>
+</plugin>
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>rpm-maven-plugin</artifactId>
+  <configuration>
+    <mappings combine.children="append">
+      <mapping>
+        <directory>/usr/share/templates/</directory>
+        <filemode>644</filemode>
+        <username>root</username>
+        <groupname>root</groupname>
+        <sources>
+          <source>
+            <location>${project.build.directory}/share/templates/</location>
+          </source>
+        </sources>
+        <directoryIncluded>false</directoryIncluded>
+      </mapping>
+    </mappings>
+  </configuration>
 </plugin>
 ```
 
