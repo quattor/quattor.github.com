@@ -2,7 +2,8 @@
 layout: article
 title: Experiences with package cleanup
 author: Luis Fernando Muñoz Mejías
-category: blog
+category: documentation
+redirect_from: "/blog/2013/03/27/cleaning-up-packages.html"
 ---
 
 At UGent we are starting to prune down our systems.  This is bringing

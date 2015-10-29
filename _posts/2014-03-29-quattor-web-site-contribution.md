@@ -3,6 +3,7 @@ layout: article
 title: Contributing to Quattor Web Site
 category: documentation
 author: Michel Jouvin
+updated: 2015-10-13
 ---
 
 
@@ -17,7 +18,7 @@ GitHub Pages uses [Jekyll](http://jekyllrb.com), a framework to build blog-aware
 Contents is added/modified to the web site by adding/modifying pages in the `_posts` directory of the repository master branch, using standard
 pull request workflow.
 
-A page must start with special header lines like:
+A page should start with [Jekyll frontmatter](http://jekyllrb.com/docs/frontmatter/) as shown in the following example:
 
 ```
 ---
@@ -28,7 +29,7 @@ author: Michel Jouvin
 ---
 ```
 
-Valid categories are `news`, `blog` and `documentation`.
+Valid categories are `news` or `documentation`.
 
 To contribute to the web site, it is important to the standard GitHub workflow (clone, branch, pull request). But before making a pull request, it is also
 **important to test** your pages and ensure that they display as expected. Testing your pages is something that must be done on your development machine

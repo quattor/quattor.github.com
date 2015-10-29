@@ -14,7 +14,7 @@ NCM::Component::spma::yum - NCM SPMA configuration component for Yum
 This document describes how to control the behaviour of the package
 manager itself.  For information on how to manage packages with
 Quattor, please check
-[http://quattor.org/documentation/2013/04/05/package-management.html](http://quattor.org/documentation/2013/04/05/package-management.html).
+[Installing and removing packages with Quattor](/documentation/2013/04/05/package-management.html).
 
 ### RESOURCES
 
@@ -150,12 +150,12 @@ Author of the Yum-based package manager: Luis Fernando Muñoz Mejías
 You must read this document to understand how to manage packages
 with Quattor:
 
-[http://quattor.org/documentation/2013/04/05/package-management.html](http://quattor.org/documentation/2013/04/05/package-management.html),
+[Installing and removing packages with Quattor](/documentation/2013/04/05/package-management.html).
 
 These links detail experiences and strategies relevant for managing
 software installations in large sites:
 
-[http://quattor.org/documentation/2013/02/07/yum-package-management.html](http://quattor.org/documentation/2013/02/07/yum-package-management.html),
-[http://quattor.org/documentation/2013/01/29/spma-yum-upgrade.html](http://quattor.org/documentation/2013/01/29/spma-yum-upgrade.html)
-[http://quattor.org/blog/2013/01/29/package-layout-proposal.html](http://quattor.org/blog/2013/01/29/package-layout-proposal.html)
-[http://quattor.org/blog/2013/03/27/cleaning-up-packages.html](http://quattor.org/blog/2013/03/27/cleaning-up-packages.html)
+* [Managing packages at scale with Yum-based SPMA](/documentation/2013/02/07/yum-package-management.html)
+* [Migrating from SPMA-based to YUM-based deployments](/documentation/2014/03/24/spma-yum-migration.html)
+* [A possible package repository architecture for upgrading with Yum](/documentation/2013/01/29/package-layout-proposal.html)
+* [Experiences with package cleanup](/documentation/2013/03/27/cleaning-up-packages.html)
