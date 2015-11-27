@@ -29,10 +29,10 @@ A key idea of the scrum method is to make small incremental steps toward impleme
 
 Development progress is reviewed at a weekly standup meeting held by Vidyo every Thursday at 1:15 pm CET. Connection information is:
 
-* Computer, smartphones: [vidyoportal] (room name = Standup_Meeting)
+* Computer, smartphones: You can use [vidyoportal]. The room name is `Standup_Meeting`.
     * You need to login as guest (name is free, use something informational!).
     * The pincode is 766.
-    * Note that by default you Vidyo client starts with both audio and video muted
+    * Note that by default your Vidyo client starts with both audio and video muted
 * Phone bridges: dial phone number of the selected bridge, enter 109296756 as the extension number and 766 as the pin code (both numbers are generally followed by #)
     * See phone bridge [list and instructions].
 
