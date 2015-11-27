@@ -22,7 +22,7 @@ If you're not sure which repository to open the issue again (there are a lot) pl
 
 Meetings
 ===
-<hr>
+---
 Quattor development principles are inspired by the  Agile Manifesto. Development process is based on the scrum method, an agile software development methodology.
 
 A key idea of the scrum method is to make small incremental steps toward implementing new features and improvements required by the users. For Quattor, all the missing features, desirable functionalities or wishes are registered as  GitHub issues.
