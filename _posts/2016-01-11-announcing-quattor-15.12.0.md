@@ -14,7 +14,9 @@ The next release should be 16.2.0, take a look at the [backlog](http://www.quatt
 Known Issues
 ------------
 
-ncm-cdispd has [an issue](https://github.com/quattor/ncm-cdispd/issues/25) which appears to be a race condition, under certain rare circumstances this could lead to subsequent profiles to not be processed and leaving client nodes to become unconfigurable.
+ncm-cdispd has [an issue](https://github.com/quattor/ncm-cdispd/issues/25) which appears to be a race condition, under certain rare circumstances this could lead to subsequent profiles to not be processed and leaving client nodes to become unconfigurable. The exactly circumstances that allow a node to encounter this problem are currently unknown, so we would appreciate reports from anyone who does encounter it.
+
+A fix is available in [this pull-request](https://github.com/quattor/ncm-cdispd/pull/26).
 
 Changelog
 ---------
