@@ -11,6 +11,21 @@ As always, many thanks to everyone who contributed! We merged 101 pull requests 
 
 The next release should be 16.4.0, take a look at the [backlog](http://www.quattor.org/release/) to see what we're working on.
 
+Backwards Incompatible Changes
+------------------------------
+
+### ncm-query
+* [Drop broken useprofile option](https://github.com/quattor/ncm-query/pull/10)
+
+### configuration-modules-core
+* [**metaconfig:** service logstash: support escaped add_field keys](https://github.com/quattor/configuration-modules-core/pull/697)
+* [**ncm-afsclt:** remove out of place code for managing PAM and iptables.](https://github.com/quattor/configuration-modules-core/pull/649)
+* [**ncm-metaconfig:** service logstash: filter grok: the match pattern support a list of patterns](https://github.com/quattor/configuration-modules-core/pull/672)
+* [**ncm-metaconfig:** service logstash: use a sensible type for mutate convert](https://github.com/quattor/configuration-modules-core/pull/691)
+
+### CCM
+* [Support group_readable profiles (and minor cleanup)](https://github.com/quattor/CCM/pull/83)
+
 Changelog
 ---------
 
