@@ -11,12 +11,25 @@ As always, many thanks to everyone who contributed! We merged 119 pull requests 
 
 Take a look at the [backlog](http://www.quattor.org/release/) to see what we're working on.
 
+Backwards Incompatible Changes
+------------------------------
 
-Main New Features and Fixes
----------------------------
+### template-library-core
+* [Deprecate shipping of component code in profiles](https://github.com/quattor/template-library-core/pull/74)
+* [**is_fqdn:** only match FULLY QUALIFIED domain names](https://github.com/quattor/template-library-core/pull/76)
 
-Known issues
-------------
+### configuration-modules-core
+* [Remove config-xml from components](https://github.com/quattor/configuration-modules-core/pull/553)
+* [**ncm-ccm:** change profile_failover from hostURI to hostURI[].](https://github.com/quattor/configuration-modules-core/pull/554)
+* [**ncm-metaconfig:** service logstash: change forwarder configfile location ](https://github.com/quattor/configuration-modules-core/pull/522)
+* [**ncm-network:** Actually use realhostname if it has been provided](https://github.com/quattor/configuration-modules-core/pull/546)
+
+### aii
+* [Allow reinstallation of node and check final status in oneliners](https://github.com/quattor/aii/pull/124)
+
+### CAF
+* [**FileEditor:** support add_after_newline in add_or_replace_lines method](https://github.com/quattor/CAF/pull/95)
+* [**TextRender:** general/Config::General disable SaveSorted and enable ForceArray](https://github.com/quattor/CAF/pull/97)
 
 Changelog
 ---------

@@ -18,6 +18,18 @@ ncm-cdispd has [an issue](https://github.com/quattor/ncm-cdispd/issues/25) which
 
 A fix is available in [this pull-request](https://github.com/quattor/ncm-cdispd/pull/26).
 
+Backwards Incompatible Changes
+------------------------------
+
+### template-library-core
+* [Remove component code parameter](https://github.com/quattor/template-library-core/pull/75)
+
+### configuration-modules-core
+* [**ncm-metaconfig:** logstash and elasticsearch 2.0 support](https://github.com/quattor/configuration-modules-core/pull/626)
+* [**ncm-metaconfig:** remove daemon property](https://github.com/quattor/configuration-modules-core/pull/456)
+* [**ncm-ntpd:** introduce useserverip boolean to force hostname to IP](https://github.com/quattor/configuration-modules-core/pull/558)
+* [**ncm-ssh:** fix some issues introduced during rewrite.](https://github.com/quattor/configuration-modules-core/pull/606)
+
 Changelog
 ---------
 
