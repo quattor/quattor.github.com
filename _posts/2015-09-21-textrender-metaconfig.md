@@ -51,7 +51,41 @@ The `daemons` element is an optional dict of service(s) (of the sysvinit/systemd
 The actions are handled by `CAF::Service` and these are triggered when
 the generated text is different from the current one.
 
-Other optional attributes are `mode`, `owner`, `group`, `backup` and `preamble` (a fixed header).
+Other optional attributes are `convert`, `mode`, `owner`, `group`, `backup` and `preamble` (a fixed header).
+
+## `convert` option
+
+As of 16.2, `ncm-metaconfig` supports the `convert` option.
+This option provides access to the predefined conversions
+from the [`CCM::TextRender` `element` option][ccm_textrender_element]
+and can be used with any module to perform basic and/or common conversions
+that would otherwise require a TT file (altough a trivial one).
+
+It is important to keep in mind that the conversion is done on the element level
+of the services `contents`, and is applied to all relevant elements.
+
+Example usage with builtin module `tiny`:
+
+```pan
+prefix "/software/components/metaconfig/services/{/etc/sysconfig/example}";
+"module" = "tiny";
+"contents" = dict(
+    "ABC", "data with spaces",
+    "IS_EXAMPLE", true,
+);
+"convert/yesno" = true;
+"convert/singlequote" = true;
+```
+
+will create file `/etc/sysconfig/example` with content
+
+```
+ABC='data with spaces'
+IS_EXAMPLE=yes
+```
+
+[ccm_textrender_element]: {% post_url 2015-09-20-textrender-basics %}#element-option
+
 
 # Development example
 
@@ -253,13 +287,13 @@ Each unittest consists of 3 parts:
 
  * the resulting profile has the required attributes (ideally including the schema and type bindings)
  * the test profiles (should try to) use the same path as actual `ncm-metaconfig` usage wrt to the profile structure
- 
+
 * one or more RegexpTests that contain regular expressions that will
 be tested against the output produced by the TT module and the profile.
 
  * multiple files in directory `src/main/metaconfig/<servicename>/tests/regexps/<name_of_object_template>`
  * a single file `src/main/metaconfig/<servicename>/tests/regexps/<name_of_object_template>`
- 
+
 * a perl unittest to run all unittests for this service as part of the `metaconfig` unittests.
 
 The object template is compiled in JSON format using the pan-compiler.
