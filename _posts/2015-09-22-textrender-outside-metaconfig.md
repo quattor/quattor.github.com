@@ -31,6 +31,7 @@ The main idea is that TT files and unittests can be moved easily to or from meta
 if such opportunity or necessity would arise.
 
 This allows for development in 2 directions:
+
 * towards metaconfig: existing components that could be replaced by `ncm-metaconfig`,
 can be migrated to metaconfig-only using an intermediate step by handling the rendering
 of the configuration file(s) with `TextRender` in the existing component,
@@ -63,13 +64,16 @@ There is no need to create a TT-specific schema, one has to use the components s
 ### packaging
 In order to package the TT files as part of the component,
 a 2 build plugins need to be added to the `pom.xml` under
-```
+
+```xml
   <build>
     <pluginManagement>
       <plugins>
 ```
+      
 The configuration of the plugins is
-```
+      
+```xml
 <plugin>
   <artifactId>maven-resources-plugin</artifactId>
   <version>2.4.3</version>
@@ -128,11 +132,13 @@ TT files used outside metaconfig should use their own namespace
 and this should be the same as their `relpath`.
 E.g. to include a TT file from the `mycomponent` namespace in a `main.tt`,
 one has to use
+
 ```
 [% INCLUDE 'mycomponent/element.tt` %]
 ```
 
 and the relevant `TextRender` perl code has
+
 ```perl
 my $trd = EDG::WP4::CCM::TextRender->new(
     'main',
@@ -142,11 +148,14 @@ my $trd = EDG::WP4::CCM::TextRender->new(
     );
 ```
 
-(In metaconfig, the `relpath` is always `metaconfig`,
+In metaconfig, the `relpath` is always `metaconfig`,
 and the namespace is e.g. `metaconfig/myservice`,
 the equivalent of the example above would be
-`[% INCLUDE 'metaconfig/myservice/element.tt' %]`
-)
+
+```
+[% INCLUDE 'metaconfig/myservice/element.tt' %]
+```
+
 
 ### Error handling
 
@@ -154,15 +163,19 @@ the equivalent of the example above would be
 The failure reason is held in a `fail` attribute of the `TextRender` instance.
 
 There are 2 main ways to detect failures (`$trd` is the TextRender instance):
+
 * using the [get_text][objecttext_get_text] method explicitly, which returns `undef` in case of rendering failure
-```
+
+```perl
 if(! defined($trd->get_text())) {
     $self->error("Rendering XYZ failed: $trd->{fail}.");
 }
 ```
+
 * using [filewriter][objecttext_filewriter] method (if you are going to write the contents to file).
 This returns `undef` in case of rendering failure (and a vaild `CAF::FileWriter` instance otherwise).
-```
+
+```perl
 my $fh = $trd->filewriter('/path/to/file');
 if(defined($fh)) {
     my $changed = $fh->close();
@@ -174,16 +187,15 @@ if(defined($fh)) {
 (The `defined($fh)` is required, do not simply use `if($fh)` due to stringification
 of `CAF::FileWriter`, as explained in the example below).
 
-TODO: the links now are for CAF::TextRender, will be moved to CAF::ObjectText in 15.10
-[objecttext_get_text]: http://docs-test-comps.readthedocs.org/en/latest/CAF/textrender/#get_text
-[objecttext_filewriter]: http://docs-test-comps.readthedocs.org/en/latest/CAF/textrender/#filewriter
+[objecttext_get_text]: http://docs-test-comps.readthedocs.org/en/latest/CAF/objecttext/#get_text
+[objecttext_filewriter]: http://docs-test-comps.readthedocs.org/en/latest/CAF/objecttext/#filewriter
 
 ### TT perl unittest
 A dedicated test module `Test::Quattor::TextRender::Component` exists to testing of
 TT files outside metaconfig. It is advised to add a single perl unittests `01_tt.t`
 under `ncm-mycomponent/src/test/perl`, with contents
 
-```
+```perl
 use strict;
 use warnings;
 
@@ -191,7 +203,8 @@ use Test::More;
 use Test::Quattor::TextRender::Component;
 
 my $t = Test::Quattor::TextRender::Component->new(
-    component => 'mycomponent')->test();
+    component => 'mycomponent'
+)->test();
 
 done_testing();
 ```
@@ -240,6 +253,7 @@ Any `element` options passed to `TextRender` in the perl code,
 also have to be set via the `element` flag as a comma-separated list.
 
 E.g. the flags for the [pan example from the 1st series][textrender_blog_panexample]
+
 ```
 renderpath=/
 rendermodule=pan
@@ -255,10 +269,12 @@ and that use the rendered text during the test, need to mock `TextRender`
 so it is able to find the TT files in the unittest target directory.
 
 Mocking `TextRender` for this purpose is as trivial as adding
-```
+
+```perl
 use Test::Quattor::TextRender::Base;
 my $caf_trd = mock_textrender();
 ```
+
 before the actual testing is setup, i.e. early in the unittest file.
 
 This is required because by default, `TextRender` looks for
@@ -290,6 +306,7 @@ daemon).
 
 The following files (relative from the `configuration-modules-core` base directory)
 are relevant for this example:
+
 * the component `authconfig.pm` itself
 * the TT files and regexptests in `ncm-authconfig/src/main/resources`
 * the perl TT unittest `01_tt.t`
@@ -314,7 +331,7 @@ ncm-authconfig/src/main/resources/tests/regexps/basic/value
 
 The main `Configure` method has (related to the `SSSD` configuration itself)
 
-```
+```perl
 ...
 
 sub Configure
@@ -340,7 +357,8 @@ Clearly this kind of logic lies outside the scope of `metaconfig`, and using a d
 component is the only solution.
 
 (This is legacy code, a better way to get the profile configuration is to use
-```
+
+```perl
 my $t = $config->getTree($self->prefix());
 ```
 )
@@ -389,6 +407,7 @@ sub configure_sssd
 
 In the `sssd` example, the rendering error is catched via `if($trd)`,
 which is possible only for 2 reasons:
+
 * the rendered `sssd` configfile is never empty (it contains at the very least the `[sssd]`)
 * the `TextRender` instance has overloaded stringification (i.e. `"$trd"` is the content
 of the rendering) and stringification is a fallback for the boolean overload via
@@ -405,9 +424,11 @@ is required to correctly detect rendering errors when using `$trd->filewriter`.)
 [perl_overload_magic]: http://perldoc.perl.org/overload.html#Magic-Autogeneration
 
 (More legacy code:
+
 * using `constant` for constants is discouraged,
 we should switch to `Readonly`, in which case the code above becomes
-```
+
+```perl
 ...
 use Readonly;
 
@@ -420,8 +441,10 @@ Readonly my $SSSD_FILE => '/etc/sssd/sssd.conf';
 ...
 
 ```
+
 * the restart should be handled by `CAF::Service` as follows
-```
+
+```perl
             CAF::Service->new(['sssd'], log => $self)->restart();
             if ($?) {
                 $self->error("Failed to restart SSSD");
@@ -492,7 +515,7 @@ and is passed as `contentspath`.
 
 The corresponding perl unittest `01_tt.t` is
 
-```
+```perl
 use strict;
 use warnings;
 
@@ -500,7 +523,8 @@ use Test::More;
 use Test::Quattor::TextRender::Component;
 
 my $t = Test::Quattor::TextRender::Component->new(
-    component => 'authconfig')->test();
+    component => 'authconfig'
+)->test();
 
 done_testing();
 ```
@@ -510,7 +534,7 @@ done_testing();
 There is a regular perl unittest to test the logic in `configure_sssd` method, e.g.
 test if a the `sssd` daemon is restarted via `CAF::Service`.
 
-```
+```perl
 ...
 use NCM::Component::authconfig;
 use Test::MockModule;
@@ -550,6 +574,7 @@ is($cmp->{ERROR}, 2, "Error while rendering the template is reported");
 ```
 
 These unittests focus on the logic of the method instead of the rendered text:
+
 * in the first test, the file returns a forced change,
 and it is checked that this results in a call to the service restart command.
 * the second test mocks a failed service restart, and it is verified that an error is logged
@@ -563,6 +588,7 @@ the component.
 
 Details of the `Test::Quattor` testsuite are beyond the scope of this document,
 but following bits help to understand the internals:
+
 * both `CAF::FileWriter` and `CAF::Process` are mocked by the `use Test::Quattor` call.
 This results in easy methods to access the created `CAF::FileWriter` and `CAF::Process` instances
 via `get_file` and `get_command`, respectively. There also exists methods to set e.g.
@@ -577,5 +603,7 @@ an `->info()` log action was called).
 This is a bit confusing and will be streamlined in a new release of the test tools.
 
 
-TODO: are link to the `Test::Quattor` documentation once added to the documentation generation.
-TODO: add link to `Component` documentation as part of `ncm-ncd`
+TODO:
+
+ * are link to the `Test::Quattor` documentation once added to the documentation generation.
+ * add link to `Component` documentation as part of `ncm-ncd`

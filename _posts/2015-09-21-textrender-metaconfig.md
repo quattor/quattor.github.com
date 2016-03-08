@@ -57,6 +57,7 @@ Other optional attributes are `mode`, `owner`, `group`, `backup` and `preamble` 
 
 What follows is a step-by-step guide how to add a new service to `ncm-metaconfig`,
 which consists of creating
+
 * a pan schema for the service
 * the [Template::Toolkit][textrender_blog_TT] file(s) (TT for short) to generate the text (assuming the builtin `TextRender` modules are not sufficient)
 * unittests to verify the expected format
@@ -78,6 +79,7 @@ git remote add upstream https://github.com/quattor/configuration-modules-core
 ```
 
 Other requirements are:
+
 * recent `CAF` and `CCM` installed, and the `PERL5LIB` environment variable set
 to the quattor install path so the `CAF` and `CCM` perl modules are found.
 (The installation should take care of the dependencies,
@@ -124,6 +126,7 @@ name = {
 ```
 
 where following fields are mandatory:
+
 * `hosts`: a comma separated list of hostnames
 * `port`: an integer
 * `master`: boolean with possible values `TRUE` or `FALSE`
@@ -139,11 +142,13 @@ This type of configuration is ideally suited for metaconfig and TT.
 
 Make a new branch where you will work in and which you will use
 to create the github pull-request (PR) when finished
+
 ```bash
 git checkout -b ${service}_service
 ```
 
 Create the initial directory structure (from the `ncm-metaconfig` path).
+
 ```bash
 cd src/main/metaconfig
 mkdir -p $service/tests/{profiles,regexps} $service/pan
@@ -164,6 +169,7 @@ echo -e 'Base test for config\n---\nmultiline\n---\n$wontmatch^\n' > tests/regex
 ```
 
 Commit this initial structure
+
 ```bash
 git add ./
 git commit -a -m "initial structure for service $service"
@@ -242,13 +248,18 @@ option = "[% option %]"
 ### Add unittests
 
 Each unittest consists of 3 parts:
+
 * an object template (in `src/main/metaconfig/<servicename>/tests/profile`)
+
  * the resulting profile has the required attributes (ideally including the schema and type bindings)
  * the test profiles (should try to) use the same path as actual `ncm-metaconfig` usage wrt to the profile structure
+ 
 * one or more RegexpTests that contain regular expressions that will
 be tested against the output produced by the TT module and the profile.
+
  * multiple files in directory `src/main/metaconfig/<servicename>/tests/regexps/<name_of_object_template>`
  * a single file `src/main/metaconfig/<servicename>/tests/regexps/<name_of_object_template>`
+ 
 * a perl unittest to run all unittests for this service as part of the `metaconfig` unittests.
 
 The object template is compiled in JSON format using the pan-compiler.
@@ -266,8 +277,8 @@ are ran via in a single perl `src/test/perl/service-example.t` unittest, and sho
 use Test::More;
 use Test::Quattor::TextRender::Metaconfig;
 my $u = Test::Quattor::TextRender::Metaconfig->new(
-        service => 'example',
-        )->test();
+    service => 'example',
+    )->test();
 done_testing;
 ```
 
@@ -284,6 +295,7 @@ The default pan basepath for the `TextRender` attributes like `module`
 and `contents` is `/metaconfig`.
 
 Create the profile `tests/profiles/simple.pan` as follows:
+
 ```pan
 object template simple;
 
@@ -297,6 +309,7 @@ prefix "/metaconfig/contents";
 ```
 
 * the schema is not validated in this `simple` template, but it can easily be done by adding
+
 ```pan
 include 'metaconfig/example/schema';
 bind "/metaconfig/example/contents" = example_service;
@@ -334,6 +347,7 @@ The required attributes for `ncm-metaconfig` (e.g. module and contents) are retr
 (e.g. the contents will `$cfg->getElement('/metaconfig/contents')->getTree()`.
 
 To select another path, 2 additional location flags are supproted:
+
  * an absolute path starting with a single `/` is interpreted as a metaconfig service (`/etc/config` will result in contents from
  `$cfg->getElement('/software/componentes/metaconfig/service/{/etc/config}/contents')->getTree();`
  * an absolute path starting with 2 `/`s is interpreted as an absolute panpath (e.g. `//some/path` will look for contents from
@@ -342,6 +356,7 @@ To select another path, 2 additional location flags are supproted:
 ##### verify
 
 You can verify this single unittest for the `example` service using
+
 ```bash
 QUATTOR_TEST_SUITE_FILTER=simple mvn clean test -Dunittest=service-example.t
 ```
@@ -466,6 +481,7 @@ Basic value test
 ##### verify
 
 You can verify this single unittest for the `example` service using
+
 ```bash
 QUATTOR_TEST_SUITE_FILTER=config mvn clean test -Dunittest=service-example.t
 ```
