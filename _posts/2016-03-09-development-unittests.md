@@ -7,7 +7,7 @@ category: documentation
 
 [devel_basics]: {% post_url 2016-03-08-development-basics %}
 
-# Unittest basics
+# Running the tests
 
 All quattor projects have unittests. These are run via the `mvn test` command, and run the perl
 unittests under the `src/test/perl` subdirectory.
@@ -23,9 +23,24 @@ The tests run the modules that are preprocessed by `mvn` in the `target/lib/perl
 The preprocessing does e.g. the templating of the `${author}`. It also means that any perl messages
 that have a line number in them, are from the templated files (so there's some offset to take into account).
 
-If you want to run a single unittest, add `-Dunittest=name_of_test.t` to the `mvn` commandline. 
+If you want to run a single unittest, add `-Dunittest=name_of_test.t` to the `mvn` commandline.
 
-## Unittest dependencies
+## Logging
+
+If you want more logging, you can set `-Dprove.args=-v` (the `verbose` flag of `prove`)
+
+TODO: document the QUATTOR_TEST_ variables
+
+## Wrapper scripts
+
+TODO: document / distribute [bash_functions][mvn_bash_functions]
+[mvn_bash_functions]: https://github.com/quattor/quattor.github.com/issues/146#issuecomment-144681288
+
+## mvnprove.pl
+
+TODO: run the unittests without maven adn using `-d` for logging control and support more than one selected unittest
+
+# Dependencies
 
 The main issue with the unittests is the large number of dependencies that are required by all the various
 repositories.
@@ -50,15 +65,12 @@ The quattor test framework `Test::Quattor` is controlled through maven
 
 TODO: add list from `build_all_repos`
 
-### quattor-development template
-
-If your development environment is managed by Quattor, you can use the [quattor-development][template_qt_dev]
-to add all required dependencies 
-
+*Note:* If your development environment is managed by Quattor, you can use the [quattor-development][template_qt_dev]
+to add all required dependencies
 
 [template_qt_dev]: https://github.com/quattor/template-library-os/blob/sl6.x-x86_64/rpms/quattor-development.pan
 
-### Bootstrap yum-based system
+## Bootstrap yum-based system
 
 The [`build_all_repos`][build_all_repos] script tries to build all rpms for most quattor repositories.
 Repositories that are not build include `panc` and the template repositories.
@@ -82,11 +94,11 @@ Running the script takes a while to complete. Best run it in a `screen` session 
 
 TODO: check the sudo timeout (a.k.a when do the credentials expire).
 
-TODO: use the `source $DEST/env.sh` to set initial PERL5LIB 
+TODO: use the `source $DEST/env.sh` to set initial PERL5LIB
 
 [build_all_repos]: https://raw.githubusercontent.com/quattor/release/master/src/scripts/build_all_repos.sh
 
-# Writing unittests
+# Writing perl unittests
 
 ## Test::More
 
@@ -111,7 +123,7 @@ E.g. by defining
 ```perl
 my $mock = Test::MockModule->new('NCM::Component::mycomponent');
 $mock->mock('do_something', sub () {return [qw(1 2 3)]} );
-```
+``
 
 you have mocked the `do_something` method of the `mycomponent` component.
 
@@ -141,7 +153,7 @@ $mock->mock('_test_file', sub () {
     my $ans = 0; # does not exist
     if ($fn eq "/some/path") {
         # more logic
-        $ans = 1; 
+        $ans = 1;
     }
     return $ans;
 }
@@ -215,7 +227,7 @@ ok(command_history_ok(['pattern1','pattern2']), "message");
   * `QUATTOR_TEST_LOG_CMD=1` log each command that is run via CAF::Process
   * `QUATTOR_TEST_LOG_CMD_MISSING=1` reports that a process wanted output but non was set via the
     `set_desired_output`
- 
+
 ### CAF::FileWriter (Editor,Reader)
 
  * `get_file` returns the instance that opened/modified a file
@@ -238,4 +250,3 @@ set_caf_file_close_diff(1);
 ```
 
 TODO: why is this not default true?
-
