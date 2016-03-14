@@ -9,9 +9,10 @@ Generating structured text is best done with the `TextRender` module.
 This document provides a guide to its functionality.
 
 To limit exposure to the perl side of things, please follow one of the following guides:
-* [use ncm-metaconfig][metaconfig_blog], which is the meta-component built around
+
+ * use [ncm-metaconfig][metaconfig_blog], which is the meta-component built around
 `TextRender`.
-* embed `TextRender` in other components or tools as described in the [3rd part of
+ * embed `TextRender` in other components or tools as described in the [3rd part of
 this series][othercomps_blog].
 
 [metaconfig_blog]: {% post_url 2015-09-21-textrender-metaconfig %}
@@ -42,6 +43,7 @@ we mean `CCM::TextRender` unless stated otherwise.
 # Basic usage
 
 Basic usage has 2 main modes:
+
  * generate text : the `TextRender` instance has auto-stringification
 
 ```perl
@@ -73,6 +75,7 @@ the text (e.g. `$cfg->getElement('/software/components/myproject/mydaemon')` or 
 The `module` is what defines how the text is generated.
 
 It is either one of the following reserved values
+
  * *json* (using `JSON::XS`)
  * *yaml* (using `YAML::XS`),
  * *properties* (using `Config::Properties`),
@@ -130,12 +133,12 @@ with content a perl hashref
 
 will generate
 
-```
-$ perl -e 'use Template; my $tttext="Hello [% world %]\n"; Template->new()->process(\$tttext, { world => "Quattor" });'
-Hello Quattor
-```
+    $ perl -e 'use Template; my $tttext="Hello [% world %]\n"; Template->new()->process(\$tttext, { world => "Quattor" });'
+    Hello Quattor
+
 
 Further information on TT:
+
  * [A nice write-up of the basics of TT][TT_basics_pnce]
  * [TT examples section][TT_home_examples]
  * [Older TT PCmag article][TT_linuxmag_old] (but some examples are outdated)
@@ -153,8 +156,9 @@ Because quattor supports `EL5` and the templating framework is deeply integrated
 required version of the TT framework is `2.18`.
 
 This is a rather old version, with some notable missing VMethods compared to recent ones, in particular
-* the scalar methods `.lower` and `.upper` do not work, one should use `FILTER lower` and `FILTER upper`, respectively.
-* automagic array/hash VMethods for scalars
+
+ * the scalar methods `.lower` and `.upper` do not work, one should use `FILTER lower` and `FILTER upper`, respectively.
+ * automagic array/hash VMethods for scalars
 
 Value based unittests are essential to detect any differences across the supported OSes.
 
@@ -163,12 +167,12 @@ Value based unittests are essential to detect any differences across the support
 TT can easily generate unwanted/unneeded newlines.
 The [chomp behaviour][TT_whitespace_chomp] can be summarised as follows
 
-Name     |  Tag Modifier
----------|--------------
-NONE     |       +
-ONE      |       -
-COLLAPSE |       =
-GREEDY   |       ~
+|Name     |  Tag Modifier|
+|---------|--------------|
+|NONE     |       +      | 
+|ONE      |       -      |
+|COLLAPSE |       =      |
+|GREEDY   |       ~      |
 
 [TT_whitespace_chomp]: http://www.template-toolkit.org/docs/manual/Config.html#section_PRE_CHOMP_POST_CHOMP
 
@@ -222,21 +226,26 @@ Both the matches and the order verifications are (separate) tests.
 # CCM::TextRender
 
 `CCM::TextRender` provides additional functionality compared to the `CAF::TextRender` (and regular TT):
-* a `CCM` namespace is inserted with
+
+ * a `CCM` namespace is inserted with
+
   * a (weak copy of) the contents' hashref `CCM.contents`. By default, there is no convenient way to
   get all the variables passed via `contents` (i.e. the keys from the hashref). With `CCM.contents` however,
   one can use e.g.
+  
 ```
 [% FOREACH pair IN CCM.contents.pairs %]
 [% pair.key %] = [% pair.value %]
 [% END %]
 ```
   * extra functions
+
    * `CCM.ref()` returns the (internal) perl type of the argument
    * `CCM.is_list()`, `CCM.is_hash` and `CCM.is_scalar()` test if the argument is a list, hash or scalar, respectively.
    * `CCM.escape()` and `CCM.unescape()` the `escape` and `unescape` functions
-
+ 
  * if `contents` is an `Element` instance
+
   * use `$element->getTree` to generate the hash reference that is passed on as `contents` to TT;
     options for `getTree` are passed via the `element` option
   * all pan scalars (`boolean`, `string`, `long` and `double`) are converted to `CCM::TT::Scalar` instances
@@ -248,6 +257,7 @@ Both the matches and the order verifications are (separate) tests.
 Options for `getTree` are passed as a hashref via the `element` option.
 
 There are a number of predefined conversions
+
  * `doublequote`, `singlequote` wraps any (pan type) string in double or single quotes (not type aware)
  * `yesno` and `truefalse` (and the uppercase variants `YESNO` and `TRUEFALSE`) convert a boolean
     to `yes`/`no` and `true`/`false`, respectively.
@@ -259,6 +269,7 @@ For more details, see the [CCM::TextRender documentation][ccm_textrender_docs].
 The `CCM::TT::Scalar` instances in TT give you access to the scalar types in TT via some custom VMethods
 (together with the usual TT scalar VMethods).
 Additional methods are
+
  * `.is_boolean`, `.is_string`, `.is_double` and `is_long` test if the variable is a boolean, string, double or long, respectively.
  * `.get_value` return the value
  * `.get_type` return the type
@@ -272,6 +283,7 @@ Warning: when using `JSON` templates, access to the pan `long` and `double` type
 but this example code produces the same result**
 
 An example TT file is `pan` format `CCM/pan.tt`
+
 ```
 [% INCLUDE CCM/pan_element.tt data=CCM.contents path=CCM.element.path -%]
 ```
@@ -279,6 +291,7 @@ An example TT file is `pan` format `CCM/pan.tt`
 This starts with `data` and `path` as derived as the contents and the path of the element
 
 Individual elements are dealt with via `CCM/pan_element.tt`
+
 ```
 [%- IF CCM.is_scalar(data) -%]
 [%-     type = data.get_type -%]
@@ -331,17 +344,18 @@ my $trd = EDG::WP4::CCM::TextRender(
 );
 print "$trd";
 ```
+
 gives
 
-```
-"/a" = 1; # long
-"/b" = 1.5; # double
-"/c/f" = false; # boolean
-"/c/t" = true; # boolean
-"/d" = "test"; # string
-```
+    "/a" = 1; # long
+    "/b" = 1.5; # double
+    "/c/f" = false; # boolean
+    "/c/t" = true; # boolean
+    "/d" = "test"; # string
+
 
 A value based unittest for this could be
+
 ```
 Base pan output test from the /
 contentspath is not relevant, uses CCM.contents anyway

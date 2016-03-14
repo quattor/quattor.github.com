@@ -3,7 +3,7 @@ description: Quattor news and documentation
 highlighter: pygments
 markdown: redcarpet
 redcarpet:
-    extensions: [with_toc_data]
+    extensions: [with_toc_data, tables]
 exclude: [vendor]
 gems:
   - jekyll-feed
