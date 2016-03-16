@@ -4,4 +4,4 @@ gem "jekyll"
 gem "jekyll-redirect-from"
 gem "html-proofer", "~> 3"
 gem 'jekyll-feed'
-gem "github-pages", "~> 41"
+gem "github-pages", "~> 59"
