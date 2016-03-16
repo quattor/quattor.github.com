@@ -198,30 +198,30 @@ The component provides the following functions to assist in creating configurati
     as existing within "/software/components/pam/modules") and the
     component will construct ACL files in `/etc/pam.acls`.
 
-    ### FILES MODIFIED
+### FILES MODIFIED
 
-    The component pam modifies files within the `/etc/pam.d` directory the `/etc/pam.acls` directory.
+The component pam modifies files within the `/etc/pam.d` directory the `/etc/pam.acls` directory.
 
-    - none.
+- none.
 
-    ### DEPENDENCIES
+### DEPENDENCIES
 
-    #### Components to be run before:
+#### Components to be run before:
 
-    none.
+none.
 
-    #### Components to be run after:
+#### Components to be run after:
 
-    none.
+none.
 
-    ### EXAMPLES
+### EXAMPLES
 
-    "/software/components/pam/active" = true;
+"/software/components/pam/active" = true;
 
-    ### BUGS
+### BUGS
 
-    none known.
+none known.
 
-    ### SEE ALSO
+### SEE ALSO
 
-    ncm-ncd(1)
+ncm-ncd(1)

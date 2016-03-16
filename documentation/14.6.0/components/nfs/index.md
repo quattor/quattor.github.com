@@ -46,15 +46,15 @@ change, then the volume will be remounted.
 
 ### NFS
 
-"/software/components/nfs/exports" = list(
-  nlist("path","/shared/path/",
-        "hosts",list("server\*.example.org(no\_root\_squash)"))
-);
+    "/software/components/nfs/exports" = list(
+      nlist("path","/shared/path/",
+            "hosts",list("server\*.example.org(no\_root\_squash)"))
+    );
 
-\### If the SE is exporting its disk, mount it on the worker nodes.
-"/software/components/nfs/mounts" = list(
-  nlist("device","foreign.example.org:/shared/path/",
-        "mountpoint","/mnt/foreign",
-        "fstype","nfs",
-        "options","rw")
-);
+    ### If the SE is exporting its disk, mount it on the worker nodes.
+    "/software/components/nfs/mounts" = list(
+      nlist("device","foreign.example.org:/shared/path/",
+            "mountpoint","/mnt/foreign",
+            "fstype","nfs",
+            "options","rw")
+    );

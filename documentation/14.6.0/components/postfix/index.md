@@ -5,8 +5,6 @@ category: documentation
 subcategory: 14.6.0/components
 menu: 'components.md'
 ---
-*** ERROR: unterminated L&lt;...&gt; at line 37 in file (unknown)
- at `/usr/bin/pod2markdown` line 29.
 ### NAME
 
 ncm-postfix: Postfix server configuration
@@ -73,32 +71,28 @@ contains three fields:
     Currently, only LDAP lookups can be described, see
     [http://www.postfix.org/LDAP_README.html](http://www.postfix.org/LDAP_README.html)
 
-    ### EXAMPLES
+### EXAMPLES
 
-    #### Minimal configuration
+#### Minimal configuration
 
-    An empty nlist is valid for `main.cf`:
+An empty nlist is valid for `main.cf`:
 
-        "/software/components/postfix/main" = nlist();
+    "/software/components/postfix/main" = nlist();
 
-    #### Storing aliases in LDAP
+#### Storing aliases in LDAP
 
-    Declaring an alias database stored in an LDAP server can be achieved as follows:
+Declaring an alias database stored in an LDAP server can be achieved as follows:
 
-        "/software/components/postfix/main/alias_maps" = append(
-            nlist(
-               "type", "ldap",
-               "name", "/etc/postfix/ldap-aliases.cf"));
+    "/software/components/postfix/main/alias_maps" = append(
+        nlist(
+           "type", "ldap",
+           "name", "/etc/postfix/ldap-aliases.cf"));
 
-    And we can instruct Postfix to access this database:
+And we can instruct Postfix to access this database:
 
-        prefix "/software/components/postfix/databases/ldap/ldap-aliases.cf";
+    prefix "/software/components/postfix/databases/ldap/ldap-aliases.cf";
 
-        "server_host" = "foo.bar.com";
-        "search_base" = "OU=foo,CN=bar";
-        "query_filter" = "(an-ldap-filter)";
-        "result_format" = "%s";
-
-
-
-
+    "server_host" = "foo.bar.com";
+    "search_base" = "OU=foo,CN=bar";
+    "query_filter" = "(an-ldap-filter)";
+    "result_format" = "%s";
