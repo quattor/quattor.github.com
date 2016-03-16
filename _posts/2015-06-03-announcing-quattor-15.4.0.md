@@ -22,6 +22,7 @@ We are now building [client](http://yum.quattor.org/15.4.0/quattor-client-15.4.0
 
 Backwards Incompatible Changes
 ------------------------------
+
 ### ncm-metaconfig
 * [**ncm-metaconfig**: service ganesha service change stat_exporter Access type](https://github.com/quattor/configuration-modules-core/pull/504)
 

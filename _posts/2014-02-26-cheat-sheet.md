@@ -27,7 +27,7 @@ yum based ncm-spma
 ```
 
 <div class="alert alert-info">
-  <p>Note the <code>{}</code> around the package name to tell the pan compiler to escape it.
+  <p>Note the <code>{}</code> around the package name to tell the pan compiler to escape it.</p>
 </div>
 
 
@@ -74,6 +74,7 @@ Add a repository
 
 Ensure a directory exists (and has correct permissions)
 -------------------------------------------------------
+
 ```sh
 '/software/components/dirperm/paths' = append(
     nlist(
@@ -83,7 +84,6 @@ Ensure a directory exists (and has correct permissions)
         'type', 'd',
     )
 );
-
 ```
 
 
@@ -120,7 +120,6 @@ include 'components/download/config';
     'group', 'root',
     'perm', '0644',
 );
-
 ```
 
 <div class="alert alert-info">
@@ -131,6 +130,7 @@ include 'components/download/config';
 
 Add a user group
 -----------
+
 ```sh
 '/software/components/accounts/groups/syrinx/gid' = 2112;
 

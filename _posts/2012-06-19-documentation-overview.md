@@ -18,17 +18,20 @@ N.B. The CMDB and AII servers can of course reside on the same system.
 # Tools on Quattor Servers
 
 ****************************************************************
+
 ## CMDB
 The Configuration Management Data Base has changed the most noticably during the evolution of Quattor,
 it is the single component that admins and users interact with the most during day to day operations and therefore the place where scalability issues cause the most pain.
 
 ### CDB
+
 #### 1st Generation
 * CVS based Pan template store.
 * Deployment workflow integrated with [ELFms](http://elfms.web.cern.ch/elfms/).
 * Quickly reached scaling limits and was abandoned by the community, but remains in use at CERN for legacy systems.
 
 ### SCDB
+
 #### 2nd Generation
 * Subversion based Pan template store.
 * Additional tooling for tagged deployment based on ant and SVN repository hooks.
@@ -36,6 +39,7 @@ it is the single component that admins and users interact with the most during d
 * Deprecated - Used widely in the community but no further development will be supported.
 
 ### Aquilon
+
 #### 3rd Generation
 * New model based around a RDBMS-backed broker and Git repositories.
 * Broker (`aqd`) stores and manipulates asset objects and the relationships between them.
@@ -47,6 +51,7 @@ it is the single component that admins and users interact with the most during d
 
 
 ****************************************************************
+
 ## panc
 
 `panc` is the Pan language compiler, it compiles the declarative Pan language to a nested tree structure in a variety of output formats including XML and JSON.
@@ -59,6 +64,7 @@ The compiler is normally invoked by some part of the tooling that makes up a CMD
 
 
 ****************************************************************
+
 ## AII - Automated Installation Infrastructure
 
 Uses a set of plugins to manage the configuration and state of:
@@ -77,6 +83,7 @@ Uses a set of plugins to manage the configuration and state of:
 
 
 ****************************************************************
+
 ## Tools on Managed Clients
 
 ### Configuration Cache Manager
@@ -117,6 +124,7 @@ Uses a set of plugins to manage the configuration and state of:
 
 
 ****************************************************************
+
 ## Detailed Overview
 
 The diagram below shows how all these pieces fit together. As long as the interfaces are preserved any of the components can be replaced.
@@ -126,7 +134,7 @@ For example, a site with an existing installation system could choose to use AII
 
 
 ****************************************************************
+
 ## Feedback
 
 Comments, bug reports, patches and feature requests [are welcome](/contacts/).
-
