@@ -396,7 +396,7 @@ the one used by the deployment script. If it doesn't successfully to login witho
 This requires both services to run on the same host and is the recommended communication method in this situation. If both services
 run on different hosts, you need to use and configure [ssh](#creation-of-ssh-keys) instead.*
 
-To configure `sudo` for SCDB, use the `visudo` utility and enter the following lines in the `sudo ` configuration (be sure to
+To configure `sudo` for SCDB, use the `visudo` utility and enter the following lines in the `sudo` configuration (be sure to
 use the appropriate path and account in your configuration):
 
 ```
