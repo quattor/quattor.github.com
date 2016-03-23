@@ -56,25 +56,20 @@ The parameters of each item are.
 
     The default for "nodefiles" is one file quattor\_default.pp with content "hiera\_include('classes')".
 
-    #### `/software/components/puppet/hieradata`
+#### `/software/components/puppet/hieradata`
 
-    Data to be passed to the hiera config. Teh data will be written in `/etc/puppet/hieradata/quattor.yaml`. Note: the nlist keys will be unescaped by the component.
+Data to be passed to the hiera config. Teh data will be written in `/etc/puppet/hieradata/quattor.yaml`. Note: the nlist keys will be unescaped by the component.
 
-    #### `/software/components/puppet/modules`
+#### `/software/components/puppet/modules`
 
-    Named list of modules to be downloaded from the puppetlab forge. Each module has the following parameters
+Named list of modules to be downloaded from the puppetlab forge. Each module has the following parameters
 
-    - `version` ? string
+- `version` ? string
 
-        version of the module.
+  version of the module.
 
-        = back
-        = back
+### TODO
 
+Better way to place the defaults on hieraconf parameter.
 
-
-        ### TODO
-
-        Better way to place the defaults on hieraconf parameter.
-
-        Downloading files from other sources than PuppetLabs forge.
+Downloading files from other sources than PuppetLabs forge.

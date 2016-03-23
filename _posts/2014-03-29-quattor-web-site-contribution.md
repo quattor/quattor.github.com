@@ -1,22 +1,21 @@
 ---
 layout: article
-title: Contributing to Quattor Web Site
+title: Contributing to the Quattor Web Site
 category: documentation
 author: Michel Jouvin
-updated: 2015-10-13
+modified: 2016-03-16
 ---
 
-
-This page gives advices and best practices for contributing to Quattor web site.
+This page gives advices and best practices for contributing to the [Quattor web site](http://quattor.org).
 
 ## Introduction
 
-Quattor [web site](http://quattor.org) is hosted on GitHub, using the GitHub Pages service, and is the main source of information about Quattor.
+The [Quattor web site](http://quattor.org) is hosted on GitHub, using the GitHub Pages service, and is the main source of information about Quattor.
 
-GitHub Pages uses [Jekyll](http://jekyllrb.com), a framework to build blog-aware web sites. Pages are written using the GitHub Flavored Markdown
-([GFC](https://help.github.com/articles/github-flavored-markdown)) syntax. They are stored in Quattor `quattor.github.com` repository on GitHub.
-Contents is added/modified to the web site by adding/modifying pages in the `_posts` directory of the repository master branch, using standard
-pull request workflow.
+GitHub Pages uses [Jekyll](http://jekyllrb.com), a framework to build blog-aware web sites.
+Pages are written in [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown) and stored in the [quattor.github.com repository](https://github.com/quattor/quattor.github.com) on GitHub.
+
+Contents are added/modified to the web site by adding/modifying pages in the `_posts` directory of the repository master branch, using the standard pull request workflow.
 
 A page should start with [Jekyll frontmatter](http://jekyllrb.com/docs/frontmatter/) as shown in the following example:
 
@@ -31,110 +30,113 @@ author: Michel Jouvin
 
 Valid categories are `news` or `documentation`.
 
-To contribute to the web site, it is important to the standard GitHub workflow (clone, branch, pull request). But before making a pull request, it is also
-**important to test** your pages and ensure that they display as expected. Testing your pages is something that must be done on your development machine
-and this requires to have a local Jekyll installation: this cannot be tested on GitHub and just checking the rendering in the pull request is not enough
-as Jekyll has subtle differences with markdown used in other parts of GitHub.
+To contribute to the web site, the standard GitHub work-flow (clone, branch, pull request) is followed.
+Before opening a pull request, it is **important to test** your pages and ensure that they display as expected.
+Testing your pages is something that must be done on your development machine and this requires to have a local Jekyll installation:
+this cannot be tested on GitHub and just checking the rendering in the pull request is not enough as Jekyll has subtle differences with markdown used in other parts of GitHub.
 
-This documentation gives a very brief installation on how to install and use Jekyll locally on your development system. And it contains a few remarks
+This documentation gives a very brief installation on how to install and use Jekyll locally on your development system and contains a few remarks
 on Jekyll markdown to avoid common pitfalls.
 
 
-## Installing Jekyll
+## Installing Ruby
 
-Jekyll installation is well documented on Jekyll [web site](http://jekyllrb.com/docs/installation). This involves installing Ruby if you don't have it
-already. There are a few specificities if you want to run Jekyll on Windows, also well documented in a [dedicated page](http://jekyllrb.com/docs/windows/#installation).
+Install [Ruby](https://www.ruby-lang.org/) 2.x and [Bundler](http://bundler.io/) if you don't have them installed already.
+
+There are a few things to consider if you want to run Jekyll on Windows, which are well documented [on the Jekyll website](http://jekyllrb.com/docs/windows/#installation).
 Apart these specific installation steps, it runs perfectly on Windows.
 
-### Windows pitfalls
+### Installing Jekyll and dependencies
 
-A few common problems when installing Jekyll on Windows (7/8) are:
+Everything needed to build the website is described in the `Gemfile`, to install everything simply run:
 
-* Be sure to use the Ruby and Ruby Development Kit for your architecture. You should not try to use 32-bit version on Windows x64.
-* Jekyll uses internally `Pygments`, a Python module for doing syntax highlighting. Ruby-Python mix on Windows is a nightmare and you should avoid it! The
-workaround is to use an alternate, pure-Ruby, compatible highlighting system called `rouge`. It is easily installed with:
+    bundle install
 
-     ```
-     gem install rouge
-     ```
+You can keep your local bundle up to date by running:
 
-To use `rouge` instead of `Pygments`, you need to specify an alternate configuration file when starting Jekyll with option `--config=`. The configuration file
-depends on the version of Jekyll you are using:
-
-* Jekyll v1.9 (current version at the time of this writing): `_config_rouge.yml` (`--config=_config_rouge.yml`)
-* Jekyll v2: `_config_rouge_v2.yml`  (`--config=_config_rouge_v2.yml`)
-
+    bundle update
 
 ## Using Jekyll
 
-To start your local Jekyll server, the easiest is to go to the directory where your Git clone of `quattor.github.com` is and issue the following command:
+To start a local Jekyll server, go to the directory where you have cloned `quattor.github.com` and run:
 
-```
-jekyll server --baseurl='' [--config=file]  (see above)
-```
+    bundle exec jekyll serve -w
 
-The server is starting on port 4000 by default.
+The server will start on port 4000 by default and watch for changes to the source files.
 
-Jekyll is not using the pages you wrote directly but is generating the site from these pages. As a consquence, you need to **restart the server** after
-every page modification you want to see.
+Jekyll does not use the pages you wrote directly but generates the site (under `_site`) from these pages.
+As a consequence, you will need to wait a few seconds for Jekyll to rebuild the pages after each modification.
 
-For more information on using Jekyll at GitHub and troubleshooting problems, you may want to visit [GitHub Jekyll](https://help.github.com/articles/using-jekyll-with-pages)
-page.
+For more information on using Jekyll at GitHub and troubleshooting problems, you may want to visit [GitHub's Jekyll](https://help.github.com/articles/using-jekyll-with-pages) pages.
+
+## Running tests
+
+When you open a pull-request, [TravisCI](https://travis-ci.org/quattor/quattor.github.com) will run HTML-Proofer against Jekyll's output.
+You can run the same tests locally by calling:
+
+    ./travis-build
 
 ## Jekyll Markdown tricks
 
-This documentation doesn't intend to be yet another Markdown documentation or tutorial. There are plenty of them: a good entry point is
-[GFC web site](https://help.github.com/articles/github-flavored-markdown). The sections below describes a few frequent difficulties when starting
-with Jekyll Markdown.
+This documentation doesn't intend to be yet another Markdown documentation or tutorial.
+There are plenty of existing guides: good starting points are:
 
+* [Github Flavoured Markdown](https://help.github.com/articles/github-flavored-markdown).
+* [Kramdown syntax guide](http://kramdown.gettalong.org/syntax.html#code-blocks) (much more detailed).
+
+The sections below highlight a few commonly encountered difficulties when starting with Jekyll Markdown.
 
 ### Paragraph delimiter
 
-In GFC, every line break is interpreted as a paragraph delimiter. Jekyll as a standard `markdown` requires a blank line.
+In GFM, every line break is interpreted as a paragraph delimiter. Jekyll as a standard `markdown` requires a blank line.
 
-This is true also to get the special characters like `*` (bulleted list), ````` (fenced code block) be interpreted, as they are taken into
-account only a the start of a paragraph. If there is no blank line before them, they are considered as text part of the paragraph.
+This is true also to get special characters like `*` (bulleted list), <code>```</code> (fenced code block) to be interpreted, as they are taken into
+account only a the start of a paragraph. If there is no blank line before them, they are considered part of the paragraph.
 
 ### Fenced code blocks in item lists
 
-A fenced code block (between ````` lines) is terminating the list if it is starting on the first character of the line (without any identation). This
+A fenced code block (between <code>```</code> lines) is terminating the list if it is starting on the first character of the line (without any identation). This
 is not very pretty for bulleted list but this is even worst with numbered list: this breaks the numbering (every item starts a new list).
 
-To include fenced code blocks without breaking the item list, the fenced blocks (including delimiters) must be idented with a number of space equals to
-`4 * list level`. Below is an example:
+To include fenced code blocks without breaking the item list, the fenced blocks (including delimiters) must be indented to be in-line with the first character of the list item they belong to (two spaces for unordered lists, three for ordered).
+A single line of whitespace must be present before and after each code block. Below is an example:
 
 ```
 1. This is a numbered list.
-1. I'm going to include a fenced code block as part of this bullet:
+1. I'm going to include a fenced code block as part of this item:
 
-    ```
-    Code
-    More Code
-    ```
+   ```
+   Code
+   More Code
+   ```
+
 1. We can put fenced code blocks inside nested bullets, too.
-   1. Like this:
+   * Like this:
 
-        ```c
-        printf("Hello, World!");
-        ```
-   1. The key is to indent your fenced block by **(4 * bullet_indent_level)** spaces.
+     ```c
+     printf("Hello, World!");
+     ```
+
+   1. The key is to indent your fenced block by **2** spaces.
    1. Also need to put a separating newline above and below the fenced block.
 ```
 
 will display as:
 
 1. This is a numbered list.
-1. I'm going to include a fenced code block as part of this bullet:
+1. I'm going to include a fenced code block as part of this item:
 
-    ```
-    Code
-    More Code
-    ```
+   ```
+   Code
+   More Code
+   ```
+
 1. We can put fenced code blocks inside nested bullets, too.
-   1. Like this:
+   * Like this:
 
-        ```c
-        printf("Hello, World!");
-        ```
-   1. The key is to indent your fenced block by **(4 * bullet_indent_level)** spaces.
+     ```c
+     printf("Hello, World!");
+     ```
+
+   1. The key is to indent your fenced block by **2** spaces.
    1. Also need to put a separating newline above and below the fenced block.

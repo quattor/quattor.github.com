@@ -470,7 +470,7 @@ Basic multiline test
 = ### COUNT 5
 ```
 
-This test also uses the directive ` ### COUNT X` (with leading space; X is number, can be 0 or more), where this regular
+This test also uses the directive <code>&nbsp;### COUNT X</code> (with leading space; X is number, can be 0 or more), where this regular
 expression is expected to occur exactly X times (in this case, we expect 5 `=` characters).
 The `COUNT` directive ignores the ordering; itsimply  is the total number of matches.
 
@@ -492,7 +492,7 @@ This tests that the expected fields can't start at the beginning of the line,
 whitespace must be inserted before.
 (The `FILTER indent` TT inserts 4 spaces, as tested with the `\s{4}` in the multiline regexp above.)
 
-If one only needs to check that a single regular expression does not occur, one can also use ` ### COUNT 0`, without
+If one only needs to check that a single regular expression does not occur, one can also use <code>&nbsp;### COUNT X</code> , without
 having to make a separate regexp test with the negate flag.
 
 (Setting the `negate` flag silently ignores the order flag).

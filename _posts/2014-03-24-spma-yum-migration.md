@@ -44,15 +44,16 @@ do it is:
 
 1. Clone SCDB repository from GitHub:
 
-    ```
-    git clone https://github.com/quattor/scdb.git
-    ```
+   ```
+   git clone https://github.com/quattor/scdb.git
+   ```
+
 1. Download the different template libraries that provide support for Quattor releases, OS versions, grid MW... (use --help for options but without options
 this will put the downloaded materials in /tmp)
 
-    ```bash
-    scdb/utils/scdb/create-vanilla-SCDB.sh --add-legacy
-    ```
+   ```bash
+   scdb/utils/scdb/create-vanilla-SCDB.sh --add-legacy
+   ```
 
 After this step, all the templates downloaded will be found under /tmp/scdb-vanilla/cfg (if you used the default location at previous step). This will be
 referred to in this location as the "reference template directory". The cfg directory of your SCDB installation will be referred to as your "local configuration
@@ -71,55 +72,61 @@ In both cases, proceed as follows:
 
 1. Update the working copy of your local configuration database to last revision and compile it
 
-    ```bash
-    svn update
-    external/ant/bin/ant
-    rm -Rf build.saved
-    cp -R build build.saved
-    ```
+   ```bash
+   svn update
+   external/ant/bin/ant
+   rm -Rf build.saved
+   cp -R build build.saved
+   ```
 1. Copy reference template directory "quattor" to your local configuration database or if you have it already, copy from the reference template directory
 contents for version 13.1.3.
 
-    ```bash
-    svn mkdir cfg/quattor       -----> If it doesn't exist yet
-    cp -R /tmp/scdb-vanilla/cfg/quattor/* cfg/quattor   ---> (you may want to restrict the copy to a particular directory
-    ```
+   ```bash
+   svn mkdir cfg/quattor    # If it doesn't exist yet
+   cp -R /tmp/scdb-vanilla/cfg/quattor/* cfg/quattor    # (you may want to restrict the copy to a particular directory
+   ```
+
 1. Add all the files to SVN:
 
-    ```bash
-    svn add cfg/quattor (or svn add cfg/quattor/13.1.3)
-    ```
+   ```bash
+   svn add cfg/quattor (or svn add cfg/quattor/13.1.3)
+   ```
+
 1. Remove from standard directory in your local configuration database all templates now provided by the Quattor release templates:
 
-    ```bash
-    svn rm cfg/standard/quattor
-    svn rm cfg/standard/pan
-    svn rm cfg/standard/components
-    ```
+   ```bash
+   svn rm cfg/standard/quattor
+   svn rm cfg/standard/pan
+   svn rm cfg/standard/components
+   ```
+
 1. Update repository/config/quattor.pan in your local standard directory with the reference version
 
-    ```bash
-    cp /tmp/scdb-vanilla/cfg/standard/repository/config/quattor.pan cfg/standard/repository/config
-    ```
+   ```bash
+   cp /tmp/scdb-vanilla/cfg/standard/repository/config/quattor.pan cfg/standard/repository/config
+   ```
+
 1. From reference templates, copy sites/example/site/repository/quattor_13.1.2.pan to your sites/your_site/repository, review it for local customization
 than may be required (but example should work) and add to SVN
 
-    ```bash
-    cp /tmp/scdb-vanilla/cfg/sites/example/site/repository/quattor_13.1.2.pan cfg/sites/your_site/repository
-    svn add cfg/sites/your_site/repository/quattor_13.1.2
-    ```
+   ```bash
+   cp /tmp/scdb-vanilla/cfg/sites/example/site/repository/quattor_13.1.2.pan cfg/sites/your_site/repository
+   svn add cfg/sites/your_site/repository/quattor_13.1.2
+   ```
+
 1. Update the file cluster.build.properties in all your cluster and add quattor/13.1.3 to the include path, just before standard, if you are converting
 from the old layout or update the existing quattor/xxx to this version.
 1. Compile the updated configuration and check that it completes successfully
 
-    ```bash
-    external/ant/bin/ant
-    ```
+   ```bash
+   external/ant/bin/ant
+   ```
+
 1. Compare the resulting profiles: differences should concern packages provided by Quattor release.
 
-    ```bash
-    utils/profiles/compare_xml [-v]
-    ```
+   ```bash
+   utils/profiles/compare_xml [-v]
+   ```
 
 Note that you can safely upgrade from Quattor versions prior to 13.1.3, including the so called legacy version, to 13.1.3 without any particular precaution.
 This version is entirely compatible with previous one and the upgrade has already been done successfully at many different sites.
@@ -167,44 +174,48 @@ your local copy of standard/:
 
 1. Update the working copy of your local configuration database to last revision and compile it
 
-    ```bash
-    svn update
-    external/ant/bin/ant
-    rm -Rf build.saved
-    cp -R build build.saved
-    ```
+   ```bash
+   svn update
+   external/ant/bin/ant
+   rm -Rf build.saved
+   cp -R build build.saved
+   ```
+
 1. Rename all your .tpl templates in standard/ into .pan. You can use the following command (ensure you are in a bash shell):
 
-    ```bash
-    for file in `find cfg/standard -name '*.tpl'`; do svn mv "$file" "${file/%.tpl/.pan}"; done
-    ```
+   ```bash
+   for file in `find cfg/standard -name '*.tpl'`; do svn mv "$file" "${file/%.tpl/.pan}"; done
+   ```
+
 1. Recompile, check that no changes were involved in profiles and commit your renamed templates
 
-    ```bash
-    external/ant/bin/ant
-    utils/profiles/compare_profiles    ---> should display no changed profiles
-    svn commit -m 'standard/ .tpl files renamed into .pan'
-    ```
+   ```bash
+   external/ant/bin/ant
+   utils/profiles/compare_profiles    ---> should display no changed profiles
+   svn commit -m 'standard/ .tpl files renamed into .pan'
+   ```
+
 1. Replace your standard/ contents by the reference templates: this starts by deleting all the existing .pan files to allow further identification of removed
 templates through SVN.
 
-    ```bash
-    find cfg/standard -name \*.pan -exec rm {} \;
-    cp -R /tmp/scdb-vanilla/cfg/standard/* cfg/standard
-    svn revert --recursive cfg/standard/monitoring    ----> Version provided as part of the template library is unmaintained
-    svn status
-    # Review the changes:
-    #   - new templates: svn add
-    #   - missing templates: if they are site-specific (like HW description templates), "svn revert" them. Else "svn rm" them.
-    ```
+   ```bash
+   find cfg/standard -name \*.pan -exec rm {} \;
+   cp -R /tmp/scdb-vanilla/cfg/standard/* cfg/standard
+   svn revert --recursive cfg/standard/monitoring    ----> Version provided as part of the template library is unmaintained
+   svn status
+   # Review the changes:
+   #   - new templates: svn add
+   #   - missing templates: if they are site-specific (like HW description templates), "svn revert" them. Else "svn rm" them.
+   ```
+
 1. Recompile, check that no unexpected changes were involved in profiles and commit your renamed templates. In particular check that there is
     no change in the OS version used or in the kernel version (if there is something wrong, report it as an issue in repository template-library-standard).
 
-    ```bash
-    external/ant/bin/ant
-    utils/profiles/compare_xml [-v]    ---> should display no changed profiles
-    svn commit -m 'standard/ .tpl files renamed into .pan'
-    ```
+   ```bash
+   external/ant/bin/ant
+   utils/profiles/compare_xml [-v]    ---> should display no changed profiles
+   svn commit -m 'standard/ .tpl files renamed into .pan'
+   ```
 
 
 ### Add templates for Quattor 14.6.0
@@ -214,37 +225,41 @@ you may want to ensure that you have the last version following the same procedu
 
 1. Update the working copy of your local configuration database to last revision and compile it
 
-    ```bash
-    svn update
-    external/ant/bin/ant
-    rm -Rf build.saved
-    cp -R build build.saved
-    ```
+   ```bash
+   svn update
+   external/ant/bin/ant
+   rm -Rf build.saved
+   cp -R build build.saved
+   ```
+
 1. Copy reference template directory "quattor/14.6.0" to your local configuration database quattor/ directory
 
-    ```bash
-    cp -R /tmp/scdb-vanilla/cfg/quattor/14.6.0 cfg/quattor
-    ```
+   ```bash
+   cp -R /tmp/scdb-vanilla/cfg/quattor/14.6.0 cfg/quattor
+   ```
+
 1. Add all the files to SVN:
 
-    ```bash
-    svn add cfg/quattor/14.6.0
-    ```
+   ```bash
+   svn add cfg/quattor/14.6.0
+   ```
+
 1. Compile the updated configuration and check that it completes successfully
 
-    ```bash
-    external/ant/bin/ant
-    ```
+   ```bash
+   external/ant/bin/ant
+   ```
+
 1. Compare the resulting profiles: no profiles should be affected at this point.
 
-    ```bash
-    utils/profiles/compare_xml [-v]
-    ```
+   ```bash
+   utils/profiles/compare_xml [-v]
+   ```
 1. Commit changes
 
-    ```bash
-    svn commit -m 'Add templates for Quattor 14.6.0'
-    ```
+   ```bash
+   svn commit -m 'Add templates for Quattor 14.6.0'
+   ```
 
 ### Add/update OS templates sl5.x and sl6.x
 
@@ -254,39 +269,44 @@ templates, you need to:
 
 1. Update the working copy of your local configuration database to last revision and compile it
 
-    ```bash
-    svn update
-    external/ant/bin/ant
-    rm -Rf build.saved
-    cp -R build build.saved
-    ```
+   ```bash
+   svn update
+   external/ant/bin/ant
+   rm -Rf build.saved
+   cp -R build build.saved
+   ```
+
 1. Copy reference template directory "os/sl5.x-x86_64" and "os/sl6.x-x86_64" to your local configuration database os/ directory
 
-    ```bash
-    cp -R /tmp/scdb-vanilla/cfg/os/sl5.x-x86_64 cfg/os
-    cp -R /tmp/scdb-vanilla/cfg/os/sl6.x-x86_64 cfg/os
-    ```
+   ```bash
+   cp -R /tmp/scdb-vanilla/cfg/os/sl5.x-x86_64 cfg/os
+   cp -R /tmp/scdb-vanilla/cfg/os/sl6.x-x86_64 cfg/os
+   ```
+
 1. Add all the files to SVN:
 
-    ```bash
-    svn add cfg/os/sl5.x
-    svn add cfg/os/sl6.x
-    ```
+   ```bash
+   svn add cfg/os/sl5.x
+   svn add cfg/os/sl6.x
+   ```
+
 1. Compile the updated configuration and check that it completes successfully
 
-    ```bash
-    external/ant/bin/ant
-    ```
+   ```bash
+   external/ant/bin/ant
+   ```
+
 1. Compare the resulting profiles: no profiles should be affected at this point.
 
-    ```bash
-    utils/profiles/compare_xml [-v]
-    ```
+   ```bash
+   utils/profiles/compare_xml [-v]
+   ```
+
 1. Commit changes
 
-    ```bash
-    svn commit -m 'Add new templates for SL5 and SL6'
-    ```
+   ```bash
+   svn commit -m 'Add new templates for SL5 and SL6'
+   ```
 
 ### Add/update templates for EMI-3
 
@@ -299,37 +319,42 @@ templates, you need to:
 
 1. Update the working copy of your local configuration database to last revision and compile it
 
-    ```bash
-    svn update
-    external/ant/bin/ant
-    rm -Rf build.saved
-    cp -R build build.saved
-    ```
+   ```bash
+   svn update
+   external/ant/bin/ant
+   rm -Rf build.saved
+   cp -R build build.saved
+   ```
+
 1. Copy reference template directory "grid/umd-3" to your local configuration database grid/ directory
 
-    ```bash
-    cp -R /tmp/scdb-vanilla/grid/umd-3 cfg/grid
-    ```
+   ```bash
+   cp -R /tmp/scdb-vanilla/grid/umd-3 cfg/grid
+   ```
+
 1. Add all the files to SVN:
 
-    ```bash
-    svn add cfg/grid/umd-3
-    ```
+   ```bash
+   svn add cfg/grid/umd-3
+   ```
+
 1. Compile the updated configuration and check that it completes successfully
 
-    ```bash
-    external/ant/bin/ant
-    ```
+   ```bash
+   external/ant/bin/ant
+   ```
+
 1. Compare the resulting profiles: no profiles should be affected at this point.
 
-    ```bash
-    utils/profiles/compare_xml [-v]
-    ```
+   ```bash
+   utils/profiles/compare_xml [-v]
+   ```
+
 1. Commit changes
 
-    ```bash
-    svn commit -m 'Add templates for EMI-3'
-    ```
+   ```bash
+   svn commit -m 'Add templates for EMI-3'
+   ```
 
 
 ## Managing YUM Snapshots
@@ -373,13 +398,14 @@ OS repository, YUM metadata are updated using another script, `update_yum_repos`
 
 _Note: how to manage mirrors is outside the scope of this documentation. If you are using a SL6 machine to manage your YUM mirros, you can use `yum-repo`
 tool that can be installed from EPEL. If you are using a SL5 machine, you can use  `wget --mirror` for repositories accessible by http. You can also
-have a look to the Quattor tool, `yum_mirror_upstream` (also at the same location as other scripts mentionned here).
+have a look to the Quattor tool, `yum_mirror_upstream` (also at the same location as other scripts mentionned here)._
 
 yum_snapshot accepts the following options:
 
 ```
 Usage:    yum_snapshot [--snapshot-dir /path/to/snapshot] [--update] [--previous snapshot] [--verbose] --snapshot-name snap_name repository_path
 ```
+
 * `--snapshot-dir` specificies the directory parent of every snapshot. Under this parent, the script creates one directory per day a snapshot is created.
 And the snapshot itself is put under this date directory (flat directory for all snapshots).
 * The YUM snapshot name, specified by
@@ -416,50 +442,51 @@ want to upgrade to emi-3, you can do the following:
 
 1. Copy the existing cluster (adapt to your local configuration)
 
-    ```bash
-    svn cp cfg/clusters/emi-2 cfg/clusters/emi-3
-    ```
+   ```bash
+   svn cp cfg/clusters/emi-2 cfg/clusters/emi-3
+   ```
+
 1. Remove profiles (change .pan to .tpl in the following command if you have not done the rename)
 
-    ```bash
-    svn rm --force cfg/clusters/emi-3/profiles/*.pan
-    ```
+   ```bash
+   svn rm --force cfg/clusters/emi-3/profiles/*.pan
+   ```
+
 1. Edit the cluster cluster-info.pan (in cfg/clusters/emi-3/site/) and add the following variables:
 
-    ```
-    # Use OS templates for generic major version (required)
-    variable OS_FLAVOUR_ENABLED ?= true;
+       # Use OS templates for generic major version (required)
+       variable OS_FLAVOUR_ENABLED ?= true;
 
-    # YUM Repository snapshots (match your local configuration, see previous section on YUM snapshots)
-    # YUM_SNAPSHOT_DATE is typically used in repository templates to build the full URL of the snapshot
-    # See template-library-examples repository
-    variable YUM_SNAPSHOT_DATE ?= '20140316';
-    # Allows to use the same snapshot for initial installation and later deployments.
-    variable AII_OSINSTALL_ROOT = '/yum/snapshots/'+YUM_SNAPSHOT_DATE;
-    ```
+       # YUM Repository snapshots (match your local configuration, see previous section on YUM snapshots)
+       # YUM_SNAPSHOT_DATE is typically used in repository templates to build the full URL of the snapshot
+       # See template-library-examples repository
+       variable YUM_SNAPSHOT_DATE ?= '20140316';
+       # Allows to use the same snapshot for initial installation and later deployments.
+       variable AII_OSINSTALL_ROOT = '/yum/snapshots/'+YUM_SNAPSHOT_DATE;
+
 1. Commit the new cluster (required before next step)
 
-    ```bash
-    svn commit -m 'Adding cluster emi-3'
-    ```
+   ```bash
+   svn commit -m 'Adding cluster emi-3'
+   ```
+
 1. Choose one test machine in your original cluster and move it to the new one
 
-    ```bash
-    svn mv cfg/clusters/emi-2/profiles/mytest.dom.ain.pan cfg/clusters/emi-3/profiles
-    ```
+   ```bash
+   svn mv cfg/clusters/emi-2/profiles/mytest.dom.ain.pan cfg/clusters/emi-3/profiles
+   ```
 
 *Note: a previous version of this article mentionned that it was required to define variable `AII_V2_INSTALL`. This is no longer the case
 and it is now recommended to remove it.*
 
 ### Updating the new cluster build properties
 
-Edit the new cluster file cluster.build.properties with the following changes
+Edit the new cluster file cluster.build.properties with the following changes:
+
 * In the include patch, change the grid version used to grid/umd-3 and the Quattor version to quattor/14.6.0
 * Add the following line:
 
-```
-cluster.pan.dep.ignore=""
-```
+      cluster.pan.dep.ignore=""
 
 This new line is required to ensure that any change to a template defining a YUM repository will trig a profile recompilation. This is not the default
 behaviour as it was useless with SPMA. For this to work, you may have to update quattor.build.xml from /tmp/scdb-vanilla in the top directory of your
@@ -480,24 +507,27 @@ You should be done and ready for testing. For the initial machine, it is recomme
 
 1. Compile the profile of your test machine
 
-    ```bash
-    external/ant/bin/ant
-    ```
+   ```bash
+   external/ant/bin/ant
+   ```
+
 1. Compare the resulting profiles: only the test machine should be affected, changes should affect mostly package list.
 
-    ```bash
-    utils/profiles/compare_xml [-v]
-    ```
+   ```bash
+   utils/profiles/compare_xml [-v]
+   ```
+
 1. Commit changes
 
-    ```bash
-    svn commit -m 'Test machine for emi-3 cluster'
-    ```
+   ```bash
+   svn commit -m 'Test machine for emi-3 cluster'
+   ```
+
 1. Deploy changes
 
-    ```bash
-    external/ant/bin/ant deploy
-    ```
+   ```bash
+   external/ant/bin/ant deploy
+   ```
 
 To reinstall the machine, connect to the deployment server and run aii-shellfe as usual.
 
@@ -515,52 +545,61 @@ list is not compatible with SPMA that is still running on the machine. Then:
 
 1. Remove `perl-AppConfig-caf` if it is insatlled (always necessary on SL5)
 
-    ```bash
-    rpm -e --nodeps perl-AppConfig-caf
-    ```
+   ```bash
+   rpm -e --nodeps perl-AppConfig-caf
+   ```
+
 1. On SL5, upgrade YUM (URL given for SL5x, update to your version if necessary but should work with any SL5)
 
-    ```bash
-    rpm -e --nodeps yum-conf
-    rpm -U http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_addons/yum-3.2.29-9.el5.noarch.rpm \
-           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_addons/yum-utils-1.1.31-4.noarch.rpm \
-           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5x-x86_64/SL/yum-priorities-1.1.16-21.el5.noarch.rpm \
-           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5x-x86_64/SL/yum-versionlock-1.1.16-21.el5.noarch.rpm \
-           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_epel/python-kitchen-1.1.1-1.el5.noarch.rpm
-    ```
+   ```bash
+   rpm -e --nodeps yum-conf
+   snapshot_url="http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316"
+   rpm -U $snapshot_url/sl5_addons/yum-3.2.29-9.el5.noarch.rpm \
+          $snapshot_url/sl5_addons/yum-utils-1.1.31-4.noarch.rpm \
+          $snapshot_url/sl5x-x86_64/SL/yum-priorities-1.1.16-21.el5.noarch.rpm \
+          $snapshot_url/sl5x-x86_64/SL/yum-versionlock-1.1.16-21.el5.noarch.rpm \
+          $snapshot_url/sl5_epel/python-kitchen-1.1.1-1.el5.noarch.rpm
+   ```
+
 1. If `libtorque` is installed on the system, remove it:
 
-    ```bash
-    rpm -e --nodeps libtorque
-    ```
+   ```bash
+   rpm -e --nodeps libtorque
+   ```
+
 1. If `libganglia-3_1_0` is installed on the system, remove it:
 
-    ```bash
-    rpm -e --nodeps libganglia-3_1_0
-    ```
+   ```bash
+   rpm -e --nodeps libganglia-3_1_0
+   ```
+
 1. Install new `ncm-spma` dependencies from EPEL (an alternative to this step is to add the EPEL and Quattor repositories in the YUM configuration
 and use `yum` rather than `rpm` in next step)
 
-    ```bash
-    # SL5
-    rpm -U http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_epel/perl-Set-Scalar-1.25-1.el5.noarch.rpm \
-           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_epel/perl-AppConfig-1.64-1.el5.noarch.rpm \
-           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl5_epel/perl-File-HomeDir-0.86-1.el5.noarch.rpm
-    # SL6
-    rpm -U http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6x-x86_64/Packages/perl-AppConfig-1.66-6.el6.noarch.rpm \
-           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6x-x86_64/Packages/yum-plugin-priorities-1.1.30-14.el6.noarch.rpm \
-           http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316/sl6_epel/perl-Set-Scalar-1.25-2.el6.noarch.rpm
-    ```
+   ```bash
+   snapshot_url="http://quattorsrv.lal.in2p3.fr/yum/snapshots/20140316"
+   # SL5
+   rpm -U $snapshot_url/sl5_epel/perl-Set-Scalar-1.25-1.el5.noarch.rpm \
+          $snapshot_url/sl5_epel/perl-AppConfig-1.64-1.el5.noarch.rpm \
+          $snapshot_url/sl5_epel/perl-File-HomeDir-0.86-1.el5.noarch.rpm
+   # SL6
+   rpm -U $snapshot_url/sl6x-x86_64/Packages/perl-AppConfig-1.66-6.el6.noarch.rpm \
+          $snapshot_url/sl6x-x86_64/Packages/yum-plugin-priorities-1.1.30-14.el6.noarch.rpm \
+          $snapshot_url/sl6_epel/perl-Set-Scalar-1.25-2.el6.noarch.rpm
+   ```
+
 1. Upgrade `ncm-spma` to last version:
 
-    ```bash
-    rpm -U http://yum.quattor.org/14.6.0/ncm-spma-14.6.0-1.noarch.rpm
-    ```
+   ```bash
+   rpm -U http://yum.quattor.org/14.6.0/ncm-spma-14.6.0-1.noarch.rpm
+   ```
+
 1. Reconfigure the node with the last profile
 
-    ```bash
-    ncm-ncd --configure --all
-    ```
+   ```bash
+   ncm-ncd --configure --all
+   ```
+
 _Note: when upgrading, it will take several YUM runs to get a stable package list. This is an expected behaviour. You may just wait for these runs
 to happen as part of other deployment operations or execute `yum distro-sync` (accept actions proposed except if you have a good reason not to do so)._
 
@@ -579,14 +618,12 @@ you unfortunately deleted it, reinstall it from your old OS distribution (it is 
 * Package `iwl5150-firmware` is both in EPEL and SL (with the same version) and this causes problems to YUM. A workaround is to blacklist this package in
 your SL or EPL repository (SL suggested). This is done by adding in your repository template:
 
-    ```
-    # These packages are in EPEL already...
-    "excludepkgs" = {
-      append('iwl5150-firmware');
-      append('iwl6000-firmware');
-      SELF;
-    };
-    ```
+      # These packages are in EPEL already...
+      "excludepkgs" = {
+          append('iwl5150-firmware');
+          append('iwl6000-firmware');
+          SELF;
+      };
 
 ## Changes to local templates
 
@@ -602,9 +639,8 @@ site can build its owns list. There is also an `rpms/group` providing templates 
 are just workaround until ncm-spma can manage YUM groups directly.
 * To include the base OS configuration in a local machine type, just include:
 
-    ```
-    include { 'config/core/base` };
-    ```
+      include { 'config/core/base` };
+
 The base configuration is very minimal. Basically it includes only the Base YUM group.
 
 If you want to have site-specific templates that include additional OS features working both with the old generation and the new generation of OS templates,
