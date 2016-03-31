@@ -14,6 +14,9 @@ branches:
   only:
   - master
 
+before_script:
+ - chmod +x grailsw
+ 
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
