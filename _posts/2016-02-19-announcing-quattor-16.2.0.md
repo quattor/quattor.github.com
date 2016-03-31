@@ -159,4 +159,3 @@ Changelog
 * [Localize $@ when using eval](https://github.com/quattor/CAF/pull/128)
 * [**ObjectText:** factored-out text related methods from TextRender ](https://github.com/quattor/CAF/pull/120)
 * [Support PID logging](https://github.com/quattor/CAF/pull/136)
-<teh> <--!thest-->
