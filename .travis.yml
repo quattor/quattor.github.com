@@ -1,10 +1,15 @@
-language: ruby
-rvm:
-- 2.1
-
+language: python
+python:
+  - "3.4"
+# command to install dependencies
+install: "pip install -r requirements.txt"
+# command to run tests
+script: nosetests
+script: Spellchecker
 # Assume bundler is being used, therefore
 # the `install` step will run `bundle install` by default.
 script: ./travis-build
+script: ./_tests
 
 # branch whitelist, only for GitHub Pages
 branches:
