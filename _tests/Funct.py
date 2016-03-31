@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import glob, os, enchant, codecs, logging, json, os.path, shutil, re
 from Variab import *
 
@@ -30,7 +30,8 @@ def linechecker(errortotalprev):
             if not icodeblock and not skipline:
                 htmlcodematch = re.match(r"\<(?=--)\>", line)
                 htmlsnip = re.sub(r'\<.*?\>', "", line)
-                chkr.set_text(htmlsnip)
+                htmlsnipcode = re.sub(r' \`.*?\` ', htmlsnip)
+                chkr.set_text(htmlsnipcode)
                 for err in chkr:
                     if pwl.check(err.word):
                         check1 = 1
@@ -56,7 +57,6 @@ def linechecker(errortotalprev):
                 json.dump(errortotal, outfile)
     return errortotal;
     
-=======
 import glob, os, enchant, codecs, logging, json, os.path, shutil, re
 from Variab import *
 
@@ -113,4 +113,4 @@ def linechecker(errortotalprev):
             with open('Prevscore.json', 'w') as outfile:
                 json.dump(errortotal, outfile)
     return errortotal;
->>>>>>> origin/master
+
