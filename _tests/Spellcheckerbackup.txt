@@ -1,0 +1,11 @@
+def errchkr():
+            if pwl.check(err.word):
+                check1 = 1
+            else:
+                error = error+1
+                errortotal = errortotal+1
+                wordswrong.write(err.word)
+                wordswrong.write(" in ")
+                wordswrong.write(filename)
+                print("Failed word: ", err.word)
+                    wordswrong.write("\n")
