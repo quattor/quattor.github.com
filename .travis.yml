@@ -3,12 +3,11 @@ python:
   - "3.4"
 # command to install dependencies
 # command to run tests
-script: nosetests
 script: Spellchecker
 # Assume bundler is being used, therefore
 # the `install` step will run `bundle install` by default.
 script: ./travis-build
-script: ./_tests
+script: ./_tests/Spellchecker.py
 
 # branch whitelist, only for GitHub Pages
 branches:
