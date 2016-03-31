@@ -2,7 +2,6 @@ leve in ../_posts\2012-03-22-documentation-testing-code.md
 managment in ../_posts\2012-05-07-review-pan-in-clojure.md
 noticably in ../_posts\2012-06-19-documentation-overview.md
 i in ../_posts\2012-06-19-documentation-overview.md
-listend in ../_posts\2012-06-19-documentation-overview.md
 Notfication in ../_posts\2012-06-19-documentation-overview.md
 contraints in ../_posts\2012-06-19-documentation-pan-book.md
 availabe in ../_posts\2012-06-19-documentation-pan-book.md
@@ -19,6 +18,7 @@ i in ../_posts\2013-02-06-core-changes-tracing.md
 favor in ../_posts\2013-03-02-announcing-panc-v10.md
 completitude in ../_posts\2013-03-21-announcing-quattor-13.3.md
 copatibility in ../_posts\2013-03-21-announcing-quattor-13.3.md
+templatesswrep in ../_posts\2013-03-27-cleaning-up-packages.md
 anymore in ../_posts\2013-03-27-cleaning-up-packages.md
 unescaped in ../_posts\2013-04-05-package-management.md
 rythm in ../_posts\2013-04-26-stable-releases-process.md
@@ -73,7 +73,6 @@ flavored in ../_posts\2014-03-29-quattor-web-site-contribution.md
 flavored in ../_posts\2014-03-29-quattor-web-site-contribution.md
 identation in ../_posts\2014-03-29-quattor-web-site-contribution.md
 superseeded in ../_posts\2014-06-06-announcing-quattor-14.5.0.md
-raidman in ../_posts\2014-06-06-announcing-quattor-14.5.0.md
 configureable in ../_posts\2014-06-06-announcing-quattor-14.5.0.md
 unsecure in ../_posts\2014-06-06-announcing-quattor-14.5.0.md
 reestablish in ../_posts\2014-06-06-announcing-quattor-14.5.0.md
@@ -119,8 +118,6 @@ listend in ../_posts\2015-03-23-announcing-quattor-15.2.0.md
 listend in ../_posts\2015-03-23-announcing-quattor-15.2.0.md
 BEGINING in ../_posts\2015-03-23-announcing-quattor-15.2.0.md
 adresses in ../_posts\2015-03-25-SCDB-installation.md
-passwd in ../_posts\2015-03-25-SCDB-installation.md
-passwd in ../_posts\2015-03-25-SCDB-installation.md
 createad in ../_posts\2015-03-25-SCDB-installation.md
 paramater in ../_posts\2015-03-25-SCDB-installation.md
 poing in ../_posts\2015-03-25-SCDB-installation.md
@@ -139,21 +136,13 @@ pnce in ../_posts\2015-09-20-textrender-basics.md
 pnce in ../_posts\2015-09-20-textrender-basics.md
 templating in ../_posts\2015-09-20-textrender-basics.md
 i in ../_posts\2015-09-20-textrender-basics.md
-unescape in ../_posts\2015-09-20-textrender-basics.md
-unescape in ../_posts\2015-09-20-textrender-basics.md
-singlequote in ../_posts\2015-09-20-textrender-basics.md
-truefalse in ../_posts\2015-09-20-textrender-basics.md
-truefalse in ../_posts\2015-09-20-textrender-basics.md
 altough in ../_posts\2015-09-21-textrender-metaconfig.md
 supproted in ../_posts\2015-09-21-textrender-metaconfig.md
-componentes in ../_posts\2015-09-21-textrender-metaconfig.md
 targetting in ../_posts\2015-09-21-textrender-metaconfig.md
 addiditional in ../_posts\2015-09-21-textrender-metaconfig.md
 itsimply in ../_posts\2015-09-21-textrender-metaconfig.md
 i in ../_posts\2015-09-21-textrender-metaconfig.md
 Altough in ../_posts\2015-09-22-textrender-outside-metaconfig.md
-pom in ../_posts\2015-09-22-textrender-outside-metaconfig.md
-pom in ../_posts\2015-09-22-textrender-outside-metaconfig.md
 vaild in ../_posts\2015-09-22-textrender-outside-metaconfig.md
 Therefor in ../_posts\2015-09-22-textrender-outside-metaconfig.md
 i in ../_posts\2015-09-22-textrender-outside-metaconfig.md
@@ -187,3 +176,4 @@ distrib in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
 serverdb in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
 GSSAPI in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
 eval in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
+teh in ../_posts\2016-02-19-announcing-quattor-16.2.0.md

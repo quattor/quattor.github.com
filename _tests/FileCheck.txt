@@ -1,6 +1,6 @@
 1 errors in total in ../_posts\2012-03-22-documentation-testing-code.md
 1 errors in total in ../_posts\2012-05-07-review-pan-in-clojure.md
-4 errors in total in ../_posts\2012-06-19-documentation-overview.md
+3 errors in total in ../_posts\2012-06-19-documentation-overview.md
 2 errors in total in ../_posts\2012-06-19-documentation-pan-book.md
 1 errors in total in ../_posts\2012-06-19-news-quattor-workshop-14.md
 0 errors in total in ../_posts\2012-06-28-registration-workshop-gent.md
@@ -26,7 +26,7 @@
 0 errors in total in ../_posts\2013-03-07-renaming-repos.md
 0 errors in total in ../_posts\2013-03-07-sourceforge-changes.md
 2 errors in total in ../_posts\2013-03-21-announcing-quattor-13.3.md
-1 errors in total in ../_posts\2013-03-27-cleaning-up-packages.md
+2 errors in total in ../_posts\2013-03-27-cleaning-up-packages.md
 1 errors in total in ../_posts\2013-04-05-package-management.md
 0 errors in total in ../_posts\2013-04-15-announce-13.1.rc3.md
 0 errors in total in ../_posts\2013-04-24-announce-13.1.md
@@ -47,7 +47,7 @@
 12 errors in total in ../_posts\2014-03-17-Quattor-Workshop-Amdsterdam.md
 16 errors in total in ../_posts\2014-03-24-spma-yum-migration.md
 3 errors in total in ../_posts\2014-03-29-quattor-web-site-contribution.md
-5 errors in total in ../_posts\2014-06-06-announcing-quattor-14.5.0.md
+4 errors in total in ../_posts\2014-06-06-announcing-quattor-14.5.0.md
 3 errors in total in ../_posts\2014-06-06-how-to-use-template-library.md
 4 errors in total in ../_posts\2014-07-04-announcing-quattor-14.6.0.md
 0 errors in total in ../_posts\2014-08-31-quattor-ws-18.md
@@ -57,13 +57,13 @@
 0 errors in total in ../_posts\2014-11-27-configuring-quattor-repos.md
 6 errors in total in ../_posts\2015-03-03-grenoble-workshop-summary.md
 9 errors in total in ../_posts\2015-03-23-announcing-quattor-15.2.0.md
-8 errors in total in ../_posts\2015-03-25-SCDB-installation.md
+6 errors in total in ../_posts\2015-03-25-SCDB-installation.md
 7 errors in total in ../_posts\2015-06-03-announcing-quattor-15.4.0.md
-11 errors in total in ../_posts\2015-09-20-textrender-basics.md
-7 errors in total in ../_posts\2015-09-21-textrender-metaconfig.md
-7 errors in total in ../_posts\2015-09-22-textrender-outside-metaconfig.md
+6 errors in total in ../_posts\2015-09-20-textrender-basics.md
+6 errors in total in ../_posts\2015-09-21-textrender-metaconfig.md
+5 errors in total in ../_posts\2015-09-22-textrender-outside-metaconfig.md
 4 errors in total in ../_posts\2015-09-29-lal-workshop-summary.md
 0 errors in total in ../_posts\2015-09-30-freeipa-kerberos-quickstart.md
 7 errors in total in ../_posts\2015-10-29-announcing-quattor-15.8.0.md
 3 errors in total in ../_posts\2016-01-11-announcing-quattor-15.12.0.md
-15 errors in total in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
+16 errors in total in ../_posts\2016-02-19-announcing-quattor-16.2.0.md

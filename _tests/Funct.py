@@ -27,12 +27,26 @@ def linechecker(errortotalprev):
             elif line.startswith("    "):
                 skipline = True
             if not icodeblock and not skipline:
-                htmlcodematch = re.match(r"\<(?=--)\>", line)
+                htmlnote = re.match(r"\<(?=--).*?\>", line)
                 htmlsnip = re.sub(r'\<.*?\>', "", line)
-                chkr.set_text(htmlsnip)
+                htmlsnipper = re.sub(r'\`.*?\`', "", htmlsnip)
+                checker.set_text(htmlnote)
+                chkr.set_text(htmlsnipper)
                 for err in chkr:
                     if pwl.check(err.word):
                         check1 = 1
+                    else:
+                        errortotal = errortotal+1
+                        error = error+1
+                        #errortotal = errortotal+1
+                        wordswrong.write(err.word)
+                        wordswrong.write(" in ")
+                        wordswrong.write(filename)
+                        print("Failed word: ", err.word)
+                        wordswrong.write("\n")
+                for err in checker:
+                    if pwl.check(err.word):
+                        check = 1
                     else:
                         errortotal = errortotal+1
                         error = error+1
@@ -46,7 +60,7 @@ def linechecker(errortotalprev):
         filecheck.write("%d errors in total in %s\n" % (error, filename))
         print ("Errors in total: ", errortotal)
         if errortotal <= errortotalprev:
-            print("Pass. you scored better or equal to the last time")
+            print("Pass. you scored better or equal to the last check")
             with open('Prevscore.json', 'w') as outfile:
                 json.dump(errortotal, outfile)
         else:
