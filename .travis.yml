@@ -1,13 +1,13 @@
 language: python
 python:
-  - "2.7"
-  - "3.3"
-  - "3.4"
+ - "2.7"
+ - "3.3"
+ - "3.4"
   
-  before_install:
+before_install:
   sudo apt-get install python3-enchant
   
-  install:
+install:
   - pip install 'git+https://github.com/rfk/pyenchant.git'
   - python setup.py -q install
 
