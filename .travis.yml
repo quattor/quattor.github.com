@@ -12,9 +12,10 @@ addons:
     packages:
       - libenchant-dev
 # command to install dependencies
+$ pip install pyenchant
 script:
  - python setup.py test
-script: python _tests/Spellchecker.py
-branches:
+ - python _tests/Spellchecker.py
+:branches:
   only:
     - master
