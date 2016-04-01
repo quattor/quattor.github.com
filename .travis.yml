@@ -5,6 +5,12 @@ python:
   - "3.2"
   - "3.3"
   - "3.4"
+  - "pypy"
+  
+addons:
+  apt:
+    packages:
+      - libenchant-dev
 # command to install dependencies
 script: python _tests/Spellchecker.py
 branches:
