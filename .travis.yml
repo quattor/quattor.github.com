@@ -12,6 +12,8 @@ addons:
     packages:
       - libenchant-dev
 # command to install dependencies
+script:
+ - python setup.py test
 script: python _tests/Spellchecker.py
 branches:
   only:
