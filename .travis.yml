@@ -4,7 +4,7 @@ python:
  
  language: ruby
  rvm
-  - "2.1"
+ - "2.1"
   
 before_install:
   sudo apt-get install python3-enchant
