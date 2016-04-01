@@ -3,7 +3,7 @@ python:
  - "3.4"
  
  language: ruby
- rvm
+ rvm:
  - "2.1"
   
 before_install:
