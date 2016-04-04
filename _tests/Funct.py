@@ -29,7 +29,7 @@ def linechecker(errortotalprev):
             if not icodeblock and not skipline:
                 htmlnote = re.match(r"\<(?=--).*?\>", line)
                 htmlsnip = re.sub(r'\<.*?\>', "", line)
-                htmlsnipper = re.sub(r'\`.*?\`', "", htmlsnip)
+                htmlsnipper = re.sub(r' \`.*?\` ', "", htmlsnip)
                 checker.set_text(htmlnote)
                 chkr.set_text(htmlsnipper)
                 for err in chkr:
