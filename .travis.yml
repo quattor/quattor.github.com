@@ -1,14 +1,31 @@
-language: python
+language: ruby
+rvm:
+- 2.1
 python:
- - "3.4"
-  
+- 3.4
+
+# Assume bundler is being used, therefore
+# the `install` step will run `bundle install` by default.
 before_install:
   sudo apt-get install python3-enchant
-  
+
 install:
   - pip install 'git+https://github.com/rfk/pyenchant.git'
   - python setup.py -q install
 
-# command to install dependencies
 script:
- - python _tests/Spellchecker.py
+./travis-build
+./_tests/Spellchecker.py
+
+# branch whitelist, only for GitHub Pages
+branches:
+  only:
+  - master
+
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
+
+cache: bundler
+
+sudo: false
