@@ -7,8 +7,6 @@ before_install:
   sudo apt-get install python3-enchant
   
 install:
-  - gem install public_suffix -v '1.5.3
-  - bundle install
   - pip install 'git+https://github.com/rfk/pyenchant.git'
   - python setup.py -q install
 
