@@ -1,4 +1,4 @@
-es (11 sloc) 284 Bytes
+
 language: python
 python:
  - "3.4"
@@ -7,9 +7,10 @@ before_install:
   sudo apt-get install python3-enchant
   
 install:
+  - bundle install
   - pip install 'git+https://github.com/rfk/pyenchant.git'
   - python setup.py -q install
 
 # command to install dependencies
 script:
- - python ./_tests/Spellchecker.py
+ - python _tests/Spellchecker.py
