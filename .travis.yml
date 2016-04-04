@@ -1,8 +1,9 @@
 language: ruby
+
 rvm:
 - 2.1
-python:
-- 3.4
+
+
 
 # Assume bundler is being used, therefore
 # the `install` step will run `bundle install` by default.
@@ -13,9 +14,8 @@ install:
   - pip install 'git+https://github.com/rfk/pyenchant.git'
   - python setup.py -q install
 
-script:
-./travis-build
-./_tests/Spellchecker.py
+script: ./travis-build
+script: ./_tests/Spellchecker.py
 
 # branch whitelist, only for GitHub Pages
 branches:
