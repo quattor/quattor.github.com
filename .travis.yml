@@ -13,4 +13,3 @@ install:
 # command to install dependencies
 script:
  - python _tests/Spellchecker.py
- - ./travis-build
