@@ -58,11 +58,11 @@ def linechecker(errortotalprev): #Checks the file function
         print(error, " errors in total in ", filename) #after it finishes the file it prints out the errors in that file
         filecheck.write("%d errors in total in %s\n" % (error, filename)) #prints the same line as above in a text document
         print ("Errors in total: ", errortotal) #prints errors for all the files
-        if errortotal <= errortotalprev:
-            print("Pass. you scored better or equal to the last check")
-            with open('Prevscore.json', 'w') as outfile:
-                json.dump(errortotal, outfile) #saves errortotal to json file for future use
-        elif errortotal > errortotalprev:
-            print("Fail. try harder next time")
-            with open('Prevscore.json', 'w') as outfile: #saves errortotal to json file for future use
-                json.dump(errortotal, outfile)
+    if errortotal <= errortotalprev:
+        print("Pass. you scored better or equal to the last check")
+        with open('Prevscore.json', 'w') as outfile:
+            json.dump(errortotal, outfile) #saves errortotal to json file for future use
+    elif errortotal > errortotalprev:
+        print("Fail. try harder next time")
+        with open('Prevscore.json', 'w') as outfile: #saves errortotal to json file for future use
+            json.dump(errortotal, outfile)
