@@ -5,7 +5,7 @@ from enchant.tokenize import EmailFilter, URLFilter
 pwl = enchant.request_pwl_dict("Dict.txt") #add words to the dictionary used to test for spelling errors
 chkr = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
 #chkr1 = SpellChecker("en_GB")
-filenameslist = glob.glob("../_posts/*.md") #loads files
+filenameslist = glob.glob("./_posts/*.md") #loads files
 pwl = enchant.request_pwl_dict("Dict.txt")
 check1 = 0
 wordswrong = open("WordsWrong.txt", "w+") #creates new file to save the words that were spelt wrong
