@@ -2,7 +2,7 @@ import glob, os, enchant, codecs, logging, json, os.path, shutil, re
 from enchant.checker import SpellChecker
 from enchant.tokenize import EmailFilter, URLFilter
 #logger = logging.getLogger('spellcheck')
-pwl = enchant.request_pwl_dict("/Dict.txt") #add words to the dictionary used to test for spelling errors
+pwl = enchant.request_pwl_dict("/dict/Dict.txt") #add words to the dictionary used to test for spelling errors
 chkr = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
 #chkr1 = SpellChecker("en_GB")
 filenameslist = glob.glob("./_posts/*.md") #loads files
