@@ -10,7 +10,8 @@ import re
 from enchant.checker import SpellChecker
 from enchant.tokenize import EmailFilter, URLFilter
 DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
-DIRECTORY_POSTS = os.path.join(DIRECTORY_TESTS, './_posts/')
+DIRECTORY_ROOT = os.path.dirname(DIRECTORY_TESTS)
+DIRECTORY_POSTS = os.path.join(DIRECTORY_ROOT, '_posts')
 JSONSCORE = os.path.join(DIRECTORY_TESTS, 'Prevscore.json')
 # logger = logging.getLogger('spellcheck')
 pwl = enchant.request_pwl_dict(os.path.join(DIRECTORY_TESTS, 'Dict.txt'))
