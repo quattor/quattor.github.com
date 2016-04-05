@@ -9,11 +9,8 @@ from Funct import *
 # functions saved in this file
 errortotalprev = 0
 # here to save python from throwing out an error
-print (pwl)
 Filechecker()
-print (JSONSCORE)
-print (DIRECTORY_POSTS)
-print (DIRECTORY_TESTS)
+
 if os.path.exists(JSONSCORE):
     with open(JSONSCORE, 'r') as f:
         errortotalprev = json.load(f)
