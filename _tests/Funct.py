@@ -19,7 +19,7 @@ def Filechecker():
         end
 
 
-def linechecker(errortotalprev):
+def linechecker(errortotalprev, pwl):
     errortotal = 0
     for filename in filenameslist:
         print('now checking file ', filename)
@@ -45,7 +45,6 @@ def linechecker(errortotalprev):
                 # strips code between ` `
                 spellcheck.set_text(cleanhtml)
                 # sets text to check to stripped line
-                #chkr12.set_text(htmlnote)
                 for err in spellcheck:
                     if pwl.check(err.word):
                         stoperror = 1
