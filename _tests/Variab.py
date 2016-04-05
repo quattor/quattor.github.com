@@ -13,7 +13,6 @@ from enchant.tokenize import EmailFilter, URLFilter
 pwl = enchant.request_pwl_dict("Dict.txt")
 # add words to the dictionary used to test for spelling errors
 spellcheck = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
-chkr12 = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
 filenameslist = glob.glob("./_posts/*.md")
 # loads files
 wordswrong = open("WordsWrong.txt", "w+")
