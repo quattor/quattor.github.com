@@ -14,7 +14,7 @@ def Filechecker():
     if os.listdir('.') == []:
         print('Please put Prevscore.json in the location of this file.')
         end
-    if os.listdir('./_posts/') == []:
+    if os.listdir(DIRECTORY_POSTS) == []:
         print ('No .md files to evaluate')
         end
 
@@ -45,6 +45,7 @@ def linechecker(errortotalprev):
                 # strips code between ` `
                 spellcheck.set_text(cleanhtml)
                 # sets text to check to stripped line
+                #chkr12.set_text(htmlnote)
                 for err in spellcheck:
                     if pwl.check(err.word):
                         stoperror = 1
@@ -66,11 +67,13 @@ def linechecker(errortotalprev):
     # prints errors for all the files
     if errortotal <= errortotalprev:
         print('Pass. you scored better or equal to the last check')
-        with open('Prevscore.json', 'w') as outfile:
+        with open(PREVSCOREDIRECT, 'w') as outfile:
             json.dump(errortotal, outfile)
             # saves errortotal to json file for future use
-    elif errortotal > errortotalprev:
+            return True
+    else:
         print('Fail. try harder next time')
-        with open('Prevscore.json', 'w') as outfile:
+        with open(PREVSCOREDIRECT, 'w') as outfile:
             # saves errortotal to json file for future use
             json.dump(errortotal, outfile)
+            return False
