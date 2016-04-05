@@ -10,10 +10,10 @@ from Variab import *
 def Filechecker():
     if os.listdir('.') == []:
         print('Please put Prevscore.json in the location of this file.')
-        end
+        return
     if os.listdir(DIRECTORY_POSTS) == []:
         print ('No .md files to evaluate')
-        end
+        return
 
 
 def linechecker(errortotalprev, pwl):
