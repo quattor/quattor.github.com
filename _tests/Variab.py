@@ -4,6 +4,7 @@ import enchant
 import os.path
 from enchant.checker import SpellChecker
 from enchant.tokenize import EmailFilter, URLFilter
+import sys
 
 DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
 DIRECTORY_ROOT = os.path.dirname(DIRECTORY_TESTS)
@@ -25,6 +26,8 @@ if os.path.exists(FILENAME_PWL):
     print("Methods of object: %s" % dir(pwl))
 else:
     print("PWL file does not exist")
+    sys.exit(2)
+
 
 # add words to the dictionary used to test for spelling errors
 spellcheck = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
