@@ -958,7 +958,6 @@ testsuite
 tftp
 tftpboot
 tftpd
-th
 thems
 timeout
 timeouts
