@@ -17,8 +17,8 @@ errortotalprev = 0
 # here to save python from throwing out an error
 
 Filechecker()
-if os.path.exists(PREVSCOREDIRECT):
-    with open(PREVSCOREDIRECT, 'r') as f:
+if os.path.exists(JSONSCORE):
+    with open(JSONSCORE, 'r') as f:
         errortotalprev = json.load(f)
         # loads json file with errortotalprev in
 passed = linechecker(errortotalprev)
