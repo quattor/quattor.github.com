@@ -59,7 +59,7 @@
 9 errors in total in ../_posts\2015-03-23-announcing-quattor-15.2.0.md
 6 errors in total in ../_posts\2015-03-25-SCDB-installation.md
 7 errors in total in ../_posts\2015-06-03-announcing-quattor-15.4.0.md
-6 errors in total in ../_posts\2015-09-20-textrender-basics.md
+5 errors in total in ../_posts\2015-09-20-textrender-basics.md
 6 errors in total in ../_posts\2015-09-21-textrender-metaconfig.md
 5 errors in total in ../_posts\2015-09-22-textrender-outside-metaconfig.md
 4 errors in total in ../_posts\2015-09-29-lal-workshop-summary.md

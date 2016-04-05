@@ -29,7 +29,7 @@ def linechecker(errortotalprev):
         linelist = codecs.open(filename, 'r', encoding='UTF-8').readlines()
         for line in linelist:
             skipline = False
-            # defaults to not skip line
+            # ##defaults to not skip line
             if line.startswith('```') or line == '---':
                 icodeblock = not icodeblock
                 if not icodeblock:
@@ -39,16 +39,19 @@ def linechecker(errortotalprev):
                 skipline = True
                 # if detected as a line with code
             if not icodeblock and not skipline:
-                htmldirty = re.sub(r'\<(?!\!--)(.*?)\>', '', line)
+                htmlnote = re.sub(r'<-(.*)->', 'test', line)
+                #print(htmlnote)
+                #htmlnotere = htmlnote.match(line).group(1)
+                htmlsnip = re.sub(r'\<.*?\>', '', line)
                 # strips code between < >
-                cleanhtml = re.sub(r'\`.*?\`', '', htmldirty)
+                htmlsnipper = re.sub(r'\`.*?\`', '', htmlsnip)
+                chkr12.set_text(htmlnote)
                 # strips code between ` `
-                spellcheck.set_text(cleanhtml)
+                chkr.set_text(htmlsnipper)
                 # sets text to check to stripped line
-                #chkr12.set_text(htmlnote)
-                for err in spellcheck:
+                for err in chkr:
                     if pwl.check(err.word):
-                        stoperror = 1
+                        check1 = 1
                         # Filler so it dosent spit out an error
                     else:
                         errortotal = errortotal+1
@@ -59,6 +62,20 @@ def linechecker(errortotalprev):
                         print('Failed word: ', err.word)
                         wordswrong.write('\n')
                         # writes word and filename to file if spelt wrong
+                for err in chkr12:
+                    if pwl.check(err.word):
+                        check12 = 1
+                        # # Filler so it dosent spit out an error
+                    else:
+                        errortotal = errortotal+1
+                        error = error+1
+                        wordswrong.write(err.word)
+                        wordswrong.write(' in ')
+                        wordswrong.write(filename)
+                        print('Failed word: ', err.word)
+                        wordswrong.write('\n')
+                        # writes word + filename to file if word is spelt wrong
+                        # file error even though it is copy pasted
         print(error, ' errors in total in ', filename)
         # after it finishes the file it prints out the errors in that file
         filecheck.write('%d errors in total in %s\n' % (error, filename))

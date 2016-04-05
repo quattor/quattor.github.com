@@ -133,7 +133,6 @@ pom in ../_posts\2015-06-03-announcing-quattor-15.4.0.md
 templating in ../_posts\2015-09-20-textrender-basics.md
 pnce in ../_posts\2015-09-20-textrender-basics.md
 pnce in ../_posts\2015-09-20-textrender-basics.md
-pnce in ../_posts\2015-09-20-textrender-basics.md
 templating in ../_posts\2015-09-20-textrender-basics.md
 i in ../_posts\2015-09-20-textrender-basics.md
 altough in ../_posts\2015-09-21-textrender-metaconfig.md
@@ -176,4 +175,4 @@ distrib in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
 serverdb in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
 GSSAPI in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
 eval in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
-teh in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
+tehh in ../_posts\2016-02-19-announcing-quattor-16.2.0.md
