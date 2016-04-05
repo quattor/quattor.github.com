@@ -10,13 +10,13 @@ DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
 DIRECTORY_ROOT = os.path.dirname(DIRECTORY_TESTS)
 DIRECTORY_POSTS = os.path.join(DIRECTORY_ROOT, '_posts')
 
-JSONSCORE = os.path.join(DIRECTORY_TESTS, 'Prevscore.json')
+FILENAME_JSONSCORE = os.path.join(DIRECTORY_TESTS, 'Prevscore.json')
 FILENAME_PWL = os.path.join(DIRECTORY_TESTS, 'Dict.txt')
 
 print("Location of root directory is '%s'" % DIRECTORY_ROOT)
 print("Location of tests directory is '%s'" % DIRECTORY_TESTS)
 print("Location of posts directory is '%s'" % DIRECTORY_POSTS)
-print("Location of json score file is '%s'" % JSONSCORE)
+print("Location of json score file is '%s'" % FILENAME_JSONSCORE)
 
 # logger = logging.getLogger('spellcheck')
 if os.path.exists(FILENAME_PWL):

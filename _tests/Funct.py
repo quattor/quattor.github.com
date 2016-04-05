@@ -61,13 +61,13 @@ def linechecker(errortotalprev, pwl):
     # prints errors for all the files
     if errortotal <= errortotalprev:
         print('Pass. you scored better or equal to the last check')
-        with open(JSONSCORE, 'w') as outfile:
+        with open(FILENAME_JSONSCORE, 'w') as outfile:
             json.dump(errortotal, outfile)
             # saves errortotal to json file for future use
             return True
     else:
         print('Fail. try harder next time')
-        with open(JSONSCORE, 'w') as outfile:
+        with open(FILENAME_JSONSCORE, 'w') as outfile:
             # saves errortotal to json file for future use
             json.dump(errortotal, outfile)
             return False
