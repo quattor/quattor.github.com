@@ -74,3 +74,4 @@ def linechecker(errortotalprev):
         with open('Prevscore.json', 'w') as outfile:
             # saves errortotal to json file for future use
             json.dump(errortotal, outfile)
+            exit
