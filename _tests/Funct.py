@@ -1,28 +1,27 @@
-import glob
 import os
 import enchant
 import codecs
-import logging
 import json
 import os.path
-import shutil
 import re
+import logging
 from Variab import *
 
 
 def Filechecker():
     if os.listdir('.') == []:
         print('Please put Prevscore.json in the location of this file.')
-        end
+        return
     if os.listdir(DIRECTORY_POSTS) == []:
         print ('No .md files to evaluate')
-        end
+        return
 
 
 def linechecker(errortotalprev, pwl):
+    logger = logging.getLogger('markdown-spellchecker')
     errortotal = 0
     for filename in filenameslist:
-        print('now checking file ', filename)
+        logger.info('now checking file %s', filename)
         error = 0
         icodeblock = False
         # sets not a code block
@@ -46,10 +45,8 @@ def linechecker(errortotalprev, pwl):
                 spellcheck.set_text(cleanhtml)
                 # sets text to check to stripped line
                 for err in spellcheck:
-                    if pwl.check(err.word):
-                        stoperror = 1
-                        # Filler so it dosent spit out an error
-                    else:
+                    logger.debug("'%s' not found in main dictionary", err.word)
+                    if not pwl.check(err.word):
                         errortotal = errortotal+1
                         error = error+1
                         wordswrong.write(err.word)
@@ -66,13 +63,13 @@ def linechecker(errortotalprev, pwl):
     # prints errors for all the files
     if errortotal <= errortotalprev:
         print('Pass. you scored better or equal to the last check')
-        with open(JSONSCORE, 'w') as outfile:
+        with open(FILENAME_JSONSCORE, 'w') as outfile:
             json.dump(errortotal, outfile)
             # saves errortotal to json file for future use
             return True
     else:
         print('Fail. try harder next time')
-        with open(JSONSCORE, 'w') as outfile:
+        with open(FILENAME_JSONSCORE, 'w') as outfile:
             # saves errortotal to json file for future use
             json.dump(errortotal, outfile)
             return False
