@@ -3,8 +3,6 @@ import json
 import os.path
 import sys
 
-print(sys.version)
-
 #directory = (os.path.dirname(os.path.realpath(__file__)))
 from Variab import *
 # variables saved in this file
