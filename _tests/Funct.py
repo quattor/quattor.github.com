@@ -4,6 +4,7 @@ import codecs
 import json
 import os.path
 import re
+import logging
 from Variab import *
 
 
@@ -17,9 +18,10 @@ def Filechecker():
 
 
 def linechecker(errortotalprev, pwl):
+    logger = logging.getLogger('markdown-spellchecker')
     errortotal = 0
     for filename in filenameslist:
-        print('now checking file ', filename)
+        logger.info('now checking file %s', filename)
         error = 0
         icodeblock = False
         # sets not a code block
@@ -43,7 +45,7 @@ def linechecker(errortotalprev, pwl):
                 spellcheck.set_text(cleanhtml)
                 # sets text to check to stripped line
                 for err in spellcheck:
-                    print("%s not found in main dictionary" % err.word)
+                    logger.debug("'%s' not found in main dictionary", err.word)
                     if not pwl.check(err.word):
                         errortotal = errortotal+1
                         error = error+1
