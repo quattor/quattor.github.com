@@ -15,7 +15,7 @@ from Funct import *
 # functions saved in this file
 errortotalprev = 0
 # here to save python from throwing out an error
-
+print (pwl)
 Filechecker()
 print (JSONSCORE)
 print (DIRECTORY_POSTS)
@@ -24,7 +24,7 @@ if os.path.exists(JSONSCORE):
     with open(JSONSCORE, 'r') as f:
         errortotalprev = json.load(f)
         # loads json file with errortotalprev in
-passed = linechecker(errortotalprev)
+passed = linechecker(errortotalprev, pwl)
 filecheck.close()
 # closes both files that were opened to save contents
 wordswrong.close()
