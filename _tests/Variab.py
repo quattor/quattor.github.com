@@ -17,7 +17,6 @@ JSONSCORE = os.path.join(DIRECTORY_TESTS, 'Prevscore.json')
 pwl = enchant.request_pwl_dict(os.path.join(DIRECTORY_TESTS, 'Dict.txt'))
 # add words to the dictionary used to test for spelling errors
 spellcheck = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
-chkr12 = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
 filenameslist = glob.glob(os.path.join(DIRECTORY_POSTS,"*.md"))
 # loads files
 wordswrong = open("WordsWrong.txt", "w+")
