@@ -14,7 +14,7 @@ def Filechecker():
     if os.listdir('.') == []:
         print('Please put Prevscore.json in the location of this file.')
         end
-    if os.listdir('../_posts/') == []:
+    if os.listdir('./_posts/') == []:
         print ('No .md files to evaluate')
         end
 
