@@ -14,7 +14,7 @@ pwl = enchant.request_pwl_dict("Dict.txt")
 # add words to the dictionary used to test for spelling errors
 spellcheck = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
 chkr12 = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
-filenameslist = glob.glob("../_posts/*.md")
+filenameslist = glob.glob("./_posts/*.md")
 # loads files
 wordswrong = open("WordsWrong.txt", "w+")
 # creates new file to save the words that were spelt wrong
