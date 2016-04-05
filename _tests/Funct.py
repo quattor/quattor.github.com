@@ -43,7 +43,7 @@ def linechecker(errortotalprev, pwl):
                 spellcheck.set_text(cleanhtml)
                 # sets text to check to stripped line
                 for err in spellcheck:
-                    print("%s not found in main dictionary")
+                    print("%s not found in main dictionary" % err.word)
                     if not pwl.check(err.word):
                         errortotal = errortotal+1
                         error = error+1
