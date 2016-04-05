@@ -1,12 +1,6 @@
-import glob
 import os
-import enchant
-import codecs
-import logging
 import json
 import os.path
-import shutil
-import re
 import sys
 #directory = (os.path.dirname(os.path.realpath(__file__)))
 from Variab import *

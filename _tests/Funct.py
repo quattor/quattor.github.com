@@ -1,11 +1,8 @@
-import glob
 import os
 import enchant
 import codecs
-import logging
 import json
 import os.path
-import shutil
 import re
 from Variab import *
 

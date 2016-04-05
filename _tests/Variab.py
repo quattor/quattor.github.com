@@ -1,12 +1,7 @@
 import glob
 import os
 import enchant
-import codecs
-import logging
-import json
 import os.path
-import shutil
-import re
 from enchant.checker import SpellChecker
 from enchant.tokenize import EmailFilter, URLFilter
 DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
