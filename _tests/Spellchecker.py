@@ -11,11 +11,13 @@ from funct import filechecker
 from funct import linechecker
 
 CONFIGFILE = configparser.ConfigParser()
+
 CONFIGFILE.read('config.ini')
+DEFAULTCONFIGFILE = CONFIGFILE['DEFAULT']
 DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
 DIRECTORY_ROOT = os.path.dirname(DIRECTORY_TESTS)
-DIRECTORY_POSTS = os.path.join(DIRECTORY_ROOT, CONFIGFILE['DEFAULT']['Filestocheckdir'])
-FILENAME_JSONSCORE = os.path.join(DIRECTORY_TESTS, CONFIGFILE['DEFAULT']['Prevscore'])
+DIRECTORY_POSTS = os.path.join(DIRECTORY_ROOT, DEFAULTCONFIGFILE['Filestocheckdir'])
+FILENAME_JSONSCORE = os.path.join(DIRECTORY_TESTS, DEFAULTCONFIGFILE['Prevscore'])
 FILENAME_PWL = os.path.join(DIRECTORY_TESTS, 'dict.txt')
 print(DIRECTORY_POSTS)
 #print("Location of root directory is '%s'" % DIRECTORY_ROOT)
