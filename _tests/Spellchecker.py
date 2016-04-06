@@ -17,7 +17,7 @@ DEFAULTCONFIGFILE = CONFIGFILE['DEFAULT']
 DIRECTORY_ROOT = os.path.dirname(DIRECTORY_TESTS)
 DIRECTORY_POSTS = os.path.join(DIRECTORY_ROOT, DEFAULTCONFIGFILE['Filestocheckdir'])
 FILENAME_JSONSCORE = os.path.join(DIRECTORY_TESTS, DEFAULTCONFIGFILE['Prevscore'])
-FILENAME_PWL = os.path.join(DIRECTORY_TESTS, 'dict.txt')
+FILENAME_PWL = os.path.join(DIRECTORY_TESTS, DEFAULTCONFIGFILE['PWL'])
 print(DIRECTORY_POSTS)
 #print("Location of root directory is '%s'" % DIRECTORY_ROOT)
 #print("Location of tests directory is '%s'" % DIRECTORY_TESTS)
