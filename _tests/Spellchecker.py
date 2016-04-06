@@ -11,7 +11,7 @@ from funct import filechecker
 from funct import linechecker
 DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
 CONFIGFILE = configparser.ConfigParser()
-CONFILGILECOMPLETEPATH = os.path.join(DIRECTORY_TESTS, 'config.ini')
+CONFIGFILECOMPLETEPATH = os.path.join(DIRECTORY_TESTS, 'config.ini')
 CONFIGFILE.read(CONFIGFILECOMPLETEPATH)
 DEFAULTCONFIGFILE = CONFIGFILE['DEFAULT']
 DIRECTORY_ROOT = os.path.dirname(DIRECTORY_TESTS)
