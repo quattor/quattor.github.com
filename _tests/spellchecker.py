@@ -50,6 +50,7 @@ wordswrong = open(CONFIGFILE['DEFAULT']['Wordswrongfile'], "w+")
 filecheck = open(CONFIGFILE['DEFAULT']['Filecheck'], "w+")
 # creates new file to save which file it checked
 def main():
+    errortotalprev = 0
     filechecker(DIRECTORY_POSTS)
     if os.path.exists(FILENAME_JSONSCORE):
         with open(FILENAME_JSONSCORE, 'r') as f:
