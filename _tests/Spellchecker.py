@@ -9,12 +9,11 @@ from enchant.tokenize import EmailFilter, URLFilter
 import sys
 from funct import filechecker
 from funct import linechecker
-
-CONFIGFILE = configparser.ConfigParser()
-
-CONFIGFILE.read('config.ini')
-DEFAULTCONFIGFILE = CONFIGFILE['DEFAULT']
 DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
+CONFIGFILE = configparser.ConfigParser()
+CONFILGILECOMPLETEPATH = os.path.join(DIRECTORY_TESTS, 'config.ini')
+CONFIGFILE.read(CONFIGFILECOMPLETEPATH)
+DEFAULTCONFIGFILE = CONFIGFILE['DEFAULT']
 DIRECTORY_ROOT = os.path.dirname(DIRECTORY_TESTS)
 DIRECTORY_POSTS = os.path.join(DIRECTORY_ROOT, DEFAULTCONFIGFILE['Filestocheckdir'])
 FILENAME_JSONSCORE = os.path.join(DIRECTORY_TESTS, DEFAULTCONFIGFILE['Prevscore'])
