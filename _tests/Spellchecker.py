@@ -1,25 +1,58 @@
+import glob
 import os
-import json
+import enchant
 import os.path
+import configparser
+import json
+from enchant.checker import SpellChecker
+from enchant.tokenize import EmailFilter, URLFilter
 import sys
+from funct import filechecker
+from funct import linechecker
 
-#directory = (os.path.dirname(os.path.realpath(__file__)))
-from Variab import *
-# variables saved in this file
-from Funct import *
-# functions saved in this file
-errortotalprev = 0
-# here to save python from throwing out an error
-Filechecker()
+CONFIGFILE = configparser.ConfigParser()
+CONFIGFILE.read('config.ini')
+DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
+DIRECTORY_ROOT = os.path.dirname(DIRECTORY_TESTS)
+DIRECTORY_POSTS = os.path.join(DIRECTORY_ROOT, CONFIGFILE['DEFAULT']['Filestocheckdir'])
+FILENAME_JSONSCORE = os.path.join(DIRECTORY_TESTS, CONFIGFILE['DEFAULT']['Prevscore'])
+FILENAME_PWL = os.path.join(DIRECTORY_TESTS, 'dict.txt')
+print(DIRECTORY_POSTS)
+#print("Location of root directory is '%s'" % DIRECTORY_ROOT)
+#print("Location of tests directory is '%s'" % DIRECTORY_TESTS)
+#print("Location of posts directory is '%s'" % DIRECTORY_POSTS)
+#print("Location of json score file is '%s'" % FILENAME_JSONSCORE)
 
-if os.path.exists(FILENAME_JSONSCORE):
-    with open(FILENAME_JSONSCORE, 'r') as f:
-        errortotalprev = json.load(f)
-        # loads json file with errortotalprev in
-passed = linechecker(errortotalprev, pwl)
-filecheck.close()
-# closes both files that were opened to save contents
-wordswrong.close()
+# logger = logging.getLogger('spellcheck')
+if os.path.exists(FILENAME_PWL):
+    print("PWL file exists")
+    pwl = enchant.request_pwl_dict(FILENAME_PWL)
+    print("Loaded PWL object: %s" % pwl)
+    print("Methods of object: %s" % dir(pwl))
 
-if not passed:
-    sys.exit(1)
+else:
+    print("PWL file does not exist")
+    sys.exit(2)
+# add words to the dictionary used to test for spelling errors
+spellcheck = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
+filenameslist = glob.glob(os.path.join(DIRECTORY_POSTS,"*.md"))
+# loads files
+wordswrong = open(CONFIGFILE['DEFAULT']['Wordswrongfile'], "w+")
+# creates new file to save the words that were spelt wrong
+filecheck = open(CONFIGFILE['DEFAULT']['Filecheck'], "w+")
+# creates new file to save which file it checked
+def main():
+    filechecker(DIRECTORY_POSTS)
+    if os.path.exists(FILENAME_JSONSCORE):
+        with open(FILENAME_JSONSCORE, 'r') as f:
+            errortotalprev = json.load(f)
+            # loads json file with errortotalprev in
+    passed = linechecker(errortotalprev, pwl, filenameslist, filecheck, wordswrong, spellcheck, FILENAME_JSONSCORE)
+    filecheck.close()
+    # closes both files that were opened to save contents
+    wordswrong.close()
+    if not passed:
+        sys.exit(1)
+
+if '__main__' == '__main__':
+    main()
