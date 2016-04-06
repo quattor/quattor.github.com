@@ -9,15 +9,23 @@ from enchant.tokenize import EmailFilter, URLFilter
 import sys
 from funct import filechecker
 from funct import linechecker
-DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
+
 CONFIGFILE = configparser.ConfigParser()
-CONFIGFILECOMPLETEPATH = os.path.join(DIRECTORY_TESTS, 'config.ini')
-CONFIGFILE.read(CONFIGFILECOMPLETEPATH)
+CONFIGFILE.read('config.ini')
 DEFAULTCONFIGFILE = CONFIGFILE['DEFAULT']
+DIRECTORY_TESTS = os.path.dirname(os.path.realpath(__file__))
 DIRECTORY_ROOT = os.path.dirname(DIRECTORY_TESTS)
 DIRECTORY_POSTS = os.path.join(DIRECTORY_ROOT, DEFAULTCONFIGFILE['Filestocheckdir'])
 FILENAME_JSONSCORE = os.path.join(DIRECTORY_TESTS, DEFAULTCONFIGFILE['Prevscore'])
 FILENAME_PWL = os.path.join(DIRECTORY_TESTS, DEFAULTCONFIGFILE['PWL'])
+if not os.path.isabs(FILENAME_JSONSCORE):
+    FILENAME_JSONSCORE = os.path.join(DIRECTORY_TESTS, DEFAULTCONFIGFILE['Prevscore'])
+    print('test')
+if not os.path.isabs(FILENAME_PWL):
+    FILENAME_JSONSCORE = os.path.join(DIRECTORY_TESTS, DEFAULTCONFIGFILE['FILENAME_PWL'])
+    print('test')
+
+
 print(DIRECTORY_POSTS)
 #print("Location of root directory is '%s'" % DIRECTORY_ROOT)
 #print("Location of tests directory is '%s'" % DIRECTORY_TESTS)
@@ -43,7 +51,6 @@ wordswrong = open(CONFIGFILE['DEFAULT']['Wordswrongfile'], "w+")
 filecheck = open(CONFIGFILE['DEFAULT']['Filecheck'], "w+")
 # creates new file to save which file it checked
 def main():
-    errortotalprev = 0
     filechecker(DIRECTORY_POSTS)
     if os.path.exists(FILENAME_JSONSCORE):
         with open(FILENAME_JSONSCORE, 'r') as f:
