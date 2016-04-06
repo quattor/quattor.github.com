@@ -11,4 +11,4 @@ install:
 
 # command to install dependencies
 script:
- - python _tests/Spellchecker.py
+ - python _tests/spellchecker.py
