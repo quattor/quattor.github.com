@@ -57,6 +57,7 @@ def linechecker(errortotalprev, pwl, filenameslist, filecheck, wordswrong, spell
 
 
     errortotalfunct(errortotal, errortotalprev, FILENAME_JSONSCORE)
+    
 
 def errortotalfunct(errortotal, errortotalprev, FILENAME_JSONSCORE):
     print ('Errors in total: ', errortotal)
