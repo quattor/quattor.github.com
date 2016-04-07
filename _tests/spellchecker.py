@@ -46,19 +46,17 @@ spellcheck = SpellChecker("en_GB", filters=[URLFilter, EmailFilter])
 filenameslist = glob.glob(os.path.join(DIRECTORY_POSTS,"*.md"))
 # loads files
 wordswrong = open(CONFIGFILE['DEFAULT']['Wordswrongfile'], "w+")
-# creates new file to save the words that were spelt wrong
+# creates/opens a file to save the words that were spelt wrong
 filecheck = open(CONFIGFILE['DEFAULT']['Filecheck'], "w+")
-# creates new file to save which file it checked
+# creates/opens a file to save the files that were checked
 def main():
     errortotalprev = 0
     filechecker(DIRECTORY_POSTS)
     if os.path.exists(FILENAME_JSONSCORE):
         with open(FILENAME_JSONSCORE, 'r') as f:
             errortotalprev = json.load(f)
-            # loads json file with errortotalprev in
     passed = linechecker(errortotalprev, pwl, filenameslist, filecheck, wordswrong, spellcheck, FILENAME_JSONSCORE)
     filecheck.close()
-    # closes both files that were opened to save contents
     wordswrong.close()
     if not passed:
         sys.exit(1)
