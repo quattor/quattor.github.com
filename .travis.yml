@@ -4,11 +4,10 @@ rvm:
 - 2.1
 
 
-before_install:
-  sudo apt-get install python3-enchant
-
-install:
-  - pip install 'git+https://github.com/rfk/pyenchant.git'
+addons:
+  apt:
+    packages:
+    - python3-enchant
 # Assume bundler is being used, therefore
 # the `install` step will run `bundle install` by default.
 script: ./travis-build
