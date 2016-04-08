@@ -1,10 +1,21 @@
+
 language: ruby
 rvm:
 - 2.1
 
+python:
+- 3.4
+
+
+addons:
+  apt:
+    packages:
+    - python3-enchant
 # Assume bundler is being used, therefore
 # the `install` step will run `bundle install` by default.
-script: ./travis-build
+script:
+    - ./travis-build
+    - python _tests/spellchecker.py
 
 # branch whitelist, only for GitHub Pages
 branches:
@@ -18,3 +29,7 @@ env:
 cache: bundler
 
 sudo: false
+
+
+
+# command to install dependencies
