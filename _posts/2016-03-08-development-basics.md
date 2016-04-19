@@ -104,8 +104,7 @@ Most common commands are
 When newer build tools are available, use `mvn update` to bump the version in the `pom.xml`
 (do not edit by hand).
 
-[More information on running the tests][devel_unittests_running]
-[devel_unittests_running]: {% post_url 2016-03-09-development-unittests %}#running-the-tests
+[More information on running the tests]({% post_url 2016-03-09-development-unittests %}#running-the-tests)
 
 
 # Adding new component in configuration-modules or AII
