@@ -198,19 +198,24 @@ aq.py permission --principal me@QUATTOR.ORG --role nobody --createuser
 
 ## FAQ
 
-# aq.py status exit with error : Server not found in Kerberos database
+* `aq.py` gives me an error like `aq.py status exit with error : Server not found in Kerberos database`
 
-Your keytab is probably incorrect. Verify it with command
+  Your keytab is probably incorrect. Verify it with command
 
-```bash
-[root@aquilon ~]# klist -k /etc/krb5.keytab
-Keytab name: FILE:/etc/krb5.keytab
-KVNO Principal
----- --------------------------------------------------------------------------
-   3 aquilon$@LAL.IN2P3.FR
-   3 aquilon$@LAL.IN2P3.FR
-   3 aquilon$@LAL.IN2P3.FR
-   3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
-   3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
-   3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
+  ```bash
+  [root@aquilon ~]# klist -k /etc/krb5.keytab
+  ```
+
+  You should see output similar to the following example:
+
+  ```
+  Keytab name: FILE:/etc/krb5.keytab
+  KVNO Principal
+  ---- --------------------------------------------------------------------------
+     3 aquilon$@LAL.IN2P3.FR
+     3 aquilon$@LAL.IN2P3.FR
+     3 aquilon$@LAL.IN2P3.FR
+     3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
+     3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
+     3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
 ```
