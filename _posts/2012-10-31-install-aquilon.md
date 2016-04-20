@@ -2,7 +2,7 @@
 layout: article
 title: Installing Aquilon
 category: documentation
-modified: 2013-12-02
+modified: 2015-10-02
 author: Luis Fernando Muñoz Mejías
 ---
 
@@ -25,11 +25,12 @@ started.  After reading this guide, you may want to continue
 [setting up your site](/documentation/2013/10/25/aquilon-site.html)
 with Aquilon.
 
-You will need kerberos authentication working, either with your own
-server or one provided by your institution.  This is out of the scope
-of this document.
+You will need an EL7 machine with kerberos authentication working, either
+with your own server or one provided by your institution.  
+This is out of the scope of this document.
 
-You will need a kerberos keytab for your server.
+You will need a kerberos keytab for your server for service "cdb". You
+can change it with environnement variable AQSERVICE.
 
 ## Installing Aquilon
 
@@ -39,26 +40,13 @@ With your basic OS installed you should add the
 and then
 
 ```sh
-$ yum -y install aquilon-postgresql
+$ yum -y install aquilon
 ```
 
 If you want a different database backend, you may simply install the
 `aquilon` RPM and then install the Python bindings to your database.
 Currently, Oracle and PostgreSQL are supported, and SQLite is expected
 to work for development environments.
-
-## Dropping privileges
-
-Aquilon shouldn't run with root privileges.  Just create an account
-and a group for it.  In this guide will use `aquilon:aquilon`, and
-we'll place its home directory in `/var/quattor`.  The account will
-host our canonical Git repository, so we'll probably want to restrict
-the shell to git-shell.
-
-```sh
-$ groupadd aquilon
-$ useradd -s /usr/bin/git-shell -g aquilon -d /var/quattor aquilon
-```
 
 ## Setting up the database
 
@@ -67,6 +55,9 @@ broker.  If you are using a local PostgreSQL instance, you'll probably do:
 
 ```sh
 # su -l postgres
+$ pg_ctl init
+$ exit
+# systemctl restart postgresql
 $ createuser -SRD aquilon
 $ createdb --owner aquilon aquilon
 ```
@@ -76,7 +67,7 @@ The last portion can be replaced by a schema in an existing database.
 ## Configuring the daemon
 
 Next, edit `/etc/sysconfig/aqd` and adjust it to your needs.  The
-default values should work on most EL6 setups.
+default values should work on most EL7 setups.
 
 Then, edit the broker configuration itself.  You can find all the
 available parameters and their defaults in
@@ -90,7 +81,7 @@ Keytab and the URL to the Git repository containing your Pan templates:
 ```ini
 [broker]
 keytab=/etc/krb5.keytab
-git_templates_url=someone@server:/var/quattor/template-king
+git_templates_url=aquilon@localhost:/var/quattor/template-king
 templatesdir=/var/lib/templates
 ```
 
@@ -133,8 +124,10 @@ location specified by the `git_templates_url` configuration parameter
 above.  In our case:
 
 ```bash
+mkdir /var/quattor
 cd /var/quattor
 git init --bare template-king
+chown -R aquilon:aquilon /var/quattor
 ```
 
 After that, you have to prepare the directory that will contain your
@@ -149,6 +142,18 @@ chown -R aquilon:aquilon /var/lib/templates
 chmod -R 0770 /var/lib/templates/
 ```
 
+Create missing run directory
+```bash
+mkdir -p /var/run/aquilon
+chown -R aquilon:aquilon /var/run/aquilon
+```
+
+Create missing log directory
+```bash
+mkdir -p /var/log/aquilon
+chown -R aquilon:aquilon /var/log/aquilon
+```
+
 ## What's next
 
 You can now start your broker daemon, with
@@ -157,17 +162,48 @@ You can now start your broker daemon, with
 service aqd start
 ```
 
+Initialize the database
+```bash
+# aqdb_shell.py
+aquilon@localhost> Base.metadata.create_all()
+```
+
+You can now test your installation with the following command
+```bash
+# aq.py status --noauth
+Aquilon Broker Unknown
+Server: aquilon.lal.in2p3.fr
+Database: postgresql+psycopg2://aquilon:PASSWORD@localhost/
+Sandboxes: /var/lib/templates
+```
 Next, you should learn how to
 [have a site](/documentation/2013/10/25/aquilon-site.html).
 
 ## Adding more users
 
-**TODO: move to a section dedicated to authentication and authorisation**
+**TODO: move to  section dedicated to authentication and authorisation**
 
-Authentication and authorisation are handled with `aq permission`.
-You can see the already defined roles with `aq show_principal --all`.
+Authentication and authorisation are handled with `aq.py permission`.
+You can see the already defined roles with `aq.py show_principal --all`.
 And you can add and adjust permissions with:
 
 ```bash
-aq permission --principal me@QUATTOR.ORG --role nobody --createuser
+aq.py permission --principal me@QUATTOR.ORG --role nobody --createuser
+```
+
+## FAQ
+
+# aq.py status exit with error : Server not found in Kerberos database
+Your keytab is probably incorrect. Verify it with command
+```bash
+[root@aquilon ~]# klist -k /etc/krb5.keytab
+Keytab name: FILE:/etc/krb5.keytab
+KVNO Principal
+---- --------------------------------------------------------------------------
+   3 aquilon$@LAL.IN2P3.FR
+   3 aquilon$@LAL.IN2P3.FR
+   3 aquilon$@LAL.IN2P3.FR
+   3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
+   3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
+   3 cdb/aquilon.lal.in2p3.fr@LAL.IN2P3.FR
 ```
