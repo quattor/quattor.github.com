@@ -143,12 +143,14 @@ chmod -R 0770 /var/lib/templates/
 ```
 
 Create missing run directory
+
 ```bash
 mkdir -p /var/run/aquilon
 chown -R aquilon:aquilon /var/run/aquilon
 ```
 
 Create missing log directory
+
 ```bash
 mkdir -p /var/log/aquilon
 chown -R aquilon:aquilon /var/log/aquilon
@@ -163,12 +165,14 @@ service aqd start
 ```
 
 Initialize the database
+
 ```bash
 # aqdb_shell.py
 aquilon@localhost> Base.metadata.create_all()
 ```
 
 You can now test your installation with the following command
+
 ```bash
 # aq.py status --noauth
 Aquilon Broker Unknown
@@ -176,6 +180,7 @@ Server: aquilon.lal.in2p3.fr
 Database: postgresql+psycopg2://aquilon:PASSWORD@localhost/
 Sandboxes: /var/lib/templates
 ```
+
 Next, you should learn how to
 [have a site](/documentation/2013/10/25/aquilon-site.html).
 
@@ -194,7 +199,9 @@ aq.py permission --principal me@QUATTOR.ORG --role nobody --createuser
 ## FAQ
 
 # aq.py status exit with error : Server not found in Kerberos database
+
 Your keytab is probably incorrect. Verify it with command
+
 ```bash
 [root@aquilon ~]# klist -k /etc/krb5.keytab
 Keytab name: FILE:/etc/krb5.keytab
