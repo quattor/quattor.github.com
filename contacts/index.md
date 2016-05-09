@@ -34,7 +34,7 @@ Development progress is reviewed at a weekly standup meeting held by Vidyo every
     * The pincode is 766.
     * Note that by default your Vidyo client starts with both audio and video muted
 * Phone bridges: dial phone number of the selected bridge, enter 109296756 as the extension number and 766 as the pin code (both numbers are generally followed by #)
-    * See phone bridge [list and instructions].
+    * See phone bridge [list and instructions]. Please note: you can use the CERN number if the UK number does not work.
 
 [vidyoportal]:https://vidyoportal.cern.ch/flex.html?roomdirect.html&key=V8Dpb6amjXWr
 [list and instructions]:http://information-technology.web.cern.ch/services/fe/howto/users-join-vidyo-meeting-phone
