@@ -12,5 +12,9 @@
   * [Configuration Modules](/documentation/14.8.0/components/)
   * [Template Library](http://www.quattor.org/documentation/2014/06/06/how-to-use-template-library.html)
 
+##### Development
+  * [Basics](/documentation/2016/03/08/development-basics.html)
+  * [Unit Tests](/documentation/2016/03/09/development-unittests.html)
+
 ##### Other
   * [All articles](/documentation/other.html)
