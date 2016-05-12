@@ -1,9 +1,11 @@
 ---
 layout: article
-title: Summary of 17th Quattor workshop (17-19/3/2014, Amsterdam)
-category: news
+title: Quattor Workshop Summary
+category: meeting
 author: Michel Jouvin
 ---
+
+# Summary of 17th Quattor workshop (17-19/3/2014, Amsterdam)
 
 [Agenda](https://indico.cern.ch/event/296548/timetable/#all.detailed)
 

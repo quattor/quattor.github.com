@@ -1,11 +1,11 @@
 ---
 layout: article
-title: Summary of 21th Quattor workshop (2016-03-22 to 2016-03-24, Bruxelles)
-category: news
+title: Quattor Workshop Summary
+category: meeting
 author: Michel Jouvin
 ---
 
-# Summary of 21th Quattor Workshop
+# Summary of 21th Quattor workshop (2016-03-22 to 2016-03-24, Bruxelles)
 
 
 [Agenda](https://indico.cern.ch/event/491377/timetable/#20160322.detailed)
