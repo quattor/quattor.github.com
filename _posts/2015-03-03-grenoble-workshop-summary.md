@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Quattor Workshop Summary
+title: 19th Quattor Workshop Summary (March 2015)
 category: meeting
 author: Michel Jouvin
 ---

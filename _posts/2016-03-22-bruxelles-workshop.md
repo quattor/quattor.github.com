@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Quattor Workshop Summary
+title: 21st Quattor Workshop Summary (March 2016)
 category: meeting
 author: Michel Jouvin
 ---
