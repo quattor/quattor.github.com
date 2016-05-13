@@ -3,6 +3,7 @@ layout: article
 title: 17th Quattor Workshop Summary (March 2014)
 category: meeting
 author: Michel Jouvin
+redirect_from: /news/2014/03/17/Quattor-Workshop-Amsterdam.html
 ---
 
 # Summary of 17th Quattor workshop (17-19/3/2014, Amsterdam)

@@ -3,6 +3,7 @@ layout: article
 title: 18th Quattor Workshop Summary (October 2014)
 category: meeting
 author: Michel Jouvin
+redirect_from: /news/2014/10/02/madrid-workshop-summary.html
 ---
 
 # Summary of 18th Quattor workshop (30/9-2/10/2014, Madrid)
