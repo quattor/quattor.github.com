@@ -25,16 +25,15 @@ Meetings
 ---
 Quattor development principles are inspired by the  Agile Manifesto. Development process is based on the scrum method, an agile software development methodology.
 
-A key idea of the scrum method is to make small incremental steps toward implementing new features and improvements required by the users. For Quattor, all the missing features, desirable functionalities or wishes are registered as  GitHub issues.
+A key idea of the scrum method is to make small incremental steps toward implementing new features and improvements required by the users. For Quattor, all the missing features, desirable functionalities or wishes are registered as GitHub issues.
 
 Development progress is reviewed at a weekly standup meeting held by Vidyo every Thursday at 1:15 pm CET. Connection information is:
 
 * Computer, smartphones: You can use [vidyoportal]. The room name is `Standup_Meeting`.
     * You need to login as guest (name is free, use something informational!).
-    * The pincode is 766.
     * Note that by default your Vidyo client starts with both audio and video muted
-* Phone bridges: dial phone number of the selected bridge, enter 109296756 as the extension number and 766 as the pin code (both numbers are generally followed by #)
-    * See phone bridge [list and instructions]. Please note: you can use the CERN number if the UK number does not work.
+* Phone bridges: dial phone number of the selected bridge, enter 109296756 as the extension (both numbers are generally followed by #)
+    * See phone bridge [list and instructions]. Please note: if your local number does not work, try using the CERN number.
 
 [vidyoportal]:https://vidyoportal.cern.ch/flex.html?roomdirect.html&key=V8Dpb6amjXWr
 [list and instructions]:http://information-technology.web.cern.ch/services/fe/howto/users-join-vidyo-meeting-phone
