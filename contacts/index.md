@@ -20,7 +20,7 @@ If you're not sure which repository to open the issue again (there are a lot) pl
 
 <br>
 
-Meetings
+Standup Meetings
 ===
 ---
 Quattor development principles are inspired by the  Agile Manifesto. Development process is based on the scrum method, an agile software development methodology.
