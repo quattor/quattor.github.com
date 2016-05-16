@@ -8,6 +8,8 @@ title: Meeting Summaries
 
 Standup meetings are held each Thursday as needed, see [the contacts page](/contacts) for more information.
 
+These are short (15-30 minute) discussions on current development activities.
+
 ### Workshops
 
 The Quattor Working Group normally has a face-to-face meeting twice a year, agendas can be found in the [Quattor Indico category](https://indico.cern.ch/category/2921/).
