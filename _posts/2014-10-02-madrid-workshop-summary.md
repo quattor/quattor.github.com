@@ -1,11 +1,12 @@
 ---
 layout: article
-title: Summary of 18th Quattor workshop (30/9-2/10/2014, Madrid)
-category: news
+title: 18th Quattor Workshop Summary (October 2014)
+category: meeting
 author: Michel Jouvin
+redirect_from: /news/2014/10/02/madrid-workshop-summary.html
 ---
 
-# 18th Quattor Workshop Summary
+# Summary of 18th Quattor workshop (30/9-2/10/2014, Madrid)
 
 
 [Agenda](https://indico.cern.ch/event/328445/timetable/#all.detailed)

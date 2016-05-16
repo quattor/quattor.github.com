@@ -1,11 +1,12 @@
 ---
 layout: article
-title: Summary of 19th Quattor workshop (3-5/3/2015, Grenoble)
-category: news
+title: 19th Quattor Workshop Summary (March 2015)
+category: meeting
 author: Michel Jouvin
+redirect_from: /news/2015/03/03/grenoble-workshop-summary.html
 ---
 
-# 19th Quattor Workshop Summary
+# Summary of 19th Quattor workshop (3-5/3/2015, Grenoble)
 
 
 [Agenda](https://indico.cern.ch/event/372683/timetable/)

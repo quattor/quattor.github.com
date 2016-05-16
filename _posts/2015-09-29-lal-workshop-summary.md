@@ -1,11 +1,12 @@
 ---
 layout: article
-title: Summary of 20th Quattor workshop (2015-09-29 to 2015-10-01, LAL)
-category: news
+title: 20th Quattor Workshop Summary (October 2015)
+category: meeting
 author: Michel Jouvin
+redirect_from: /news/2015/09/29/lal-workshop-summary.html
 ---
 
-# 20th Quattor Workshop Summary
+# Summary of 20th Quattor workshop (2015-09-29 to 2015-10-01, LAL)
 
 
 [Agenda](https://indico.cern.ch/event/440152/timetable/#all.detailed)
