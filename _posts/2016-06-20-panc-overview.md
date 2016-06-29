@@ -15,7 +15,7 @@ After that, the AST nodes are converted to statements and a Template object is c
 After generating this template, the PostCompileProcessor is called. This will send the template through the build, valid1 and valid2 phases and will eventually create the output files in the requested formats. Going through all these remaining phases is implemented with nested function calls: the postCompileProcessor will ask the result of a WriteOutputTask for the template it is processing. The WriteOutputTask will then ask the result from the Valid2Cache. When the result is available in the cache it will return it to the write task, otherwise is will request the result from the Valid1Cache and process it before returning it. This goes on until the BuildTask will request the result from the CompileTask, which will be available.
 
 + CompileTimeContext: only used for executing dml statements?
- 
+
 #### Build phase
 All the statements created during the previous phase are executed while maintaining a BuildContext. This context contains all defined functions, types, global vars, local vars, dependencies, etc. After executing the statements, defaults are inserted where there might be missing elements.
 
