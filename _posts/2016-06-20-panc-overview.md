@@ -15,7 +15,7 @@ certain threadpool is done via the compiler.
 
 ## Phases
 ### Compile phase
-The actual compilation is started by executing a *CompileTask* for every file passed as an argument.
+The actual compilation is started by executing a *CompileTask* for every file.
 
 #### AST
 First of all, an AST (Abstract Syntax Tree) is created from the source file using JJTree and JavaCC.
@@ -41,13 +41,13 @@ calls: the *PostCompileProcessor* will ask the result of a *WriteOutputTask* for
 currrently processing. The *WriteOutputTask* will then ask the result from the *Valid2Cache*. When
 the result is available in the cache it will return it to the write task, otherwise it will request
 the result from the *Valid1Cache* and process it before returning it. This goes on until the
-*BuildTask* requests the result from the *CompileTask*, which will be available.
+*BuildTask* requests the result from the *CompileTask*.
 
 + CompileTimeContext: only used for executing dml statements?
 
 ### Build phase
 All the statements created during the previous phase are executed while maintaining a *BuildContext*.
-This context contains all defined functions, types, global vars, local vars, dependencies, etc.
+This context contains all defined functions, types, global and local variables, dependencies, etc.
 After executing the statements, defaults are inserted where there might be missing elements.
 
 Template dependencies discovered during this phase by using the *IfExists* function or dependencies
@@ -59,14 +59,15 @@ At the end of the build phase, the result will be a *HashResource* (which is imp
 This tree is kept in the build context and will be passed on to the next phases.
 
 ### Valid1 phase
-Checks if there are undefined elements and if the type bindings are correct.
+Checks if there are undefined elements and checks the type bindings. The compiler loops over all bind statements and checks if the value associated with a certain path is of the correct type. For some types extra checks, such as range checks, may be performed as well.
 
 ### Valid2 phase
 Checks the object dependencies and compiles them.
 
 ### Output
 The actual output is generated for every format that is passed as an argument. Every format has a
-corresponding *Formatter* class.
+corresponding *Formatter* class. You can find all the formatters in the *org/quattor/pan/output*
+package.
 
 ## SELF
 *SELF* is initially parsed as a variable and is then converted into the corresponding operator
@@ -83,12 +84,12 @@ example.
 
 ## Types
 All types are wrapped in a *FullType* object, used to completely define a type. All types, built-in
-and user-defined, are saved in a *TypeMap* in the *BuildContext*. The *TypeMap* gets the built-in
-types from the *BaseType* class. This map is used to check whether a type that's used is actually
-defined.
+and user-defined, are saved in a *TypeMap* in the *BuildContext*. The *TypeMap* gets the primitive
+built-in types from the *BaseType* class. This map is used to check whether a type that is used is
+actually defined.
 
 ### Built-in types
-All implementations of data types are located in *src/main/java/org/quattor/pan/dml/data*. These are
+All implementations of data types are located in *src/main/java/org/quattor/pan/dml/data/*. These are
 primitive types, which are types that don't have default values or validation blocks, and are thus
 wrapped in a *ConcretePrimitiveType*.
 
@@ -110,18 +111,27 @@ type mytype = {
 }
 ```
 
+#### CompositeType
+The *CompositeType* enables us to create user-defined lists, hashes or links. These types will contain an *AliasType* referring to the type of the elements contained in the composite type.
+
+##### ListType
+Defines a user-defined list. For example `type mylist = string[]` defines a list containing strings.
+
+##### HashType
+Defines a user-defined hash. For example `type myhash = string{}` defines a hash with strings as
+values.
+
 ##### LinkType
 A *LinkType* specifies the type of the link it refers to.
-For example: `type mylink = long(0..)*`. The value of this link will be a path that refers to a
-value, which needs to be a long >= 0. A *LinkType* cannot exist on its own, it needs to be
-encapsulated in an *AliasType*.
+For example: `type mylink = string*`. The value of this link will be a path that refers to a
+value, which needs to be a string.
 
 #### Processing user-defined types
 Let's look again at the example for *RecordType*. The pan compiler will first create a *FullType* of
 `string`, to map `entry1` to this type. It does not use the built-in *StringProperty* type. Later,
 when the compiler will need to check whether the actual values assigned to this entry are strings,
 the mapping of `string` to *StringProperty* in the *BaseType* class will be used. It will do the same
-for `double(1..)`. It will then create a new *FullType*, which will be a *RecordType*, that contains
+for `entry1`. It will then create a new *FullType*, which will be a *RecordType*, that contains
 these two entries.
 
 ## Term
@@ -131,7 +141,7 @@ indexed through a string and a *ListResource* can be indexed with a number. Sinc
 
 ## Repository
 These classes are used to keep track of all the directories that were passed as an argument to the
-`--include-path` option and to locate files.
+`--include-path` option and are responsible to locate files.
 
 # Adding functionality
 ## Adding a new built-in function
@@ -159,7 +169,8 @@ All functions also have test files written in pan itself. To add such a test for
 the test files to *src/test/pan/Functionality/*. The filenames should have the name of the
 function with a number attached to it. At the beginning of such a file, you can specify some
 settings. These are normally placed at the beginning of the file and should be inserted as comments.
-It is mandatory to define the expected outcome.
+It is mandatory to define the expected outcome. These settings are parsed in
+*panc/src/test/java/org/quattor/pan/utils/TestUtils.java*.
 
 #### Expected outcome
 You can declare whether the expected result will be an exception or a value in the tree.
@@ -173,26 +184,23 @@ You can declare what dependencies you expect from the source file. This should b
 follows: <p align="center">`dep: template_name`. </p>
 
 #### Formatter
-You can specify a specific formatter to use for the compilation. For example: `@format=pan`.
+You can specify a specific formatter to use for the compilation. For example: `@format=pan`. The
+default formatter is the pan formatter.
 
 ### Documentation
 The javadoc is automatically generated by maven when building the project. The online documentation
 of the built-in functions is kept separate. All online documentation is located in the
 *pan/panc-docs/* folder. To add information about a new function, add it to the
-*panc-docs/source/standard-functions/standard-functions.rst* file, which is written in
-reStructuredTest. This documentation should contain the name of the function, a synopsis and a description. Mind that all functions are sorted alphabetically.
-
-## Adding a new built-in data type
-### /src/main/java/org/quattor/pan/dml/data
-The implementation of the new type should be placed in this folder. Depending on what type you're
-going to add, you should inherit from the right class.
+*panc-docs/source/standard-functions/standard-functions.rst* file and to the *Functions*
+section in *panc-docs/source/pan-book/pan-book.rst*. This documentation is written in
+reStructuredText. Mind that all functions are sorted alphabetically.
 
 # Commands
 ## Complete build of the whole project
 #### Including tests
 `mvn clean package`
 
-#### Without tests
+#### Without tests   
 `mvn -Dmaven.test.skip=true clean package`
 
 ## Building panc
