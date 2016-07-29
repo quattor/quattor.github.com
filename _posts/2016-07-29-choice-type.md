@@ -6,6 +6,7 @@ category: documentation
 ---
 
 # Implementing the choice type
+Related to this [pull request](https://github.com/quattor/pan/pull/121).
 
 ## Implementation
 In the *PanParser.jjt* file, another *OR* option was added to *baseTypeSpec()*:
