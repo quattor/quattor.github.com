@@ -58,6 +58,7 @@ broker. If you are using a local PostgreSQL instance, you'll probably do:
 $ pg_ctl init
 $ exit
 # systemctl restart postgresql
+# su -l postgres
 $ createuser -SRD aquilon
 $ createdb --owner aquilon aquilon
 ```
