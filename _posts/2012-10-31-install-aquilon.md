@@ -50,8 +50,8 @@ to work for development environments.
 
 ## Setting up the database
 
-You have to create a role in your database server for the Aquilon
-broker.  If you are using a local PostgreSQL instance, you'll probably do:
+You have to initialize the database and create a role in your database server for the Aquilon
+broker. If you are using a local PostgreSQL instance, you'll probably do:
 
 ```sh
 # su -l postgres
