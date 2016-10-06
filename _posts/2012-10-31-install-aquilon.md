@@ -149,14 +149,14 @@ chown -R aquilon:aquilon /var/lib/templates
 chmod -R 0770 /var/lib/templates/
 ```
 
-Create missing run directory
+Create run directory
 
 ```bash
 mkdir -p /var/run/aquilon
 chown -R aquilon:aquilon /var/run/aquilon
 ```
 
-Create missing log directory
+Create log directory
 
 ```bash
 mkdir -p /var/log/aquilon
