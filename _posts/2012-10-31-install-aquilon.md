@@ -48,6 +48,12 @@ If you want a different database backend, you may simply install the
 Currently, Oracle and PostgreSQL are supported, and SQLite is expected
 to work for development environments.
 
+## Adding dependencies
+
+```sh
+$ yum install python-cdb knc python-twisted-web git
+```
+
 ## Setting up the database
 
 You have to initialize the database and create a role in your database server for the Aquilon
