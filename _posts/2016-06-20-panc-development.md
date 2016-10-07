@@ -225,51 +225,41 @@ reStructuredText. Mind that all functions are sorted alphabetically.
 ## Complete build of the whole project
 
 * Including tests
-
   `mvn clean package`
 
 * Without tests
-
   `mvn -Dmaven.test.skip=true clean package`
 
 ## Building panc
 
 * Including tests
-
   `mvn -pl panc clean package`
 
 * Without tests
-
   `mvn -pl panc -Dmaven.test.skip=true clean package`
 
 * Without tests and javadoc
-
   `mvn -pl panc -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean package`
 
 ## Running tests
 
 * All tests, including the clojure tests
-
   `mvn -pl panc test`
 
 * Single test class
-
-  `mvn -pl panc -Dtest=Test test` where Test is the name of the test you want to run.
+  `mvn -pl panc -Dtest=X test`
+  where `X` is the name of the test you want to run.
 
 * Multiple test classes
-
   `mvn -pl panc -Dtest=Test1,Test2 test`
 
 * Single method in a specific class
-
   `mvn -pl panc -Dtest=Test#method test`
 
 * Multiple methods in a specific class
-
   `mvn -pl panc -Dtest=Test#method1+method2 test`
 
 * All clojure tests
-
   `mvn -pl panc clojure:test`
 
 ## Running the project
