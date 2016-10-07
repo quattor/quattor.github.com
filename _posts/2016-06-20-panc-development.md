@@ -218,42 +218,53 @@ reStructuredText. Mind that all functions are sorted alphabetically.
 
 ## Complete build of the whole project
 
-#### Including tests
-`mvn clean package`
+* Including tests
 
-#### Without tests   
-`mvn -Dmaven.test.skip=true clean package`
+  `mvn clean package`
+
+* Without tests
+
+  `mvn -Dmaven.test.skip=true clean package`
 
 ## Building panc
 
-#### Including tests
-`mvn -pl panc clean package`
+* Including tests
 
-#### Without tests
-`mvn -pl panc -Dmaven.test.skip=true clean package`
+  `mvn -pl panc clean package`
 
-#### Without tests and javadoc
-`mvn -pl panc -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean package`
+* Without tests
 
-## Running tests in panc
+  `mvn -pl panc -Dmaven.test.skip=true clean package`
 
-#### Run all tests, including the clojure tests
-`mvn -pl panc test`
+* Without tests and javadoc
 
-#### Run a single test class
-`mvn -pl panc -Dtest=Test test` where Test is the name of the test you want to run.
+  `mvn -pl panc -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean package`
 
-#### Run multiple test classes
-`mvn -pl panc -Dtest=Test1,Test2 test`
+## Running tests
 
-#### Run a single method in a specific class
-`mvn -pl panc -Dtest=Test#method test`
+* All tests, including the clojure tests
 
-#### Run multiple methods in a specific class
-`mvn -pl panc -Dtest=Test#method1+method2 test`
+  `mvn -pl panc test`
 
-#### Running all clojure tests
-`mvn -pl panc clojure:test`
+* Single test class
+
+  `mvn -pl panc -Dtest=Test test` where Test is the name of the test you want to run.
+
+* Multiple test classes
+
+  `mvn -pl panc -Dtest=Test1,Test2 test`
+
+* Single method in a specific class
+
+  `mvn -pl panc -Dtest=Test#method test`
+
+* Multiple methods in a specific class
+
+  `mvn -pl panc -Dtest=Test#method1+method2 test`
+
+* All clojure tests
+
+  `mvn -pl panc clojure:test`
 
 ## Running the project
 After building the project, all created files will be located in the `panc/target/` folder. The
