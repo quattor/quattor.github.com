@@ -48,16 +48,23 @@ If you want a different database backend, you may simply install the
 Currently, Oracle and PostgreSQL are supported, and SQLite is expected
 to work for development environments.
 
+## Adding dependencies
+
+```sh
+$ yum install python-cdb knc python-twisted-web git
+```
+
 ## Setting up the database
 
-You have to create a role in your database server for the Aquilon
-broker.  If you are using a local PostgreSQL instance, you'll probably do:
+You have to initialize the database and create a role in your database server for the Aquilon
+broker. If you are using a local PostgreSQL instance, you'll probably do:
 
 ```sh
 # su -l postgres
 $ pg_ctl init
 $ exit
 # systemctl restart postgresql
+# su -l postgres
 $ createuser -SRD aquilon
 $ createdb --owner aquilon aquilon
 ```
@@ -142,14 +149,14 @@ chown -R aquilon:aquilon /var/lib/templates
 chmod -R 0770 /var/lib/templates/
 ```
 
-Create missing run directory
+Create run directory
 
 ```bash
 mkdir -p /var/run/aquilon
 chown -R aquilon:aquilon /var/run/aquilon
 ```
 
-Create missing log directory
+Create log directory
 
 ```bash
 mkdir -p /var/log/aquilon
