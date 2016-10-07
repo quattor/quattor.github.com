@@ -14,6 +14,7 @@ process. The program consists of different stages: *Compile*, *Build*, *Valid1*,
 certain threadpool is done via the compiler.
 
 ## Phases
+
 ### Compile phase
 The actual compilation is started by executing a *CompileTask* for every file.
 
@@ -74,7 +75,10 @@ package.
 depending on what type SELF is (*SelfSimpleVariable*, *SelfSimpleListVariable*...). This is done in
 *PanParserAstUtils.astToVariable()*. Suppose we have the following statement
 
-<p align="center"> `'/x' = list(1); '/x' = prepend(SELF, 2)`. </p>
+```pan
+'/x' = list(1);
+'/x' = prepend(SELF, 2);
+```
 
 During execution of a statement where a *SELF* reference might be used, a placeholder will be created
 for the variable, which in this case will be a *PathSelfHolder*, and will be saved in the build
@@ -104,7 +108,8 @@ For example: `type mylong = long with SELF >= 5`.
 #### RecordType
 A *RecordType* is a hash that explicitly names and types its children.
 For example:
-```
+
+```pan
 type mytype = {
     'entry1': string
     'entry2': double(1..)
@@ -144,8 +149,11 @@ These classes are used to keep track of all the directories that were passed as 
 `--include-path` option and are responsible to locate files.
 
 # Adding functionality
+
 ## Adding a new built-in function
+
 ### Implementation
+
 #### /src/main/java/org/quattor/pan/parser/PanParserAstUtils.java
 Add the function constructor of the new function to the hashmap. This is used to check whether a
 function is user-defined or built-in during translation of the AST to a template.
@@ -175,13 +183,24 @@ It is mandatory to define the expected outcome. These settings are parsed in
 #### Expected outcome
 You can declare whether the expected result will be an exception or a value in the tree.
 If you expect a *SyntaxException* to be thrown, you would place the following line in the
-file: <p align="center">`@expect=org.quattor.pan.exception.SyntaxException regex`, </p>
+file:
+
+```java
+@expect=org.quattor.pan.exception.SyntaxException regex
+```
+
 where regex is optional. If you expect a specific result, you should use an XPath. For example:  
-<p align="center">`@expect="/profile/result=1"`.</p>
+
+```java
+@expect="/profile/result=1"
+```
 
 #### Expected dependencies
 You can declare what dependencies you expect from the source file. This should be declared as
-follows: <p align="center">`dep: template_name`. </p>
+follows:
+```
+dep: template_name
+```
 
 #### Formatter
 You can specify a specific formatter to use for the compilation. For example: `@format=pan`. The
@@ -196,7 +215,9 @@ section in *panc-docs/source/pan-book/pan-book.rst*. This documentation is writt
 reStructuredText. Mind that all functions are sorted alphabetically.
 
 # Commands
+
 ## Complete build of the whole project
+
 #### Including tests
 `mvn clean package`
 
@@ -204,6 +225,7 @@ reStructuredText. Mind that all functions are sorted alphabetically.
 `mvn -Dmaven.test.skip=true clean package`
 
 ## Building panc
+
 #### Including tests
 `mvn -pl panc clean package`
 
@@ -237,4 +259,6 @@ reStructuredText. Mind that all functions are sorted alphabetically.
 After building the project, all created files will be located in the *panc/target/* folder. The
 built project can be executed on the command line as follows:
 
-`java -cp path_to/panc/target/panc-10.3-SNAPSHOT-jar-with-dependencies.jar org.quattor.pan.pan_compiler [OPTIONS]`
+```
+java -cp path_to/panc/target/panc-10.3-SNAPSHOT-jar-with-dependencies.jar org.quattor.pan.pan_compiler [OPTIONS]
+```
