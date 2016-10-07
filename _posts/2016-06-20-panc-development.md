@@ -160,15 +160,17 @@ These classes are used to keep track of all the directories that were passed as 
 
 ### Implementation
 
-#### /src/main/java/org/quattor/pan/parser/PanParserAstUtils.java
-Add the function constructor of the new function to the hashmap. This is used to check whether a
-function is user-defined or built-in during translation of the AST to a template.
+* `/src/main/java/org/quattor/pan/parser/PanParserAstUtils.java`
 
-#### /src/main/java/org/quattor/pan/dml/functions
-The implementation of the new built-in should be placed in this package. The class needs to extend
-the *BuiltInFunction* class and should be final. A new object of the built-in function is always
-created via the *getInstance* method, which should perform the actual creation of a new object after
-doing some checks on the input of the function.
+  Add the function constructor of the new function to the hashmap. This is used to check whether a
+  function is user-defined or built-in during translation of the AST to a template.
+
+* `/src/main/java/org/quattor/pan/dml/functions`
+
+  The implementation of the new built-in should be placed in this package. The class needs to extend
+  the *BuiltInFunction* class and should be final. A new object of the built-in function is always
+  created via the *getInstance* method, which should perform the actual creation of a new object after
+  doing some checks on the input of the function.
 
 ### Testing
 Tests for the built-in functions are located in the `/src/test/java/org/quattor/pan/dml/functions`
