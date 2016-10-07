@@ -101,6 +101,8 @@ wrapped in a *ConcretePrimitiveType*.
 User-defined types can be built up from the primitive types. All pan language types used to create
 user-defined types are defined in `src/main/java/org/quattor/pan/type`.
 
+### Pan language types
+
 #### AliasType
 An *AliasType* associates a new name with an existing type, plus some restrictions.
 For example: `type mylong = long with SELF >= 5`.
@@ -119,19 +121,19 @@ type mytype = {
 #### CompositeType
 The *CompositeType* enables us to create user-defined lists, hashes or links. These types will contain an *AliasType* referring to the type of the elements contained in the composite type.
 
-##### ListType
+#### ListType
 Defines a user-defined list. For example `type mylist = string[]` defines a list containing strings.
 
-##### HashType
+#### HashType
 Defines a user-defined hash. For example `type myhash = string{}` defines a hash with strings as
 values.
 
-##### LinkType
+#### LinkType
 A *LinkType* specifies the type of the link it refers to.
 For example: `type mylink = string*`. The value of this link will be a path that refers to a
 value, which needs to be a string.
 
-#### Processing user-defined types
+### Processing user-defined types
 Let's look again at the example for *RecordType*. The pan compiler will first create a *FullType* of
 `string`, to map `entry1` to this type. It does not use the built-in *StringProperty* type. Later,
 when the compiler will need to check whether the actual values assigned to this entry are strings,
