@@ -23,18 +23,26 @@ MS
   * Solaris 12: not yet looked at it but no major issue expected
 * Still running ~500 EL5 systems: hope get it down to ~200 in the coming months but expect a long tail after that
 * Difficulties to stay up to date with all the dependencies that are required to run configuration module tests
-  * Michel: using template `quattor-development.pan` from OS `rmps` directory may help to deploy or identify required dependencies
+  * Michel: using template `quattor-development.pan` from OS `rpms` directory may help to deploy or identify required dependencies
+  * Jindrich subsequently suggested using an auto-generated meta-package that could be shipped with each version of Quattor.
 * Maven also seen as a difficulty as there is no source RPM build and it makes difficult to insert MS patches
   * Currently maintaining a MS branch, having to do a lot of merging
   * Would like to get away from patches but may need to have some and would prefer to rebuild the official version a different minor version after applying the patches
 * AII should handle partition alignment
-* Any plan to support `systemd-resolved` in replace of `/etc/resolv.conf` for configuring DNS resolver?
+* Any plan to support `systemd-resolved` in replace of `/etc/resolv.conf` for configuring DNS resolver? [Issue opened](https://github.com/quattor/configuration-modules-core/issues/941)
 
 RAL
 * CentOS 7 work started: pushed by Ceph
+* ~20 EL5 machines including all storage clients plus an Oracle DB
 * Still trying to get rid of SCDB but not yet complete
+* Upgrading their Aquilon managed plant to 16.8 at present
+* More recent releases of Aquilon require EL7, and Aquilon host remains on EL6 so cannot move forward
 * Active work on virtualisation through container: about to release a lot of services in a Apache Mesos cluster
+  * EL6 containers running on EL7 bare metal
+  * Virtualisation has not worked for high throughput services so moving services to containers running on top of a bare-metal grid appears to be a better approach
+  * Developing an Aquilon Personality to Image-based build using packer.io
 * James suggests to build as part of the release a plenary template library whose root directory will be the Quattor version number. Allow to easily switch from one version to another one and reduces the risk of a fork (as local changes to the plenary version will be lost in the next version)...
+* Using a monthly OS upgrade cycle. Quattor components upgraded separately. A summer student wrote some code to compare what packages are installed compared to what the profile says should be installed. They run this via nagios.
 
 ULB
 * Working on UEFI support in AII, required by last systems purchased (EL7)
@@ -50,11 +58,30 @@ ULB
   
 LAL
 * Installation on systems with system disks larger than 2 TB: requires a small partitions with type `biosboot`.
+* Many CentOS7 nodes as part of OpenStack Cloud deployment
 * WIP: use ncm-ceph for Ceph deployment
   * Currently Quattor only deploys the packages and the basic configuration
-  
+
+Ghent
+* Mostly running EL7, plan to remove last EL6 machines in December.
+* Still do not have a working Aquilon broker after 2 years of trying.
+* Brief discussion of "protected nodes" feature in AII.
 
 ## Configuration Modules
+
+### CCM
+* `CDB_File` to become the default backend. It is significantly more robust than `DB_File` which is prone to unrecoverable corruption if the filesystem is full. Confirmed the rpm is available on EL5.
+
+### ncm-ncd
+* Proposal to run ncm-ncd in -T mode (currently runs in `warnings` mode, -t)
+* perl-taint-runtime is available from EPEL for RH5+. This module gives us the ability to enable -T component by component
+* at present it's hard to know which components will fail because it's not recorded in /var/log/ncm/ncd.log. You can see it in ncm-cdispd.log for those components run by cdispd.
+* it's a run time check so it's not possible to get confidence code is OK just by running it as part of the unit tests
+* yumng currently gives lots of taint warnings due to unlink 
+* need to change CCM to produce untainted data, and developer guide
+  on how to use CCM correctly to avoid getting tainted data
+  * getTree() is only supported way of retrieving profile data. It is not recommended to  use anything else!
+  * what about a quattor critic to look for bad practices, etc? Nice to have... but should write down what the rules are first.
 
 ### ncm-metaconfig
 
@@ -76,7 +103,14 @@ Start/restart of services
 * Kept the original chkconfig behaviour where the service is started/stopped only if the service was previously stopped/started and the desired state was changed
 * To be checked: is the service restarted if its configuration is changed 
 
-'replace` property: when true, says to ignore any configuration for the service shipped by the system or provided by a RPM
+Syntax/Schema
+* unit syntax is a bit confusing. e.g. [only](https://github.com/quattor/configuration-modules-core/blob/master/ncm-systemd/src/main/pan/components/systemd/schema.pan#L265) when true then systemd will only generate the unitfile and will not enable/disable the service, it will fall back to /software/components/chkconfig for that.
+* the unit tests provide good examples for how to use the component
+* `replace` property: 
+  * when true, says to ignore any configuration for the service shipped by the system or provided by a RPM.
+  * when false, can be used to augment and complement the existing unitfile as shipped by rpm.
+
+
 
 ### ncm-spma
 
@@ -93,6 +127,7 @@ Agreement to move away from `LC::Exception` and have a `CAF::Die` that will do t
 
 Packaging is critical for adoption
 * Agreement that getting setuptools to work for Aquilon installation/upgrade would be great step forward
+* Managing upgrades across schema upgrades can be difficult. It would be a good idea to have multiple versions installable on a host to make managing schema changes easier, similar to the way postgres does it. This brings it closer to how things are managed at MS which should reduce barrier to making good packages.
 
 ### Tooling around Aquilon
 
@@ -109,7 +144,7 @@ MS developed several related tools that may be useful for the community and may 
   * Diff done in // for good performances with a large number of profiles
 * `make-diff-complete`: a set of tools to display profile differences between the current sandbox and the version without the mods introduced by the sandbox: walk through the git history to identify the sandbox parent commit, rebuild the profiles for this version, build the sandbox and run `diffprof`. Can work with a specific set of profiles (static profiles or sample of live profiles) or all live profiles.
   * Splitting the compilation of a large number of profiles into several // panc instances: showed a significant speedup
-  * JSON turned out to be much faster to parse by the (Python) tools: JSON used internally by the tools whatever is used for the deployment
+  * JSON turned out to be much faster to parse by the (Python) tools: JSON used internally by the tools although XML is still used for the profiles sent to hosts
   * Currently based on a Makefile that does the proper glue between tools and is MS specific... Anyway underlying tools are generic.
   * MS plans to use these tools through CI (Jenkins) as part of the `aq publish` workflow
 
@@ -139,15 +174,15 @@ Proposed changes
   * yum changes are difficult to track: not necessarily associated with changes in profiles
   
 Discussion
-* Agreement that `ad deploy --compile` should be implemented
-* Skepticism about the undeploy idea: the problem is too general to be solvable...
+* Agreement that `aq deploy --compile` should be implemented
+* Scepticism about the undeploy idea: the problem is too general to be solvable...
   * James: concentrate on the file use case. Track file changes (CAF::History) and decide/implement what must be done to undo a file modification action (not trivial, depends on cases)
   * Stijn/Luis: first try to make something of CAF::History. Currently only used for logging events but those events could be consumed by `ncm-ncd` to maintain a component-agnostic database of modified files for example.
   * On the other hand, improving the logging of actions done to ease troubleshooting and give a chance to understand what must be done to "undeploy" the change would be a good step forward
   * CAF::History could be associated with change ids and help to store file backups in diff formats rather than multiple version of the entire file.
   
 
-Test deployments: `--test` option to `ad deploy`
+Test deployments: `--test` option to `aq deploy`
 * Produces temporary profiles
 * Notification with a `cct` event
 * `ccm-fetch` fetches the profile as a test profile rather than a production one
@@ -161,7 +196,7 @@ Suggestion to use JSON as the format of deployment logs to make them machine par
 
 ## Quattor Building Tools and Releases
 
-MS interested in getting source RPMs for easier integration of their patches in MS-specific RPMs
+MS interested in getting source RPMs for build reproducibility plus easier integration of any patches
 * James will try to produce them as part of the next release
 
 Component config.pan: MS needs to patch them to include a MS specific template at the end
@@ -172,6 +207,7 @@ panc: Cal was clear he has no longer the time to review pull request
 * Gabor is the main panc expert, let's rely on him!
 * Ensure that we add unit test covering proposed changes
 * Release is produced with Maven the same way as the Quattor release
+* 10.3 was released during the workshop with two bug fixes
 
 
 ## Discussion of Open Issues  
