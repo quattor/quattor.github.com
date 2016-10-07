@@ -105,7 +105,11 @@ user-defined types are defined in `src/main/java/org/quattor/pan/type`.
 
 #### AliasType
 An *AliasType* associates a new name with an existing type, plus some restrictions.
-For example: `type mylong = long with SELF >= 5`.
+For example:
+
+```pan
+type mylong = long with SELF >= 5
+```
 
 #### RecordType
 A *RecordType* is a hash that explicitly names and types its children.
