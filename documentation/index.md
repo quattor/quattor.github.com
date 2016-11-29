@@ -11,6 +11,7 @@ If you don't find the documentation you need here, tell us!
 
 ### CAF, CCM and Configuration Modules (Components)
 
+* [16.10.0](http://quattor-documentation.readthedocs.org/en/16.10.0/)
 * [16.6.0](http://quattor-documentation.readthedocs.org/en/16.6.0/)
 * [16.2.0](http://quattor-documentation.readthedocs.org/en/16.2.0/)
 
