@@ -14,6 +14,7 @@ process. The program consists of different stages: *Compile*, *Build*, *Valid1*,
 certain threadpool is done via the compiler.
 
 ## Phases
+
 ### Compile phase
 The actual compilation is started by executing a *CompileTask* for every file.
 
@@ -21,13 +22,13 @@ The actual compilation is started by executing a *CompileTask* for every file.
 First of all, an AST (Abstract Syntax Tree) is created from the source file using JJTree and JavaCC.
 The source files are parsed corresponding to the grammar defined in *PanParser.jjt*. This builds a
 JJTree and passes the output to JavaCC in order to finally generate a parser with parse tree actions.
-The output can be found in *src/main/target/generated-sources*. To generate an AST, the parser also
-uses some files in the *src/main/java/org/quattor/pan/parser* directory.
+The output can be found in `src/main/target/generated-sources`. To generate an AST, the parser also
+uses some files in the `src/main/java/org/quattor/pan/parser` directory.
 
 #### Template
 After that, the AST nodes are converted into *Statements* and a *Template* object is created. All
 methods needed to convert the nodes into statements can be found in
-*src/main/java/org/quattor/pan/parser/PanParserAstUtils.java*. Statements contain operations,
+`src/main/java/org/quattor/pan/parser/PanParserAstUtils.java`. Statements contain operations,
 elements, strings or type definitions. Elements are also operations. All statements can
 be executed. For elements this means that the element itself is returned. During the conversion, all
 the statements are sequentially saved in a *LinkedList*. During the creation of a new *Template*, a
@@ -66,7 +67,7 @@ Checks the object dependencies and compiles them.
 
 ### Output
 The actual output is generated for every format that is passed as an argument. Every format has a
-corresponding *Formatter* class. You can find all the formatters in the *org/quattor/pan/output*
+corresponding *Formatter* class. You can find all the formatters in the `org/quattor/pan/output`
 package.
 
 ## SELF
@@ -74,7 +75,10 @@ package.
 depending on what type SELF is (*SelfSimpleVariable*, *SelfSimpleListVariable*...). This is done in
 *PanParserAstUtils.astToVariable()*. Suppose we have the following statement
 
-<p align="center"> `'/x' = list(1); '/x' = prepend(SELF, 2)`. </p>
+```pan
+'/x' = list(1);
+'/x' = prepend(SELF, 2);
+```
 
 During execution of a statement where a *SELF* reference might be used, a placeholder will be created
 for the variable, which in this case will be a *PathSelfHolder*, and will be saved in the build
@@ -89,22 +93,29 @@ built-in types from the *BaseType* class. This map is used to check whether a ty
 actually defined.
 
 ### Built-in types
-All implementations of data types are located in *src/main/java/org/quattor/pan/dml/data/*. These are
+All implementations of data types are located in `src/main/java/org/quattor/pan/dml/data/`. These are
 primitive types, which are types that don't have default values or validation blocks, and are thus
 wrapped in a *ConcretePrimitiveType*.
 
 ### User-defined types
 User-defined types can be built up from the primitive types. All pan language types used to create
-user-defined types are defined in *src/main/java/org/quattor/pan/type*.
+user-defined types are defined in `src/main/java/org/quattor/pan/type`.
+
+### Pan language types
 
 #### AliasType
 An *AliasType* associates a new name with an existing type, plus some restrictions.
-For example: `type mylong = long with SELF >= 5`.
+For example:
+
+```pan
+type mylong = long with SELF >= 5
+```
 
 #### RecordType
 A *RecordType* is a hash that explicitly names and types its children.
 For example:
-```
+
+```pan
 type mytype = {
     'entry1': string
     'entry2': double(1..)
@@ -114,19 +125,19 @@ type mytype = {
 #### CompositeType
 The *CompositeType* enables us to create user-defined lists, hashes or links. These types will contain an *AliasType* referring to the type of the elements contained in the composite type.
 
-##### ListType
+#### ListType
 Defines a user-defined list. For example `type mylist = string[]` defines a list containing strings.
 
-##### HashType
+#### HashType
 Defines a user-defined hash. For example `type myhash = string{}` defines a hash with strings as
 values.
 
-##### LinkType
+#### LinkType
 A *LinkType* specifies the type of the link it refers to.
 For example: `type mylink = string*`. The value of this link will be a path that refers to a
 value, which needs to be a string.
 
-#### Processing user-defined types
+### Processing user-defined types
 Let's look again at the example for *RecordType*. The pan compiler will first create a *FullType* of
 `string`, to map `entry1` to this type. It does not use the built-in *StringProperty* type. Later,
 when the compiler will need to check whether the actual values assigned to this entry are strings,
@@ -144,20 +155,25 @@ These classes are used to keep track of all the directories that were passed as 
 `--include-path` option and are responsible to locate files.
 
 # Adding functionality
-## Adding a new built-in function
-### Implementation
-#### /src/main/java/org/quattor/pan/parser/PanParserAstUtils.java
-Add the function constructor of the new function to the hashmap. This is used to check whether a
-function is user-defined or built-in during translation of the AST to a template.
 
-#### /src/main/java/org/quattor/pan/dml/functions
-The implementation of the new built-in should be placed in this package. The class needs to extend
-the *BuiltInFunction* class and should be final. A new object of the built-in function is always
-created via the *getInstance* method, which should perform the actual creation of a new object after
-doing some checks on the input of the function.
+## Adding a new built-in function
+
+### Implementation
+
+* `/src/main/java/org/quattor/pan/parser/PanParserAstUtils.java`
+
+  Add the function constructor of the new function to the hashmap. This is used to check whether a
+  function is user-defined or built-in during translation of the AST to a template.
+
+* `/src/main/java/org/quattor/pan/dml/functions`
+
+  The implementation of the new built-in should be placed in this package. The class needs to extend
+  the *BuiltInFunction* class and should be final. A new object of the built-in function is always
+  created via the *getInstance* method, which should perform the actual creation of a new object after
+  doing some checks on the input of the function.
 
 ### Testing
-Tests for the built-in functions are located in the */src/test/java/org/quattor/pan/dml/functions*
+Tests for the built-in functions are located in the `/src/test/java/org/quattor/pan/dml/functions`
 folder and use JUnit. The test class should extend the *BuiltInFunctionTestUtils* class, which
 performs some checks. To perform these checks, you should create a test-method called
 *checkGetInstance* that calls *checkClassRequirements*. The test should have separate tests for every
@@ -166,22 +182,33 @@ are two ways to test the execution of the function: using *runDml*, which is a t
 creating a *CompileTimeContext* and executing the function via the context.
 
 All functions also have test files written in pan itself. To add such a test for a new function, add
-the test files to *src/test/pan/Functionality/*. The filenames should have the name of the
+the test files to `src/test/pan/Functionality/`. The filenames should have the name of the
 function with a number attached to it. At the beginning of such a file, you can specify some
 settings. These are normally placed at the beginning of the file and should be inserted as comments.
 It is mandatory to define the expected outcome. These settings are parsed in
-*panc/src/test/java/org/quattor/pan/utils/TestUtils.java*.
+`panc/src/test/java/org/quattor/pan/utils/TestUtils.java`.
 
 #### Expected outcome
 You can declare whether the expected result will be an exception or a value in the tree.
 If you expect a *SyntaxException* to be thrown, you would place the following line in the
-file: <p align="center">`@expect=org.quattor.pan.exception.SyntaxException regex`, </p>
+file:
+
+```java
+@expect=org.quattor.pan.exception.SyntaxException regex
+```
+
 where regex is optional. If you expect a specific result, you should use an XPath. For example:  
-<p align="center">`@expect="/profile/result=1"`.</p>
+
+```java
+@expect="/profile/result=1"
+```
 
 #### Expected dependencies
 You can declare what dependencies you expect from the source file. This should be declared as
-follows: <p align="center">`dep: template_name`. </p>
+follows:
+```
+dep: template_name
+```
 
 #### Formatter
 You can specify a specific formatter to use for the compilation. For example: `@format=pan`. The
@@ -190,51 +217,57 @@ default formatter is the pan formatter.
 ### Documentation
 The javadoc is automatically generated by maven when building the project. The online documentation
 of the built-in functions is kept separate. All online documentation is located in the
-*pan/panc-docs/* folder. To add information about a new function, add it to the
-*panc-docs/source/standard-functions/standard-functions.rst* file and to the *Functions*
-section in *panc-docs/source/pan-book/pan-book.rst*. This documentation is written in
+`pan/panc-docs/` folder. To add information about a new function, add it to the
+`panc-docs/source/standard-functions/standard-functions.rst` file and to the *Functions*
+section in `panc-docs/source/pan-book/pan-book.rst`. This documentation is written in
 reStructuredText. Mind that all functions are sorted alphabetically.
 
 # Commands
-## Complete build of the whole project
-#### Including tests
-`mvn clean package`
 
-#### Without tests   
-`mvn -Dmaven.test.skip=true clean package`
+## Complete build of the whole project
+
+* Including tests
+  `mvn clean package`
+
+* Without tests
+  `mvn -Dmaven.test.skip=true clean package`
 
 ## Building panc
-#### Including tests
-`mvn -pl panc clean package`
 
-#### Without tests
-`mvn -pl panc -Dmaven.test.skip=true clean package`
+* Including tests
+  `mvn -pl panc clean package`
 
-#### Without tests and javadoc
-`mvn -pl panc -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean package`
+* Without tests
+  `mvn -pl panc -Dmaven.test.skip=true clean package`
 
-## Running tests in panc
+* Without tests and javadoc
+  `mvn -pl panc -Dmaven.test.skip=true -Dmaven.javadoc.skip=true clean package`
 
-#### Run all tests, including the clojure tests
-`mvn -pl panc test`
+## Running tests
 
-#### Run a single test class
-`mvn -pl panc -Dtest=Test test` where Test is the name of the test you want to run.
+* All tests, including the clojure tests
+  `mvn -pl panc test`
 
-#### Run multiple test classes
-`mvn -pl panc -Dtest=Test1,Test2 test`
+* Single test class
+  `mvn -pl panc -Dtest=X test`
+  where `X` is the name of the test you want to run.
 
-#### Run a single method in a specific class
-`mvn -pl panc -Dtest=Test#method test`
+* Multiple test classes
+  `mvn -pl panc -Dtest=Test1,Test2 test`
 
-#### Run multiple methods in a specific class
-`mvn -pl panc -Dtest=Test#method1+method2 test`
+* Single method in a specific class
+  `mvn -pl panc -Dtest=Test#method test`
 
-#### Running all clojure tests
-`mvn -pl panc clojure:test`
+* Multiple methods in a specific class
+  `mvn -pl panc -Dtest=Test#method1+method2 test`
+
+* All clojure tests
+  `mvn -pl panc clojure:test`
 
 ## Running the project
-After building the project, all created files will be located in the *panc/target/* folder. The
+After building the project, all created files will be located in the `panc/target/` folder. The
 built project can be executed on the command line as follows:
 
-`java -cp path_to/panc/target/panc-10.3-SNAPSHOT-jar-with-dependencies.jar org.quattor.pan.pan_compiler [OPTIONS]`
+```
+java -cp path_to/panc/target/panc-10.3-SNAPSHOT-jar-with-dependencies.jar org.quattor.pan.pan_compiler [OPTIONS]
+```
