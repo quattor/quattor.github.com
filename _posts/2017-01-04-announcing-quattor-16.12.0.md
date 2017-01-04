@@ -121,4 +121,4 @@ Changelog
 ### CAF
 * [**FileWriter:** disable chatty LC::Check by default unless NoAction](https://github.com/quattor/CAF/pull/98)
 * [**Kerberos:** handle exception thrown by CAF::Process (e.g. during kinit)](https://github.com/quattor/CAF/pull/201)
-* [Remove add_files to track files](https://github.com/quattor/CAF/pull/199
+* [Remove add_files to track files](https://github.com/quattor/CAF/pull/199)
