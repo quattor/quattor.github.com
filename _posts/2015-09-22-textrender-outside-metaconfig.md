@@ -187,8 +187,8 @@ if(defined($fh)) {
 (The `defined($fh)` is required, do not simply use `if($fh)` due to stringification
 of `CAF::FileWriter`, as explained in the example below).
 
-[objecttext_get_text]: http://docs-test-comps.readthedocs.org/en/latest/CAF/objecttext/#get_text
-[objecttext_filewriter]: http://docs-test-comps.readthedocs.org/en/latest/CAF/objecttext/#filewriter
+[objecttext_get_text]: http://quattor-documentation.readthedocs.io/en/latest/CAF/ObjectText/#get_text
+[objecttext_filewriter]: http://quattor-documentation.readthedocs.io/en/latest/CAF/ObjectText/#filewriter
 
 ### TT perl unittest
 A dedicated test module `Test::Quattor::TextRender::Component` exists to testing of
