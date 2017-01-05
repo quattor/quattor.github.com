@@ -37,8 +37,8 @@ Since our focus is using `TextRender` to generate
 text from profile information, for all intents and purposes,
 we mean `CCM::TextRender` unless stated otherwise.
 
-[ccm_textrender_docs]: http://docs-test-comps.readthedocs.org/en/latest/CCM/textrender
-[caf_textrender_docs]: http://docs-test-comps.readthedocs.org/en/latest/CAF/textrender
+[ccm_textrender_docs]: http://quattor-documentation.readthedocs.io/en/latest/CCM/TextRender
+[caf_textrender_docs]: http://quattor-documentation.readthedocs.io/en/latest/CAF/TextRender
 
 # Basic usage
 
@@ -221,7 +221,7 @@ In the example above `line 3` is expected to match in the text
 following `line 1`. But it does not need to be the next line (e.g. there could be a `line 2` in between).
 Both the matches and the order verifications are (separate) tests.
 
-[regexptest_docs]: http://docs-test-maven-tools.readthedocs.org/en/latest/maven-tools/RegexpTest/
+[regexptest_docs]: http://quattor-documentation.readthedocs.io/en/latest/Unittesting/Quattor::RegexpTest/
 
 # CCM::TextRender
 

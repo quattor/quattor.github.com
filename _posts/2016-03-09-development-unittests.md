@@ -161,7 +161,7 @@ $mock->mock('_test_file', sub () {
 
 Quattor has it's own set of methods to help testing and mocking called [`Test::Quattor`][maven_tools_test_quattor_docs].
 
-[maven_tools_test_quattor_docs]: http://docs-test-maven-tools.readthedocs.org/en/latest/maven-tools/Quattor/
+[maven_tools_test_quattor_docs]: http://quattor-documentation.readthedocs.io/en/latest/Unittesting/Quattor/
 
 ## Compiled profiles
 

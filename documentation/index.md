@@ -11,6 +11,11 @@ If you don't find the documentation you need here, tell us!
 
 ### CAF, CCM and Configuration Modules (Components)
 
+You can find the latest documentation here: <http://quattor-documentation.readthedocs.io/en/latest>
+
+#### Versioned documentation:
+
+* [16.12.0](http://quattor-documentation.readthedocs.io/en/16.12.0/)
 * [16.10.0](http://quattor-documentation.readthedocs.org/en/16.10.0/)
 * [16.6.0](http://quattor-documentation.readthedocs.org/en/16.6.0/)
 * [16.2.0](http://quattor-documentation.readthedocs.org/en/16.2.0/)
