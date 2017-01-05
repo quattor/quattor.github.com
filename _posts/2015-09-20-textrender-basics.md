@@ -221,7 +221,7 @@ In the example above `line 3` is expected to match in the text
 following `line 1`. But it does not need to be the next line (e.g. there could be a `line 2` in between).
 Both the matches and the order verifications are (separate) tests.
 
-[regexptest_docs]: http://docs-test-maven-tools.readthedocs.org/en/latest/maven-tools/RegexpTest/
+[regexptest_docs]: http://quattor-documentation.readthedocs.io/en/latest/Unittesting/Quattor::RegexpTest/
 
 # CCM::TextRender
 
