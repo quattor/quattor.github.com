@@ -1,11 +1,11 @@
 ---
 layout: article
-title: Summary of 22th Quattor workshop (2016-10-04 to 2016-10-06, London)
+title: Summary of 22nd Quattor workshop (2016-10-04 to 2016-10-06, London)
 category: news
 author: Michel Jouvin
 ---
 
-# Summary of 22th Quattor Workshop
+# Summary of 22nd Quattor Workshop
 
 
 [Agenda](https://indico.cern.ch/event/560421/)
@@ -13,13 +13,14 @@ author: Michel Jouvin
 
 ## Site News
 
-MS
+### MS
+
 * Some reorganization: SW distribution added to configruation management group under Nathan responsibility, Dave taking over from Nathan and Gabor now in charge of Operating System/Linux support (handing over to Dave the Aquilon broker development)
 * Main challenge: upgrading the configuration modules and core libraries, many still very old
   * Currently working on using 16.8 as the basis for RHEL7 with the hope to use it for EL5/6 too
 * Working on monthly upgrades of OS (and related tools): using YUM snapshots
   * Using yumng rather than yum ncm-spma plugin
-* Solaris: Solaris 11 support, AII extended to support Sparc obp rather than pxe/dhcp  
+* Solaris: Solaris 11 support, AII extended to support SPARC OBP rather than PXE/DHCP  
   * Solaris 12: not yet looked at it but no major issue expected
 * Still running ~500 EL5 systems: hope get it down to ~200 in the coming months but expect a long tail after that
 * Difficulties to stay up to date with all the dependencies that are required to run configuration module tests
@@ -31,7 +32,8 @@ MS
 * AII should handle partition alignment
 * Any plan to support `systemd-resolved` in replace of `/etc/resolv.conf` for configuring DNS resolver? [Issue opened](https://github.com/quattor/configuration-modules-core/issues/941)
 
-RAL
+### RAL
+
 * CentOS 7 work started: pushed by Ceph
 * ~20 EL5 machines including all storage clients plus an Oracle DB
 * Still trying to get rid of SCDB but not yet complete
@@ -44,7 +46,8 @@ RAL
 * James suggests to build as part of the release a plenary template library whose root directory will be the Quattor version number. Allow to easily switch from one version to another one and reduces the risk of a fork (as local changes to the plenary version will be lost in the next version)...
 * Using a monthly OS upgrade cycle. Quattor components upgraded separately. A summer student wrote some code to compare what packages are installed compared to what the profile says should be installed. They run this via nagios.
 
-ULB
+### ULB
+
 * Working on UEFI support in AII, required by last systems purchased (EL7)
   * Requires at least one additional partition `/boot/uefi`: would be great to add it to `filesystem_layout` and be able to define a variable triggering whatever is required in the configuration for UEFI support
 * Still fighting with Aquilon installation because of MS dependencies: an up-to-date documentation is required
@@ -56,13 +59,15 @@ ULB
   * James: another variation of the problem is changes in config file names with the old one left (for example under `conf.d`)
   
   
-LAL
+### LAL
+
 * Installation on systems with system disks larger than 2 TB: requires a small partitions with type `biosboot`.
 * Many CentOS7 nodes as part of OpenStack Cloud deployment
 * WIP: use ncm-ceph for Ceph deployment
   * Currently Quattor only deploys the packages and the basic configuration
 
-Ghent
+### Ghent
+
 * Mostly running EL7, plan to remove last EL6 machines in December.
 * Still do not have a working Aquilon broker after 2 years of trying.
 * Brief discussion of "protected nodes" feature in AII.
@@ -87,10 +92,12 @@ Ghent
 
 ncm-metaconfig seen as a component that can run many things with the risk of one of them failing and preventing other dependencies to run
 * One workaround is to define a separate configuration path for the critical things and alias it to metaconfig: will result in ncm-metaconfig running twice
+  * Requires https://github.com/quattor/ncm-cdispd/issues/41 to be fixed
 
 Sometimes would like to run an arbitrary command but not allowed
 * Was a design choice in metaconfig
 * One possibility is to subclass it and add the support for an arbitrary command
+* We could also allow predefined commands (not from the pan code, but something similar to TT files) per service, in particular to validate/test the generated files.
 
 ### ncm-systemd
 
@@ -142,7 +149,7 @@ MS developed several related tools that may be useful for the community and may 
 * `diffprof`: in a recursive diff, identify all unique differences and a display the number of occurences of them. 
   * Needs two directories containing the same profile names
   * Diff done in // for good performances with a large number of profiles
-* `make-diff-complete`: a set of tools to display profile differences between the current sandbox and the version without the mods introduced by the sandbox: walk through the git history to identify the sandbox parent commit, rebuild the profiles for this version, build the sandbox and run `diffprof`. Can work with a specific set of profiles (static profiles or sample of live profiles) or all live profiles.
+* `make diff-complete`: a set of tools to display profile differences between the current sandbox and the version without the mods introduced by the sandbox: walk through the git history to identify the sandbox parent commit, rebuild the profiles for this version, build the sandbox and run `diffprof`. Can work with a specific set of profiles (static profiles or sample of live profiles) or all live profiles.
   * Splitting the compilation of a large number of profiles into several // panc instances: showed a significant speedup
   * JSON turned out to be much faster to parse by the (Python) tools: JSON used internally by the tools although XML is still used for the profiles sent to hosts
   * Currently based on a Makefile that does the proper glue between tools and is MS specific... Anyway underlying tools are generic.
@@ -190,7 +197,7 @@ Test deployments: `--test` option to `aq deploy`
   * `ncm-ncd` actually responsible to push the deployment log back to the web server rather than `ncm-cdispd` which has `ncm-ncd` dispatching as its only responsibility
   
 Suggestion to use JSON as the format of deployment logs to make them machine parsable
-* Nathan suggests to put the verbose information in the deployment logs and use syslog to produce the file (will take of serialization between event sources) 
+* Nathan suggests to put the verbose information in the deployment logs and use syslog to produce the file (will take care of serialization between event sources) 
 * A DB on the machine for keeping the history may use another format like sqlite
 
 
@@ -201,14 +208,19 @@ MS interested in getting source RPMs for build reproducibility plus easier integ
 
 Component config.pan: MS needs to patch them to include a MS specific template at the end
 * Proposal: include a site specific template at the end of the standard config.pan
-* Proposal 2: generate the config.pan from Maven rather than having one per component.
+* Proposal 2: provide a template in the Maven tools that will do the typical part of a `config.pan` template, including the inclusion of
+a site-specific template. For most components, the actual `config.pan` would be as simple as:
+```
+$(component_config_pan)
+```
+  * Proposal 2 would help to get the new feature out and used in all components (and also help with future modifications that must be done in every component).
+* Issue tracking this: https://github.com/quattor/maven-tools/issues/109
 
-panc: Cal was clear he has no longer the time to review pull request
+panc: Cal was clear he no longer has the time to review pull request
 * Gabor is the main panc expert, let's rely on him!
 * Ensure that we add unit test covering proposed changes
 * Release is produced with Maven the same way as the Quattor release
-* 10.3 was released during the workshop with two bug fixes
-
+  * As a demonstration, 10.3 was successfully released by @jrha during the workshop with two bug fixes
 
 ## Discussion of Open Issues  
 
@@ -217,16 +229,16 @@ https on quattor.org: no real solution until proper support for https on custom 
 Validation of variables by a schema: in fact, raise the questions of what is the interface to the template library
 * Action: Michel should start a documentation on how variables are used in the template library, how they are named, `config.pan` as the entry point for features...
 * Need to make progress with adding annotations to the variables in the template library and to processing them to build a documentation
-  * MS has a couple of script doing some processing that may be used as a starting point
+  * MS has a couple of script doing some processing that may be used as a starting point: @wdpypere managed to used them during the workshop (initial version)
   
   
 ## Conclusions
 
-Next workshop: Annecy?
-* Michel discussing with the local people
+Next workshop: Annecy
+* See Doodle: https://doodle.com/poll/rbfyhx5kux8a7tfg
 
 [FOSDEM](https://fosdem.org/2017/) participation: interesting to meet people but quite difficult to get a talk
 * DevOps and Config Mgt track has 10x more talks submitted than what can fit into the agenda...
-  * FOSDEM talks are generally not about a specific technology or implementation but more about what was learn from a concrete experience: could we present how we enable a high level of sharing through the releases containing configuration modules and the template library, avoiding the sites to fork with difficulties to integrate further development by the community...
+  * FOSDEM interesting talks are generally not about a specific technology or implementation but more about what was learn from a concrete experience: could we present how we enable a high level of sharing through the releases containing configuration modules and the template library, avoiding the sites to fork with difficulties to integrate further development by the community...
 * Submission usually before December  
 
