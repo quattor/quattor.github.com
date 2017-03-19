@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Summary of 22nd Quattor workshop (2016-10-04 to 2016-10-06, London)
-category: news
+category: meeting
 author: Michel Jouvin
 ---
 
