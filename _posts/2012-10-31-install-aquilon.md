@@ -36,23 +36,37 @@ can change it with environnement variable AQSERVICE.
 
 With your basic OS installed you should add the
 [Aquilon](http://yum.quattor.org/aquilon) and
-[externals](http://yum.quattor.org/externals) Yum repositories to Yum,
+[externals](http://yum.quattor.org/externals) Yum repositories to Yum:
+
+Create the `/etc/yum.repos.d/aquilon.repo` file with the following content:
+```
+[aquilon]
+name=Quattor - aquilon
+baseurl=http://yum.quattor.org/aquilon/
+enabled=1
+gpgcheck=0
+```
+
+Create the `/etc/yum.repos.d/quattor_externals.repo` file with the following content:
+```
+[quattor_externals_x86_64]
+name=Quattor - externals - x86_64
+baseurl=http://yum.quattor.org/externals/x86_64/el7
+enabled=1
+gpgcheck=0
+```
+
 and then
 
 ```sh
-$ yum -y install aquilon
+$ yum -y install python-cdb python-twisted-web git postgresql-server aquilon-postgresql
 ```
 
+Note:
 If you want a different database backend, you may simply install the
 `aquilon` RPM and then install the Python bindings to your database.
 Currently, Oracle and PostgreSQL are supported, and SQLite is expected
 to work for development environments.
-
-## Adding dependencies
-
-```sh
-$ yum install python-cdb knc python-twisted-web git
-```
 
 ## Setting up the database
 
@@ -67,20 +81,32 @@ $ exit
 # su -l postgres
 $ createuser -SRD aquilon
 $ createdb --owner aquilon aquilon
+$ exit
 ```
 
 The last portion can be replaced by a schema in an existing database.
 
+## Preparing the Kerberos authentication
+Example using freeIPA:
+
+Add the aqd service to your host and extract the keytab
+```
+kinit admin
+ipa service-add aqd/AQUILON_SERVER_FQDN
+ipa-getkeytab -s IPA_SERVER -p host/AQUILON_SERVER_FQDN@MY_REALM -k /etc/krb5.keytab
+chgrp aquilon /etc/krb5.keytab
+```
 ## Configuring the daemon
 
 Next, edit `/etc/sysconfig/aqd` and adjust it to your needs.  The
 default values should work on most EL7 setups.
 
-Then, edit the broker configuration itself.  You can find all the
+Create the broker configuration file `/etc/aqd.conf`
+Note:
+You can find all the
 available parameters and their defaults in
 `/usr/share/aquilon/etc/aqd.conf.defaults`.  If any setting is not
-correct for your environment, put the overriding value into
-`/etc/aqd.conf`.
+correct for your environment, put the overriding value into the created configuration file.
 
 Under the `broker` section, you have to declare the path to your
 Keytab and the URL to the Git repository containing your Pan templates:
@@ -92,7 +118,7 @@ git_templates_url=aquilon@localhost:/var/quattor/template-king
 templatesdir=/var/lib/templates
 ```
 
-Finally, configure the connection to the database.  In
+Configure the connection to the database.  In
 `/etc/aqd.conf`, declare the section that configures your database,
 like this for PostgreSQL:
 
@@ -112,16 +138,79 @@ server=localhost
 ```
 
 The defaults file contains all possible parameters for the supported
-databases.  The environment in this example is the "purpose" of this
+databases. The environment in this example is the "purpose" of this
 broker and its associated database: production, unit testing,
 end-to-end testing...
 
-## Filling in the database
+A final configuration file example:
+```ini
+[broker]
+default_organization = MY_ORGANISATION
+version = MY_BROKER_VERSION
+keytab=/etc/krb5.keytab
+#git_templates_url=aquilon@localhost:/var/quattor/template-king
+templatesdir=/var/lib/templates
+run_git_daemon=True
+bind_address=IP_TO_BIND_TO
+ant_options = -Xmx2560m -server
 
-The Aquilon database is a real inventory of your systems.  The first
-time you fill it in will be a painful experience.  Check
-[the guide on starting a site](/documentation/2013/10/25/aquilon-site.html)
-for more information.
+[database]
+database_section=database_postgresql
+
+[database_postgresql]
+dbuser=aquilon
+environment=prod
+server=localhost
+
+[tool_locations]
+knc = /usr/local/bin/knc
+klist = /usr/bin/klist
+git = /usr/bin/git
+git_path =/usr/libexec/git-core/
+git_daemon = /usr/libexec/git-core/git-daemon
+dsdb = /usr/bin/true
+ssh = /usr/bin/ssh
+java_home = /usr/lib/jvm/java-1.7.0
+mean = /usr/bin/true
+ant = /usr/bin/ant
+ant_contrib_jar = /usr/share/java/ant/ant-contrib.jar
+ant_home = /usr/share/ant
+
+[panc]
+pan_compiler = /var/quattor/panc/panc-10.3-jar-with-dependencies.jar
+xml_profiles = false
+json_profiles = true
+
+# This can be used for any components that use python logging
+# Valid values are INFO, DEBUG, and WARNING
+# For sqlalchemy, only INFO and DEBUG produce log messages.
+[logging]
+sqlalchemy.engine = WARNING
+sqlalchemy.pool   = WARNING
+sqlalchemy.orm    = WARNING
+aquilon = WARNING
+
+[protocols]
+directory = /usr/lib64/python2.7/site-packages/twisted/protocols
+
+```
+
+## Edit the startup script
+Add the following code at the beginning of the file `/etc/init.d/aqd`
+```bash
+if [ ! -d /var/run/aquilon ];then
+    mkdir -p /var/run/aquilon
+    chown -R aquilon:aquilon /var/run/aquilon
+fi
+```
+## Create required directories
+
+Create log directory:
+
+```bash
+mkdir -p /var/log/aquilon
+chown -R aquilon:aquilon /var/log/aquilon
+```
 
 ## Initialising the repositories
 
@@ -139,7 +228,7 @@ chown -R aquilon:aquilon /var/quattor
 
 After that, you have to prepare the directory that will contain your
 sandboxes.  Create one directory per Aquilon user inside the directory
-designated by `templatesdir`, and ensure that both the broker and the
+designated by the `templatesdir` option specified in the aquilon config file and ensure that both the broker and the
 user can write to it.  If all your users belong to the `aquilon`
 group:
 
@@ -149,19 +238,12 @@ chown -R aquilon:aquilon /var/lib/templates
 chmod -R 0770 /var/lib/templates/
 ```
 
-Create run directory
+## Filling in the database
 
-```bash
-mkdir -p /var/run/aquilon
-chown -R aquilon:aquilon /var/run/aquilon
-```
-
-Create log directory
-
-```bash
-mkdir -p /var/log/aquilon
-chown -R aquilon:aquilon /var/log/aquilon
-```
+The Aquilon database is a real inventory of your systems.  The first
+time you fill it in will be a painful experience.  Check
+[the guide on starting a site](/documentation/2013/10/25/aquilon-site.html)
+for more information.
 
 ## What's next
 
