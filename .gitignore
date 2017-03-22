@@ -1,3 +1,10 @@
 _site
 *~
 Gemfile.lock
+
+# Eclipse project
+.project
+.settings
+
+# PyCharm project
+.idea/
