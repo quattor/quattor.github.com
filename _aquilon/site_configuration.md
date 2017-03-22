@@ -14,8 +14,12 @@ After
 want to add hosts to our instance, and produce some useful
 configuration.
 
-We'll explain in this document the steps to set up the clusters
+This document explains the steps required to set up the clusters
 for the Daily Planet, Superman's employer.
+
+*Note: this documentation assumes that you have an `aq` command available in your
+path. If this is not the case, define an `aq` alias to `/opt/aquilon/bin/aq.py`.*
+
 
 ### Aquilon terminology
 
@@ -73,6 +77,10 @@ commands.  Most of the commands we'll use have `show_`, `update_` and
 `del_` counterparts.  You are recommended to read the help of each
 command before actually running it.
 
+Before starting using the `aq` command, you need get a Kerberos ticket. If
+the user you are logged on has been declared as a Kerberos principal, you
+can do it with `kinit` command (without parameters).
+
 ## Archetypes, domains...
 
 You need to start by declaring archetypes and the basic domains for
@@ -88,6 +96,8 @@ Next come the domains, which are just Git branches with some metadata.
 We'll define a `prod`uction and a `test`ing domains.
 
 ```bash
+aq show domain --all
+# If domain 'prod' already exists, skip its creation
 aq add_domain --domain 'prod'
 aq add_domain --domain 'test'
 ```
@@ -118,7 +128,8 @@ aq add_room --room 'supersecret' --building 'hq'
 
 List your own addresses, rooms...  but remember that each step depends
 on the previous ones.  If you want to add European countries, you have
-to insert Europe as a continent first!
+to insert Europe as a continent first! Also note that object names
+should not start with a digit and cannot contain spaces.
 
 ### Your hardware inventory
 
