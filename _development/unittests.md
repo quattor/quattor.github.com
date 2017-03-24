@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Quattor development unittests
+title: Quattor Development Unit Tests
 author: Stijn De Weirdt
 category: documentation
 redirect_from: /documentation/2016/03/09/development-unittests.html
@@ -83,7 +83,7 @@ As it runs all unit tests, the result of running the script is an environment wh
 
 By default, `build_all_repos` installs everything in a `quattordev` subdirectory, and has subdirectories
 
-* `repos` all the quattor git repos, with the remote `upstream` set.
+* `repos` all the quattor Git repos, with the remote `upstream` set.
   * you need to add your fork as the remote `origin`.
 * `install` contains the quattor repositories from unpacked tarballs and any dependencies installed via `CPAN`
 * `rpms` contains all build rpms
