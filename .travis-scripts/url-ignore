@@ -1,0 +1,13 @@
+# List of URL to ignore in html-proofer external link check
+# One URL per line, comments allowed as a full line or after the URL.
+# There is only a limited support for URL regexp rather than plain
+# URL : use a regexp only if it is really necessary. But the URL
+# may be a partial URL (ommitting the protocol for example or the
+# end of the URL).
+#
+# Please, DO NOT PUT BROKEN URLs in this file. Only add URLs that
+# cannot be verified successfully by html-proofer despite you
+# validated them with a browser.
+
+indico.desy.de/conferenceOtherViews.py
+http://sonarqube.com      # SonarQube
