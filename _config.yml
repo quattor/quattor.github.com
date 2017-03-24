@@ -9,3 +9,8 @@ exclude: [vendor]
 gems:
   - jekyll-feed
   - jekyll-redirect-from
+collections:
+  development:
+    output: true
+    permalink: /development/:title.html
+

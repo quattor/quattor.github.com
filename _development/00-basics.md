@@ -3,9 +3,13 @@ layout: article
 title: Quattor development basics
 author: Stijn De Weirdt
 category: documentation
+redirect_from:
+  - /documentation/2016/03/08/development-basics.html
+  - /documentation/2012/03/22/documentation-testing-code.html
+menu: Basics
 ---
 
-[devel_unittests]: {% post_url 2016-03-09-development-unittests %}
+[devel_unittests]: /development/unittests.html %}
 
 # git / github
 
@@ -104,7 +108,7 @@ Most common commands are
 When newer build tools are available, use `mvn update` to bump the version in the `pom.xml`
 (do not edit by hand).
 
-[More information on running the tests]({% post_url 2016-03-09-development-unittests %}#running-the-tests)
+[More information on running the tests](/development/unittests.html#running-the-tests)
 
 
 # Adding new component in configuration-modules or AII

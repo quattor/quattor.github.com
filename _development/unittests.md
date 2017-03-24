@@ -3,9 +3,11 @@ layout: article
 title: Quattor development unittests
 author: Stijn De Weirdt
 category: documentation
+redirect_from: /documentation/2016/03/09/development-unittests.html
+menu: Unit Tests
 ---
 
-[devel_basics]: {% post_url 2016-03-08-development-basics %}
+[devel_basics]: /development/00-basics.html
 
 # Running the tests
 

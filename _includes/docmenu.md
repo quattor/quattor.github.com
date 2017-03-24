@@ -13,8 +13,8 @@
   * [Template Library](http://www.quattor.org/documentation/2014/06/06/how-to-use-template-library.html)
 
 ##### Development
-  * [Basics](/documentation/2016/03/08/development-basics.html)
-  * [Unit Tests](/documentation/2016/03/09/development-unittests.html)
+{% for page in site.development %}
+  * [ {{ page.menu }} ]( {{ page.url }} ){% endfor %}
 
 ##### Other
   * [All articles](/documentation/other.html)
