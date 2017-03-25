@@ -10,9 +10,15 @@ gems:
   - jekyll-feed
   - jekyll-redirect-from
 collections:
+  aquilon:
+    output: true
+    permalink: /aquilon/:title.html
   development:
     output: true
     permalink: /development/:title.html
+  quattor:
+    output: true
+    permalink: /quattor/:title.html
 defaults:
   -
     scope:

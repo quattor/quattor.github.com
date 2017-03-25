@@ -1,20 +1,19 @@
 ##### Overview
-  * [Getting Started](/documentation/2013/10/01/documentation-getting-started.html)
+  * [Getting Started](/documentation/getting-started.html)
 
-##### Aquilon
-  * [Installation](/documentation/2012/10/31/install-aquilon.html)
-  * [Using Aquilon](/documentation/2013/10/25/aquilon-site.html)
-
-##### Quattor
-  * [Quattor overview](/documentation/2012/06/19/documentation-overview.html)
-  * [SCDB Installation](/documentation/2015/03/25/SCDB-installation.html)
-  * [Pan compiler](/documentation/2012/06/19/documentation-pan-book.html)
-  * [Configuration Modules](/documentation/14.8.0/components/)
-  * [Template Library](http://www.quattor.org/documentation/2014/06/06/how-to-use-template-library.html)
-
-##### Development
-{% for page in site.development %}
-  * [ {{ page.menu }} ]( {{ page.url }} ){% endfor %}
+{% comment %}
+Documentation categories must match a Jekyll collection name.
+If the collection name contains underscores, they are replaced by space in the documentation menu
+{% endcomment %}
+{% assign submenu_categories = "quattor, aquilon, development" | split: ", " %}
+{% for topic in submenu_categories %}
+  {% assign topic_words = topic | split: "_" %}
+  {% capture topic_title %}{% for word in topic_words %}{{ word | capitalize }} {% endfor %}{% endcapture %}
+##### {{ topic_title }}
+  {% comment %}FIXME: When Jekyll uses Liquid v4, use %- for a more readable line without additional new lines{% endcomment %}
+  {% for page in site[topic] %}
+  {% capture menu_item %}{% if page.menu %}{{ page.menu }}{% else %}{{ page.title }}{% endif %}{% endcapture %}* [ {{ menu_item }} ]( {{ page.url }} ){% endfor %}
+{% endfor %}
 
 ##### Other
-  * [All articles](/documentation/other.html)
+  * [Other articles](/documentation/other.html)

@@ -4,6 +4,10 @@ title: Installing Aquilon
 category: documentation
 modified: 2015-10-02
 author: Luis Fernando Muñoz Mejías
+menu: Installation
+redirect_from:
+  - /documentation/2012/10/31/install-aquilon.html
+  - /documentation/2012/10/31/aquilon-prerequisites.html
 ---
 
 ## Introduction
@@ -22,8 +26,10 @@ repositories) when changes to pan templates are needed.
 
 This guide describes the process to install and have an Aquilon broker
 started.  After reading this guide, you may want to continue
-[setting up your site](/documentation/2013/10/25/aquilon-site.html)
+[setting up your site][using_aquilon]
 with Aquilon.
+
+[using_aquilon]: /aquilon/site_configuration.html
 
 You will need an EL7 machine with kerberos authentication working, either
 with your own server or one provided by your institution.  
@@ -242,7 +248,7 @@ chmod -R 0770 /var/lib/templates/
 
 The Aquilon database is a real inventory of your systems.  The first
 time you fill it in will be a painful experience.  Check
-[the guide on starting a site](/documentation/2013/10/25/aquilon-site.html)
+[the guide on starting a site][using_aquilon]
 for more information.
 
 ## What's next
@@ -271,7 +277,7 @@ Sandboxes: /var/lib/templates
 ```
 
 Next, you should learn how to
-[have a site](/documentation/2013/10/25/aquilon-site.html).
+[have a site][using_aquilon].
 
 ## Adding more users
 

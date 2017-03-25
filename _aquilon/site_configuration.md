@@ -2,16 +2,16 @@
 layout: article
 title: Starting a site with Aquilon
 category: documentation
-modified: 2013-12-19
 author: Luis Fernando Muñoz Mejías
+menu: Using Aquilon
+redirect_from: /documentation/2013/10/25/aquilon-site.html
 ---
 
-**THIS IS WORK IN PROGRESS**
-
+[aquilon_install]: /aquilon/00-install.html
 ## Introduction
 
 After
-[installing Aquilon](/documentation/2012/10/31/install-aquilon.html), we
+[installing Aquilon][aquilon_install], we
 want to add hosts to our instance, and produce some useful
 configuration.
 
