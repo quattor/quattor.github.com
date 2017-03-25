@@ -19,6 +19,9 @@ collections:
   quattor:
     output: true
     permalink: /quattor/:title.html
+  template_library:
+    output: true
+    permalink: /template_library/:title.html
 defaults:
   -
     scope:
