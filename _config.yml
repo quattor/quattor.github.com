@@ -16,6 +16,9 @@ collections:
   development:
     output: true
     permalink: /development/:title.html
+  other:
+    output: true
+    permalink: /other/:title.html
   quattor:
     output: true
     permalink: /quattor/:title.html
