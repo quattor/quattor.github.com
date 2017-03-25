@@ -1,7 +1,6 @@
 ---
 layout: article
 title: Starting a site with Aquilon
-category: documentation
 author: Luis Fernando Muñoz Mejías
 menu: Using Aquilon
 redirect_from: /documentation/2013/10/25/aquilon-site.html

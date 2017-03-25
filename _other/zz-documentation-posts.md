@@ -1,11 +1,7 @@
 ---
 layout: category_index
-category: documentation
 title: "Documentation: Other"
+category: documentation
 redirect_from: /documentation/other.html
 menu: Other Articles
 ---
-
-<!--
-{% assign category_items = site.categories.documentation %}
--->

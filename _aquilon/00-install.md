@@ -1,7 +1,6 @@
 ---
 layout: article
 title: Installing Aquilon
-category: documentation
 modified: 2015-10-02
 author: Luis Fernando Muñoz Mejías
 menu: Installation

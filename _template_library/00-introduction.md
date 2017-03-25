@@ -1,7 +1,6 @@
 ---
 layout: article
 title: How To Use The Template Library
-category: documentation
 author: Michel Jouvin
 redirect_from: /documentation/2014/06/06/how-to-use-template-library.html
 menu: What Is It?

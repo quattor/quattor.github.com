@@ -2,7 +2,6 @@
 layout: article
 title: Quattor Development Basics
 author: Stijn De Weirdt
-category: documentation
 redirect_from:
   - /documentation/2016/03/08/development-basics.html
   - /documentation/2012/03/22/documentation-testing-code.html

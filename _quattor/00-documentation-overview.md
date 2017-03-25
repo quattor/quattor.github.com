@@ -1,8 +1,6 @@
 ---
 layout: article
 title: Quattor Overview
-category: documentation
-modified: 2013-12-17
 redirect_from: /documentation/2012/06/19/documentation-overview.html
 ---
 

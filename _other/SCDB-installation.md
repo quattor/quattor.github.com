@@ -1,7 +1,6 @@
 ---
 layout: article
 title: Bootstrapping and Troubleshooting SCDB
-category: documentation
 author: Michel Jouvin
 menu: SCDB Installation
 redirect_from: /documentation/2015/03/25/SCDB-installation.html

@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
   {% include head.html %}
+  {% capture page_category %}{% if page.category %}{{ page.category }}{% else %}{{ "documentation" }}{% endif %}{% endcapture %}
 
   <body>
     {% include header.html %}
@@ -11,8 +12,7 @@
       <div class="row">
         <ul class="breadcrumb">
           <li><a href="/">Home</a></li>
-          <li><a href="/{{ page.category }}/index.html">{{page.category | capitalize}}</a>
-          </li>
+          <li><a href="/{{ page_category }}/index.html">{{page_category | capitalize}}</a></li>
           <li class="active">{{ page.title }}</li>
         </ul>
         <h1>{{ page.title }}</h1>

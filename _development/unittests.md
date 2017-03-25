@@ -2,7 +2,6 @@
 layout: article
 title: Quattor Development Unit Tests
 author: Stijn De Weirdt
-category: documentation
 redirect_from: /documentation/2016/03/09/development-unittests.html
 menu: Unit Tests
 ---
