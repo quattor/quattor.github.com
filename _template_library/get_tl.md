@@ -9,7 +9,7 @@ menu: How to Get It?
 [tl_introduction]: /template_library/00-introduction.html
 [get-tl-script]: https://github.com/quattor/release/blob/master/src/scripts/get-template-library
 [create-scdb-script]: https://github.com/quattor/scdb/blob/master/utils/scdb/create-vanilla-SCDB.sh
-[dir-sync-script]: https://trac.lal.in2p3.fr/Quattor/wiki/Download/QWGTemplates/Install#In-placeUpgrade
+[dir-sync-script]: https://github.com/quattor/scdb/blob/master/utils/misc/directory-sync
 [release-repo]: https://github.com/quattor/release
 
 This page describes how to get the Quattor [template library][tl_introduction].
