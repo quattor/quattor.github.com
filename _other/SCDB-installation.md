@@ -6,6 +6,8 @@ menu: SCDB Installation
 redirect_from: /documentation/2015/03/25/SCDB-installation.html
 ---
 
+[scdb-faq]: /other/SCDB-usage.html#frequently-asked-questions-about-scdb
+
 **Note: SCDB, the second generation of Quattor databases, is now deprecated in favor 
 of [Aquilon][aquilon_intro] which provides more flexible workflows and an improved  
 scalability.. As SCDB is still used as some sites, the information here 
@@ -837,7 +839,7 @@ the SCDB local cache (by default, the parent directory for this script location,
 
 ## Troubleshooting Server-side Scripts
 
-In addition to the specific problems mentioned below, you may look at the [SCDB FAQ](https://trac.lal.in2p3.fr/Quattor/wiki/Doc/SCDB/FAQ).
+In addition to the specific problems mentioned below, you may look at the [SCDB FAQ][scdb-faq].
 
 If there is a problem during deployment, after entering command `ant deploy`, the command should return an explicit error message. In addition,
 it is possible to optionally define a list of people who will receive an email when an error occurs. This is done with

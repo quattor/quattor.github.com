@@ -26,7 +26,7 @@ is a good starting point but in short:
 ### Further reading
 
 -   [Perl coding style guide](http://perldoc.perl.org/perlstyle.html)
--   [Documentation/CodingStyle and beyond](http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_paper/codingstyle.ps), 
+-   [CodingStyle and beyond](http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_paper/codingstyle.ps), 
 by Greg Kroah-Hartman
 
 The basics

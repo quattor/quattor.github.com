@@ -334,5 +334,5 @@ ULB started also some developments based on the initial dashboard prototype
 
 Next workshop (the 20th!) at LAL in Orsay
 
-* the [first workshop](https://trac.lal.in2p3.fr/Quattor/wiki/Meetings/Workshops/20060322) happened at LAL, Spring 2006
+* the [first workshop](/meeting/2006/03/22/workshop.html) happened at LAL, Spring 2006
 * Michel will start a Doodle for the second half of September

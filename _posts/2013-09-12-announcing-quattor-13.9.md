@@ -11,7 +11,7 @@ changes include:
 ## New features
 
 * `ncm-ncd` can now execute
-  [hooks before and after running any components](https://trac.lal.in2p3.fr/Quattor/wiki/Development/PrePostActionsNCMNCD).
+  [hooks before and after running any components](https://github.com/quattor/ncm-ncd/issues/110).
   The API is not yet set in stone, and might change in future
   releases.
 
@@ -53,7 +53,7 @@ changes include:
 * `ncm-spma` improved its detection of packages that couldn't be
   versionlocked.
 * Components complying with the
-  [coding style](https://trac.lal.in2p3.fr/Quattor/wiki/Development/Code/CodingStyle)
+  [coding style](/development/coding_style.html)
   document will now show the changes that would happen to a file, even
   under `--noaction`.
 * `metaconfig`

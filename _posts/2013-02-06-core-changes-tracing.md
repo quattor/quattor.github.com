@@ -7,7 +7,7 @@ image: img/quattor-logo.png
 
 Starting with version 2.0.0 of the core modules (`CAF`), components
 complying with the
-[coding style guide](https://trac.lal.in2p3.fr/Quattor/wiki/Development/Code/CodingStyle)
+[coding style guide](/development/coding_style.html)
 will be much more traceable:
 
 * When running the component with `--noaction`, certain commands that
