@@ -1,24 +1,16 @@
 Quattor Web Site
 ================
 
-This is the Quattor web site that contains information for *users*. Please do
-not put information here that is intended for the developers of Quattor.
-
-**If you are looking for the Quattor web site itself, try
-[http://quattor.org](http://quattor.org).**
-
 The site is hosted through GitHub pages and can be modified by cloning this
 repository, making changes, and pushing the changes back into the repository.
-Generally, you should only add new articles to the __posts subdirectory. Do
-not change the skeletons or styles without discussing the changes first on the
-developers' mailing list.
+Generally, you should only add new articles to the \_posts subdirectory or one
+of the documentation category (directory starting by \_ with an explicit name
+matching one of the documnetation category in the Documentation page. All the
+changes to the web site must be submitted as a pull request to allow a peer
+review of the changes. No change must be merged by the author.
 
 Guidelines for Content
 ----------------------
-
-Again, the content on this web site is intended for users of Quattor. If it is
-not of interest to users, then put the information on the
-[Quattor wiki](https://trac.lal.in2p3.fr/Quattor) instead.
 
 The naming scheme for the items in the __posts subdirectory is the date,
 followed by the category (`news` or `documentation`), followed by a short
@@ -69,17 +61,3 @@ for newer versions of Jekyll.
 
 With this command all of the links on the site will function correctly.
 
-Review of Content
------------------
-
-Ideally new content should be reviewed by others in the Quattor development
-team. Please put new posts into the "review" category. Material marked as
-review will appear on a separate list that is *not visibly linked* on the
-website. You can see the articles undergoing review at the /review/index.html
-page. Content you write should be posted there first with an invitation for
-review sent to the developers' mailing list.
-
-News items probably need only minimal review. Documentation entries
-may need longer and more detailed review by others in the developer community.
-Use your best judgement on how long to leave something in review before moving
-it into a visible category.

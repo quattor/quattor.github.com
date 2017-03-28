@@ -1,15 +1,18 @@
 ---
 layout: article
-title: Quattor development basics
+title: Quattor Development Basics
 author: Stijn De Weirdt
-category: documentation
+redirect_from:
+  - /documentation/2016/03/08/development-basics.html
+  - /documentation/2012/03/22/documentation-testing-code.html
+menu: Basics
 ---
 
-[devel_unittests]: {% post_url 2016-03-09-development-unittests %}
+[devel_unittests]: /development/unittests.html
 
-# git / github
+# Git / GitHub
 
-All quattor git repositories are part of the [quattor organisation on GitHub][quattor_gh]
+All quattor Git repositories are part of the [quattor organisation][quattor_gh] on GitHub.
 
 [quattor_gh]: https://github.com/quattor
 
@@ -28,7 +31,7 @@ All quattor git repositories are part of the [quattor organisation on GitHub][qu
 
 ### Getting started with git
 
-Lots of good introductions and tutorials using git and github already exists
+Lots of good introductions and tutorials using Git and GitHub already exists
 
 * [Short animated introduction][lal_git_beginner_animation] (use left/right arrows to navigate)
 
@@ -104,7 +107,7 @@ Most common commands are
 When newer build tools are available, use `mvn update` to bump the version in the `pom.xml`
 (do not edit by hand).
 
-[More information on running the tests]({% post_url 2016-03-09-development-unittests %}#running-the-tests)
+[More information on running the tests](/development/unittests.html#running-the-tests)
 
 
 # Adding new component in configuration-modules or AII

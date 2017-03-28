@@ -9,3 +9,26 @@ exclude: [vendor]
 gems:
   - jekyll-feed
   - jekyll-redirect-from
+collections:
+  aquilon:
+    output: true
+    permalink: /aquilon/:title.html
+  development:
+    output: true
+    permalink: /development/:title.html
+  other:
+    output: true
+    permalink: /other/:title.html
+  quattor:
+    output: true
+    permalink: /quattor/:title.html
+  template_library:
+    output: true
+    permalink: /template_library/:title.html
+defaults:
+  -
+    scope:
+      path: ""      # empty string for all files
+      type: posts   # limit to posts
+    values:
+      is_post: true # automatically set is_post=true for all posts

@@ -1,7 +1,8 @@
 ---
 layout: article
 title: Pan Configuration Language
-category: documentation
+redirect_from: /documentation/2012/06/19/documentation-pan-book.html
+menu: Pan Language
 ---
 
 The pan configuration language allows system administrators to

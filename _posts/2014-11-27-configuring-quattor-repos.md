@@ -20,7 +20,7 @@ https://github.com/quattor/release/issues/62 for progress).
 
 ## Configuring the repositories with the template library
 
-The [template library](http://www.quattor.org/documentation/2014/06/06/how-to-use-template-library.html) provides an easy way to both get all the templates required to configure a
+The [template library](/template_library/00-introduction.html) provides an easy way to both get all the templates required to configure a
 give Quattor version ([template-library-core](https://github.com/quattor/template-library-core)) and to configure the YUM repositories required
 ([template-library-standard](https://github.com/quattor/template-library-standard)) without creating/maintaining any site specific templates.
 

@@ -1,15 +1,21 @@
 ---
 layout: article
 title: Bootstrapping and Troubleshooting SCDB
-category: documentation
 author: Michel Jouvin
+menu: SCDB Installation
+redirect_from: /documentation/2015/03/25/SCDB-installation.html
 ---
+
+[scdb-faq]: /other/SCDB-usage.html#frequently-asked-questions-about-scdb
+
+**Note: SCDB, the second generation of Quattor databases, is now deprecated in favor 
+of [Aquilon][aquilon_intro] which provides more flexible workflows and an improved  
+scalability.. As SCDB is still used as some sites, the information here 
+is kept for reference but if you are a new Quattor user, condider using Aquilon rather 
+than SCDB.**
 
 This page contains a step-by-step installation guide for Quattor SCDB, the second generation of Quattor configuration database,
 and its associated deployment tools. It also contains some instructions to troubleshoot SCDB issues, in particular failure to deploy changes.
-
-***SCDB is now considered a legacy configuration database. If you start a new site you are encouraged to look at [Aquilon](/documentation/2012/10/31/install-aquilon.html), the new configuration
-database, that provides more flexible workflows and an improved scalability.***
 
 SCDB relies on several underlying services not specific to Quattor, like Apache, Subversion,
 DHCP, TFTP. Installing SCDB involves installing these services and configure them for Quattor use. As these services can be used for
@@ -732,7 +738,6 @@ One of them, `[scdb]`, is common to the hook script and the deployment script. T
 # Script launched by the script to actually do the deployment
 deploy_script : /root/quattor/scripts/build-tag.py
 # Name of the deployment server where to run the deploy_script. Used only with ssh.
-# This can be a space-separated list (not yet implemented, see https://trac.lal.in2p3.fr/LCGQWG/ticket/46).
 #deploy_server : quattorsrv.example.org
 # Userid to use to run deploy_script
 deploy_user : root
@@ -834,7 +839,7 @@ the SCDB local cache (by default, the parent directory for this script location,
 
 ## Troubleshooting Server-side Scripts
 
-In addition to the specific problems mentioned below, you may look at the [SCDB FAQ](https://trac.lal.in2p3.fr/Quattor/wiki/Doc/SCDB/FAQ).
+In addition to the specific problems mentioned below, you may look at the [SCDB FAQ][scdb-faq].
 
 If there is a problem during deployment, after entering command `ant deploy`, the command should return an explicit error message. In addition,
 it is possible to optionally define a list of people who will receive an email when an error occurs. This is done with

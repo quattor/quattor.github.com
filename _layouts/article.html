@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
   {% include head.html %}
+  {% capture page_category %}{% if page.category %}{{ page.category }}{% else %}{{ "documentation" }}{% endif %}{% endcapture %}
 
   <body>
     {% include header.html %}
@@ -11,14 +12,13 @@
       <div class="row">
         <ul class="breadcrumb">
           <li><a href="/">Home</a></li>
-          <li><a href="/{{ page.category }}/index.html">{{page.category | capitalize}}</a>
-          </li>
+          <li><a href="/{{ page_category }}/index.html">{{page_category | capitalize}}</a></li>
           <li class="active">{{ page.title }}</li>
         </ul>
         <h1>{{ page.title }}</h1>
           <dl class="dl-horizontal">
-            <dt>Written</dt><dd class="date">{{ page.date | date: "%d %B %Y" }}</dd>
-            {% if page.modified %}<dt>Updated</dt><dd class="date">{{ page.modified | date: "%d %B %Y"}}</dd>{% endif %}
+            {% if page.date and page.is_post %}<dt>Written</dt><dd class="date">{{ page.date | date: "%d %B %Y" }}</dd>{% endif %}
+            {% if page.modified and page.is_post %}<dt>Updated</dt><dd class="date">{{ page.modified | date: "%d %B %Y"}}</dd>{% endif %}
             {% if page.author %}<dt>Author</dt><dd class="author">{{ page.author }}</dd>{% endif %}
           </dl>
           <hr>

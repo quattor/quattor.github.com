@@ -1,8 +1,7 @@
 ---
 layout: article
 title: Quattor Overview
-category: documentation
-modified: 2013-12-17
+redirect_from: /documentation/2012/06/19/documentation-overview.html
 ---
 
 Quattor is a distribution of tools aimed at complete system management, this document aims to provide an overview of the tools and how they fit together.

@@ -2,6 +2,7 @@
 layout: article
 title: Getting Started with Quattor
 category: documentation
+redirect_from: /documentation/2013/10/01/documentation-getting-started.html
 ---
 
 Quattor is a complete, but somewhat complex, set of tools for
