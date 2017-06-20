@@ -79,6 +79,27 @@ cd /opt/
 git clone https://github.com/quattor/aquilon.git
 ```
 
+### Contributing
+
+Commit messages require a `Change-Id:` line.
+Simply add the [gerrit `commit-msg` hook](https://gerrit.googlesource.com/gerrit/+/master/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg)
+
+You can (try to) use following commands (will overwrite previous `commit-msg` script):
+
+    wget -q -O - "https://gerrit.googlesource.com/gerrit/+/master/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg?format=TEXT" | base64 --decode > .git/hooks/commit-msg
+    chmod +x .git/hooks/commit-msg
+
+Example commit message should look like
+
+```
+Short Summary of the change
+
+Details what was done
+Details what more was done
+
+Change-Id: I9f8d7d0f656e72877c436727d0e4a8d8a62a4b89
+```
+
 ## Installation
 
 If the installation is done as root and all the dependencies (listed in `/opt/aquilon/setup.py` have been installed
