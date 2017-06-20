@@ -2,9 +2,15 @@ language: ruby
 rvm:
 - 2.3.1
 
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install python3-enchant
+
 # Assume bundler is being used, therefore
 # the `install` step will run `bundle install` by default.
-script: ./.travis-scripts/html-proofer
+script:
+  - ./.travis-scripts/spellchecker
+  - ./.travis-scripts/html-proofer
 
 # branch whitelist, only for GitHub Pages
 branches:
@@ -17,4 +23,4 @@ env:
 
 cache: bundler
 
-sudo: false
+sudo: required
