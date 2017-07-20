@@ -5,6 +5,10 @@ category: news
 author: James Adams
 ---
 
+<div class="alert alert-danger" role="alert">
+    <p><b>Warning</b>: This release contains a [serious bug](https://github.com/quattor/configuration-modules-core/issues/1141) that can break logrotate configuration. We recommend that you do not deploy it unless you are certain you will not be affected.</p>
+</div>
+
 Packages are available from our [yum repository](http://yum.quattor.org/17.3.0/), both the RPMs and the repository metadata are signed with [my GPG key](http://yum.quattor.org/GPG/RPM-GPG-KEY-quattor-jrha).
 
 As always, many thanks to everyone who contributed! We merged 78 pull requests and resolved 36 issues.
