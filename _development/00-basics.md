@@ -69,7 +69,7 @@ TODO: add more
       * Best to add a separate `testing` yum repository (no snapshots)
         * This repository should be empty most of the time, but you can put your self-built packages there until the new release is out that contains your changes.
 
-[quattor_jenkins]: https://jenkins1.ugent.be/view/Quattor/
+[quattor_jenkins]: https://jenkins0.ugent.be/
 
 # Maven
 
