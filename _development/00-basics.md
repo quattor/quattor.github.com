@@ -31,13 +31,10 @@ All quattor Git repositories are part of the [quattor organisation][quattor_gh] 
 
 ### Getting started with git
 
-Lots of good introductions and tutorials using Git and GitHub already exists
+Lots of good introductions and tutorials using Git and GitHub already exists, for example:
 
-* [Short animated introduction][lal_git_beginner_animation] (use left/right arrows to navigate)
-
-[lal_git_beginner_animation]: https://ens.lal.in2p3.fr/NPAC/_static/slides/Git/slides/index.html#1
-
-TODO: add more
+* [Git Documentation and Videos](https://git-scm.com/doc)
+* CodeSchool and GitHub's [TryGit](https://try.github.io/)
 
 ## Workflow
 
@@ -69,7 +66,7 @@ TODO: add more
       * Best to add a separate `testing` yum repository (no snapshots)
         * This repository should be empty most of the time, but you can put your self-built packages there until the new release is out that contains your changes.
 
-[quattor_jenkins]: https://jenkins1.ugent.be/view/Quattor/
+[quattor_jenkins]: https://jenkins0.ugent.be/
 
 # Maven
 
