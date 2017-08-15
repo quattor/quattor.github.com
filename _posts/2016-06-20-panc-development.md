@@ -197,7 +197,7 @@ file:
 @expect=org.quattor.pan.exception.SyntaxException regex
 ```
 
-where regex is optional. If you expect a specific result, you should use an XPath. For example:  
+where regex is optional. If you expect a specific result, you should use an XPath. For example:
 
 ```java
 @expect="/profile/result=1"
@@ -271,3 +271,185 @@ built project can be executed on the command line as follows:
 ```
 java -cp path_to/panc/target/panc-10.3-SNAPSHOT-jar-with-dependencies.jar org.quattor.pan.pan_compiler [OPTIONS]
 ```
+
+## Tracing with BTrace
+
+Sometimes it can be useful to have a full trace of the internals
+of the pan compiler during compilation.
+For java, one can obtain one rather easily with [BTrace][btrace].
+With `BTrace` one can easily add more tracing information and
+allows quick customisation. BTrace comes with a lot of samples,
+and the code below is a combination of 4 of those samples
+(`AllCall3`, `AllLines`, `AllMethods` and `OnThrow`).
+
+The output is very verbose and contains 3 things:
+* Every linenumber in any used `quattor.org` class, e.g.
+
+```
+org.quattor.pan.tasks.FinalResult.resolveAllDependencies:97
+```
+
+* Every method call in any used `quattor.org` class, e.g.
+
+```
+entered org.quattor.pan.type.AliasType.verifySubtypesDefined
+  this = custom
+  [custom, ]
+```
+* Every throw exception from anywhere in the code as a stack trace, e.g.
+
+```
+java.lang.ClassNotFoundException: org.quattor.pan.tasks.BuildResult
+    java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+    java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+```
+
+
+[btrace]: https://github.com/btraceio/btrace
+
+### Usage
+
+Get [latest BTrace release][btrace_latest] and unpack it.
+
+[btrace_latest]: https://github.com/btraceio/btrace/releases/latest
+
+Copy/paste following BTrace code in a file called `QuattorBTrace.java`
+
+```
+/*
+ * Copyright (c) 2008, 2015, Oracle and/or its affiliates. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 2 only, as
+ * published by the Free Software Foundation.  Oracle designates this
+ * particular file as subject to the Classpath exception as provided
+ * by Oracle in the LICENSE file that accompanied this code.
+ *
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 2 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
+ *
+ * You should have received a copy of the GNU General Public License version
+ * 2 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
+ * or visit www.oracle.com if you need additional information or have any
+ * questions.
+ */
+
+package org.quattor;
+
+import com.sun.btrace.AnyType;
+import com.sun.btrace.annotations.*;
+import static com.sun.btrace.BTraceUtils.*;
+
+
+@BTrace
+public class QuattorBTrace {
+    // Print all lines in org.quattor
+    // From samples AllLines
+    @OnMethod(
+        clazz="/org\\.quattor\\..*/",
+        location=@Location(value=Kind.LINE, line=-1),
+        method="/.*/"
+    )
+    public static void online(@ProbeClassName String pcn, @ProbeMethodName String pmn, int line) {
+        println(pcn + "." + pmn +  ":" + line);
+    }
+
+    // Print all methods in org.quattor
+    // From samples/AllMethods and AllCalls3
+    @OnMethod(
+        clazz="/org\\.quattor\\..*/",
+        method="/.*/",
+        location=@Location(value=Kind.CALL, clazz="/.*/", method="/.*/")
+    )
+    public static void m(@Self Object o, @ProbeClassName String pcn, @ProbeMethodName String pmn, AnyType[] args) {
+        print("entered " + pcn);
+        println("." + pmn);
+        println("  this = " + o);
+        printArray(args);
+    }
+
+
+    // From sample/OnThrow
+    // store current exception in a thread local
+    // variable (@TLS annotation). Note that we can't
+    // store it in a global variable!
+    @TLS static Throwable currentException;
+
+    // introduce probe into every constructor of java.lang.Throwable
+    // class and store "this" in the thread local variable.
+    @OnMethod(
+        clazz="java.lang.Throwable",
+        method="<init>"
+    )
+    public static void onthrow(@Self Throwable self) {
+        currentException = self;
+    }
+
+    @OnMethod(
+        clazz="java.lang.Throwable",
+        method="<init>"
+    )
+    public static void onthrow1(@Self Throwable self, String s) {
+        currentException = self;
+    }
+
+    @OnMethod(
+        clazz="java.lang.Throwable",
+        method="<init>"
+    )
+    public static void onthrow1(@Self Throwable self, String s, Throwable cause) {
+        currentException = self;
+    }
+
+    @OnMethod(
+        clazz="java.lang.Throwable",
+        method="<init>"
+    )
+    public static void onthrow2(@Self Throwable self, Throwable cause) {
+        currentException = self;
+    }
+
+    // when any constructor of java.lang.Throwable returns
+    // print the currentException's stack trace.
+    @OnMethod(
+        clazz="java.lang.Throwable",
+        method="<init>",
+        location=@Location(Kind.RETURN)
+    )
+    public static void onthrowreturn() {
+        if (currentException != null) {
+            Threads.jstack(currentException);
+            println("=====================");
+            currentException = null;
+        }
+    }
+
+}
+```
+
+Compile the BTrace code
+
+```
+export JAVA_HOME=....
+path_to/bin/btracec QuattorBTrace.java
+```
+
+This will create `org/quattor/QuattorBTrace.class` file.
+
+You can now debug/trace pan compilations by adding the following option to java
+
+```
+-javaagent:build/btrace-agent.jar=stdout=true,noServer=true,script=org/quattor/QuattorBTrace.class
+```
+(or with `panc`
+```
+panc --java-opts "-javaagent:build/btrace-agent.jar=stdout=true,noServer=true,script=org/quattor/QuattorBTrace.class" profile.pan
+```
+)
