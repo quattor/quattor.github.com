@@ -261,6 +261,14 @@ git commit -am 'Empty README added'
 git push origin master:prod
 ```
 
+By default Aquilon broker uses `trash` branch to take a snapshot of a domain before deleting it.
+If you wish to disable this functionality, leave `trash_branch` option in the `[broker]` configuration section blank.
+To use this feature `trash` branch will need to be manually craeted as part of initial Git Setup:
+
+```bash
+git push origin prod:trash
+```
+
 Then start the Git daemon:
 
 ```bash
