@@ -6,7 +6,7 @@ kramdown:
   input: GFM
   hard_wrap: false
 exclude: [vendor]
-gems:
+plugins:
   - jekyll-feed
   - jekyll-redirect-from
 collections:
