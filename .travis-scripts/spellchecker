@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e # halt script on error
+
+SCVERSION="1.2"
+
+wget https://github.com/stfc/markdown-spellchecker/archive/$SCVERSION.tar.gz -O spellchecker.tar.gz
+tar -xvzf spellchecker.tar.gz
+
+cp -f .travis-scripts/dictionary.txt markdown-spellchecker-$SCVERSION/src/dict.txt
+
+cat markdown-spellchecker-$SCVERSION/src/config.ini
+
+git diff --name-only HEAD^ | grep '\.md$' | xargs -r markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
+
