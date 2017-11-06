@@ -1,10 +1,7 @@
 language: ruby
+
 rvm:
 - 2.3.1
-
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install python3-enchant
 
 # Assume bundler is being used, therefore
 # the `install` step will run `bundle install` by default.
@@ -29,6 +26,8 @@ cache:
 addons:
   apt:
     packages:
+    - python3-enchant # Won't be used, but pulls in required system dependencies for version from PIP
     - libcurl4-openssl-dev # required to avoid SSL errors
 
-sudo: required
+sudo: false
+dist: trusty
