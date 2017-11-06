@@ -8,7 +8,13 @@ tar -xvzf spellchecker.tar.gz
 
 cp -f .travis-scripts/dictionary.txt markdown-spellchecker-$SCVERSION/src/dict.txt
 
+echo
+echo spellchecker config:
+echo --------------------
 cat markdown-spellchecker-$SCVERSION/src/config.ini
+echo --------------------
+echo
 
-git diff --name-only HEAD^ | grep '\.md$' | xargs -r markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
-
+pyenv local 3.5
+pip3 install pyenchant
+git diff --name-only HEAD^ | grep '\.md$' | xargs -r python3.5 markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
