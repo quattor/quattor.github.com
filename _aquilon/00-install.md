@@ -82,11 +82,11 @@ git clone https://github.com/quattor/aquilon.git
 ### Contributing
 
 Commit messages require a `Change-Id:` line.
-Simply add the [gerrit `commit-msg` hook](https://gerrit.googlesource.com/gerrit/+/master/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg)
+Simply add the [gerrit `commit-msg` hook](https://gerrit.googlesource.com/gerrit/+/v2.14.5.1/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg)
 
 You can (try to) use following commands (will overwrite previous `commit-msg` script):
 
-    wget -q -O - "https://gerrit.googlesource.com/gerrit/+/master/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg?format=TEXT" | base64 --decode > .git/hooks/commit-msg
+    wget -q -O - "https://gerrit.googlesource.com/gerrit/+/v2.14.5.1/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg?format=TEXT" | base64 --decode > .git/hooks/commit-msg
     chmod +x .git/hooks/commit-msg
 
 Example commit message should look like
