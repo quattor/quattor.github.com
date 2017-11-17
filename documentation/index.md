@@ -20,9 +20,3 @@ You can find the latest documentation here: <http://quattor-documentation.readth
 * [16.10.0](http://quattor-documentation.readthedocs.org/en/16.10.0/)
 * [16.6.0](http://quattor-documentation.readthedocs.org/en/16.6.0/)
 * [16.2.0](http://quattor-documentation.readthedocs.org/en/16.2.0/)
-
-### Old Configuration Modules (Components)
-
-* [15.12.0](http://quattor-core.readthedocs.org/en/15.12.0/)
-* [15.4.0](http://quattor-core.readthedocs.org/en/15.4.0/)
-* [14.10.0](http://quattor-core.readthedocs.org/en/14.10.0/)
