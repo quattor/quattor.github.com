@@ -26,5 +26,3 @@ You can find the latest documentation here: <http://quattor-documentation.readth
 * [15.12.0](http://quattor-core.readthedocs.org/en/15.12.0/)
 * [15.4.0](http://quattor-core.readthedocs.org/en/15.4.0/)
 * [14.10.0](http://quattor-core.readthedocs.org/en/14.10.0/)
-* [14.8.0](/documentation/14.8.0/components/)
-* [14.6.0](/documentation/14.6.0/components/)
