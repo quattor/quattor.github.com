@@ -19,14 +19,13 @@ you need it, you are assumed to know what is involved in setting a virtualenv en
 
 ## Install Dependencies
 
-Under EL7, you need to install RPMs listed below. For this you need to have the following YUM repository
-configured:
+Under EL7, you need to install RPMs listed below. For this you need to have the following YUM repositories configured:
 * OS YUM repository
 * EPEL7
 * [Quattor EL7 x86_64 externals](http://yum.quattor.org/externals/x86_64/el7/)
 * [Quattor EL7 noarch externals](http://yum.quattor.org/externals/noarch/el7/)
 
-RPMS to install are:
+RPMs to install are:
 
 ```bash
 yum install python python-devel python-setuptools python-dateutil python-lxml python-psycopg2 \
@@ -64,7 +63,7 @@ git clone https://github.com/quattor/aquilon-protocols.git
 ```
 
 Pass in an alternate INSTALLDIR if desired.  Compiling the protocol
-buffers into perl may fail.
+buffers into Perl may fail.
 
 ```bash
 cd aquilon-protocols
@@ -82,12 +81,14 @@ git clone https://github.com/quattor/aquilon.git
 ### Contributing
 
 Commit messages require a `Change-Id:` line.
-Simply add the [gerrit `commit-msg` hook](https://gerrit.googlesource.com/gerrit/+/master/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg)
+Simply add the [gerrit `commit-msg` hook](https://gerrit.googlesource.com/gerrit/+/v2.14.5.1/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg)
 
 You can (try to) use following commands (will overwrite previous `commit-msg` script):
 
-    wget -q -O - "https://gerrit.googlesource.com/gerrit/+/master/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg?format=TEXT" | base64 --decode > .git/hooks/commit-msg
-    chmod +x .git/hooks/commit-msg
+```sh
+wget -q -O - "https://gerrit.googlesource.com/gerrit/+/v2.14.5.1/gerrit-server/src/main/resources/com/google/gerrit/server/tools/root/hooks/commit-msg?format=TEXT" | base64 --decode > .git/hooks/commit-msg
+chmod +x .git/hooks/commit-msg
+```
 
 Example commit message should look like
 
@@ -144,7 +145,7 @@ source /usr/local/aquilon/pythonenv/bin/activate
 
 ### Create the Broker Configuration
 
-Setup up the aquilon broker configuration file.  There is an example
+Set up the aquilon broker configuration file.  There is an example
 in `/opt/aquilon/etc/aqd.conf.defaults`.  Move this file to `/etc/aqd.conf`
 and create a empty `/opt/aquilon/etc/aqd.conf.defaults` file
 (or define the `AQDCONF` environment variable to point wherever it is
@@ -162,14 +163,14 @@ starting with `/ms`
 
 ### Configure the Kerberos Server
 
-If you don't rely on an existing Kerberos server, you need to setup one. See the
+If you don't rely on an existing Kerberos server, you need to set up one. See the
 following [instructions](http://tldp.org/HOWTO/Kerberos-Infrastructure-HOWTO/install.html).
-In `/etc/krb5.conf`, change server to servername in [realms] section.*
+In `/etc/krb5.conf`, change `server` to `servername` in [realms] section.*
 
 *Note: if you install the Kerberos on a new machine with not a lot of activity, it may take
 a while for the Kerberos database creation to complete, due to its need to wait for enough
-randomness entropy. To speed up this process, you can follow the recipe at
-http://championofcyrodiil.blogspot.fr/2014/01/increasing-entropy-in-vm-for-kerberos.html.*
+randomness entropy. To speed up this process, you can follow the recipe in the following
+[blog post](http://championofcyrodiil.blogspot.fr/2014/01/increasing-entropy-in-vm-for-kerberos.html.*).
 
 Be sure to define properly the domain associated with your realm: it must match your actual
 domain.
@@ -192,7 +193,7 @@ kadmin.local: quit
 chown aquilon:aquilon /var/spool/keytabs/aquilon
 ```
 
-### Initialize the Aquilon Database
+### Initialise the Aquilon Database
 
 To create the Aquilon database:
 
@@ -245,9 +246,9 @@ service aqd start
 
 ### Git Daemon Configuration
 
-Create a bare Git repository in /var/quattor/template-king that will be the master repository for
+Create a bare Git repository in ``/var/quattor/template-king` that will be the master repository for
 the templates and create its `prod` branch (which is expected to exist after the database
-initialization but is not created):
+initialisation but is not created):
 
 ```bash
 git init --bare /var/quattor/template-king
@@ -263,7 +264,7 @@ git push origin master:prod
 
 By default Aquilon broker uses `trash` branch to take a snapshot of a domain before deleting it.
 If you wish to disable this functionality, leave `trash_branch` option in the `[broker]` configuration section blank.
-To use this feature `trash` branch will need to be manually craeted as part of initial Git Setup:
+To use this feature `trash` branch will need to be manually created as part of initial Git set up:
 
 ```bash
 git push origin prod:trash
@@ -277,4 +278,4 @@ git daemon --export-all --base-path=/var /var/quattor/template-king/ &
 
 ## Aquilon DB Configuration
 
-See http://www.quattor.org/documentation/2013/10/25/aquilon-site.html
+See [starting a site with aquilon](http://www.quattor.org/documentation/2013/10/25/aquilon-site.html).
