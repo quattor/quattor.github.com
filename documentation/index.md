@@ -13,6 +13,8 @@ If you don't find the documentation you need here, tell us!
 
 Latest documentation is [available on ReadTheDocs](https://quattor-pan.readthedocs.org).
 
+Many common code snippets can be found in the [Cheat Sheet](/documentation/2014/02/26/cheat-sheet.html).
+
 ### CAF, CCM and Configuration Modules (Components)
 
 You can find the latest documentation here: <http://quattor-documentation.readthedocs.io/en/latest>
