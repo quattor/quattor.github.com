@@ -18,4 +18,4 @@ echo
 pyenv versions
 pyenv local 3.6
 pip3 install pyenchant
-git diff --name-only HEAD^ | grep '\.md$' | xargs -r python3.5 markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
+git diff --name-only HEAD^ | grep '\.md$' | xargs -r python3.6 markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
