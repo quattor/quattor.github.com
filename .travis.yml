@@ -1,7 +1,11 @@
 language: ruby
 
 rvm:
-- 2.3.1
+- 2.4.2
+
+before_install: gem install bundler # update bundler.
+
+before_script: bundle update github-pages
 
 # Assume bundler is being used, therefore
 # the `install` step will run `bundle install` by default.

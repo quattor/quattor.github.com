@@ -15,6 +15,7 @@ cat markdown-spellchecker-$SCVERSION/src/config.ini
 echo --------------------
 echo
 
-pyenv local 3.5
+pyenv versions
+pyenv local 3.6
 pip3 install pyenchant
 git diff --name-only HEAD^ | grep '\.md$' | xargs -r python3.5 markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
