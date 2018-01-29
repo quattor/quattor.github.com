@@ -39,6 +39,7 @@ quattor
 Quattor
 RabbitMQ
 RAL
+ReadTheDocs
 RPM
 RPMs
 SELinux
