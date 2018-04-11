@@ -8,6 +8,8 @@ redirect_from:
 menu: Basics
 ---
 
+{% include link_definitions.md %}
+
 [devel_unittests]: /development/unittests.html
 
 # Git / GitHub
@@ -22,12 +24,11 @@ All quattor Git repositories are part of the [quattor organisation][quattor_gh] 
 1. An account on [GitHub][github]
 2. [Join][join_quattor] the quattor organisation and `developer` team
    * In case there is a problem, contact the mailing list as [admins can also add new members][join_team_gh]
-3. Join the [`quattor-devel` mailing list][quattor_devel_ml]
+3. Join the [Quattor mailing list][quattor-list]
 
 [github]: https://github.com
 [join_quattor]: https://github.com/orgs/quattor/teams
 [join_team_gh]: https://help.github.com/articles/adding-organization-members-to-a-team/
-[quattor_devel_ml]: https://lists.sourceforge.net/lists/listinfo/quattor-devel
 
 ### Getting started with git
 

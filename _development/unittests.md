@@ -6,7 +6,7 @@ redirect_from: /documentation/2016/03/09/development-unittests.html
 menu: Unit Tests
 ---
 
-[devel_basics]: /development/00-basics.html
+{% include link_definitions.md %}
 
 # Running the tests
 
@@ -65,9 +65,7 @@ The quattor test framework `Test::Quattor` is controlled through maven (this is 
 
 TODO: add list from `build_all_repos`
 
-*Note:* If your development environment is managed by Quattor, you can use the [quattor-development][template_qt_dev] to add all required dependencies
-
-[template_qt_dev]: https://github.com/quattor/template-library-os/blob/sl6.x-x86_64/rpms/quattor-development.pan
+*Note:* If your development environment is managed by Quattor, you can use the [Quattor list][quattor-list] to add all required dependencies
 
 ## Bootstrap yum-based system
 
