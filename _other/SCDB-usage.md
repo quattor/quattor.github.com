@@ -4,10 +4,10 @@ title: SCDB User Guide
 author: Michel Jouvin
 ---
 
-[tl_intro]: /template_library/00-introduction.html
+{% include link_definitions.md %}
 
 **Note: SCDB, the second generation of Quattor databases, is now deprecated in favor 
-of [Aquilon][aquilon_intro] which provides more flexible workflows and an improved  
+of [Aquilon][aquilon_intro] which provides more flexible workflows and an improved
 scalability.. As SCDB is still used as some sites, the information here 
 is kept for reference but if you are a new Quattor user, condider using Aquilon rather 
 than SCDB.**
@@ -153,8 +153,7 @@ If this is the case, just add the `build.xml` file
 to your IDE Ant interface. Eclipse is such an IDE that has been used successfully by 
 several sites.
 
-If you are interested by this integration, contact the Quattor community on the `quattor-discuss` 
-mailing list for example.
+If you are interested by this integration, contact the [Quattor community][quattor-list].
 
 
 ## Frequently Asked Questions about SCDB
