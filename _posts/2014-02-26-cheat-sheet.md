@@ -100,7 +100,7 @@ Download a file from a webserver
 ```sh
 include 'components/download/config';
 
-'/software/components/download/files{/opt/java-mess/horrible.jar}' = dict(
+'/software/components/download/files/{/opt/java-mess/horrible.jar}' = dict(
     'href', 'https://download.example.com/java-mess/jar/horrible-1.2.3.jar',
     'owner', 'root',
     'group', 'root',
