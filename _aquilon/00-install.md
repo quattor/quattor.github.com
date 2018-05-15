@@ -9,9 +9,11 @@ redirect_from:
   - /documentation/2012/10/31/aquilon-prerequisites.html
 ---
 
+{% include link_definitions.md %}
 
 The instruction below describes how to install Aquilon from the sources and run it as a non-root user. Some
-of the installation steps described here require that you can become `root` on the machine.
+of the installation steps described here require that you can become `root` on the machine. The configuration of a
+site with Aquilon is covered in a [specific page][aquilon_configuration].
 
 *Note: the commands provided in this documentation are intended to be copy/pasted.*
 
@@ -148,12 +150,18 @@ If you want the Python module to be installed in a location other than the defau
 installation, add `--prefix` or `--install-base` option. The files other than the Python modules are not
 really needed to run Aquilon.
 
-## Getting Aquilon sources
+## Installing Aquilon
+
+To install Aquilon, clone its source repository. The following command will install Aquilon in
+`/opt/aquilon`.
 
 ```bash
 cd /opt/
 git clone https://github.com/quattor/aquilon.git
 ```
+
+It is possible to install Aquilon in another location: in this case, you must define `/opt/aquilon` as
+a symlink to the directory containing the Aquilon repository.
 
 ### Installation Test
 
@@ -172,24 +180,36 @@ Any other error means that something is wrong in the installation
 
 ### Create the Broker Configuration
 
-Set up the aquilon broker configuration file.  There is an example
-in `/opt/aquilon/etc/aqd.conf.defaults`.  Move this file to `/etc/aqd.conf`
-and create a empty `/opt/aquilon/etc/aqd.conf.defaults` file
-(or define the `AQDCONF` environment variable to point wherever it is
-installed). The default will use a sqlite database back-end. Main required
-changes are:
+The Aquilon broker configuration file is `/etc/aqd.conf`.
+A configuration template is distributed with Aquilon, `/opt/aquilon/etc/aqd.conf.noms`, and should work
+as is if you use the standard directory layout for Aquilon and its data and a SQLite database:
 
-* `dsdb`: change to `/bin/true`
-* `git_daemon`: change to `/usr/libexec/git-core/git-daemon`
-* `ant_contrib_jar`: change to `/usr/share/java/ant/ant-contrib.jar`
-* Comment out every else in the `tool_locations` section that point to a path
-starting with `/ms`
-* `pan_compiler`: change to `/usr/lib/panc.jar`
-* `directory`(in `protocols`section): change to `/var/quattor/aquilon-venv/lib/python2.7/site-packages` if a
-VirutalEnv is used else to `/usr/lib/python2.7/site-packages`
+* `/opt/aquilon`: Aquilon code
+* `/var/quattor`: parent directory for all the Aquilon data directories (database, log files, templates...)
 
-You may also want to adjust `basedir`, `quattordir` and `dbfile` to reflect your configuration if you don't locate
-Aquilon-related data under `/var/quattor`.
+All the possible configuration options can be found in `/opt/aquilon/etc/aqd.conf.defaults`. To change
+a default, define the corresponding setting in `/etc/aqd.conf` (but don't modify `/opt/aquilon/etc/aqd.conf.defaults`).
+The main configuration options that you may want to change are:
+
+* Directories for Aquilon database and other data directories: `dbfile`, `logdir`, `rundir`
+* Pan compiler location: `pan_compiler`. It must be the path of panc jar file.
+* Installation path of Aquilon protocols: `directory` in `protocols`section. It must reflect the
+  installation path used previously, at the installation of the protocols. This is typically
+  `/var/quattor/aquilon-venv/lib/python2.7/site-packages` if a
+  VirutalEnv is used or `/usr/lib/python2.7/site-packages` otherwhise.
+
+When defining paths, you can use variables défined in the `[DEFAULT]` section with the following syntax:
+
+```
+%(variable)s
+```
+
+The default configuration defines 2 such variables:
+
+* `basedir`: Aquilon installation path (`/opt/aquilon`)
+* `quattordir`: Aquilon data parent directory (`var/quattor`)
+
+You can define other variables if convenient for your site and use them around the configuration.
 
 ### Configure the Kerberos Server
 
@@ -375,8 +395,9 @@ git ls-remote /quattor/template-king
 ```
 
 When the `git-daemon` has been successfully tested, stop it (kill the process) and edit `/etc/aqd.conf`
-(`[broker]' section) as follow:
-* Change `-run_git_daemon` to `True`
+(`[broker]` section) to add the following configuration options if their default in
+`/opt/aquilon/etc/aqd.conf.defaults` is not appropriate:
+* Change `run_git_daemon` to `True`
 * Check that `kingdir` value resolves to the actual location of the `template-king` repository created
 previously
 * Check the `git_daemon_basedir` value: it must be the `template-king` repository path prefix to remove for the
@@ -402,6 +423,39 @@ be set with:
     ```bash
     chcon -R -t var_run_t /var/quattor/run
     ```
+
+## Upgrading Aquilon
+
+Upgrading Aquilon involves mainly updating both Aquilon protocols and Aquilon itself and sometimes a database
+schema upgrade. First step if to get the current version of Aquilon installed, using:
+
+```bash
+aq status
+```
+
+To upgrade Aquilon protocos and Aquilon itself, use Git to
+get the last version of each one, executing the following command in the directory containing the
+protocols sources and in `/opt/aquilon`:
+
+```bash
+git pull
+```
+
+For Aquilon protocols, follow the installation procedure above to rebuild and install the new version. Then, after
+updating Aquilon itself, restart the broker:
+
+```bash
+systemctl restart aquilon-broker
+```
+
+To determine if a database upgrade is needed, go to directory `/opt/aquilon/upgrades` and look for directory names
+matching a version greater than the one that was previously installed. If such directories exist, you need to execute
+the SQL scripts (and sometimes Python scripts) they contain in sequence. Look at the `README` for more details.
+
+*Note: up to version 1.12.58, the SQL script is only for Oracle and may require some tweaking for SQLite and
+Postgres. In particular, SQLite has a very limited support for `ALTER TABLE` and doesn't support in particular
+`ATLER TABLE table MODIFY` statement used to define a constraint. This produces an error that can be ignored.'
+
 ## Aquilon DB Configuration
 
-See [starting a site with aquilon](http://www.quattor.org/documentation/2013/10/25/aquilon-site.html).
+See [starting a site with aquilon][aquilon_configuration].
