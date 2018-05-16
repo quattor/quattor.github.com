@@ -44,8 +44,7 @@ yum install ant-apache-regexp ant-contrib \
   python-devel python-setuptools
 ```
 
-
-In addition, you need the following packages for Kerberos, depending on your
+You also need the following packages for Kerberos, depending on your
 Kerberos infrastructure:
 * If you don't use an external Kerberos server, you need to install the
 server package:
@@ -59,6 +58,31 @@ server package:
     ```bash
     yum install msktutil
     ```
+
+In addition, you need the package appropriate for the database backend that you choose. There are 2 options:
+
+* SQLite: this is the easiest choice, as there is no configuration involved, if you want to build
+quickly an Aquilon configuration for testing purposes but it is not recommended
+for a production installation, especially a large one. In addition to the scalability limits, SQLite as no
+incremental backup features and only a limited support for database upgrades (not all the features Aquilon rely
+on for these upgrades, in particular for defining constraints, are available). To use SQLite, you need the
+following package:
+
+    ```bash
+    yum install sqlite
+    ```
+
+* PostgresQL: this is a real database service, recommended for a production installation. It offers many advanced
+administration features, including continuous backup. It requires an additional step to configure the server,
+documented below. The required packages are:
+
+    ```bash
+    yum install postgres-devel postgres-server postgres-contrib
+    ```
+
+*Note: this is (almost) impossible to change the configuration backend of an existing database as there is
+no easy way to dump the database with one backend and import it in another backend. Changing the backend
+basically involves rebuilding the site configuration from scratch.*
 
 If using a distribution other than EL7, you will need python 2.7.x (with virtualenv support installed) and git
 1.7+.
@@ -133,6 +157,37 @@ you actually want to use:
     pip install virtualenv
     ```
 
+## Configuring Database
+
+This step applies only for installation using Postgres as their database backend (recommended, see above). After
+installing the RPMs, it is necessary to initialize the Postgres environment and to create a database for Aquilon.
+The main steps are:
+
+* Initializing the Postgres environment:
+
+```bash
+/usr/bin/postgresql-setup
+```
+
+* Create a Postgres account for Aquilon. This must match the Linux user that will be used by the broker,
+typically `aquilon`:
+
+```bash
+su - postgres -c 'createuser aquilon'
+```
+
+* Create the Aquilon database and define the account created previously as its owner:
+
+```bash
+su - postgres -c 'createdb -O aquilon aquilon'
+```
+
+* Enable and start the `postgresql` service:
+
+```bash
+systemctl enable postgresql
+systemctl start postgresql
+```
 
 ## Building Aquilon protocols
 
@@ -191,7 +246,27 @@ All the possible configuration options can be found in `/opt/aquilon/etc/aqd.con
 a default, define the corresponding setting in `/etc/aqd.conf` (but don't modify `/opt/aquilon/etc/aqd.conf.defaults`).
 The main configuration options that you may want to change are:
 
-* Directories for Aquilon database and other data directories: `dbfile`, `logdir`, `rundir`
+* Database
+  * SQLite: this is the default database backend, use `dbfile` in `[database_sqlite]` to specify a
+  non standard database file by adding the following in `/etc/aqd.conf`:
+
+    ```
+    [database_sqlite]
+    dbfile = /path/to/your/aquilon.db
+    ```
+
+  * Postgres: change the database backend and define the database name by adding the following sections to
+  `/etc/aqd.conf`:
+
+    ```
+    [database]
+    database_section = database_postgresql
+
+    [database_postgresql]
+    dbname = aquilon
+    ```
+
+* Directories for Aquilon data directories: `logdir`, `rundir`
 * Pan compiler location: `pan_compiler`. It must be the path of panc jar file.
 * Installation path of Aquilon protocols: `directory` in `protocols`section. It must reflect the
   installation path used previously, at the installation of the protocols. This is typically
@@ -271,6 +346,7 @@ tool.
 * Create an Active Directory user that will be used by the broker, using the standard Active Directory tools
 to create users. In this documentation, we assume that this account is `aquilon` but you can use whatever
 name you want.
+
 * Create the keytab for the broker account:
 
     ```bash
@@ -280,28 +356,11 @@ name you want.
              --account-name aquilon --user-creds-only
     ```
 
-`msktutil` reinitialize the Active Directory account password with a random value, thus this account
-cannot be used to run Aquilon client (`aq` command). To workaround this and enable another existing
-AD account (Kerberos principal) to act as the Aquilon admin, you will need to execute the following
-steps once the broker has been started (see below):
-
-* Execute `kinit` for the principal that you want to add as an Aquilon admin
-* Execute command `aq.py status`: it should return that the principal is mapped to role `nobody`
-* Assuming that the Aquilon DB is located in `/var/quattor/aquilondb` (see below) and that the
-principal userid is `aqadm`, execute the following
-commands:
-    ```bash
-    # Retrieve the ID associated with the role `aqd_admin`
-    admin_role_id=$(sqlite3 /var/quattor/aquilondb "select id from role where name='aqd_admin';")
-    # Retrive the ID associated with the principal that you want to modify
-    admin_pri_id=$(sqlite3 /var/quattor/aquilondb "select id from user_principal where name='aqadm';")
-    # Check that both IDs are defined (non empty value)
-    echo $admin_role_id
-    echo $admin_pri_id
-    # If they are defined, update the role associated with the principal
-    sqlite3 /var/quattor/aquilondb "update user_principal set role_id=${admin_role_id} where id=${admin_pri_id};"
-    ```
 * Restart the Aquilon broker
+
+*Note: `msktutil` reinitializes the Active Directory account password with a random value, thus this account
+cannot be used to run Aquilon client (`aq` command). **Be sure to use another principal** when initializing
+the Aquilon database (next step) to ensure that you have at least one usable Aquilon administrator.*
 
 ### Initialise the Aquilon Database
 
@@ -314,7 +373,7 @@ su - aquilon
 # Activate the VirtualEnv is one is used
 . /var/quattor/aquilon-venv/bin/activate
 # kinit user must be either `aquilon` if you use a standalone Kerberos server or
-# a valid principal if you have a central infrastructure (including Active Directory)
+# another valid principal if you have a central infrastructure (including Active Directory)
 kinit        # Enter the password you set previously
 /opt/aquilon/tests/aqdb/build_db.py
 ```
@@ -458,4 +517,38 @@ Postgres. In particular, SQLite has a very limited support for `ALTER TABLE` and
 
 ## Aquilon DB Configuration
 
-See [starting a site with aquilon][aquilon_configuration].
+See [starting a site with Aquilon][aquilon_configuration].
+
+
+## Troubleshooting
+
+### No known Aquilon administrator authorized
+
+This may happend particularly if you executed `build_db` (database initialization) with the `aquilon` principal
+when using Active Directory, as adding the entry in the `keytab` file will reset it password and changing the
+password afterward will make the `keytab` file unsynchronized with Kerberos realm.
+
+To workaround this and enable another existing
+AD account (Kerberos principal) to act as the Aquilon admin, you will need to execute the following
+steps on the database server using a user with modification rights on the Aquilon database. The broker must
+be running. The database commands given are for SQLite backend, adapt them to your backend (for Postgres, this
+typically involves executing `psql -d aquilon -c "sql command"` insted of
+`sqlite3 /var/quattor/aquilondb` "sql command").
+
+* `su -` to the `aquilon` account and execute `kinit` for the principal that you want to add as an Aquilon admin
+* Execute command `aq.py status`: it should return that the principal is mapped to role `nobody`
+* Assuming that the Aquilon DB is located in `/var/quattor/aquilondb` (see below) and that the
+principal userid is `aqadm`, execute the following
+commands:
+    ```bash
+    # Retrieve the ID associated with the role `aqd_admin`
+    admin_role_id=$(sqlite3 /var/quattor/aquilondb "select id from role where name='aqd_admin';")
+    # Retrive the ID associated with the principal that you want to modify
+    admin_pri_id=$(sqlite3 /var/quattor/aquilondb "select id from user_principal where name='aqadm';")
+    # Check that both IDs are defined (non empty value)
+    echo $admin_role_id
+    echo $admin_pri_id
+    # If they are defined, update the role associated with the principal
+    sqlite3 /var/quattor/aquilondb "update user_principal set role_id=${admin_role_id} where id=${admin_pri_id};"
+    ```
+
