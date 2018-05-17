@@ -362,6 +362,22 @@ name you want.
 cannot be used to run Aquilon client (`aq` command). **Be sure to use another principal** when initializing
 the Aquilon database (next step) to ensure that you have at least one usable Aquilon administrator.*
 
+### Create the Aquilon directories
+
+Aquilon requires a few directories to be created for its internal data, the log files, the templates and, if
+SQLite is used, for the database. All theses directories must be own by the `aquilon` account created before.
+Based on the default configuration proposed, use the following commands to create those directories. Adapt
+the directory paths to what you put in `/etc/aqd.conf` before.
+
+    ```bash
+    mkdir /var/quattor
+    mkdir /var/quattor/domains
+    # The following directory is needed only if the SQLite backend is used
+    mkdir /var/quattor/aquilondb
+    chown -R aquilon:aquilon /var/quattor
+    ```
+
+
 ### Initialise the Aquilon Database
 
 To create the Aquilon database:
