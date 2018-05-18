@@ -81,9 +81,9 @@ command before actually running it.
 *Note: most `aq` commands are two words separated by an `_` (e.g. `add_personality`). For all these
 commands, it is possible to enter the command as two separate words (e.g. `add personality`).*
 
-Before starting using the `aq` command, you need get a Kerberos ticket. If
-the user you are logged on has been declared as a Kerberos principal, you
-can do it with `kinit` command (without parameters).
+Before starting using the `aq` command, you need get a Kerberos ticket. Use the `kinit` command
+to get it. If the Kerberos principal to use is different from the current Linux user, pass its name
+as a parameter to the `kinit` command.
 
 ## Archetypes, domains...
 
@@ -368,21 +368,65 @@ compile it.  Now it's time to produce Pan code to configure the host.
 
 ## Creating your first sandbox
 
-We'll do all our work in sandboxes, and we'll dispose of them when
-their purpose is ready.   So, let's create our first sandbox:
+Sandboxes are Git repositories that are associated with an Aquilon user where the pan template
+development occurs.
+
+### Define the Kerberos realm as trusted
+
+To be able to add a sandbox, the Kerberos realm used to authenticate Aquilon users must
+be trusted. This is not the default when a realm is added. To declare a realm as trusted,
+use `aq update realm` command.
+
+The realm used is based on the Kerberos configuration that was done during Aquilon
+[installation][aquilon_install]. Use `klist` command to get it, if you don't know it.
+
+Assuming that your real is called `dailyplanet.com` (it often matches your DNS domain), the command
+to use is:
+
+```bash
+aq update realm --realm dailyplanet.com --trusted
+```
+
+### Add an Aquilon user
+
+A sandbox is associated with an Aquilon user. The Aquilon user is associated with an existing Linux account
+via the `uid` and `gid` but doesn't have to be Aquilon user name doesn't have to match the Linux userid.
+It must be created with the `aq add user` command if the user doesn't exist already. To list existing
+users, use:
+
+```bash
+aq show user --all
+```
+
+If you are using the `aquilon` Linux user as suggested, use the following commands:
+
+```bash
+# Retrieve the Linux `uid` and `gid` for this account
+id aquilon
+# Create the Aquilon account
+aq add user --user aquilon --uid uid_retrieved --gid gid_retrieved --home aquilon_account_dir
+```
+
+### Sandbox creation
+
+The following command will create the sandbox object and the Git repository associated in
+`/var/quattor/templates/user/sandbox_name` with `user` the Aquilon user matching the Kerberos principal
+used and `sandbox_name` the name of the sandbox create. The Git repository created is a clone of the
+`template-king` repository (`template-king` is the Git remote `origin` for the sandbox repository):
 
 ```bash
 aq add sandbox --sandbox site-init
 ```
 
-We'll also associate one host to it:
+Once the sandbox is created, it is necessary to associate the host we want to manage with the
+sandbox, using:
 
 ```bash
 aq manage --sandbox $USER/site-init --hostname 'testsrv.dailyplanet.com'
 ```
 
-And you can now cd to the `templatesdir` (in our case,
-`/var/lib/templates/$USER/site-init`) and start producing code there.
+You are now ready to produce some useful pan code to define the configuration of the
+host `testsrv.dailyplanet.com`.
 
 ## Importing your first templates
 
