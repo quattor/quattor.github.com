@@ -445,12 +445,13 @@ git init --bare /var/quattor/template-king
 cd /tmp
 git clone /var/quattor/template-king
 cd template-king
+git checkout -b prod
 # You can adjust the README contents if you want
 echo "Aquilon templates master repository" > README.md
 git add README.md
 # If Git complains about missing user.email and user.name, define them (actual value does not matter)
 git commit -am 'README added'
-git push origin master:prod
+git push --set-upstream origin HEAD
 ```
 
 By default Aquilon broker uses `trash` branch to take a snapshot of a domain before deleting it.
@@ -458,7 +459,7 @@ If you wish to disable this functionality, leave `trash_branch` option in the `[
 To use this feature (enabled by default), `trash` branch will need to be manually created as part of initial Git set up:
 
 ```bash
-git push origin master:trash
+git push origin prod:trash
 ```
 
 Then start the Git daemon and test it:
