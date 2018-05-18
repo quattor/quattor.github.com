@@ -246,98 +246,39 @@ Our network has some DNS domains.  We have to add them:
 aq add dns_domain --dns_domain 'dailyplanet.com'
 ```
 
-## Personalities and features
+## Declaring your first host
+
+### Adding a personality
 
 Before being able to add our first host, we need to define a `personality`.
 Personalities are collections of smaller chunks called features.  A
 `feature` is re-usable in many contexts, by different personalities,
-hardware models.
+hardware models...
 
-### Creating a GRN
+At this stage we'll create an empty personality, without associated features. Indeed, a feature
+definition implies writing some pan templates, something that cannot be done at this stage.
 
-A GRN is an organisation group or entity name that will own features and personalities. You can create as
+Before creating the personnality, we need to define a GRN. A GRN is an organisation group or
+entity name that will own features and personalities. You can create as
 many GRNs as you want. Each GRN has a neme, specified and a unique ID, called an `EON_ID`.
 They are respectively specified with option `--grn` and `--eon_id` in `aq` commands that need them: both
-are equivalent.
-
-To create a GRN, use the following command:
+are equivalent. To create our first GRN, use the following command:
 
     ```bash
     aq add grn --grn test --eon_id 1
     ```
 
-### Adding features
-
-We can now create features: This involves creating the personality in the Aquilon database with the
-`aq` command and adding a pan template defining the feature in the template master Git repository for the
-domain (here `test`), located under `/var/quattor/domains`.
-
-In this example we'll create two templates
-
-```bash
-aq add feature --feature demo --type host --activation dispatch --deactivation reboot --grn test
-aq add feature --feature rootpasswd --type host --activation dispatch --deactivation dispatch --grn test
-```
-
-For each template, create a template `config.pan` in the template master directory, in our example
-`/var/quattor/domains/test` (where `test` is the domain the host will belong to). This template must
-reside at the path `archetype/features/feature_name`, with `archetype` the archetype the feature will belong to
-(in our example `linux`) and `feature_name` equal to `demo` for the first feature and to `rootpasswd` for the second
-one. At this stage create aach file with the following content (`feature_name` being replaced by the appropriate
-value):
-
-```
-unique template features/feature_name/config;
-```
-
-Once the templates associated with the features have been created, it is necessary to commit them and push them
-to the `template-king` Git repository which is defined as the origin of the template master repository for the
-domain, `test` here:
-
-```bash
-cd /var/quattor/domains/test
-git add .
-git commit -m 'Add features demon and rootpasswd'
-git push
-```
-
-
-### Adding a personality
-
-Steps involved a personality creation are:
-
-* Creation of the personality, here `test`, attached to an already existing archetype:
+When creating a personality, here `test`, it must be attached to an already existing archetype (here
+`linux`):
 
     ```bash
     aq add personality --personality test --archetype linux \
                        --grn test --host_environment dev
     ```
 
-* Bind the features to the personality or to the archetype, if you want them to apply it to every
-personality in the archetype, like for `rootpasswd`:
-
-    ```bash
-    aq bind feature --feature demo --personality test --archetype linux
-    aq bind feature --feature rootpasswd --archetype linux
-    ```
-
-* Promote the personality as a current: Aquilon implements personality staging so that a modification to a
-personality does not affect the hosts using it until it is declared `current`. After its creation or a modification,
-the stage is set to `next`.
-
-    ```bash
-    # This command should show that the personality 'test' stage is 'next'
-    aq show personality --all
-    aq promote --personality test --archetype linux
-    # This command should show that the personality 'test' stage is now 'current'
-    aq show personality --all
-    ```
-
-## Declaring your first host
-
 ### Adding the operating system
 
-Aquilon must know about the valid OS for each archetype (you can declare several). An
+Aquilon must also know about the valid OS for each archetype (you can declare several). An
 OS has a name and a version.
 
 To create an OS object for CentOS 7.x for the archetype `linux`, use the following command:
@@ -347,7 +288,7 @@ To create an OS object for CentOS 7.x for the archetype `linux`, use the followi
     ```
 
 
-### Adding a host
+### Adding first host
 
 Now we can declare a host on our `testhw` machine.
 A host needs to receive a personality when it is
@@ -356,15 +297,31 @@ first registered in Aquilon, that can be later changed if necessary.
 Now, we use all that information to add a `testsrv.dailyplanet.com` host:
 
 ```bash
-aq add host --hostname 'testsrv.dailyplanet.com' --machine 'testhw' --ip '192.168.1.3' \
+aq add host --hostname testsrv.dailyplanet.com --machine testhw --ip 192.168.1.3 \
              --domain test --archetype linux --personality test --osname centos --osversion 7.x
 ```
 
-Congratulations!  You have your first host!  Run `aq show_host --all`
-to see it.
+You have your first host!  Run `aq show_host --all` to see it.
 
-But we aren't done yet.  This host is empty!!  And Aquilon won't even
-compile it.  Now it's time to produce Pan code to configure the host.
+### Compiling the added host
+
+We can now try to compile the host `testsrv.dailyplanet.com`.
+With Aquilon, the compile command recompiles every host with configuration changes in a given
+sandbox or domain.
+
+```bash
+aq compile --sandbox aquilon/site-init
+```
+
+The compilation itself will fail during the `compile.object.profile` phase, complaining about
+missing templates, because we have not added the template library yet but it allows to
+check that the compile command works. If the compilation fails to start, in particular with a message
+related to missing classes, see the [Troubleshooting][aq_conf_troubleshooting] section.
+
+But we aren't done yet.  This host is empty!!  Now it's time to produce some Pan code
+to define features that will associated with the personality `test` and to configure the host.
+To be able to do it, we first need to create a sandbox.
+
 
 ## Creating your first sandbox
 
@@ -411,32 +368,145 @@ aq add user --user aquilon --uid uid_retrieved --gid gid_retrieved --home aquilo
 
 The following command will create the sandbox object and the Git repository associated in
 `/var/quattor/templates/user/sandbox_name` with `user` the Aquilon user matching the Kerberos principal
-used and `sandbox_name` the name of the sandbox create. The Git repository created is a clone of the
-`template-king` repository (`template-king` is the Git remote `origin` for the sandbox repository):
+used and `sandbox_name` the name of the sandbox create. The sandbox is a Git repository
+created as a clone of the `template-king` repository (`template-king` is the Git remote
+`origin` for the sandbox repository):
 
 ```bash
 aq add sandbox --sandbox site-init
 ```
 
 Once the sandbox is created, it is necessary to associate the host we want to manage with the
-sandbox, using:
+sandbox. In all the Aquilon commands requiring a `--sandbox` option (except the `xxx_sandbox` comands),
+the sandbox name is `user/sandbox`.
 
 ```bash
+# The following command assumes that the Aquilon user has the same name as the current Linux user
 aq manage --sandbox $USER/site-init --hostname 'testsrv.dailyplanet.com'
 ```
+
+*Note: if you want to remove the host from the sandbox, you need to use the same command with the option
+`--domain` instead of `--sandbox` to move it back to a domain. You can also move it to another sandbox.*
 
 You are now ready to produce some useful pan code to define the configuration of the
 host `testsrv.dailyplanet.com`.
 
-## Importing your first templates
+## Configuring the first host
 
-It's now time for some Pan code!  Let's start by setting up the
-archetype.  We'll create a directory for the `linux` archetype, and
-put two Pan templates there: `base` and `final`.
+We are now ready to add some useful configuration to host `test`.
+Before being able to add our first host, we need to import the Quattor [template library][tl_intro].
+The template library is a set of generic templates that
+help to build machine description.
+
+### Importing the Template Library
+
+The template library is imported using the
+[plenary_template_library.py](https://github.com/quattor/release/tree/master/src/scripts/plenary_template_library)
+script. Download the script and execute it with option `--help` to display all the options available. A typical execution of this
+script, to download the template library version `18.3.0`, is:
+
+```bash
+plenary_template_library.py --release 18.3.0 /var/quattor/cfg/plenary/template-library
+```
+
+The `/var/quattor/cfg/plenary/template-library` directory will contain a directory corresponding to the version
+downloaded, making easy to have different versions of the template library. In this directory, a sub-directory
+is created for each component of the template library: `core`, `os`, `standard`, `openstack` and `grid`. As the
+template library is not supposed to be modified, it is intentionally placed into the plenary templates
+directory rather than in the `template-king` Git repository.
+
+### Enabling the Template Library
+
+A template library version is enabled in the context of an archetype, using `archetype/base.pan` template (with
+archetype corresponding to the selected archetype, here `linux`). The content to add to this template is:
+
+```pan
+unique template base;
+
+# Replace by the template library version you want to use
+final variable QUATTOR_RELEASE = '18.3.0';
+
+# Replace by the OS version you want to use
+final variable OS_RELEASE = 'el7.x-x86_64';
+
+variable LOADPATH = prepend(SELF, format('template-library/%s/core', QUATTOR_RELEASE));
+variable LOADPATH = prepend(SELF, format('template-library/%s/standard', QUATTOR_RELEASE));
+variable LOADPATH = append(SELF, format('template-library/%s/os/%s', QUATTOR_RELEASE, OS_RELEASE));
+
+# If you want to use UMD grid middleware templates, uncomment the following lines
+#final variable GRID_MIDDLEWARE_RELEASE = 'umd-4';
+#variable LOADPATH = prepend(SELF, format('template-library/%s/grid/%s', QUATTOR_RELEASE, GRID_MIDDLEWARE_RELEASE));
+
+# If you want to use OpenStack templates, uncomment the following lines
+#final variable OPENSTACK_RELEASE = 'newton';
+#variable LOADPATH = prepend(SELF, format('template-library/%s/openstack/%s', QUATTOR_RELEASE, OPENSTACK_RELEASE));
+```
 
 
 
-## Compiling the first host
+## Defining New Features
+
+### Adding a feature
+
+We can now create a feature: this involves creating the feature object in the Aquilon database with the
+`aq` command and adding a pan template defining the feature. When creating a feature, it is necessary
+to define what action triggers its activation and deactivation. See `aq help add feature` for possible
+values.
+
+```bash
+aq add feature --feature demo --type host --activation dispatch --deactivation reboot --grn test
+```
+
+Once the feature has been added, it is necessary to create a template `config.pan` that will define what the
+feature actually does. This template will first be added to the sandbox, `/var/quattor/templates/user/aquilon`,
+to test it. This template must reside at the path `archetype/features/feature_name` in the sandbox,
+with `archetype` the archetype the feature will belong to
+(in our example `linux`) and `feature_name` equal to the feature name (her `demo`).
+At this stage create a file with the following content:
+
+```
+unique template features/demo/config;
+```
+
+Once the template been created, it is necessary to commit it and push
+to the `template-king` Git repository which is defined as the origin of the template master repository for the
+domain, `test` here:
+
+```bash
+cd /var/quattor/domains/test
+git add .
+git commit -m 'Add features demon and rootpasswd'
+git push
+```
+
+### Bind the features to a personality or archetype
+
+* Bind the features to the personality or to the archetype, if you want them to apply it to every
+personality in the archetype, like for `rootpasswd`:
+
+    ```bash
+    aq bind feature --feature demo --personality test --archetype linux
+    aq bind feature --feature rootpasswd --archetype linux
+    ```
+
+* Promote the personality as a current: Aquilon implements personality staging so that a modification to a
+personality does not affect the hosts using it until it is declared `current`. After its creation or a modification,
+the stage is set to `next`.
+
+    ```bash
+    # This command should show that the personality 'test' stage is 'next'
+    aq show personality --all
+    aq promote --personality test --archetype linux
+    # This command should show that the personality 'test' stage is now 'current'
+    aq show personality --all
+    ```
+
+### Adding a feature bound to the archetype
+
+```bash
+aq add feature --feature rootpasswd --type host --activation dispatch --deactivation dispatch --grn test
+```
+
 
 ## Deploying the first configuration
 
@@ -456,3 +526,18 @@ cd /var/quattor/template-king
 # Replace 'domain' by the actual domain name that you are trying to create
 git branch -D domain
 ```
+
+### Failure to run aq compile
+
+If `aq compile` fails to run properly (not if the compilation results in errors) because of something wrong
+with the compilation command, look for string `ant` in `/var/quattor/logs/aqd.log` and execute the command found
+in the log as the user who run the `aq compile` command, adding the option `--execdebug`, after defining
+the `ANT_HOME` environment variable with the value of the `ant_home` parameter in `/etc/aqd.conf`.
+
+This allows to see
+the Java command executed with all its options and to identify the wrong one.
+
+In particular if you get the error `Could not find or load main class org.apache.tools.ant.launch.Launcher`
+and if `ant` has been installed, you should suspect an incorrect definition of `ant_home` parameter in
+`/etc/aqd.conf`. The standard value should be `/usr/share/ant` and result in `/usr/share/ant/lib/ant-launcher.jar`
+being added to the classpath.

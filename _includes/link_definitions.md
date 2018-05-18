@@ -3,6 +3,7 @@ This file contains link definitions that can be used in reference links.
 {% endcomment %}
 
 [aquilon_install]: /aquilon/00-install.html
+[aq_conf_troubleshooting]: /aquilon/site_configuration.html#troubleshooting
 
 [devel_basics]: {% link _development/00-basics.md %}
 
