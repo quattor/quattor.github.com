@@ -64,6 +64,8 @@ These are the basic terms in Aquilon operations:
   administrator to model client hosts connecting to different
   instances based on location and optionally personality.
 
+For more details on these concepts, see the the [dedicated page][aquilon_details].
+
 ### Before proceeding
 
 Some understanding of Quattor's [architecture](/documentation/2012/06/19/documentation-overview.html) and the
@@ -202,44 +204,6 @@ separate gateways.  Networks can live in different network
 environments (for instance, internal, public...) on which separate policies may
 apply.  Check the help for the `aq add_network_environment` command.
 
-### How to define the routers for my networks?
-
-When we declare our networks, Aquilon will assume a fixed IP
-(typically the first IP in the range) is the gateway in it.  If this
-isn't correct, you have to modify the configuration for the broker.
-Create a `network_unknown` section, and declare the default gateway offset.
-
-```ini
-[network_unknown]
-default_gateway_offset=30
-reserved_offsets=1,30,25
-first_usable_offset=40
-```
-
-And finally we restart the broker:
-
-```bash
-systemctl restart aquilon-broker
-```
-
-If some of your networks don't adhere to this convention, you'll need
-to declare their routers in Aquilon.  For instance, let's suppose that
-the gateway in `reporters` network has offset 3:
-
-```bash
-aq add_router --ip '192.168.100.3' --fqdn 'router.reporters.metropolis.com'
-```
-
-If your network is an internal one (the default), some restrictions
-apply:
-
-* Routers must be part of the `reserved_offsets` list.
-* Router offsets must be below the `first_usable_offset`, which the
-  broker uses when assigning IP addresses automatically.
-
-If you need an external network, you have to create it with
-`--network_environment external` in its command line.
-
 ### DNS domains
 
 Our network has some DNS domains.  We have to add them:
@@ -248,11 +212,67 @@ Our network has some DNS domains.  We have to add them:
 aq add_dns_domain --dns_domain 'dailyplanet.com'
 ```
 
+## Configuring the Template Library
+
+The template library is a set of generic templates that
+help to build host descriptions. It provides many building blocks, in particular
+`features`, ready to use to configure standard OS services and a few more specific
+middleware, like [OpenStack](https://www.openstack.org) for clouds or
+[UMD](https://wiki.egi.eu/wiki/Middleware){:data-proofer-ignore=""}
+for grid.
+
+### Importing the Template Library
+
+The template library must be imported in the [plenary template][aquilon_plenary] area using the
+[plenary_template_library.py](https://github.com/quattor/release/tree/master/src/scripts/plenary_template_library)
+script. Download the script and execute it with option `--help` to display all the options available. A typical execution of this
+script, to download the template library version `18.3.0`, is:
+
+```bash
+plenary_template_library.py --release 18.3.0 /var/quattor/cfg/plenary/template-library
+```
+
+The `/var/quattor/cfg/plenary/template-library` directory will contain a directory corresponding to the version
+downloaded, making easy to have different versions of the template library. In this directory, a sub-directory
+is created for each component of the template library: `core`, `os`, `standard`, `openstack` and `grid`. As the
+template library is not supposed to be modified, it is intentionally placed into the plenary templates
+directory rather than in the `template-king` Git repository.
+
+### Enabling the Template Library
+
+A template library version is enabled in the context of an archetype, using `archetype/base.pan`
+This template is typically placed in the archetype directory for which you want to enable this version
+of the template library. Currently, we'll add it to the plenary templates area, under
+ `/var/quattor/cfg/plenary/linux`. The content to add to this template is:
+
+```pan
+unique template archetype/base;
+
+# Replace by the template library version you want to use
+final variable QUATTOR_RELEASE = '18.3.0';
+
+# Replace by the OS version you want to use
+final variable OS_RELEASE = 'el7.x-x86_64';
+
+variable LOADPATH = append(SELF, format('template-library/%s/core', QUATTOR_RELEASE));
+variable LOADPATH = append(SELF, format('template-library/%s/standard', QUATTOR_RELEASE));
+variable LOADPATH = append(SELF, format('template-library/%s/os/%s', QUATTOR_RELEASE, OS_RELEASE));
+
+# If you want to use UMD grid middleware templates, uncomment the following lines
+#final variable GRID_MIDDLEWARE_RELEASE = 'umd-4';
+#variable LOADPATH = append(SELF, format('template-library/%s/grid/%s', QUATTOR_RELEASE, GRID_MIDDLEWARE_RELEASE));
+
+# If you want to use OpenStack templates, uncomment the following lines
+#final variable OPENSTACK_RELEASE = 'newton';
+#variable LOADPATH = append(SELF, format('template-library/%s/openstack/%s', QUATTOR_RELEASE, OPENSTACK_RELEASE));
+```
+
+
 ## Declaring your first host
 
 ### Adding a personality
 
-Before being able to add our first host, we need to define a `personality`.
+Before being able to add a host, we need to define a `personality`.
 Personalities are collections of smaller chunks called features.  A
 `feature` is re-usable in many contexts, by different personalities,
 hardware models...
@@ -303,183 +323,17 @@ aq add_host --hostname testsrv.dailyplanet.com --machine testhw --ip 192.168.1.3
              --domain test --archetype linux --personality test --osname centos --osversion 7.x
 ```
 
-You have your first host!  Run `aq show_host --all` to see it.
-
-### Compiling the added host
-
-We can now try to compile the host `testsrv.dailyplanet.com`.
-With Aquilon, the compile command recompiles every host with configuration changes in a given
-sandbox or domain.
+Once the host has been created, to be able to compile its configuration, it must be associated with a pan
+template context, either a domain or a sandbox,
+using the command `aq manage`. Currently we'll associate it with the template domain `test`.
 
 ```bash
-aq compile --sandbox aquilon/site-init
+aq manage --hostname testsrv.dailyplanet.com --domain test
 ```
 
-The compilation itself will fail during the `compile.object.profile` phase, complaining about
-missing templates, because we have not added the template library yet but it allows to
-check that the compile command works. If the compilation fails to start, in particular with a message
-related to missing classes, see the [Troubleshooting][aq_conf_troubleshooting] section.
-
-But we aren't done yet.  This host is empty!!  Now it's time to produce some Pan code
-to define features that will associated with the personality `test` and to configure the host.
-To be able to do it, we first need to create a sandbox.
-
-
-## Creating your first sandbox
-
-Sandboxes are Git repositories that are associated with an Aquilon user where the pan template
-development occurs.
-
-### Define the Kerberos realm as trusted
-
-To be able to add a sandbox, the Kerberos realm used to authenticate Aquilon users must
-be trusted. This is not the default when a realm is added. To declare a realm as trusted,
-use `aq update_realm` command.
-
-The realm used is based on the Kerberos configuration that was done during Aquilon
-[installation][aquilon_install]. Use `klist` command to get it, if you don't know it.
-
-Assuming that your real is called `dailyplanet.com` (it often matches your DNS domain), the command
-to use is:
-
-```bash
-aq update_realm --realm dailyplanet.com --trusted
-```
-
-### Add an Aquilon user
-
-A sandbox is associated with an Aquilon user. The Aquilon user is associated with an existing Linux account
-via the `uid` and `gid` but doesn't have to be Aquilon user name doesn't have to match the Linux userid.
-It must be created with the `aq add_user` command if the user doesn't exist already. To list existing
-users, use:
-
-```bash
-aq show_user --all
-```
-
-If you are using the `aquilon` Linux user as suggested, use the following commands:
-
-```bash
-# Retrieve the Linux `uid` and `gid` for this account
-id aquilon
-# Create the Aquilon account
-aq add_user --user aquilon --uid uid_retrieved --gid gid_retrieved --home aquilon_account_dir
-```
-
-### Sandbox creation
-
-The following command will create the sandbox object and the Git repository associated in
-`/var/quattor/templates/user/sandbox_name` with `user` the Aquilon user matching the Kerberos principal
-used and `sandbox_name` the name of the sandbox create. The sandbox is a Git repository
-created as a clone of the `template-king` repository (`template-king` is the Git remote
-`origin` for the sandbox repository):
-
-```bash
-aq add_sandbox --sandbox site-init
-```
-
-Once the sandbox is created, it is necessary to associate the host we want to manage with the
-sandbox. In all the Aquilon commands requiring a `--sandbox` option (except the `xxx_sandbox` comands),
-the sandbox name is `user/sandbox`.
-
-```bash
-# The following command assumes that the Aquilon user has the same name as the current Linux user
-aq manage --sandbox $USER/site-init --hostname 'testsrv.dailyplanet.com'
-```
-
-*Note: if you want to remove the host from the sandbox, you need to use the same command with the option
-`--domain` instead of `--sandbox` to move it back to a domain. You can also move it to another sandbox.*
-
-You are now ready to produce some useful pan code to define the configuration of the
-host `testsrv.dailyplanet.com`.
-
-## Configuring the first host
-
-We are now ready to add some useful configuration to host `test`.
-Before being able to add our first host, we need to import the Quattor [template library][tl_intro].
-The template library is a set of generic templates that
-help to build machine description.
-
-### Importing the Template Library
-
-The template library is imported using the
-[plenary_template_library.py](https://github.com/quattor/release/tree/master/src/scripts/plenary_template_library)
-script. Download the script and execute it with option `--help` to display all the options available. A typical execution of this
-script, to download the template library version `18.3.0`, is:
-
-```bash
-plenary_template_library.py --release 18.3.0 /var/quattor/cfg/plenary/template-library
-```
-
-The `/var/quattor/cfg/plenary/template-library` directory will contain a directory corresponding to the version
-downloaded, making easy to have different versions of the template library. In this directory, a sub-directory
-is created for each component of the template library: `core`, `os`, `standard`, `openstack` and `grid`. As the
-template library is not supposed to be modified, it is intentionally placed into the plenary templates
-directory rather than in the `template-king` Git repository.
-
-### Enabling the Template Library
-
-A template library version is enabled in the context of an archetype, using `archetype/base.pan` template (with
-archetype corresponding to the selected archetype, here `linux`). The content to add to this template is:
-
-```pan
-unique template base;
-
-# Replace by the template library version you want to use
-final variable QUATTOR_RELEASE = '18.3.0';
-
-# Replace by the OS version you want to use
-final variable OS_RELEASE = 'el7.x-x86_64';
-
-variable LOADPATH = prepend(SELF, format('template-library/%s/core', QUATTOR_RELEASE));
-variable LOADPATH = prepend(SELF, format('template-library/%s/standard', QUATTOR_RELEASE));
-variable LOADPATH = append(SELF, format('template-library/%s/os/%s', QUATTOR_RELEASE, OS_RELEASE));
-
-# If you want to use UMD grid middleware templates, uncomment the following lines
-#final variable GRID_MIDDLEWARE_RELEASE = 'umd-4';
-#variable LOADPATH = prepend(SELF, format('template-library/%s/grid/%s', QUATTOR_RELEASE, GRID_MIDDLEWARE_RELEASE));
-
-# If you want to use OpenStack templates, uncomment the following lines
-#final variable OPENSTACK_RELEASE = 'newton';
-#variable LOADPATH = prepend(SELF, format('template-library/%s/openstack/%s', QUATTOR_RELEASE, OPENSTACK_RELEASE));
-```
-
-
-
-## Defining New Features
-
-### Adding a feature
-
-We can now create a feature: this involves creating the feature object in the Aquilon database with the
-`aq` command and adding a pan template defining the feature. When creating a feature, it is necessary
-to define what action triggers its activation and deactivation. See `aq help add feature` for possible
-values.
-
-```bash
-aq add_feature --feature demo --type host --activation dispatch --deactivation reboot --grn test
-```
-
-Once the feature has been added, it is necessary to create a template `config.pan` that will define what the
-feature actually does. This template will first be added to the sandbox, `/var/quattor/templates/user/aquilon`,
-to test it. This template must reside at the path `archetype/features/feature_name` in the sandbox,
-with `archetype` the archetype the feature will belong to
-(in our example `linux`) and `feature_name` equal to the feature name (her `demo`).
-At this stage create a file with the following content:
-
-```
-unique template features/demo/config;
-```
-
-Once the template been created, it is necessary to commit it and push
-to the `template-king` Git repository which is defined as the origin of the template master repository for the
-domain, `test` here:
-
-```bash
-cd /var/quattor/domains/test
-git add .
-git commit -m 'Add features demon and rootpasswd'
-git push
-```
+The execution of `aq manage` will build the host profile in `/var/quattor/cfg/domains/test/profiles`
+and compile it. The compilation should succeed: if it fails, review the previous steps. If the
+compilation fails, the profile is removed.
 
 ### Bind the features to a personality or archetype
 
@@ -502,6 +356,26 @@ the stage is set to `next`.
     # This command should show that the personality 'test' stage is now 'current'
     aq show_personality --all
     ```
+
+### Compiling the added host
+
+We can now try to compile the host `testsrv.dailyplanet.com`.
+With Aquilon, the compile command recompiles every host with configuration changes in a given
+sandbox or domain.
+
+```bash
+aq compile --sandbox aquilon/site-init
+```
+
+The compilation itself will fail during the `compile.object.profile` phase, complaining about
+missing templates, because we have not added the template library yet but it allows to
+check that the compile command works. If the compilation fails to start, in particular with a message
+related to missing classes, see the [Troubleshooting][aq_conf_troubleshooting] section.
+
+But we aren't done yet.  This host is empty!!  Now it's time to produce some Pan code
+to define features that will associated with the personality `test` and to configure the host.
+To be able to do it, we first need to create a sandbox.
+
 
 ### Adding a feature bound to the archetype
 

@@ -2,7 +2,14 @@
 This file contains link definitions that can be used in reference links.
 {% endcomment %}
 
+[aquilon_configuration]: /aquilon/configuration.html
+[aquilon_details]: /aquilon/technical_details.html
+[aquilon_domains]: /aquilon/technical_details.html#domains
 [aquilon_install]: /aquilon/00-install.html
+[aquilon_management]: /aquilon/management.html
+[aquilon_plenary]: /aquilon/technical_details.html#plenary-templates
+[aquilon_sandboxes]: /aquilon/technical_details.html#sandboxes
+[aquilon_tl]: /aquilon/configuration.html#configuring-the-template-library
 [aq_conf_troubleshooting]: /aquilon/site_configuration.html#troubleshooting
 
 [devel_basics]: {% link _development/00-basics.md %}
