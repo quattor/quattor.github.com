@@ -297,7 +297,7 @@ definition implies writing some pan templates, something that cannot be done at 
 
 Before creating the personnality, we need to define a GRN. A GRN is an organisation group or
 entity name that will own features and personalities. You can create as
-many GRNs as you want. Each GRN has a neme, specified and a unique ID, called an `EON_ID`.
+many GRNs as you want. Each GRN has a name and a unique ID, called an `EON_ID`.
 They are respectively specified with option `--grn` and `--eon_id` in `aq` commands that need them: both
 are equivalent. To create our first GRN, use the following command:
 
@@ -325,7 +325,7 @@ To create an OS object for CentOS 7.x for the archetype `web_servers`, use the f
     ```
 
 
-### Adding first host
+### Adding and Building the First Host
 
 Now we can declare a host on our `testhw` machine.
 A host needs to receive a personality when it is
@@ -338,68 +338,17 @@ aq add_host --hostname testsrv.dailyplanet.com --machine testhw --ip 192.168.1.3
              --domain test --archetype web_servers --personality test --osname centos --osversion 7.x
 ```
 
-Once the host has been created, to be able to compile its configuration, it must be associated with a pan
-template context, either a domain or a sandbox,
-using the command `aq manage`. Currently we'll associate it with the template domain `test`.
+Once the host has been added to the Aquilon database, it is possible to build its configuration.
+This step involves generating the plenary templates describing the host configuration (machine used,
+OS, personality...) and compiling those templates. This is done with the command `aq reconfigure`:
 
 ```bash
-aq manage --hostname testsrv.dailyplanet.com --domain test
+aq reconfigure --hostname testsrv.dailyplanet.com
 ```
 
-The execution of `aq manage` will build the host profile in `/var/quattor/cfg/domains/test/profiles`
-and compile it. The compilation should succeed: if it fails, review the previous steps. If the
-compilation fails, the profile is removed.
-
-### Bind the features to a personality or archetype
-
-* Bind the features to the personality or to the archetype, if you want them to apply it to every
-personality in the archetype, like for `rootpasswd`:
-
-    ```bash
-    aq bind_feature --feature demo --personality test --archetype web_servers
-    aq bind_feature --feature rootpasswd --archetype web_servers
-    ```
-
-* Promote the personality as a current: Aquilon implements personality staging so that a modification to a
-personality does not affect the hosts using it until it is declared `current`. After its creation or a modification,
-the stage is set to `next`.
-
-    ```bash
-    # This command should show that the personality 'test' stage is 'next'
-    aq show_personality --all
-    aq promote --personality test --archetype web_servers
-    # This command should show that the personality 'test' stage is now 'current'
-    aq show_personality --all
-    ```
-
-### Compiling the added host
-
-We can now try to compile the host `testsrv.dailyplanet.com`.
-With Aquilon, the compile command recompiles every host with configuration changes in a given
-sandbox or domain.
-
-```bash
-aq compile --sandbox aquilon/site-init
-```
-
-The compilation itself will fail during the `compile.object.profile` phase, complaining about
-missing templates, because we have not added the template library yet but it allows to
-check that the compile command works. If the compilation fails to start, in particular with a message
-related to missing classes, see the [Troubleshooting][aq_conf_troubleshooting] section.
-
-But we aren't done yet.  This host is empty!!  Now it's time to produce some Pan code
-to define features that will associated with the personality `test` and to configure the host.
-To be able to do it, we first need to create a sandbox.
-
-
-### Adding a feature bound to the archetype
-
-```bash
-aq add_feature --feature rootpasswd --type host --activation dispatch --deactivation dispatch --grn test
-```
-
-
-## Deploying the first configuration
+The execution of `aq reconfigure` will build the host profile in `/var/quattor/cfg/domains/test/profiles`
+and compile it. The compilation should succeed: if it fails, review the previous steps. Failure to compile
+a profile causes it to be removed from the `profiles` directory.
 
 ## Troubleshooting
 
