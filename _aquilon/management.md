@@ -92,6 +92,8 @@ Hosts can also be moved from one domain to another one with `aq manage`.
 
 ### Compilable archetypes
 
+Compilable archetypes are used for hosts managed directly by Aquilon. They are the most common
+archetypes.
 
 ### Non-compilable archetypes
 
@@ -177,3 +179,16 @@ apply:
 If you need an external network, you have to create it with
 `--network_environment external` in its command line.
 
+
+## Implementing Peer-Review and Quality Assessment with Aquilon
+
+Implementing a stage deployment workflow, Aquilon makes easy to validate changes through peer-review and
+a quality assessment process.
+
+Peer-review is generally implemented when the changes are published from a sandbox.
+Since the template-king repository is a standard Git repository, you can set up a simple system just
+by adding an post-receive hook that sends an email to the peer-review team.
+
+Quality assessment can be implemented in various ways. One common practice is to have a domain with a set of
+hosts representing the various services managed in Aquilon where changes are deployed after the initial validation
+(e.g. in domain `dev`) and before being moved to the production domain

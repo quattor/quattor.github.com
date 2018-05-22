@@ -98,3 +98,6 @@ no easy way to share personality definitions between archetypes.
 
 
 ## Clusters
+
+Clusters are mostly useful for defining HA services (perhaps with floating IPs) that exist on a set of hosts,
+rather than on individual hosts. They get their own profiles in addition to the hosts.

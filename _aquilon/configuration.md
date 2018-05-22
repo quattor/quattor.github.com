@@ -333,6 +333,12 @@ To create an OS object for CentOS 7.x for the archetype `web_servers`, use the f
     ```
 
 Once the OS object has been created, it is necessary to create a template associated with it.
+We will **temporarily** create this in the plenary template area normally reserved for templates managed by the database.
+The templates will be moved to their proper location in the next section. Create a file called config.pan
+in `/var/quattor/cfg/plenary/$archetype/os/$osname/$osversion`, i.e.
+`/var/quattor/cfg/plenary/web_servers/os/centos/7.x/config.pan`.
+At this stage we will create an empty template:
+
 Currently, we'll create it in the plenaray template area, `/var/quattor/cfg/plenary`. The template
 must be called `config.pan`, under the directory `web_servers/os/centos/7.x` (archetype, osname, osversion).
 At this stage we'll create an empty template:
@@ -343,7 +349,8 @@ unique template os/centos/centos/7.x;
 
 ### Creating Hardware-related templates
 
-Every model object must have a matching template that must be created manually. Currently, we'll create them
+Every model object must have a matching template that must be created manually. Again, we'll
+**temporarily** create them
 in the plenaray template area, `/var/quattor/cfg/plenary`, under the `hardware` directory. You must create one
 template for the machine model and for each its components (cpu, ram, nic, harddisk). The template can be empty.
 
@@ -535,7 +542,7 @@ To publish the changes so that it is possible to deploy them later:
 aq publish --sandbox site-init
 ```
 
-This pushes the changes to the `site-init` branch of the template king repository. Once the
+This pushes the changes to the `site-init` branch of the template-king repository. Once the
 changes are considered ready to be deployed in the `test` domain, use `aq deploy`:
 
 ```bash
