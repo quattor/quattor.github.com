@@ -103,6 +103,7 @@ we will use two domains:
 
 * `prod`: used for managing all the production services. During the [initialization][aquilon_install]
 of Aquilon database, the `prod` domain was created in the database but the matching directory was not.
+Also the Pan compiler path must be fixed to the one declared in `/etc/aqd.conf`.
 Below are the command to fix this:
 
     ```bash
@@ -112,6 +113,8 @@ Below are the command to fix this:
     cd prod
     git checkout prod
     git branch -d test
+    # Fix Pan compiler path
+    aq update domain --domain prod --compiler_version prod
     ```
 
 ### Archetypes
@@ -280,10 +283,15 @@ variable LOADPATH = append(SELF, format('template-library/%s/os/%s', QUATTOR_REL
 # If you want to use OpenStack templates, uncomment the following lines
 #final variable OPENSTACK_RELEASE = 'newton';
 #variable LOADPATH = append(SELF, format('template-library/%s/openstack/%s', QUATTOR_RELEASE, OPENSTACK_RELEASE));
+
+variable DEBUG = debug(format('%s: LOADPATH=%s', OBJECT, to_string(LOADPATH)));
+
+# Not done by the broker when include_pan=false
+include 'pan/units';
 ```
 
 
-## Declaring your first host
+## Declaring hosts
 
 ### Adding a personality
 
@@ -358,6 +366,18 @@ do
 done
 ```
 
+### Creating the archetype/final template
+
+Aquilon requires for each archetype, in addition to its `base.pan` template created when the template library
+was imported, a `final.pan` template which will be the very last executed in the host profile. It will be
+created empty at this stage, in the `archetype` directory like `base.pan`:
+
+```bash
+cd /var/quattor/cfg/plenary/web_servers
+template=archetype/final
+template_file=${template}.pan
+echo "structure template ${template};" > ${template_file}
+```
 
 ### Adding and Building the First Host
 
@@ -383,6 +403,170 @@ aq reconfigure --hostname testsrv.dailyplanet.com
 The execution of `aq reconfigure` will build the host profile in `/var/quattor/cfg/domains/test/profiles`
 and compile it. The compilation should succeed: if it fails, review the previous steps. Failure to compile
 a profile causes it to be removed from the `profiles` directory.
+
+We now have a host profile compiled but it's configuration is almost empty. Next steps will show
+how to describe the target configuration for the host `testsrv.dailyplanet.com`, using the template
+library. But before, we need to setup a [sandbox][aquilon_sandboxes] which is the place where the
+configuration changes will be developed.
+
+## Creating a Sandbox
+
+Up to now, the templates have been placed into the plenary templates area but this is not a suitable
+approach for several reasons, in particular:
+
+* Plenary templates can be edited only by the Aquilon administrator(s), not by every Aquilon users.
+
+* Plenary templates are not versioned
+
+* Plenary templates cannot be edited by several users in parallel
+
+The purpose of sandboxes it to allow each Aquilon user to develop its changes without impacting others,
+until the changes are ready to be published, reviewed and eventually merged into the production ones. Some hosts
+can be associated with the sandbox to test the changes.
+
+In the following steps, we'll create a sandbox for the future changes and move into it the
+templates we wrote until now.
+
+
+### Add an Aquilon user for the current user
+
+A sandbox is associated with an Aquilon user. The Aquilon user is derived from the Kerberos principal
+and is associated with an existing Linux account
+via the `uid` and `gid`. The Aquilon user name doesn't have to match the Linux userid. It must be created
+with the `aq add_user` command if the user doesn't exist already. To list existing
+users, use:
+
+```bash
+aq show_user --all
+```
+
+If you are using the `aquilon` Linux user as suggested, use the following commands:
+
+```bash
+# Retrieve the Linux `uid` and `gid` for this account
+id aquilon
+# Create the Aquilon account
+aq add_user --user aquilon --uid uid_retrieved --gid gid_retrieved \
+            --home aquilon_account_dir --fullname "Aquilon administrator"
+```
+
+To be able to add a sandbox for the user, the Kerberos realm used to authenticate Aquilon users must
+be trusted. This is not the default when a realm is added. To declare a realm as trusted:
+
+```bash
+aq update_realm --realm dailyplanet.com --trusted
+```
+
+*Note: the actual realm used is based on the Kerberos configuration that was done during Aquilon
+[installation][aquilon_install]. Use `klist` command to get it, if you don't know it.*
+
+
+### Sandbox creation
+
+The following command will create the sandbox object and the Git repository associated in
+`/var/quattor/templates/user/sandbox_name` with `user` the Aquilon user matching the Kerberos principal
+used and `sandbox_name` the name of the sandbox create. The sandbox is a Git repository
+created as a clone of the `template-king` repository (`template-king` is the Git remote
+`origin` for the sandbox repository):
+
+```bash
+aq add_sandbox --sandbox site-init
+```
+
+Once the sandbox is created, it is necessary to associate with it the host we want to manage with the
+sandbox. In (almost) all the Aquilon commands requiring a `--sandbox` option (except the `xxx_sandbox` comands),
+the sandbox name is `user/sandbox`.
+
+```bash
+# The following command assumes that the Aquilon user has the same name as the current Linux user
+aq manage --sandbox $USER/site-init --hostname testsrv.dailyplanet.com
+```
+
+You can check that the host `testsrv.dailyplanet.com` still compiles successfully after its move to
+the sandbox, with the command used previously:
+
+```bash
+aq reconfigure --hostname testsrv.dailyplanet.com
+```
+
+### Moving Added Templates to the Sandbox
+
+We can now move the templates created at previous steps in the sandbox. Only the template library
+has been intentionally placed into the plenary templates as this is component that is not intended
+to be modified by a site. Use the following commands, customizing the paths to your ocnfiguration if
+you didn't adopt the standard layout. In the destination directories, `aquilon` is the Aquilon user,
+`site-init` is the sandbox name and `web_servers` is the archetype name.
+
+```bash
+cd /var/quattor
+# Move the hardware templates
+mv cfg/plenary/hardware templates/aquilon/site-init
+# Create the archetype directory in the sandbox
+mkdir templates/aquilon/site-init/web_servers
+# Move archetype/base.pan and archetype/final.pan
+mv cfg/plenary/web_servers/archetype templates/aquilon/site-init/web_servers
+# Move the OS template
+mv cfg/plenary/web_servers/ostemplates/aquilon/site-init/web_servers
+```
+
+Again, check that the host `testsrv.dailyplanet.com` still compiles successfully after moving to
+the templates to the sandbox, as previously:
+
+```bash
+aq reconfigure --hostname testsrv.dailyplanet.com
+```
+
+After checking the successful compile, commit your changes in the sandbox:
+
+```bash
+cd /var/quattor/templates/aquilon/site-init
+git add hardware web_servers
+git commit -m 'Initial templates moved to sandbox'
+```
+
+### Publishing and Deploying the Sandbox Changes
+
+To illustrate the Aquilon deployment workflow, we can now pubish these changes so that
+they can be reviewed by others and then deploy them into a domain.
+
+To publish the changes so that it is possible to deploy them later:
+
+```bash
+aq publish --sandbox site-init
+```
+
+This pushes the changes to the `site-init` branch of the template king repository. Once the
+changes are considered ready to be deployed in the `test` domain, use `aq deploy`:
+
+```bash
+# You can add option --dryrun if you want to see what will be done before
+# actually doing it
+aq deploy --source site-init --target test
+```
+
+To test that everything is ok, we need to add a second host in the `test` domain (`testsrv` is now the
+`site-init` sandbox) and compile it:
+
+```bash
+aq add_machine --machine testhw2 --model spyserver --rack forlexluthor
+aq add_interface --interface eth0 --machine 'testhw2' --mac 'AA:BB:CC:DD:FF:EE'
+aq update_interface -interface eth0 --machine 'testhw2' --bootable
+aq add_host --hostname preprodsrv.dailyplanet.com --machine testhw2 --ip 192.168.1.4 \
+             --domain test --archetype web_servers --personality test --osname centos --osversion 7.x
+aq reconfigure --hostname preprodsrv.dailyplanet.com
+```
+
+At this point we can also check that everything is properly configured with the domain `prod` and
+that we can deploy to it, after the validation in domain `test`. For the sake of simplicity,
+we'll use the same host after moving it to the domain `prod`:
+
+```bash
+aq deploy --source test --target prod
+aq manage --hostname preprodsrv.dailyplanet.com --domain prod
+```
+
+`aq manage`, when moving a host from between domains or between a sandbox and a domain, is trying
+to compile the host profile. If it fails, the host is not moved to the new domain/sandbox.
 
 ## Troubleshooting
 
