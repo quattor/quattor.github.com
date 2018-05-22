@@ -88,6 +88,20 @@ When validated in one domain, changes can be deployed into the domain representi
 
 Hosts can also be moved from one domain to another one with `aq manage`.
 
+## Adding Archetypes
+
+### Compilable archetypes
+
+
+### Non-compilable archetypes
+
+Non-compilable archetypes are used to store the inventory for your hardware not managed by
+Aquilon. For example, you could create an archetype for all your IPMI hardware.
+
+```bash
+aq add_archetype --archetype 'ipmi' --nocompilable
+```
+
 ## Defining New Features
 
 ### Adding a feature

@@ -28,8 +28,7 @@ These are the basic terms in Aquilon operations:
     seperate types. Archetypes are a bundle
     that expresses how to build something. It defines what set of
     templates to use (for example, what operating systems are
-    available, etc). One typical archetype is `linux` for all the Linux-based
-    hosts. Hosts therefore require an archetype to define
+    available, etc). Hosts therefore require an archetype to define
     how they are compiled.
 * `broker`: The backend which the aq client communicates with and the
     owner of all object and production templates.  We'll refer to it
@@ -89,26 +88,42 @@ Before starting using the `aq` command, you need get a Kerberos ticket. Use the 
 to get it. If the Kerberos principal to use is different from the current Linux user, pass its name
 as a parameter to the `kinit` command.
 
-## Archetypes, domains...
+## Domain and archetypes
 
-You need to start by declaring archetypes and the basic domains for
-your Aquilon instance.  Let's imagine we have two archetypes, one for
-Linux hosts under Quattor control and another one for IPMI interfaces
+### Domains
+
+[Domains][aquilon_domains] allow to implement a staged deployment workflow. In our example,
+we will use two domains:
+
+* `test`: used for for testing configuration changes before wide deployment
+
+    ```bash
+    aq add_domain --domain 'test'
+    ```
+
+* `prod`: used for managing all the production services. During the [initialization][aquilon_install]
+of Aquilon database, the `prod` domain was created in the database but the matching directory was not.
+Below are the command to fix this:
+
+    ```bash
+    # Replace the directory by what is used at your site
+    cd /var/quattor/domains
+    cp -R test prod
+    cd prod
+    git checkout prod
+    git branch -d test
+    ```
+
+### Archetypes
+
+[Archetypes][aquilon_archetypes] are used to group hosts with common configuration parameters/requirements
+(e.g. all your network switches) or with similar purposes (e.g. all your cloud hosts). In our example, we
+will start with one archetype, `web_servers`.
 
 ```bash
-aq add_archetype --archetype 'linux' --compilable
-aq add_archetype --archetype 'ipmi' --nocompilable
+aq add_archetype --archetype web_servers --compilable
 ```
 
-Next come the domains, which are just Git branches with some metadata.
-We'll define a `prod`uction and a `test`ing domains.
-
-```bash
-aq show_domain --all
-# If domain 'prod' already exists, skip its creation
-aq add_domain --domain 'prod'
-aq add_domain --domain 'test'
-```
 
 ## Storing your inventory
 
@@ -243,7 +258,7 @@ directory rather than in the `template-king` Git repository.
 A template library version is enabled in the context of an archetype, using `archetype/base.pan`
 This template is typically placed in the archetype directory for which you want to enable this version
 of the template library. Currently, we'll add it to the plenary templates area, under
- `/var/quattor/cfg/plenary/linux`. The content to add to this template is:
+ `/var/quattor/cfg/plenary/web_servers`. The content to add to this template is:
 
 ```pan
 unique template archetype/base;
@@ -291,10 +306,10 @@ are equivalent. To create our first GRN, use the following command:
     ```
 
 When creating a personality, here `test`, it must be attached to an already existing archetype (here
-`linux`):
+`web_servers`):
 
     ```bash
-    aq add_personality --personality test --archetype linux \
+    aq add_personality --personality test --archetype web_servers \
                        --grn test --host_environment dev
     ```
 
@@ -303,10 +318,10 @@ When creating a personality, here `test`, it must be attached to an already exis
 Aquilon must also know about the valid OS for each archetype (you can declare several). An
 OS has a name and a version.
 
-To create an OS object for CentOS 7.x for the archetype `linux`, use the following command:
+To create an OS object for CentOS 7.x for the archetype `web_servers`, use the following command:
 
     ```bash
-    aq add_os --osname centos --osversion 7.x --archetype linux
+    aq add_os --osname centos --osversion 7.x --archetype web_servers
     ```
 
 
@@ -320,7 +335,7 @@ Now, we use all that information to add a `testsrv.dailyplanet.com` host:
 
 ```bash
 aq add_host --hostname testsrv.dailyplanet.com --machine testhw --ip 192.168.1.3 \
-             --domain test --archetype linux --personality test --osname centos --osversion 7.x
+             --domain test --archetype web_servers --personality test --osname centos --osversion 7.x
 ```
 
 Once the host has been created, to be able to compile its configuration, it must be associated with a pan
@@ -341,8 +356,8 @@ compilation fails, the profile is removed.
 personality in the archetype, like for `rootpasswd`:
 
     ```bash
-    aq bind_feature --feature demo --personality test --archetype linux
-    aq bind_feature --feature rootpasswd --archetype linux
+    aq bind_feature --feature demo --personality test --archetype web_servers
+    aq bind_feature --feature rootpasswd --archetype web_servers
     ```
 
 * Promote the personality as a current: Aquilon implements personality staging so that a modification to a
@@ -352,7 +367,7 @@ the stage is set to `next`.
     ```bash
     # This command should show that the personality 'test' stage is 'next'
     aq show_personality --all
-    aq promote --personality test --archetype linux
+    aq promote --personality test --archetype web_servers
     # This command should show that the personality 'test' stage is now 'current'
     aq show_personality --all
     ```
