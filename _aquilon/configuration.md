@@ -324,6 +324,40 @@ To create an OS object for CentOS 7.x for the archetype `web_servers`, use the f
     aq add_os --osname centos --osversion 7.x --archetype web_servers
     ```
 
+Once the OS object has been created, it is necessary to create a template associated with it.
+Currently, we'll create it in the plenaray template area, `/var/quattor/cfg/plenary`. The template
+must be called `config.pan`, under the directory `web_servers/os/centos/7.x` (archetype, osname, osversion).
+At this stage we'll create an empty template:
+
+```pan
+unique template os/centos/centos/7.x;
+```
+
+### Creating Hardware-related templates
+
+Every model object must have a matching template that must be created manually. Currently, we'll create them
+in the plenaray template area, `/var/quattor/cfg/plenary`, under the `hardware` directory. You must create one
+template for the machine model and for each its components (cpu, ram, nic, harddisk). The template can be empty.
+
+If you used the suggested
+model names, use the following commands to create these templates:
+
+```bash
+cd /var/quattor/cfg/plenary
+for template in hardware/machine/luthorindustries/spyserver \
+                hardware/ram/generic \
+                hardware/cpu/intel/mygreatcpu \
+                hardware/harddisk/generic \
+                hardware/harddisk/generic
+do
+    template_ns=$(dirname ${template})
+    template_file=${template}.pan
+    echo "Creating structure template ${template_file}..."
+    mkdir -p ${template_ns}
+    echo "structure template ${template};" > ${template_file}
+done
+```
+
 
 ### Adding and Building the First Host
 
