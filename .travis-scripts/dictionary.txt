@@ -54,7 +54,7 @@ panc
 Perl
 Postgres
 postgres
-PostgresQL
+PostgreSQL
 postgresql
 PowerDNS
 protobuf
@@ -72,7 +72,6 @@ rsyslog
 scalability
 SELinux
 SQL
-sql
 SQLite
 sqlite
 Stijn
@@ -84,7 +83,6 @@ UGent
 unconfigured
 urbonegi
 unsynchronized
-userid
 VirtualEnv
 virtualenv
 VM

@@ -72,7 +72,7 @@ following package:
     yum install sqlite
     ```
 
-* PostgresQL: this is a real database service, recommended for a production installation. It offers many advanced
+* PostgreSQL: this is a real database service, recommended for a production installation. It offers many advanced
 administration features, including continuous backup. It requires an additional step to configure the server,
 documented below. The required packages are:
 
@@ -117,11 +117,11 @@ The main steps involved in the creation of the VirtualEnv are:
 
 * Ensure that your system has the following packages installed or install them if it is not the case (the packages
   are required only during the installation process):
-  * gcc
-  * libxslt-devel (and its dependencies)
-  * libyaml-devel
-  * postgresql-devel
-  * python-virtualenv
+  * `gcc`
+  * `libxslt-devel` (and its dependencies)
+  * `libyaml-devel`
+  * `PostgreSQL-devel`
+  * `python-virtualenv`
 
 * Create the Python Virtual Environment and activate it. In this documentation,
 we assume that the Virtual Environment is created
@@ -166,7 +166,7 @@ The main steps are:
 * Initialising the Postgres environment:
 
 ```bash
-/usr/bin/postgresql-setup
+/usr/bin/PostgreSQL-setup
 ```
 
 * Create a Postgres account for Aquilon. This must match the Linux user that will be used by the broker,
@@ -182,11 +182,11 @@ su - postgres -c 'createuser aquilon'
 su - postgres -c 'createdb -O aquilon aquilon'
 ```
 
-* Enable and start the `postgresql` service:
+* Enable and start the `PostgreSQL` service:
 
 ```bash
-systemctl enable postgresql
-systemctl start postgresql
+systemctl enable PostgreSQL
+systemctl start PostgreSQL
 ```
 
 ## Building Aquilon protocols
@@ -260,9 +260,9 @@ The main configuration options that you may want to change are:
 
     ```
     [database]
-    database_section = database_postgresql
+    database_section = database_PostgreSQL
 
-    [database_postgresql]
+    [database_PostgreSQL]
     dbname = aquilon
     ```
 
@@ -549,13 +549,13 @@ To workaround this and enable another existing
 AD account (Kerberos principal) to act as the Aquilon admin, you will need to execute the following
 steps on the database server using a user with modification rights on the Aquilon database. The broker must
 be running. The database commands given are for SQLite back-end, adapt them to your back-end (for Postgres, this
-typically involves executing `psql -d aquilon -c "sql command"` instead of
-`sqlite3 /var/quattor/aquilondb` "sql command").
+typically involves executing `psql -d aquilon -c "SQL command"` instead of
+`sqlite3 /var/quattor/aquilondb "SQL command")`.
 
 * `su -` to the `aquilon` account and execute `kinit` for the principal that you want to add as an Aquilon admin
 * Execute command `aq.py status`: it should return that the principal is mapped to role `nobody`
 * Assuming that the Aquilon DB is located in `/var/quattor/aquilondb` (see below) and that the
-principal userid is `aqadm`, execute the following
+principal user ID is `aqadm`, execute the following
 commands:
     ```bash
     # Retrieve the ID associated with the role `aqd_admin`
