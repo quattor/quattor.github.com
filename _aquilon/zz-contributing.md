@@ -26,7 +26,9 @@ chmod +x .git/hooks/commit-msg
 
 *Warning: executing the command above will overwrite the previous `commit-msg` hook, if any.*
 
-A commit message should typically look like:
+Once the commit hook is installed, just enter your commit message as usual. During the commit operation, the
+`Change-Id` line will be added by the hook. If looking at commit message with `git log`,
+it should typically look like:
 
 ```
 Short summary of the change
@@ -36,3 +38,4 @@ Short summary of the change
 
 Change-Id: I9f8d7d0f656e72877c436727d0e4a8d8a62a4b89
 ```
+
