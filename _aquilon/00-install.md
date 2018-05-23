@@ -59,7 +59,7 @@ server package:
     yum install msktutil
     ```
 
-In addition, you need the package appropriate for the database backend that you choose. There are 2 options:
+In addition, you need the package appropriate for the database back-end that you choose. There are 2 options:
 
 * SQLite: this is the easiest choice, as there is no configuration involved, if you want to build
 quickly an Aquilon configuration for testing purposes but it is not recommended
@@ -80,8 +80,8 @@ documented below. The required packages are:
     yum install postgres-devel postgres-server postgres-contrib
     ```
 
-*Note: this is (almost) impossible to change the configuration backend of an existing database as there is
-no easy way to dump the database with one backend and import it in another backend. Changing the backend
+*Note: this is (almost) impossible to change the configuration back-end of an existing database as there is
+no easy way to dump the database with one back-end and import it in another back-end. Changing the back-end
 basically involves rebuilding the site configuration from scratch.*
 
 If using a distribution other than EL7, you will need python 2.7.x (with virtualenv support installed) and git
@@ -159,11 +159,11 @@ you actually want to use:
 
 ## Configuring Database
 
-This step applies only for installation using Postgres as their database backend (recommended, see above). After
-installing the RPMs, it is necessary to initialize the Postgres environment and to create a database for Aquilon.
+This step applies only for installation using Postgres as their database back-end (recommended, see above). After
+installing the RPMs, it is necessary to initialise the Postgres environment and to create a database for Aquilon.
 The main steps are:
 
-* Initializing the Postgres environment:
+* Initialising the Postgres environment:
 
 ```bash
 /usr/bin/postgresql-setup
@@ -247,7 +247,7 @@ a default, define the corresponding setting in `/etc/aqd.conf` (but don't modify
 The main configuration options that you may want to change are:
 
 * Database
-  * SQLite: this is the default database backend, use `dbfile` in `[database_sqlite]` to specify a
+  * SQLite: this is the default database back-end, use `dbfile` in `[database_sqlite]` to specify a
   non standard database file by adding the following in `/etc/aqd.conf`:
 
     ```
@@ -255,7 +255,7 @@ The main configuration options that you may want to change are:
     dbfile = /path/to/your/aquilon.db
     ```
 
-  * Postgres: change the database backend and define the database name by adding the following sections to
+  * Postgres: change the database back-end and define the database name by adding the following sections to
   `/etc/aqd.conf`:
 
     ```
@@ -271,9 +271,9 @@ The main configuration options that you may want to change are:
 * Installation path of Aquilon protocols: `directory` in `protocols`section. It must reflect the
   installation path used previously, at the installation of the protocols. This is typically
   `/var/quattor/aquilon-venv/lib/python2.7/site-packages` if a
-  VirutalEnv is used or `/usr/lib/python2.7/site-packages` otherwhise.
+  VirtualEnv is used or `/usr/lib/python2.7/site-packages` otherwise.
 
-When defining paths, you can use variables défined in the `[DEFAULT]` section with the following syntax:
+When defining paths, you can use variables defined in the `[DEFAULT]` section with the following syntax:
 
 ```
 %(variable)s
@@ -335,7 +335,7 @@ kadmin.local: quit
 bash> chown aquilon:aquilon /var/spool/keytabs/aquilon
 ```
 
-The created principal can be used to execute `aq` commends, in particular to give admin rigths to
+The created principal can be used to execute `aq` commends, in particular to give admin rights to
 other principal with `aq permission`.
 
 __Microsoft Active Directory__
@@ -358,8 +358,8 @@ name you want.
 
 * Restart the Aquilon broker
 
-*Note: `msktutil` reinitializes the Active Directory account password with a random value, thus this account
-cannot be used to run Aquilon client (`aq` command). **Be sure to use another principal** when initializing
+*Note: `msktutil` initialises the Active Directory account password with a random value, thus this account
+cannot be used to run Aquilon client (`aq` command). **Be sure to use another principal** when initialising
 the Aquilon database (next step) to ensure that you have at least one usable Aquilon administrator.*
 
 ### Create the Aquilon directories
@@ -372,7 +372,7 @@ the directory paths to what you put in `/etc/aqd.conf` before.
     ```bash
     mkdir /var/quattor
     mkdir /var/quattor/domains
-    # The following directory is needed only if the SQLite backend is used
+    # The following directory is needed only if the SQLite back-end is used
     mkdir /var/quattor/aquilondb
     chown -R aquilon:aquilon /var/quattor
     ```
@@ -509,7 +509,7 @@ schema upgrade. First step if to get the current version of Aquilon installed, u
 aq status
 ```
 
-To upgrade Aquilon protocos and Aquilon itself, use Git to
+To upgrade Aquilon protocols and Aquilon itself, use Git to
 get the last version of each one, executing the following command in the directory containing the
 protocols sources and in `/opt/aquilon`:
 
@@ -539,17 +539,17 @@ See [starting a site with Aquilon][aquilon_configuration].
 
 ## Troubleshooting
 
-### No known Aquilon administrator authorized
+### No known Aquilon administrator authorised
 
-This may happend particularly if you executed `build_db` (database initialization) with the `aquilon` principal
+This may happen particularly if you executed `build_db` (database initialisation) with the `aquilon` principal
 when using Active Directory, as adding the entry in the `keytab` file will reset it password and changing the
-password afterward will make the `keytab` file unsynchronized with Kerberos realm.
+password afterwards will make the `keytab` file unsynchronized with Kerberos realm.
 
 To workaround this and enable another existing
 AD account (Kerberos principal) to act as the Aquilon admin, you will need to execute the following
 steps on the database server using a user with modification rights on the Aquilon database. The broker must
-be running. The database commands given are for SQLite backend, adapt them to your backend (for Postgres, this
-typically involves executing `psql -d aquilon -c "sql command"` insted of
+be running. The database commands given are for SQLite back-end, adapt them to your back-end (for Postgres, this
+typically involves executing `psql -d aquilon -c "sql command"` instead of
 `sqlite3 /var/quattor/aquilondb` "sql command").
 
 * `su -` to the `aquilon` account and execute `kinit` for the principal that you want to add as an Aquilon admin
