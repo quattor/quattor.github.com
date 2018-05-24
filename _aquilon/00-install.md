@@ -496,11 +496,18 @@ be set with:
     chcon -R -t git_sys_content_t /var/quattor/template-king
     ```
 
-* The `rundir` directory (defined in `/etc/aqd.conf`) must have the SELinux type `var_run_t`. This can
-be set with:
+* The `rundir` directory (defined in `/etc/aqd.conf` or `/opt/etc/aqd.conf/defaults`)
+must have the SELinux type `var_run_t`. This can be set with:
 
     ```bash
     chcon -R -t var_run_t /var/quattor/run
+    ```
+
+* The `profilesdir` directory (defined in `/etc/aqd.conf` or `/opt/etc/aqd.conf/defaults`)
+must have the SELinux type `httpd_sys_content_t`. This can be set with:
+
+    ```bash
+    chcon -R -t httpd_sys_content_t /var/quattor/web/htdocs
     ```
 
 ## Upgrading Aquilon
