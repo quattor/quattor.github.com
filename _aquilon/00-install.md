@@ -295,7 +295,7 @@ In `/etc/krb5.conf`, change `server` to `servername` in [realms] section.*
 *Note: if you install the Kerberos on a new machine with not a lot of activity, it may take
 a while for the Kerberos database creation to complete, due to its need to wait for enough
 randomness entropy. To speed up this process, you can follow the recipe in the following
-[blog post](http://championofcyrodiil.blogspot.fr/2014/01/increasing-entropy-in-vm-for-kerberos.html.*).
+[blog post][randomness_entropy].*
 
 Be sure to define properly the domain associated with your realm: it must match your actual
 domain.
@@ -417,6 +417,9 @@ To start the production broker, a systemd unit file must be added. A template is
 `/opt/aquilon/etc/systemd/aquilon-broker.service`. Review its contents, in particular the
 Python interpreter path, before copying the file to `/etc/systemd/system/multi-user.target.wants`.
 
+{% comment %}
+FIXME: remove this note once the PR has been merged
+{% endcomment %}
 *Note: if `/opt/aquilon/etc/systemd/aquilon-broker.service` doesn't exist, you may have to
 retrieve it from [GitHub pull request](https://github.com/quattor/aquilon/pull/75).*
 
@@ -528,9 +531,12 @@ To determine if a database upgrade is needed, go to directory `/opt/aquilon/upgr
 matching a version greater than the one that was previously installed. If such directories exist, you need to execute
 the SQL scripts (and sometimes Python scripts) they contain in sequence. Look at the `README` for more details.
 
+{% comment %}
+FIXME: remove this note once the problem has been fixed
+{% endcomment %}
 *Note: up to version 1.12.58, the SQL script is only for Oracle and may require some tweaking for SQLite and
 Postgres. In particular, SQLite has a very limited support for `ALTER TABLE` and doesn't support in particular
-`ATLER TABLE table MODIFY` statement used to define a constraint. This produces an error that can be ignored.'
+`ATLER TABLE table MODIFY` statement used to define a constraint. This produces an error that can be ignored.*
 
 ## Aquilon DB Configuration
 

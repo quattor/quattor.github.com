@@ -20,6 +20,9 @@ This file contains link definitions that can be used in reference links.
 [pan_language]: http://quattor-pan.readthedocs.org/en/stable
 {:target="_pan_language"}
 
+[randomness_entropy]: http://championofcyrodiil.blogspot.fr/2014/01/increasing-entropy-in-vm-for-kerberos.html)
+{:target="_randomness_entropy"}
+
 [quattor-list]: https://groups.google.com/forum/#!forum/quattor
 {:target="_quattor_forum"}
 

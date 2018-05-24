@@ -42,7 +42,6 @@ libxslt
 libyaml
 logstash
 Maven
-md
 metaconfig
 metadata
 noarch
@@ -88,3 +87,14 @@ virtualenv
 VM
 VMs
 whitespace
+
+# Workaround for issue https://github.com/stfc/markdown-spellchecker/issues/9
+# Remove when it is fixed
+aq
+conf
+endcomment
+FIXME
+freenode
+html
+md
+tl
