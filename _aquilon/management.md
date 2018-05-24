@@ -104,6 +104,15 @@ Aquilon. For example, you could create an archetype for all your IPMI hardware.
 aq add_archetype --archetype 'ipmi' --nocompilable
 ```
 
+## Adding New Hardware Models
+
+Arbitrary hardware components (disks, NIC, machine...) can be used to describe machines in the
+Aquilon database. But to be usable in host profiles, they have to be backed by Pan templates.
+This section requires what you need to do if you want to use
+hardware components with no template already existing in the [template library][tl_intro]. Once
+you have validated the new hardware templates, it is a good practice to request their addition to
+the template library so that other Aquilon sites can benefit from them.
+
 ## Defining New Features
 
 ### Adding a feature

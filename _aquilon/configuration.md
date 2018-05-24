@@ -14,7 +14,7 @@ For Aquilon installation, refer to the [dedicate page][aquilon_install]
 
 This document explains the steps required to set up the clusters
 for the Daily Planet, Superman's employer. Feel free to replace the names used here by those
-relevant to your organization but be sure to remain consistant.
+relevant to your organisation but be sure to remain consistent.
 
 *Note: this documentation assumes that you have an `aq` command available in your
 path. If this is not the case, define an `aq` alias to `/opt/aquilon/bin/aq.py`.*
@@ -25,12 +25,12 @@ path. If this is not the case, define an `aq` alias to `/opt/aquilon/bin/aq.py`.
 These are the basic terms in Aquilon operations:
 
 * `archetype`: The highest possible grouping of hosts into distinctly
-    seperate types. Archetypes are a bundle
+    separate types. Archetypes are a bundle
     that expresses how to build something. It defines what set of
     templates to use (for example, what operating systems are
     available, etc). Hosts therefore require an archetype to define
     how they are compiled.
-* `broker`: The backend which the aq client communicates with and the
+* `broker`: The back-end which the `aq` client communicates with and the
     owner of all object and production templates.  We'll refer to it
     also as `aqd`.
 * `cluster`: A group of hosts related in some way, different to an
@@ -67,16 +67,16 @@ For more details on these concepts, see the the [dedicated page][aquilon_details
 
 ### Before proceeding
 
-Some understanding of Quattor's [architecture](/documentation/2012/06/19/documentation-overview.html) and the
+Some understanding of Quattor [architecture](/documentation/2012/06/19/documentation-overview.html) and the
 [Pan language][pan_language] are expected before reading this document.
 
 We'll interact with the broker using the `aq` command, which has lots
-of sub-commands.  Each sub-command has a detailed help. `aq` subcommands are generally
+of sub-commands.  Each sub-command has a detailed help. `aq` sub-commands are generally
 made of several words that can be separated either by a space or an `_`. The latter (`_`)
 is preferred as it allows to use tab completion when entering command. This is the form
 used throughout this document. In `aq`, everything before the first `option` (introduced
-by `--`) is considered as a subcommand word. Options can be abbreviated as long as they
-are non ambiguous but subcommand words cannot.
+by `--`) is considered as a sub-command word. Options can be abbreviated as long as they
+are non ambiguous but sub-command words cannot.
 
 In this stage we will be adding a site, so we will use `add_*`
 commands.  Most of the Aquilon commands have a `show_`, `update_`, `search_` and
@@ -101,7 +101,7 @@ we will use two domains:
     aq add_domain --domain 'test'
     ```
 
-* `prod`: used for managing all the production services. During the [initialization][aquilon_install]
+* `prod`: used for managing all the production services. During the [initialisation][aquilon_install]
 of Aquilon database, the `prod` domain was created in the database but the matching directory was not.
 Also the Pan compiler path must be fixed to the one declared in `/etc/aqd.conf`.
 Below are the command to fix this:
@@ -127,14 +127,63 @@ will start with one archetype, `web_servers`.
 aq add_archetype --archetype web_servers --compilable
 ```
 
+## Configuring the Template Library
+
+The template library is a set of generic templates that
+help to build host descriptions. It provides many building blocks, in particular
+`features` and hardware-related templates, ready to use to configure the host hardware,
+standardOS services and a few more specific
+middleware, like [OpenStack](https://www.openstack.org) for clouds or
+[UMD](https://wiki.egi.eu/wiki/Middleware){:data-proofer-ignore=""}
+for grid.
+
+### Importing the Template Library
+
+The template library must be imported in the [plenary template][aquilon_plenary] area using the
+[plenary_template_library.py](https://github.com/quattor/release/tree/master/src/scripts/plenary_template_library)
+script. Download the script and execute it with option `--help` to display all the options available. A typical execution of this
+script, to download the template library version `18.3.0`, is:
+
+```bash
+plenary_template_library.py --release 18.3.0 /var/quattor/cfg/plenary/template-library
+```
+
+The `/var/quattor/cfg/plenary/template-library` directory will contain a directory corresponding to the version
+downloaded, making easy to have different versions of the template library. In this directory, a sub-directory
+is created for each component of the template library: `core`, `os`, `standard`, `openstack` and `grid`. As the
+template library is not supposed to be modified, it is intentionally placed into the plenary templates
+directory rather than in the `template-king` Git repository.
+
+### Enabling the Template Library
+
+A template library version is enabled in the context of an archetype, using `archetype/loadpath.pan`
+This template is typically placed in the archetype directory for which you want to enable this version
+of the template library. Currently, we'll add it to the plenary templates area, under
+`/var/quattor/cfg/plenary/web_servers`, where `web_servers` is the archetype we'll use in our examples.
+The content to add to this template is:
+
+```pan
+# It is VERY IMPORTANT not to use this template for anything else than the initial
+# LOADPATH configuration.
+
+declaration template archetype/loadpath;
+
+# Replace by the template library version you want to use
+final variable QUATTOR_RELEASE = '18.3.0';
+
+variable LOADPATH = append(SELF, format('template-library/%s/core', QUATTOR_RELEASE));
+variable LOADPATH = append(SELF, format('template-library/%s/standard', QUATTOR_RELEASE));
+
+variable DEBUG = debug(format('%s: (template=%S) LOADPATH=%s', OBJECT, TEMPLATE, to_string(LOADPATH)));
+```
+
 
 ## Storing your inventory
 
 The Aquilon database contains the entire inventory of your
 infrastructure.  You may use it as your asset management database, or
 feed it from your existing one.  You will have to store all your
-hardware, its characteristics and locations, which is easy to script
-but nevertheless may be an annoying process.
+hardware, its characteristics and locations.
 
 ### Geographical locations
 
@@ -161,7 +210,11 @@ should not start with a digit and cannot contain spaces.
 
 Next comes your hardware.  At the very least, your racks, chassis and
 servers will be stored here.  It is a good place to store other
-hardware such as switches.
+hardware such as switches. Many building blocks, like NIC and hard disks,
+are available in the [template library][tl_intro] that we configured in a
+previous step.
+The examples here uses them but, if necessary, you can define new hardware
+components: see the [dedicated section][aquilon_add_hw].
 
 For racks, you have to specify on which row and column inside that
 row they are, the room they are located into and an optional fullname. A rack ID
@@ -174,19 +227,23 @@ aq add_rack --fullname 'forlexluthor' --row 'R' --column 'C' --room 'supersecret
 
 Next come servers, switches, routers... we'll go for servers,
 `machine` in Aquilon terms.  To be able to define a server, we need to first define its
-vendor and its CPU model. Initial Aquilon database already has several vendors and models
+vendor and its CPU model. Models are used to build an actual machine and they cover every
+component used in the machine. A model is identified by its name and its vendor.
+Initial Aquilon database already has several vendors and models
 defines: use `aq show_vendor --all` and `aq show_model --all` to see them.
 
-Here we'll use a simple rackmounted server but Aquilon allows to
-also define other types of servers, in particular chassis and blades, and to
+Here we'll use a simple rack-mounted server but Aquilon also allows to
+define other types of servers, in particular chassis and blades, and to
 use them to build a machine. See `aq help add_model`.
 
 ```bash
-aq add_vendor --vendor luthorindustries --comments "Bad guys make good sells"
-aq add_model --model mygreatcpu --vendor intel --type cpu
-aq add_model --model spyserver --vendor luthorindustries --type rackmount --cpuname mygreatcpu \
+# --comment is optional and is valid also in 'aq add_model'
+aq add_vendor --vendor luthorindustries --comments "My preferred vendor"
+# xeon-e5-2670v3 is one of the many CPU models provided by the template library
+aq add_model --model xeon-e5-2670v3 --vendor intel --type cpu
+aq add_model --model thegreatserver --vendor luthorindustries --type rackmount --cpuname xeon-e5-2670v3 \
              --cpunum 2 --memory 98304 --disktype local --diskcontroller sas --disksize 1000
-aq add_machine --machine testhw --model spyserver --rack forlexluthor
+aq add_machine --machine testhw --model thegreatserver --rack forlexluthor
 ```
 
 ### Network interfaces
@@ -194,7 +251,7 @@ aq add_machine --machine testhw --model spyserver --rack forlexluthor
 Each machine has a number of network interfaces, with their MAC
 addresses.  They need to be added to the machine object previously created. Aquilon
 supports different types of interfaces (public, management, vlan...): see `aq help add_interface`
-for details. The MAC address can be explicitly defined for a standard machine or autogenerated
+for details. The MAC address can be explicitly defined for a standard machine or auto-generated
 for a virtual machine. The interface can belong to a port group. One of the interface must be
 marked as `bootable` to be able to define an IP address when adding the host.
 
@@ -230,67 +287,6 @@ Our network has some DNS domains.  We have to add them:
 aq add_dns_domain --dns_domain 'dailyplanet.com'
 ```
 
-## Configuring the Template Library
-
-The template library is a set of generic templates that
-help to build host descriptions. It provides many building blocks, in particular
-`features`, ready to use to configure standard OS services and a few more specific
-middleware, like [OpenStack](https://www.openstack.org) for clouds or
-[UMD](https://wiki.egi.eu/wiki/Middleware){:data-proofer-ignore=""}
-for grid.
-
-### Importing the Template Library
-
-The template library must be imported in the [plenary template][aquilon_plenary] area using the
-[plenary_template_library.py](https://github.com/quattor/release/tree/master/src/scripts/plenary_template_library)
-script. Download the script and execute it with option `--help` to display all the options available. A typical execution of this
-script, to download the template library version `18.3.0`, is:
-
-```bash
-plenary_template_library.py --release 18.3.0 /var/quattor/cfg/plenary/template-library
-```
-
-The `/var/quattor/cfg/plenary/template-library` directory will contain a directory corresponding to the version
-downloaded, making easy to have different versions of the template library. In this directory, a sub-directory
-is created for each component of the template library: `core`, `os`, `standard`, `openstack` and `grid`. As the
-template library is not supposed to be modified, it is intentionally placed into the plenary templates
-directory rather than in the `template-king` Git repository.
-
-### Enabling the Template Library
-
-A template library version is enabled in the context of an archetype, using `archetype/base.pan`
-This template is typically placed in the archetype directory for which you want to enable this version
-of the template library. Currently, we'll add it to the plenary templates area, under
- `/var/quattor/cfg/plenary/web_servers`. The content to add to this template is:
-
-```pan
-unique template archetype/base;
-
-# Replace by the template library version you want to use
-final variable QUATTOR_RELEASE = '18.3.0';
-
-# Replace by the OS version you want to use
-final variable OS_RELEASE = 'el7.x-x86_64';
-
-variable LOADPATH = append(SELF, format('template-library/%s/core', QUATTOR_RELEASE));
-variable LOADPATH = append(SELF, format('template-library/%s/standard', QUATTOR_RELEASE));
-variable LOADPATH = append(SELF, format('template-library/%s/os/%s', QUATTOR_RELEASE, OS_RELEASE));
-
-# If you want to use UMD grid middleware templates, uncomment the following lines
-#final variable GRID_MIDDLEWARE_RELEASE = 'umd-4';
-#variable LOADPATH = append(SELF, format('template-library/%s/grid/%s', QUATTOR_RELEASE, GRID_MIDDLEWARE_RELEASE));
-
-# If you want to use OpenStack templates, uncomment the following lines
-#final variable OPENSTACK_RELEASE = 'newton';
-#variable LOADPATH = append(SELF, format('template-library/%s/openstack/%s', QUATTOR_RELEASE, OPENSTACK_RELEASE));
-
-variable DEBUG = debug(format('%s: LOADPATH=%s', OBJECT, to_string(LOADPATH)));
-
-# Not done by the broker when include_pan=false
-include 'pan/units';
-```
-
-
 ## Declaring hosts
 
 ### Adding a personality
@@ -303,7 +299,7 @@ hardware models...
 At this stage we'll create an empty personality, without associated features. Indeed, a feature
 definition implies writing some pan templates, something that cannot be done at this stage.
 
-Before creating the personnality, we need to define a GRN. A GRN is an organisation group or
+Before creating the personality, we need to define a GRN. A GRN is an organisation group or
 entity name that will own features and personalities. You can create as
 many GRNs as you want. Each GRN has a name and a unique ID, called an `EON_ID`.
 They are respectively specified with option `--grn` and `--eon_id` in `aq` commands that need them: both
@@ -339,8 +335,8 @@ in `/var/quattor/cfg/plenary/$archetype/os/$osname/$osversion`, i.e.
 `/var/quattor/cfg/plenary/web_servers/os/centos/7.x/config.pan`.
 At this stage we will create an empty template:
 
-Currently, we'll create it in the plenaray template area, `/var/quattor/cfg/plenary`. The template
-must be called `config.pan`, under the directory `web_servers/os/centos/7.x` (archetype, osname, osversion).
+Currently, we'll create it in the plenary template area, `/var/quattor/cfg/plenary`. The template
+must be called `config.pan`, under the directory `web_servers/os/centos/7.x` (`archetype`, `osname`, `osversion`).
 At this stage we'll create an empty template:
 
 ```pan
@@ -349,41 +345,45 @@ unique template os/centos/centos/7.x;
 
 ### Creating Hardware-related templates
 
-Every model object must have a matching template that must be created manually. Again, we'll
-**temporarily** create them
-in the plenaray template area, `/var/quattor/cfg/plenary`, under the `hardware` directory. You must create one
-template for the machine model and for each its components (cpu, ram, nic, harddisk). The template can be empty.
+Every model object must have a matching template that must be created manually. Templates for the building
+blocks we used are already provided in the template library, except for the machine model.
+Again, we'll **temporarily** create them
+in the plenary template area, `/var/quattor/cfg/plenary`, under the `hardware` directory. For
+machines, the template must exist but can be empty.
 
-If you used the suggested
-model names, use the following commands to create these templates:
+*Note: you need a version later than 18.3.0 for the template library in order to get the templates
+for the machine building blocks. If your version of the template library is older, update the hardware
+part from master branch of `template-library-standard` repository.*
 
 ```bash
 cd /var/quattor/cfg/plenary
-for template in hardware/machine/luthorindustries/spyserver \
-                hardware/ram/generic \
-                hardware/cpu/intel/mygreatcpu \
-                hardware/harddisk/generic \
-                hardware/harddisk/generic
-do
-    template_ns=$(dirname ${template})
-    template_file=${template}.pan
-    echo "Creating structure template ${template_file}..."
-    mkdir -p ${template_ns}
-    echo "structure template ${template};" > ${template_file}
-done
+template=hardware/machine/luthorindustries/thegreatserver
+template_ns=$(dirname ${template})
+template_file=${template}.pan
+echo "structure template ${template};" > ${template_file}
 ```
 
-### Creating the archetype/final template
+### Creating the archetype/base and archetype/final templates
 
-Aquilon requires for each archetype, in addition to its `base.pan` template created when the template library
-was imported, a `final.pan` template which will be the very last executed in the host profile. It will be
-created empty at this stage, in the `archetype` directory like `base.pan`:
+Aquilon requires 2 templates for each archetype, located in the `archetype`
+directory under the directory corresponding to the archetype,
+`/var/quattor/cfg/plenary/web_servers` in our example:
+
+* `base.pan`: this template is the first executed template after the definition of the hardware.
+* `final.pan`: it will be the very last one executed in the host profile. It will be
+created empty at this stage.
+
+We will create empty templates at this stage. To define these templates,
+use the following commands:
 
 ```bash
 cd /var/quattor/cfg/plenary/web_servers
-template=archetype/final
-template_file=${template}.pan
-echo "structure template ${template};" > ${template_file}
+for template in archetype/base archetype/final
+do
+    template_file=${template}.pan
+    echo "Creating template ${template_file..."
+    echo "structure template ${template};" > ${template_file}
+done
 ```
 
 ### Adding and Building the First Host
@@ -439,7 +439,7 @@ templates we wrote until now.
 
 A sandbox is associated with an Aquilon user. The Aquilon user is derived from the Kerberos principal
 and is associated with an existing Linux account
-via the `uid` and `gid`. The Aquilon user name doesn't have to match the Linux userid. It must be created
+via the `uid` and `gid`. The Aquilon user name doesn't have to match the Linux user ID. It must be created
 with the `aq add_user` command if the user doesn't exist already. To list existing
 users, use:
 
@@ -481,7 +481,7 @@ aq add_sandbox --sandbox site-init
 ```
 
 Once the sandbox is created, it is necessary to associate with it the host we want to manage with the
-sandbox. In (almost) all the Aquilon commands requiring a `--sandbox` option (except the `xxx_sandbox` comands),
+sandbox. In (almost) all the Aquilon commands requiring a `--sandbox` option (except the `xxx_sandbox` commands),
 the sandbox name is `user/sandbox`.
 
 ```bash
@@ -500,7 +500,7 @@ aq reconfigure --hostname testsrv.dailyplanet.com
 
 We can now move the templates created at previous steps in the sandbox. Only the template library
 has been intentionally placed into the plenary templates as this is component that is not intended
-to be modified by a site. Use the following commands, customizing the paths to your ocnfiguration if
+to be modified by a site. Use the following commands, customising the paths to your configuration if
 you didn't adopt the standard layout. In the destination directories, `aquilon` is the Aquilon user,
 `site-init` is the sandbox name and `web_servers` is the archetype name.
 
@@ -533,7 +533,7 @@ git commit -m 'Initial templates moved to sandbox'
 
 ### Publishing and Deploying the Sandbox Changes
 
-To illustrate the Aquilon deployment workflow, we can now pubish these changes so that
+To illustrate the Aquilon deployment workflow, we can now publish these changes so that
 they can be reviewed by others and then deploy them into a domain.
 
 To publish the changes so that it is possible to deploy them later:
@@ -551,11 +551,11 @@ changes are considered ready to be deployed in the `test` domain, use `aq deploy
 aq deploy --source site-init --target test
 ```
 
-To test that everything is ok, we need to add a second host in the `test` domain (`testsrv` is now the
+To test that everything is correct, we need to add a second host in the `test` domain (`testsrv` is now the
 `site-init` sandbox) and compile it:
 
 ```bash
-aq add_machine --machine testhw2 --model spyserver --rack forlexluthor
+aq add_machine --machine testhw2 --model thegreatserver --rack forlexluthor
 aq add_interface --interface eth0 --machine 'testhw2' --mac 'AA:BB:CC:DD:FF:EE'
 aq update_interface -interface eth0 --machine 'testhw2' --bootable
 aq add_host --hostname preprodsrv.dailyplanet.com --machine testhw2 --ip 192.168.1.4 \
@@ -574,6 +574,226 @@ aq manage --hostname preprodsrv.dailyplanet.com --domain prod
 
 `aq manage`, when moving a host from between domains or between a sandbox and a domain, is trying
 to compile the host profile. If it fails, the host is not moved to the new domain/sandbox.
+
+## Configuring the base OS
+
+This section shows how to leverage the template library to do the host basic configuration,
+i.e. the base OS and Quattor client configuration
+
+### Defining the site global variables
+
+It is a good practice to declare the main site variables in one template so that it is easy
+to call them during the initialisation of every archetype. The choice made in this example is to
+create a `site/config` directory at the top-level in the sandbox and to create a template
+`global_variables.pan` in it:
+
+*Note: when migrating from SCDB, you can reuse the contents of the SCDB template
+`site/global_variables.pan` in your site directory.*
+
+A typical `site/config/global_variables.pan` is:
+
+```pan
+unique template site/config/global_variables;
+
+# OS_FLAVOUR_ENABLED activates generic major version
+# i.e sl6.x el7.x ... instead of fixed version (sl6.8, el7.2, ...)
+variable OS_FLAVOUR_ENABLED ?= true;
+
+# By default, do not remove postfix service
+variable OS_CORE_POSTFIX ?= true;
+
+# Define some variable used on many templates based on the current object template
+variable HOSTNAME = hostname_from_object();
+variable DOMAIN = domain_from_object(DEFAULT_DOMAIN);
+variable FULL_HOSTNAME= full_hostname_from_object(DEFAULT_DOMAIN);
+
+# Define the nameservers to use for the site.
+variable NAMESERVERS = list("192.168.1.250", "192.168.1.250");
+
+# Define NTP servers
+variable NTP_SERVERS = list("ntp.dailyplanet.com");
+
+# Location and format of quattor profile.
+variable QUATTOR_PROFILE_URL ?= "http://aquilon-broker.dailyplanet.com/profiles";
+variable QUATTOR_PROFILE_FORMAT ?= 'json';
+
+# Location of repository SNAPSHOT
+variable YUM_SNAPSHOT_ROOT_URL ?= 'http://yum.dailyplanet.com/snapshots';
+
+# Variable defining the Pan namespace for YUM snapshot templates
+variable YUM_SNAPSHOT_NS ?= 'site/repository/snapshot';
+
+# AII specific parameters
+variable AII_OSINSTALL_SRV ?= "aii-server.dailyplanet.com";
+variable AII_OSINSTALL_ROOT = '/packages/os';
+
+# SELinux state at installation time
+variable AII_OSINSTALL_SELINUX ?= 'permissive';
+```
+
+### Adding the base information for the archetype
+
+`archetype/base.pan`, currently empty, is the place for all the actions that must be done before
+configuring the OS and the other components (e.g. personalities) of the host.
+
+A typical `archetype/base.pan` is:
+
+```pan
+unique template archetype/base;
+
+# This variable will allow to control the YUM snapshot used, if you are using YUM
+# snapshots as recommended
+variable YUM_SNAPSHOT_DATE ?= '20180409';
+
+# OS distribution used, e.g. centos7 used to build the actual repository name
+# Must match the first part of the YUM repository actual name
+variable YUM_OS_DISTRIBUTION ?= 'centos7';
+
+# Basic stuff from Quattor core that will be needed in many places
+include 'quattor/functions/network';
+include 'components/spma/config';
+
+include 'site/config/global_variables';
+```
+
+### Adding the package repositories
+
+In order to configure packages, we need to define package (YUM) repositories. This involves
+several steps :
+
+* One template is needed to describe each repository available. The choice made in this example
+is to place them in the repository `site/repository/snapshot`. After creating this repository,
+use the following template as an example to create the template for each of the needed repository
+(the example is for the a repository called `el7x_x86_64`:
+
+    ```pan
+    structure template site/repository/snapshot/el7x_x86_64;
+
+    "name" = "el7x_x86_64";
+    "owner" = "aquilon.support@dailyplanet.com";
+    "protocols" = list(
+      nlist("name","http",
+            "url",YUM_SNAPSHOT_ROOT_URL+"/"+YUM_OS_SNAPSHOT_DATE+"/"+YUM_OS_DISTRIBUTION_NAME+"-x86_64")
+    );
+    ```
+
+* Create a template to add all the required repository to the profile. In this example, we'll use
+`site/repository/config/base.pan`. A typical content is:
+
+    ```pan
+    # NOTE: This template should be the LAST thing included in a
+    # machine profile as other parts of the configuration could modify
+    # some variables used to configure the package repositories.
+
+    unique template site/repository/config/base;
+
+    # Repositories related to base OS and quattor client (should be first)
+    include {'repository/config/os'};
+
+    variable DEBUG = debug('OS_REPOSITORY_LIST = ' + to_string(OS_REPOSITORY_LIST) + "\n" +
+                           'QUATTOR_REPOSITORY_LIST = ' + to_string(QUATTOR_REPOSITORY_LIST) + "\n");
+
+    # Cleanup repository information
+    include { 'components/spma/repository_cleanup' };
+    ```
+
+* Include this template in `archetype/final.pan` (currently empty):
+
+    ```pan
+    unique template archetype/final;
+
+    # Configure YUM repositories
+    # Must be done last
+    include 'site/repository/config/base';
+    ```
+
+### Configuring the OS
+
+Aquilon expects the main configuration template for the OS to be in the template
+`os/centos/7.x/config` (where `centos` is the OS name specified for the host and
+`7.x` is the OS version), typically in the archetype directory.
+
+A typical template content is:
+
+```pan
+unique template os/centos/7.x/config;
+
+# It doesn't make sense to modify this variable at a later stage
+final variable NODE_OS_VERSION = 'el7.x-x86_64';
+
+# It doesn't make sense to modify this variable at a later stage
+final variable OS_VERSION_PARAMS = {
+    SELF['majorversion'] = '7';
+    SELF['minor'] = 'x';
+    SELF['distribution'] = 'el';
+    SELF['family'] = 'el';
+    SELF['major'] = SELF['distribution'] + SELF['majorversion'];
+    SELF['arch'] = 'x86_64';
+    SELF['flavour'] = 'x';
+    SELF['version'] = 'el7x';
+    SELF;
+};
+
+include 'os/config/loadpath';
+include 'site/repository/config/yum_os_distribution';
+include 'config/core/base';
+```
+
+This template is calling a template independant of the particular OS name and version to
+add to the `LOADPATH` the template library for the selected OS version. In the example,
+this template is called `os/config/loadpath`. A typical content for this template is;
+
+```pan
+unique template os/config/loadpath;
+
+variable LOADPATH = append(SELF, format('template-library/%s/os/%s', QUATTOR_RELEASE, NODE_OS_VERSION));
+
+variable DEBUG = debug(format('%s: (template=%S) LOADPATH=%s', OBJECT, TEMPLATE, to_string(LOADPATH)));
+```
+
+### Compiling the host profile
+
+As usual, we can compile the profile for the host `testsrv.dailyplanet.com` with all the changes made:
+
+```bash
+aq reconfigure --hostname testsrv.dailyplanet.com
+```
+
+It should compile successfully. If not, please review carefully all the previous steps.
+
+### Publishing and deploying the changes
+
+Once the profile has been successfully rebuilt, it is necessary o publish the changes
+so that they become visible to other users and they can be used by other domains:
+
+```bash
+aq publish --sandbox site-init
+```
+
+This pushes the changes to the `site-init` branch of the template-king repository. Once the
+changes are considered ready to be deployed in the `test` domain, use `aq deploy`:
+
+```bash
+# You can add option --dryrun if you want to see what will be done before
+# actually doing it
+aq deploy --source site-init --target test
+```
+
+We can check that the host in the `test` domain added previously also compile successfully:
+
+```bash
+# preprodsrv should be in the prod domain after the previous step
+aq manage --hostname preprodsrv.dailyplanet.com --domain test
+aq reconfigure --hostname preprodsrv.dailyplanet.com
+```
+
+And when everything is correct, we can deploy the changes to the `prod` domain and
+test them:
+
+```bash
+aq deploy --source test --target prod
+aq manage --hostname preprodsrv.dailyplanet.com --domain prod
+```
 
 ## Troubleshooting
 
@@ -605,4 +825,4 @@ the Java command executed with all its options and to identify the wrong one.
 In particular if you get the error `Could not find or load main class org.apache.tools.ant.launch.Launcher`
 and if `ant` has been installed, you should suspect an incorrect definition of `ant_home` parameter in
 `/etc/aqd.conf`. The standard value should be `/usr/share/ant` and result in `/usr/share/ant/lib/ant-launcher.jar`
-being added to the classpath.
+being added to the class path.
