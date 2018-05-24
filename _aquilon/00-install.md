@@ -44,6 +44,21 @@ yum install ant-apache-regexp ant-contrib \
   python-devel python-setuptools
 ```
 
+Also install a web server. Depending on your preferences, you can use:
+
+* `Apache`:
+
+    ```bash
+    yum install httpd
+    ```
+
+* `Nginx`:
+
+    ```bash
+    yum install nginx
+    ```
+
+
 You also need the following packages for Kerberos, depending on your
 Kerberos infrastructure:
 * If you don't use an external Kerberos server, you need to install the
@@ -483,6 +498,20 @@ previously
 repository be accessible with the URL specified in `git_templates_url` (by default,
 `//current_server/quattor/template_king`)
 
+
+### Web Server Configuration
+
+You need to configure the web server you installed so that the directory `profilesdir`
+(by default, `/var/quattor/web/htdocs/profiles)` is served by the web
+server. This is typically done by defining the document root to `/var/quattor/web/htdocs/`, so that profiles
+are served with the URL `http(s)://broker.dom.ain/profiles`. It is also recommended to enable/require `https`
+for downloading profile as it may contain sensitive information.
+
+Refer to your web server documentation to know how to do the configuration. Depending on the web server used,
+the main configuration file is:
+
+* `Apache`: `/etc/httpd/conf/httpd.conf`
+* `Nginx`: `/etc/nginx/nginx.conf`
 
 ## Enabling SELinux
 
