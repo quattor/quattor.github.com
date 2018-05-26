@@ -20,6 +20,7 @@ FreeIPA
 Gabor
 Ganesha
 gerrit
+gcc
 Gintare
 GitHub
 GPFS
@@ -37,6 +38,8 @@ Kerberos
 keytab
 LAL
 LC
+libxslt
+libyaml
 logstash
 Maven
 metaconfig
@@ -46,9 +49,15 @@ OneFlow
 OpenNebula
 OpenStack
 org
+panc
 Perl
+Postgres
+postgres
+PostgreSQL
+postgresql
 PowerDNS
 protobuf
+PyPI
 quattor
 Quattor
 RabbitMQ
@@ -59,15 +68,33 @@ reconnection
 RPM
 RPMs
 rsyslog
+scalability
 SELinux
+SQL
+SQLite
 sqlite
 Stijn
 stratuslab
+symlink
+systemd
 th
 UGent
 unconfigured
 urbonegi
+unsynchronized
+VirtualEnv
 virtualenv
 VM
 VMs
 whitespace
+
+# Workaround for issue https://github.com/stfc/markdown-spellchecker/issues/9
+# Remove when it is fixed
+aq
+conf
+endcomment
+FIXME
+freenode
+html
+md
+tl
