@@ -47,7 +47,7 @@ These are the basic terms in Aquilon operations:
 * `domain`: A set of shared Quattor templates. Entities to be
   configured live in exactly one domain. A domain is currently
   implemented as a branch in the template-king git repository.
-* `feature`: A re-useable configuration template that configures a
+* `feature`: A reuseable configuration template that configures a
   specific thing but does not in itself describe a complete
   system. A feature may be included in
   a personality or anywhere else that PAN template code can be
@@ -137,7 +137,7 @@ aq add_archetype --archetype web_servers --compilable
 The template library is a set of generic templates that
 help to build host descriptions. It provides many building blocks, in particular
 `features` and hardware-related templates, ready to use to configure the host hardware,
-standardOS services and a few more specific
+standard OS services and a few more specific
 middleware, like [OpenStack](https://www.openstack.org) for clouds or
 [UMD](https://wiki.egi.eu/wiki/Middleware){:data-proofer-ignore=""}
 for grid.
@@ -265,7 +265,7 @@ aq add_machine --machine testhw --model thegreatserver --rack ${rackid}
 
 Each machine has a number of network interfaces, with their MAC
 addresses.  They need to be added to the machine object previously created. Aquilon
-supports different types of interfaces (public, management, vlan...): see `aq help add_interface`
+supports different types of interfaces (public, management, VLAN...): see `aq help add_interface`
 for details. The MAC address can be explicitly defined for a standard machine or auto-generated
 for a virtual machine. The interface can belong to a port group. One of the interface must be
 marked as `bootable` to be able to define an IP address when adding the host.

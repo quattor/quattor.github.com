@@ -31,7 +31,7 @@ aq update_realm --realm dailyplanet.com --trusted
 ### Add an Aquilon user
 
 A sandbox is associated with an Aquilon user. The Aquilon user is associated with an existing Linux account
-via the `uid` and `gid` but doesn't have to be Aquilon user name doesn't have to match the Linux userid.
+via the `uid` and `gid` but doesn't have to be Aquilon user name doesn't have to match the Linux user ID.
 It must be created with the `aq add_user` command if the user doesn't exist already. To list existing
 users, use:
 
@@ -61,7 +61,7 @@ aq add_sandbox --sandbox site-init
 ```
 
 Once the sandbox is created, it is necessary to associate the host we want to manage with the
-sandbox. In all the Aquilon commands requiring a `--sandbox` option (except the `xxx_sandbox` comands),
+sandbox. In all the Aquilon commands requiring a `--sandbox` option (except the `xxx_sandbox` commands),
 the sandbox name is `user/sandbox`.
 
 ```bash
@@ -160,7 +160,7 @@ aq bind_feature --feature demo --personality test --archetype web_servers
 ```
 
 To bind it to the `web_servers` archetype (i.e. whatever archetype personality is used),
-the commad variant is:
+the command variant is:
 
 ```bash
 aq bind_feature --feature demo --archetype web_servers
