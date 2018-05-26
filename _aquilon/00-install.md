@@ -15,7 +15,7 @@ The instruction below describes how to install Aquilon from the sources and run 
 of the installation steps described here require that you can become `root` on the machine. The configuration of a
 site with Aquilon is covered in a [specific page][aquilon_configuration].
 
-*Note: the commands provided in this documentation are intended to be copy/pasted.*
+**Note: the commands provided in this documentation are intended to be copy/pasted.**
 
 ## Install Required Packages
 
