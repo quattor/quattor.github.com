@@ -833,6 +833,17 @@ aq deploy --source test --target prod
 aq manage --hostname preprodsrv.dailyplanet.com --domain prod
 ```
 
+## Defining the Personality
+
+Personality configuration is *staged*. That means that when a personality is updated, the change is not
+visible to the hosts using it until it is promoted as the `current` version with the `aq promote` command.
+When a personality is created and when it is updated, its stage is defined to `next` (configuration that
+will be applied to the personality when the new configuration is promoted as the production (`current`) one.
+
+Personality configuration consists mainly of adding or removing features to it with the
+`aq update_personoality` command. More details can be found in the documentation on
+[advanced management][aquilon_management] tasks, in particular the section related to features.
+
 ## Troubleshooting
 
 ### Error "branch already exists" when creating a domain

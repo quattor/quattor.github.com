@@ -148,6 +148,38 @@ git commit -m 'Add features demon and rootpasswd'
 git push
 ```
 
+### Binding features to personalities and archetypes
+
+A feature can be bound to one or more personalities or archetypes. It means that all using these
+personalities or archetypes will have the feature configured. The command to do it is
+`aq bind_feature`. For example to bind the feature `demo` created previously to the personality `test`,
+the command would be:
+
+```bash
+aq bind_feature --feature demo --personality test --archetype web_servers
+```
+
+To bind it to the `web_servers` archetype (i.e. whatever archetype personality is used),
+the commad variant is:
+
+```bash
+aq bind_feature --feature demo --archetype web_servers
+```
+
+### Defining the new personality configuration as current
+
+Personality configuration is *staged*. That means that when a personality is updated, the change is not
+visible to the hosts using it until it is promoted as the `current` version with the `aq promote` command.
+When a personality is created and when it is updated, its stage is defined to `next` (configuration that
+will be applied to the personality when the new configuration is promoted as the production (`current`) one.
+
+With our previous example, to use the updated personality configuration for the hosts having this personality,
+use the following command:
+
+```bash
+aq promote --personality test --archetype web_servers
+```
+
 ## Networks
 
 ### How to define the routers for my networks?
