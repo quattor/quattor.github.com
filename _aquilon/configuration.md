@@ -608,20 +608,19 @@ i.e. the base OS and the Quattor client configuration
 It is a good practice to declare the main site variables in one template so that it is easy
 to call them during the initialisation of every archetype. The choice made in this example is to
 create a `site/config` directory at the top-level in the sandbox and to create a template
-`global_variables.pan` in it:
+`global_variables.pan` in it with the following typical contents:
 
 ```bash
 cd /var/quattor/templates/$USER/tutorial
-mkdir -p site/config
-```
+template=site/config/global_variables
+template_ns=$(dirname ${template})
+template_file=${template}.pan
+mkdir -p ${template_ns}
+cat > ${template_file} <<EOF
+# This templlate is expected to contain only variable definitions that
+# apply to the whole site
 
-*Note: when migrating from SCDB, you can reuse the contents of the SCDB template
-`site/global_variables.pan` in your site directory.*
-
-A typical `site/config/global_variables.pan` is:
-
-```pan
-unique template site/config/global_variables;
+declaration template ${template};
 
 # OS_FLAVOUR_ENABLED activates generic major version
 # i.e sl6.x el7.x ... instead of fixed version (sl6.8, el7.2, ...)
@@ -657,7 +656,11 @@ variable AII_OSINSTALL_ROOT = '/packages/os';
 
 # SELinux state at installation time
 variable AII_OSINSTALL_SELINUX ?= 'permissive';
+EOF
 ```
+
+*Note: when migrating from SCDB, you can reuse the contents of the SCDB template
+`site/global_variables.pan` in your site directory.*
 
 ### Adding the base information for the archetype
 
@@ -666,7 +669,9 @@ configuring the OS and the other components (e.g. personalities) of the host.
 
 A typical `web_servers/archetype/base.pan` is:
 
-```pan
+```bash
+cd /var/quattor/templates/$USER/tutorial
+cat > web_servers/archetype/base.pan <<EOF
 unique template archetype/base;
 
 # This variable will allow to control the YUM snapshot used, if you are using YUM
@@ -682,6 +687,7 @@ include 'quattor/functions/network';
 include 'components/spma/config';
 
 include 'site/config/global_variables';
+EOF
 ```
 
 ### Adding the package repositories
@@ -691,51 +697,71 @@ several steps :
 
 * One template is needed to describe each repository available. The choice made in this example
 is to place them in the directory `site/repository/snapshot`. After creating this directory,
-use the following template as an example to create the template for each of the needed repository
-(the example is for a repository called `el7x_x86_64` declared in template
-`site/repository/snapshot/el7x_x86_64.pan`):
+use the following templates as an example: they declare a repository for the base OS, `el7x_x86_64`,
+and one for the errata, `el7x_x86_64_errata`.
 
-    ```pan
-    structure template site/repository/snapshot/el7x_x86_64;
+  ```bash
+  cd /var/quattor/templates/$USER/tutorial
+  template_dir=site/repository/snapshot
+  mkdir -p ${template_dir}
+  for repository in el7x_x86_64 el7x_x86_64_errata
+  do
+      template=${template_dir}/${repository}
+      template_file=${template}.pan
+      repository_suffix=$(echo ${repository} | sed -e 's/^el7x_//')
+      cat > ${template_file} <<EOF
+  structure template ${template};
 
-    "name" = "el7x_x86_64";
-    "owner" = "aquilon.support@dailyplanet.com";
-    "protocols" = list(
+  "name" = "${repository}";
+  "owner" = "aquilon.support@dailyplanet.com";
+  "protocols" = list(
       nlist("name","http",
-            "url",YUM_SNAPSHOT_ROOT_URL+"/"+YUM_SNAPSHOT_DATE+"/"+YUM_OS_DISTRIBUTION_NAME+"-x86_64")
-    );
-    ```
+            "url",YUM_SNAPSHOT_ROOT_URL+"/"+YUM_SNAPSHOT_DATE+"/"+YUM_OS_DISTRIBUTION_NAME+"-${repository_suffix}")
+  );
+  EOF
+  done
+  ```
 
 * Create a template to add all the required repository to the profile. In this example, we'll use
 `site/repository/config/base.pan`. First create the directory, then create the template with
 the following typical content is:
 
-    ```pan
-    # NOTE: This template should be the LAST thing included in a
-    # machine profile as other parts of the configuration could modify
-    # some variables used to configure the package repositories.
+  ```bash
+  cd /var/quattor/templates/$USER/tutorial
+  template=site/repository/config/base
+  template_ns=$(dirname ${template})
+  template_file=${template}.pan
+  mkdir -p ${template_ns}
+  cat > ${template_file} <<EOF
+  # NOTE: This template should be the LAST thing included in a
+  # machine profile as other parts of the configuration could modify
+  # some variables used to configure the package repositories.
 
-    unique template site/repository/config/base;
+  unique template site/repository/config/base;
 
-    # Repositories related to base OS and quattor client (should be first)
-    include {'repository/config/os'};
+  # Repositories related to base OS and quattor client (should be first)
+  include {'repository/config/os'};
 
-    variable DEBUG = debug('OS_REPOSITORY_LIST = ' + to_string(OS_REPOSITORY_LIST) + "\n" +
-                           'QUATTOR_REPOSITORY_LIST = ' + to_string(QUATTOR_REPOSITORY_LIST) + "\n");
+  variable DEBUG = debug('OS_REPOSITORY_LIST = ' + to_string(OS_REPOSITORY_LIST) + "\n" +
+                         'QUATTOR_REPOSITORY_LIST = ' + to_string(QUATTOR_REPOSITORY_LIST) + "\n");
 
-    # Cleanup repository information
-    include { 'components/spma/repository_cleanup' };
-    ```
+  # Cleanup repository information
+  include { 'components/spma/repository_cleanup' };
+  EOF
+  ```
 
 * Include the following content in the template `web_servers/archetype/final.pan` (currently empty):
 
-    ```pan
-    unique template archetype/final;
+  ```bash
+  cd /var/quattor/templates/$USER/tutorial
+  cat > web_servers/archetype/final.pan <<EOF
+  unique template archetype/final;
 
-    # Configure YUM repositories
-    # Must be done last
-    include 'site/repository/config/base';
-    ```
+  # Configure YUM repositories
+  # Must be done last
+  include 'site/repository/config/base';
+  EOF
+  ```
 
 ### Configuring the OS
 
@@ -746,8 +772,14 @@ Aquilon expects the main configuration template for the OS to be in the template
 
 A typical template content is:
 
-```pan
-unique template os/centos/7.x/config;
+```bash
+cd /var/quattor/templates/$USER/tutorial/web_servers
+template=os/centos/7.x/config
+template_ns=$(dirname ${template})
+template_file=${template}.pan
+mkdir -p ${template_ns}
+cat > ${template_file} <<EOF
+unique template ${template};
 
 # It doesn't make sense to modify the variables in this template
 # at a later stage, thus they are marked final
@@ -774,6 +806,7 @@ final variable NETWORK_PARAMS = {
 
 include 'os/config/loadpath';
 include 'config/core/base';
+EOF
 ```
 
 This template is calling a template independent of the particular OS name and version to
@@ -781,12 +814,19 @@ add to the `LOADPATH` the template library for the selected OS version. In the e
 this template is called `os/config/loadpath.pan` (in the archetype directory, i.e.
 `web_servers/os/config/loadpath.pan`). A typical content for this template is;
 
-```pan
-unique template os/config/loadpath;
+```bash
+cd /var/quattor/templates/$USER/tutorial/web_servers
+template=os/config/loadpath
+template_ns=$(dirname ${template})
+template_file=${template}.pan
+mkdir -p ${template_ns}
+cat > ${template_file} <<EOF
+unique template ${template};
 
 variable LOADPATH = append(SELF, format('template-library/%s/os/%s', QUATTOR_RELEASE, NODE_OS_VERSION));
 
 variable DEBUG = debug(format('%s: (template=%S) LOADPATH=%s', OBJECT, TEMPLATE, to_string(LOADPATH)));
+EOF
 ```
 
 ### Compiling the host profile
