@@ -873,6 +873,12 @@ aq deploy --source test --target prod
 aq manage --hostname preprodsrv.dailyplanet.com --domain prod
 ```
 
+### Summary
+
+We know have a two hosts successfully configured with a configuration that allows to deploy and
+manage a basic OS configuration. Thanks to the template library, it has been the matter of adding
+around ten Pan templates that are mainly variable definitions and includes.
+
 ## Defining the Personality
 
 Personality configuration is *staged*. That means that when a personality is updated, the change is not
@@ -883,6 +889,50 @@ will be applied to the personality when the new configuration is promoted as the
 Personality configuration consists mainly of adding or removing features to it with the
 `aq update_personoality` command. More details can be found in the documentation on
 [advanced management][aquilon_management] tasks, in particular the section related to features.
+
+### Adding a feature to test personality
+
+In our example, we will add the feature `pakiti` to the personality `test` used with the host
+`testsrv.dailyplanet.com`. [Pakiti](https://github.com/CESNET/pakiti-server) is a service to collect and
+display the patch status of hosts against known CVEs. Its configuration is part of the template library,
+meaning that we don't need to write the Pan templates associated with the feature.
+
+The `pakiti` feature is easily added to the Aquilon database with:
+
+```bash
+aq add feature --feature pakiti --type host --actation dispatch --deactivation reboot --grn test
+```
+
+The new personality configuration must now be promoted as `current` so that `testsrv.dailyplanet.com`
+can use the updated personality:
+
+```bash
+aq promote --personality test --archetype web_servers
+```
+
+This feature requires one variable to be added to our site configuration to define the name of the
+Pakiti server. Based on whether the current host is the pakiti server or not, the server or the client will
+be configured. Presently, we will configure the Pakiti client as part of the `test` personality. To achieve
+this, add the following variable definition to `site/config/global_variables.pan`:
+
+```pan
+# Pakiti server
+variable PAKITI_SERVER ?= 'pakiti.dailyplanet.com';
+```
+
+The new host configuration can now be compiled, published an deployed with the usual commands:
+
+```bash
+aq promote --personality test --archetype web_servers
+aq reconfigure --hostname testsrv.dailyplanet.com
+aq publish --sandbox tutorial
+aq deploy --source tutorial --target test
+```
+
+This demonstrates again the power of the template library, we we can rely on features already defined
+by another site. This is particularly true when configuring hosts with middleware like OpenStack for
+a cloud or like UMD for the [European Grid](https://www.egi.eu). Nevertheless some features are site
+specific and in this case, adding a feature will require to write the associated Pan configuration.
 
 ## Troubleshooting
 
