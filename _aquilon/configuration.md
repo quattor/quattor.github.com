@@ -177,6 +177,10 @@ of the template library. Currently, we'll add it to the plenary templates area, 
 ```pan
 # It is VERY IMPORTANT not to use this template for anything else than the initial
 # LOADPATH configuration.
+#
+# This is the first template loaded by an object, before / is populated. This must
+# be a declaration template because any change to / will be removed by a subsequent
+# line in the object template.
 
 declaration template archetype/loadpath;
 
@@ -561,7 +565,7 @@ they can be reviewed by others and then deploy them into a domain.
 To publish the changes so that it is possible to deploy them later:
 
 ```bash
-aq publish --sandbox tutorial
+aq publish --branch tutorial
 ```
 
 This pushes the changes to the `tutorial` branch of the template-king repository. Once the
@@ -682,9 +686,17 @@ variable YUM_SNAPSHOT_DATE ?= '20180409';
 # Must match the first part of the YUM repository actual name
 variable YUM_OS_DISTRIBUTION_NAME ?= 'centos7';
 
+# Load Quattor profile schema
+include 'quattor/profile_base';
+
 # Basic stuff from Quattor core that will be needed in many places
 include 'quattor/functions/network';
 include 'components/spma/config';
+
+# Required information for every machine
+"/system/rootmail" = "admins@dailyplanet.com";
+include { 'components/accounts/config' };
+"/software/components/accounts/rootpwd" = "hash_for_very_secret_password";
 
 include 'site/config/global_variables';
 EOF
@@ -750,18 +762,33 @@ the following typical content is:
   EOF
   ```
 
-* Include the following content in the template `web_servers/archetype/final.pan` (currently empty):
+### Adding the final information for the archetype
 
-  ```bash
-  cd /var/quattor/templates/$USER/tutorial
-  cat > web_servers/archetype/final.pan <<EOF
-  unique template archetype/final;
+The very last template to get included into the host configuration is `archetype/final.pan`, in
+the archetype directory (here `web_servers`). This is the place where is typically added the configuration
+about the Quattor client, the initial installation (AII) and the package repositories, as they tend
+to depend from several things done during the other part of the configuration. A typical contents
+for `web_servers/archetype/final.pan` (currently empty) is:
 
-  # Configure YUM repositories
-  # Must be done last
-  include 'site/repository/config/base';
-  EOF
-  ```
+```bash
+cd /var/quattor/templates/$USER/tutorial
+cat > web_servers/archetype/final.pan <<EOF
+unique template archetype/final;
+
+# AII (initial installation) configuration
+include 'config/quattor/aii';               # provided by OS templates
+variable AII_OSINSTALL_EXTRAPKGS ?= list();
+#variable AII_OS_INSTALL_OPTION_TIMEZONE = "your timezone";
+#'/system/timezone' = TIMEZONE;
+
+# Must be included after AII_OSINSTALL_EXTRAPKGS is populated
+include "quattor/aii/config";
+
+# Configure YUM repositories
+# Must be done last
+include 'site/repository/config/base';
+EOF
+```
 
 ### Configuring the OS
 
@@ -821,7 +848,7 @@ template_ns=$(dirname ${template})
 template_file=${template}.pan
 mkdir -p ${template_ns}
 cat > ${template_file} <<EOF
-unique template ${template};
+declaration template ${template};
 
 variable LOADPATH = append(SELF, format('template-library/%s/os/%s', QUATTOR_RELEASE, NODE_OS_VERSION));
 
@@ -845,7 +872,7 @@ Once the profile has been successfully rebuilt, it is necessary o publish the ch
 so that they become visible to other users and they can be used by other domains:
 
 ```bash
-aq publish --sandbox tutorial
+aq publish --branch tutorial
 ```
 
 This pushes the changes to the `tutorial` branch of the template-king repository. Once the
@@ -925,7 +952,7 @@ The new host configuration can now be compiled, published an deployed with the u
 ```bash
 aq promote --personality test --archetype web_servers
 aq reconfigure --hostname testsrv.dailyplanet.com
-aq publish --sandbox tutorial
+aq publish --branch tutorial
 aq deploy --source tutorial --target test
 ```
 
