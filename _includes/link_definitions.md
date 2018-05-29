@@ -14,6 +14,7 @@ This file contains link definitions that can be used in reference links.
 [aquilon_nfs_sandboxes]: /aquilon/00-install.html#nfs-based-sandboxes
 [aquilon_tl]: /aquilon/configuration.html#configuring-the-template-library
 [aq_conf_troubleshooting]: /aquilon/site_configuration.html#troubleshooting
+[aq_scdb_migration]: /aquilon/scdb_migration.md
 
 [devel_basics]: {% link _development/00-basics.md %}
 

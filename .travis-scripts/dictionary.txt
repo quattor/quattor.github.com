@@ -5,6 +5,7 @@ API
 aquilon
 Aquilon
 bashism
+BDII
 bootable
 Bruxelles
 CAF
@@ -68,6 +69,8 @@ metaclusters
 metaconfig
 metadata
 middleware
+namespace
+namespaces
 NIC
 NFS
 noarch
@@ -127,6 +130,7 @@ VM
 VMs
 VMware
 whitespace
+WN
 workflow
 
 # Liquid comments are not properly handled
