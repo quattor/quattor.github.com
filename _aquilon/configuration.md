@@ -161,18 +161,18 @@ directory rather than in the `template-king` Git repository.
 
 ### Enabling the Template Library
 
-A template library version is enabled in the context of an archetype, using `archetype/loadpath.pan`
+A template library version is enabled in the context of an archetype, using `archetype/declarations.pan`
 This template is typically placed in the archetype directory for which you want to enable this version
 of the template library. Currently, we'll add it to the plenary templates area, under
 `/var/quattor/cfg/plenary/web_servers`, where `web_servers` is the archetype we'll use in our examples.
 
-* Create the `loadpath.pan` template directory:
+* Create the `declarations.pan` template directory:
 
     ```bash
     mkdir -p /var/quattor/cfg/plenary/web_servers/archetype
     ```
 
-* Create the `/var/quattor/cfg/plenary/web_servers/archetype/loadpath.pan` template with the following content:
+* Create the `/var/quattor/cfg/plenary/web_servers/archetype/declarations.pan` template with the following content:
 
 ```pan
 # It is VERY IMPORTANT not to use this template for anything else than the initial
@@ -182,7 +182,7 @@ of the template library. Currently, we'll add it to the plenary templates area, 
 # be a declaration template because any change to / will be removed by a subsequent
 # line in the object template.
 
-declaration template archetype/loadpath;
+declaration template archetype/declarations;
 
 # Replace by the template library version you want to use
 final variable QUATTOR_RELEASE = '18.3.0';
@@ -831,19 +831,19 @@ final variable NETWORK_PARAMS = {
     SELF;
 };
 
-include 'os/config/loadpath';
+include 'os/config/declarations';
 include 'config/core/base';
 EOF
 ```
 
 This template is calling a template independent of the particular OS name and version to
 add to the `LOADPATH` the template library for the selected OS version. In the example,
-this template is called `os/config/loadpath.pan` (in the archetype directory, i.e.
-`web_servers/os/config/loadpath.pan`). A typical content for this template is;
+this template is called `os/config/declarations.pan` (in the archetype directory, i.e.
+`web_servers/os/config/declarations.pan`). A typical content for this template is;
 
 ```bash
 cd /var/quattor/templates/$USER/tutorial/web_servers
-template=os/config/loadpath
+template=os/config/declarations
 template_ns=$(dirname ${template})
 template_file=${template}.pan
 mkdir -p ${template_ns}
