@@ -432,12 +432,6 @@ To start the production broker, a systemd unit file must be added. A template is
 `/opt/aquilon/etc/systemd/aquilon-broker.service`. Review its contents, in particular the
 Python interpreter path, before copying the file to `/etc/systemd/system/multi-user.target.wants`.
 
-{% comment %}
-FIXME: remove this note once the PR has been merged
-{% endcomment %}
-*Note: if `/opt/aquilon/etc/systemd/aquilon-broker.service` doesn't exist, you may have to
-retrieve it from [GitHub pull request](https://github.com/quattor/aquilon/pull/75).*
-
 The aquilon broker service relies on `/etc/sysconfig/aqd` for its configuration. Create it from
 the template in `/opt/aquilon/etc/sysconfig/aqd`, changing `TWISTD` to `/opt/aquilon/sbin/aqd.py` and ensuring
 that other variables have a definition consistent with what is in `/etc/aqd.conf`.

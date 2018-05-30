@@ -148,10 +148,10 @@ git commit -m 'Add features demon and rootpasswd'
 git push
 ```
 
-### Binding features to personalities and archetypes
+### Binding features to personalities
 
-A feature can be bound to one or more personalities or archetypes. It means that all using these
-personalities or archetypes will have the feature configured. The command to do it is
+A feature can be bound to one or more personalities. It means that all using these
+personalities will have the feature configured. The command to do it is
 `aq bind_feature`. For example to bind the feature `demo` created previously to the personality `test`,
 the command would be:
 
@@ -159,12 +159,8 @@ the command would be:
 aq bind_feature --feature demo --personality test --archetype web_servers
 ```
 
-To bind it to the `web_servers` archetype (i.e. whatever archetype personality is used),
-the command variant is:
-
-```bash
-aq bind_feature --feature demo --archetype web_servers
-```
+*Note: despite the command help mentions that features can also be bound to archetypes, it is
+highly recommended not to do it.*
 
 ### Defining the new personality configuration as current
 
