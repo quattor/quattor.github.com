@@ -162,7 +162,12 @@ aq bind_feature --feature demo --personality test --archetype web_servers
 *Note: despite the command help mentions that features can also be bound to archetypes, it is
 highly recommended not to do it.*
 
-### Defining the new personality configuration as current
+
+## Personalities
+
+Personalities are used to define the list of features that are configured on a host. Every host has one
+personality and only one but it is possible to change the personality of a host. Personalities are attached
+to one archetype (an archetype can be viewed as a group of possible personalities).
 
 Personality configuration is *staged*. That means that when a personality is updated, the change is not
 visible to the hosts using it until it is promoted as the `current` version with the `aq promote` command.
@@ -170,12 +175,27 @@ When a personality is created and when it is updated, its stage is defined to `n
 will be applied to the personality when the new configuration is promoted as the production (`current`) one. 
 After `aq promote` the previously current personality configuration becomes `previous`.
 
-With our previous example, to use the updated personality configuration for the hosts having this personality,
+Unlike features, personalities are entirely defined in the Aquilon database (there
+is no additional site template to create).
+
+### Defining the new personality configuration as current
+
+Based on the feature example above, to use the updated personality configuration for the hosts having this personality,
 use the following command:
 
 ```bash
 aq promote --personality test --archetype web_servers
 ```
+
+### Changing the host personality
+
+To change the personality of an existing host, use `aq reconfigure`:
+
+```bash
+aq reconfigure --hostname your_host --personality new_personality [--archetype new_archetype]
+```
+
+`--archetype` is necessary only if the new personality is not attached to the same archetype.
 
 ## Networks
 

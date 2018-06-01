@@ -930,7 +930,13 @@ The `pakiti` feature is easily added to the Aquilon database with:
 aq add feature --feature pakiti --type host --actation dispatch --deactivation reboot --grn test
 ```
 
-The new personality configuration must now be promoted as `current` so that `testsrv.dailyplanet.com`
+Once added it must be bound to the `web-servers` personality:
+
+```bash
+aq bind_feature --feature pakity --personality test --archetype web_servers
+```
+
+The resulting new personality configuration must now be promoted as `current` so that `testsrv.dailyplanet.com`
 can use the updated personality:
 
 ```bash
