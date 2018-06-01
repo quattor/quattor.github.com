@@ -166,15 +166,11 @@ This template is typically placed in the archetype directory for which you want 
 of the template library. Currently, we'll add it to the plenary templates area, under
 `/var/quattor/cfg/plenary/web_servers`, where `web_servers` is the archetype we'll use in our examples.
 
-* Create the `declarations.pan` template directory:
+The typical contents for `declarations.pan` can be created with:
 
-    ```bash
-    mkdir -p /var/quattor/cfg/plenary/web_servers/archetype
-    ```
-
-* Create the `/var/quattor/cfg/plenary/web_servers/archetype/declarations.pan` template with the following content:
-
-```pan
+```bash
+mkdir -p /var/quattor/cfg/plenary/web_servers/archetype
+cat > web_servers/archetype/declarations.pan <<EOF
 # It is VERY IMPORTANT not to use this template for anything else than the initial
 # LOADPATH configuration.
 #
@@ -191,6 +187,7 @@ variable LOADPATH = append(SELF, format('template-library/%s/core', QUATTOR_RELE
 variable LOADPATH = append(SELF, format('template-library/%s/standard', QUATTOR_RELEASE));
 
 variable DEBUG = debug(format('%s: (template=%S) LOADPATH=%s', OBJECT, TEMPLATE, to_string(LOADPATH)));
+EOF
 ```
 
 
