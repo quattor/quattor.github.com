@@ -686,6 +686,10 @@ variable YUM_SNAPSHOT_DATE ?= '20180409';
 # Must match the first part of the YUM repository actual name
 variable YUM_OS_DISTRIBUTION_NAME ?= 'centos7';
 
+# Timezone definition until the broker put it in the plenary templates
+# See https://github.com/quattor/aquilon/issues/91
+variable TIMEZONE ?= 'US/Pacific';
+
 # Load Quattor profile schema
 include 'quattor/profile_base';
 
@@ -776,12 +780,11 @@ cat > web_servers/archetype/final.pan <<EOF
 unique template archetype/final;
 
 # AII (initial installation) configuration
-include 'config/quattor/aii';               # provided by OS templates
 variable AII_OSINSTALL_EXTRAPKGS ?= list();
-#variable AII_OS_INSTALL_OPTION_TIMEZONE = "your timezone";
-#'/system/timezone' = TIMEZONE;
+variable AII_OSINSTALL_OPTION_TIMEZONE = TIMEZONE;
 
 # Must be included after AII_OSINSTALL_EXTRAPKGS is populated
+include "config/quattor/aii";           # Part of the OS templates
 include "quattor/aii/config";
 
 # Configure YUM repositories
