@@ -167,7 +167,8 @@ highly recommended not to do it.*
 Personality configuration is *staged*. That means that when a personality is updated, the change is not
 visible to the hosts using it until it is promoted as the `current` version with the `aq promote` command.
 When a personality is created and when it is updated, its stage is defined to `next` (configuration that
-will be applied to the personality when the new configuration is promoted as the production (`current`) one.
+will be applied to the personality when the new configuration is promoted as the production (`current`) one. 
+After `aq promote` the previously current personality configuration becomes `previous`.
 
 With our previous example, to use the updated personality configuration for the hosts having this personality,
 use the following command:
