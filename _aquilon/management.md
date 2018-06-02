@@ -1,8 +1,8 @@
 ---
 layout: article
-title: Aquilon Management Workflow and Advanced Topics
+title: Site Management Workflow and Operations
 author: Michel Jouvin
-menu: Management Workflow
+menu: Using Aquilon
 ---
 
 {% include link_definitions.md %}
