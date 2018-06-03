@@ -49,7 +49,7 @@ These are the basic terms in Aquilon operations:
 * `domain`: A set of shared Quattor templates. Entities to be
   configured live in exactly one domain. A domain is currently
   implemented as a branch in the template-king git repository.
-* `feature`: A reuseable configuration template that configures a
+* `feature`: A reusable configuration template that configures a
   specific thing but does not in itself describe a complete
   system. A feature may be included in
   a personality or anywhere else that PAN template code can be
@@ -61,7 +61,7 @@ These are the basic terms in Aquilon operations:
   external source such as the Aquilon database.
 * `sandbox`: A development area for making changes to Pan
   templates. Each sandbox must be started from a domain and hosts or
-  clusters may be managed into the sandbox to allow for pre-deployment
+  clusters may be managed into the sandbox to allow for predeployment
   testing. Once the template code is fully tested, it must be
   published back to the broker and then deployhttp://quattor-pan.readthedocs.org/en/latested to the shared domain.
 * `service`: A network-based service with well-known clients and
