@@ -238,6 +238,36 @@ If you need an external network, you have to create it with
 `--network_environment external` in its command line.
 
 
+## Implementing Modifications in the Template Library
+
+The [template library][tl_intro] provides the base templates for configuring the host operating system and
+some features, in particular for OpenStack cloud and for UMD grid middleware. It has been designed to
+highly configurable without any modification, using variables. The templates are developed by the
+Quattor community. They help to lower the management effort required at each site.
+
+The template library is not intended to be modified directly by a site. This is the reason it is
+part of the plenary templates that are not visible to Aquilon users and that they are not versioned.
+See the [dedicated section][aquilon_tl] for more information on how to integrate the template
+library into Aquilon.
+
+It may happen that some of the templates need to be enhanced or that a site develops a new feature 
+that may be useful to other sites. In this case, it is recommended to create at the top level of
+the site templates a `template-library` directory. In this directory, create a sub-directory whose
+name is the template library version the modification apply to. This is the same directory structure
+as the one used in the plenary templates.
+
+Then for each template that you need to modify or add, place it in the same directory as it would be
+in the template library: the site version will be used instead of the standard one, without any modification
+to the other templates.
+
+When a new version of the template library is released, it is easy to compare the new templates with
+the local modifications to decide what still needs to be ported to the new version, using the same approach
+(a directory corresponding to the new version).
+
+It is important to submit your modification upstream, using GitHub pull requests against the relevant
+repositories. Avoid submitting one big pull request with all your changes: prefer submitting one
+pull request per change set.
+
 ## Implementing Peer-Review and Quality Assessment with Aquilon
 
 Implementing a stage deployment workflow, Aquilon makes easy to validate changes through peer-review and
