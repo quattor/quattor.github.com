@@ -635,7 +635,7 @@ variable OS_CORE_POSTFIX ?= true;
 # Define some variable used on many templates based on the current object template
 variable HOSTNAME = hostname_from_object();
 variable DOMAIN = domain_from_object('no.default');
-variable FULL_HOSTNAME= full_hostname_from_object(DOMAIN);
+variable FULL_HOSTNAME= OBJECT;
 
 # Define the nameservers to use for the site.
 variable NAMESERVERS = list("192.168.1.250", "192.168.1.250");
