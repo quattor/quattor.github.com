@@ -637,6 +637,13 @@ variable HOSTNAME = hostname_from_object();
 variable DOMAIN = domain_from_object('no.default');
 variable FULL_HOSTNAME= OBJECT;
 
+# Network parameters are defined by the Aquilon broker
+final variable NETWORK_PARAMS = {
+    SELF['ip'] = value('/system/network/primary_ip');
+    SELF['gateway'] = value('/system/network/default_gateway');
+    SELF;
+};
+
 # Define the nameservers to use for the site.
 variable NAMESERVERS = list("192.168.1.250", "192.168.1.250");
 
@@ -814,24 +821,6 @@ unique template ${template};
 # at a later stage, thus they are marked final
 
 final variable NODE_OS_VERSION = 'el7.x-x86_64';
-
-final variable OS_VERSION_PARAMS = {
-    SELF['majorversion'] = '7';
-    SELF['minor'] = 'x';
-    SELF['distribution'] = 'el';
-    SELF['family'] = 'el';
-    SELF['major'] = SELF['distribution'] + SELF['majorversion'];
-    SELF['arch'] = 'x86_64';
-    SELF['flavour'] = 'x';
-    SELF['version'] = 'el7x';
-    SELF;
-};
-
-final variable NETWORK_PARAMS = {
-    SELF['ip'] = value('/system/network/primary_ip');
-    SELF['gateway'] = value('/system/network/default_gateway');
-    SELF;
-};
 
 include 'os/config/declarations';
 include 'config/core/base';
