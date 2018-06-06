@@ -1,8 +1,8 @@
 ---
 layout: article
-title: Aquilon Management Workflow and Advanced Topics
+title: Site Management Workflow and Operations
 author: Michel Jouvin
-menu: Management Workflow
+menu: Using Aquilon
 ---
 
 {% include link_definitions.md %}
@@ -31,7 +31,7 @@ aq update_realm --realm dailyplanet.com --trusted
 ### Add an Aquilon user
 
 A sandbox is associated with an Aquilon user. The Aquilon user is associated with an existing Linux account
-via the `uid` and `gid` but doesn't have to be Aquilon user name doesn't have to match the Linux userid.
+via the `uid` and `gid` but doesn't have to be Aquilon user name doesn't have to match the Linux user ID.
 It must be created with the `aq add_user` command if the user doesn't exist already. To list existing
 users, use:
 
@@ -61,7 +61,7 @@ aq add_sandbox --sandbox site-init
 ```
 
 Once the sandbox is created, it is necessary to associate the host we want to manage with the
-sandbox. In all the Aquilon commands requiring a `--sandbox` option (except the `xxx_sandbox` comands),
+sandbox. In all the Aquilon commands requiring a `--sandbox` option (except the `xxx_sandbox` commands),
 the sandbox name is `user/sandbox`.
 
 ```bash
@@ -104,6 +104,15 @@ Aquilon. For example, you could create an archetype for all your IPMI hardware.
 aq add_archetype --archetype 'ipmi' --nocompilable
 ```
 
+## Adding New Hardware Models
+
+Arbitrary hardware components (disks, NIC, machine...) can be used to describe machines in the
+Aquilon database. But to be usable in host profiles, they have to be backed by Pan templates.
+This section requires what you need to do if you want to use
+hardware components with no template already existing in the [template library][tl_intro]. Once
+you have validated the new hardware templates, it is a good practice to request their addition to
+the template library so that other Aquilon sites can benefit from them.
+
 ## Defining New Features
 
 ### Adding a feature
@@ -138,6 +147,55 @@ git add .
 git commit -m 'Add features demon and rootpasswd'
 git push
 ```
+
+### Binding features to personalities
+
+A feature can be bound to one or more personalities. It means that all using these
+personalities will have the feature configured. The command to do it is
+`aq bind_feature`. For example to bind the feature `demo` created previously to the personality `test`,
+the command would be:
+
+```bash
+aq bind_feature --feature demo --personality test --archetype web_servers
+```
+
+*Note: despite the command help mentions that features can also be bound to archetypes, it is
+highly recommended not to do it.*
+
+
+## Personalities
+
+Personalities are used to define the list of features that are configured on a host. Every host has one
+personality and only one but it is possible to change the personality of a host. Personalities are attached
+to one archetype (an archetype can be viewed as a group of possible personalities).
+
+Personality configuration is *staged*. That means that when a personality is updated, the change is not
+visible to the hosts using it until it is promoted as the `current` version with the `aq promote` command.
+When a personality is created and when it is updated, its stage is defined to `next` (configuration that
+will be applied to the personality when the new configuration is promoted as the production (`current`) one. 
+After `aq promote` the previously current personality configuration becomes `previous`.
+
+Unlike features, personalities are entirely defined in the Aquilon database (there
+is no additional site template to create).
+
+### Defining the new personality configuration as current
+
+Based on the feature example above, to use the updated personality configuration for the hosts having this personality,
+use the following command:
+
+```bash
+aq promote --personality test --archetype web_servers
+```
+
+### Changing the host personality
+
+To change the personality of an existing host, use `aq reconfigure`:
+
+```bash
+aq reconfigure --hostname your_host --personality new_personality [--archetype new_archetype]
+```
+
+`--archetype` is necessary only if the new personality is not attached to the same archetype.
 
 ## Networks
 
@@ -179,6 +237,36 @@ apply:
 If you need an external network, you have to create it with
 `--network_environment external` in its command line.
 
+
+## Implementing Modifications in the Template Library
+
+The [template library][tl_intro] provides the base templates for configuring the host operating system and
+some features, in particular for OpenStack cloud and for UMD grid middleware. It has been designed to
+highly configurable without any modification, using variables. The templates are developed by the
+Quattor community. They help to lower the management effort required at each site.
+
+The template library is not intended to be modified directly by a site. This is the reason it is
+part of the plenary templates that are not visible to Aquilon users and that they are not versioned.
+See the [dedicated section][aquilon_tl] for more information on how to integrate the template
+library into Aquilon.
+
+It may happen that some of the templates need to be enhanced or that a site develops a new feature 
+that may be useful to other sites. In this case, it is recommended to create at the top level of
+the site templates a `template-library` directory. In this directory, create a sub-directory whose
+name is the template library version the modification apply to. This is the same directory structure
+as the one used in the plenary templates.
+
+Then for each template that you need to modify or add, place it in the same directory as it would be
+in the template library: the site version will be used instead of the standard one, without any modification
+to the other templates.
+
+When a new version of the template library is released, it is easy to compare the new templates with
+the local modifications to decide what still needs to be ported to the new version, using the same approach
+(a directory corresponding to the new version).
+
+It is important to submit your modification upstream, using GitHub pull requests against the relevant
+repositories. Avoid submitting one big pull request with all your changes: prefer submitting one
+pull request per change set.
 
 ## Implementing Peer-Review and Quality Assessment with Aquilon
 

@@ -15,7 +15,7 @@ The instruction below describes how to install Aquilon from the sources and run 
 of the installation steps described here require that you can become `root` on the machine. The configuration of a
 site with Aquilon is covered in a [specific page][aquilon_configuration].
 
-*Note: the commands provided in this documentation are intended to be copy/pasted.*
+**Note: the commands provided in this documentation are intended to be copy/pasted.**
 
 ## Install Required Packages
 
@@ -431,12 +431,6 @@ If this is the case, stop the broker started by the `dev_aqd.sh` script.
 To start the production broker, a systemd unit file must be added. A template is provided in
 `/opt/aquilon/etc/systemd/aquilon-broker.service`. Review its contents, in particular the
 Python interpreter path, before copying the file to `/etc/systemd/system/multi-user.target.wants`.
-
-{% comment %}
-FIXME: remove this note once the PR has been merged
-{% endcomment %}
-*Note: if `/opt/aquilon/etc/systemd/aquilon-broker.service` doesn't exist, you may have to
-retrieve it from [GitHub pull request](https://github.com/quattor/aquilon/pull/75).*
 
 The aquilon broker service relies on `/etc/sysconfig/aqd` for its configuration. Create it from
 the template in `/opt/aquilon/etc/sysconfig/aqd`, changing `TWISTD` to `/opt/aquilon/sbin/aqd.py` and ensuring

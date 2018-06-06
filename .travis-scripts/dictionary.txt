@@ -4,19 +4,27 @@ API
 aquilon
 Aquilon
 bashism
+bootable
 Bruxelles
 CAF
 CCM
+CentOS
 Ceph
+compilable
+Compilable
 config
 cron
+CVE
+CVEs
 devel
+DHCP
 DNS
 DPM
 EL
 EPEL
 formatter
 FreeIPA
+fullname
 Gabor
 Ganesha
 gerrit
@@ -27,10 +35,14 @@ GPFS
 GPG
 GPU
 GPUs
+GRN
+GRNs
 hacky
 HEPiX
 init
 INSTALLDIR
+IP
+IPMI
 IPv
 jrha
 JSON
@@ -44,11 +56,16 @@ logstash
 Maven
 metaconfig
 metadata
+middleware
+NIC
 noarch
+NTP
 OneFlow
 OpenNebula
 OpenStack
 org
+pakiti
+Pakiti
 panc
 Perl
 Postgres
@@ -56,6 +73,7 @@ postgres
 PostgreSQL
 postgresql
 PowerDNS
+predeployment
 protobuf
 PyPI
 quattor
@@ -69,6 +87,7 @@ RPM
 RPMs
 rsyslog
 scalability
+SCDB
 SELinux
 SQL
 SQLite
@@ -79,14 +98,18 @@ symlink
 systemd
 th
 UGent
+UMD
 unconfigured
 urbonegi
 unsynchronized
+versioned
 VirtualEnv
 virtualenv
+VLAN
 VM
 VMs
 whitespace
+workflow
 
 # Workaround for issue https://github.com/stfc/markdown-spellchecker/issues/9
 # Remove when it is fixed
@@ -96,5 +119,8 @@ endcomment
 FIXME
 freenode
 html
+hw
 md
+proofer
+py
 tl

@@ -39,3 +39,13 @@ Short summary of the change
 Change-Id: I9f8d7d0f656e72877c436727d0e4a8d8a62a4b89
 ```
 
+## Contributing your Changes
+
+Once you have validated your changes and edited the appropriate commit messages, you need to open a pull request
+against the relevant Aquilon repository on GitHub. There are two repositories:
+
+- [Aquilon](https://github.com/quattor/aquilon) itself (the main one)
+- Aquilon [protocols](https://github.com/quattor/aquilon-protocols): Python modules used to interface to the database
+
+*Note: each commit **must** have a different `Change-ID`, even they are part of the same pull request*
+
