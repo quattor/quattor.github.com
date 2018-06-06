@@ -165,8 +165,9 @@ directory rather than in the `template-king` Git repository.
 
 A template library version is enabled in the context of an archetype, using `archetype/declarations.pan`
 This template is typically placed in the archetype directory for which you want to enable this version
-of the template library. Currently, we'll add it to the plenary templates area, under
-`/var/quattor/cfg/plenary/web_servers`, where `web_servers` is the archetype we'll use in our examples.
+of the template library. Temporarily, for the purposes of this tutorial, we'll add it to the plenary 
+templates area, under `/var/quattor/cfg/plenary/web_servers`, where `web_servers` is the 
+archetype we'll use in our examples.
 
 The typical contents for `declarations.pan` can be created with:
 
@@ -390,9 +391,10 @@ echo "structure template ${template};" > ${template_file}
 
 ### Creating the archetype/base and archetype/final templates
 
-Aquilon requires 2 templates for each archetype, located in the `archetype`
-directory under the directory corresponding to the archetype,
-`/var/quattor/cfg/plenary/web_servers` in our example:
+In addition to the declarations.pan template described above,  each archetype requires 2 
+further templates located in a directory called `<<name-of-archetype>>/archetype`,
+in our example `web_servers/archetype`, in the plenary template area,
+`/var/quattor/cfg/plenary`:
 
 * `base.pan`: this template is the first executed template after the definition of the hardware.
 * `final.pan`: it will be the very last one executed in the host profile. It will be
@@ -910,7 +912,9 @@ Personality configuration consists mainly of adding or removing features to it w
 
 ### Adding a feature to test personality
 
-In our example, we will add the feature `pakiti` to the personality `test` used with the host
+In our example, we will add the feature 
+[pakiti](https://github.com/quattor/template-library-standard/tree/master/features/pakiti)) 
+to the personality `test` used with the host
 `testsrv.dailyplanet.com`. [Pakiti](https://github.com/CESNET/pakiti-server) is a service to collect and
 display the patch status of hosts against known CVEs. Its configuration is part of the template library,
 meaning that we don't need to write the Pan templates associated with the feature.
@@ -918,13 +922,24 @@ meaning that we don't need to write the Pan templates associated with the featur
 The `pakiti` feature is easily added to the Aquilon database with:
 
 ```bash
-aq add feature --feature pakiti --type host --actation dispatch --deactivation reboot --grn test
+aq add feature --feature pakiti --type host --activation dispatch --deactivation reboot \
+               --grn test --comment "This feature deploys de Pakiti software"
 ```
+
+`--comment` is optional but it is a good practice to use it to describe what the feature does.
 
 Once added it must be bound to the `web-servers` personality:
 
 ```bash
-aq bind_feature --feature pakity --personality test --archetype web_servers
+aq bind_feature --feature pakiti --personality test --archetype web_servers
+```
+
+After modifying a personality and before promoting the new configuration as the current
+one, it is possible to see the differences between the current and the new configuration with
+`aq show_diff`:
+
+```bash
+aq show_diff --archetype web_servers --personality test --personality_stage current --other_stage next
 ```
 
 The resulting new personality configuration must now be promoted as `current` so that `testsrv.dailyplanet.com`
@@ -947,7 +962,6 @@ variable PAKITI_SERVER ?= 'pakiti.dailyplanet.com';
 The new host configuration can now be compiled, published an deployed with the usual commands:
 
 ```bash
-aq promote --personality test --archetype web_servers
 aq reconfigure --hostname testsrv.dailyplanet.com
 aq publish --branch tutorial
 aq deploy --source tutorial --target test
