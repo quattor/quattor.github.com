@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 set -e # halt script on error
 
-SCVERSION="1.3"
+SCVERSION="1.4"
 
-wget https://github.com/stfc/markdown-spellchecker/archive/$SCVERSION.tar.gz -O spellchecker.tar.gz
-tar -xvzf spellchecker.tar.gz
+wget https://github.com/stfc/markdown-spellchecker/archive/$SCVERSION.tar.gz -O /tmp/spellchecker.tar.gz
+(cd /tmp && tar -xvzf spellchecker.tar.gz)
 
-cp -f .travis-scripts/dictionary.txt markdown-spellchecker-$SCVERSION/src/dict.txt
+cp -f .travis-scripts/dictionary.txt /tmp/markdown-spellchecker-$SCVERSION/src/dict.txt
 
 echo
 echo spellchecker config:
 echo --------------------
-cat markdown-spellchecker-$SCVERSION/src/config.ini
+cat /tmp/markdown-spellchecker-$SCVERSION/src/config.ini
 echo --------------------
 echo
 
 pyenv versions
 pyenv local 3.6
 pip3 install pyenchant
-git diff --name-only HEAD^ | grep '\.md$' | xargs -r python3.6 markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
+git diff --name-only HEAD^ | grep '\.md$' | xargs -r python3.6 /tmp/markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
