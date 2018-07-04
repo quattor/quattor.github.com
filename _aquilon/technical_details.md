@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Aquilon Technical Details
+title: Aquilon Concepts and Technical Details
 author: Michel Jouvin
 menu: Technical Details
 ---
@@ -88,19 +88,17 @@ is a template king clone, created by the broker, whose current branch
 is mirroring the sandbox branch in the template king.
 
 
-## Archetypes
+## Archetypes and Personalities
 
 Archetypes is the highest level of host grouping in Aquilon. They typically allow to group all hosts
-sharing the same base environment, in particular the operating system.
+sharing the same base environment. It is up to the site to define the granularity of archetypes. It is
+possible to bind some features with the archetype rather than with a specific personality, so that all
+personalities in the archetype will have these features configured.
 
+Personalities are used to define the list of features that are configured on a host. 
+Every host has one personality and only one but it is possible to change the personality of a host. 
 Personalities used to define the host configuration are bound to an archetype. As a consequence, there is
 no easy way to share personality definitions between archetypes.
-
-
-## Clusters
-
-Clusters are mostly useful for defining HA services (perhaps with floating IP addresses) that exist on a set of hosts,
-rather than on individual hosts. They get their own profiles in addition to the hosts.
 
 
 ## Services
@@ -116,3 +114,26 @@ it is then possible to use `/system/services/dns/server_ips` to retrieve the nam
 
 One specific service is `bootserver`. It is used by the command `aq pxeswitch` to select the host providing
 the AII service used for the initial installation of an Aquilon host.
+
+
+## Clusters
+
+Clusters are collections of hosts that have a similar role/function. They are typically used describe 
+a cluster of hypervisors, like those provided by VMware ESX or clouds. Aquilon can provide some monitoring
+thresholds associated with the cluster, like the minimum or maximum number of hosts that must be running at
+any time. Clusters can also be used to describe a HA cluster. Note that Aquilon is not a replacement for the
+cluster middleware: it just allows to represent a group of machines managed by such a middleware.
+
+Once a cluster is defined, it can be used as an alternative to a machine object to describe where is running
+a host. In this case, Aquilon doesn't track on which cluster node the host is running: it lets the middleware
+do the scheduling, assuming that all hosts in the cluster are equivalent.
+
+
+## Metaclusters
+
+A metacluster in Aquilon is a group of cluster. They are used to group distinct clusters with a similar configuration
+(e.g. for VMware ESX, same vCenter, same storage back-end, same network connections). When a virtual machine is
+moved between two different clusters that are part of the same metacluster, Aquilon is able to drive the migration
+as only the virtual machine definition has to be migrated.
+
+Currently metaclusters can be used only with VMware ESX clusters.

@@ -3,7 +3,7 @@ This file contains link definitions that can be used in reference links.
 {% endcomment %}
 
 [aquilon_add_hw]: /aquilon/management.html#adding-new-hardware-models
-[aquilon_archetypes]: /aquilon/technical_details.html#archetypes
+[aquilon_archetypes]: /aquilon/technical_details.html#archetypes-and-personalities
 [aquilon_configuration]: /aquilon/configuration.html
 [aquilon_details]: /aquilon/technical_details.html
 [aquilon_domains]: /aquilon/technical_details.html#domains
