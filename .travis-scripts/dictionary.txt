@@ -22,6 +22,7 @@ DNS
 DPM
 EL
 EPEL
+ESX
 formatter
 FQDN
 FQDNs
@@ -41,6 +42,8 @@ GRN
 GRNs
 hacky
 HEPiX
+hypervisor
+hypervisors
 init
 INSTALLDIR
 IP
@@ -56,6 +59,8 @@ libxslt
 libyaml
 logstash
 Maven
+metacluster
+metaclusters
 metaconfig
 metadata
 middleware
@@ -106,12 +111,14 @@ UMD
 unconfigured
 urbonegi
 unsynchronized
+vCenter
 versioned
 VirtualEnv
 virtualenv
 VLAN
 VM
 VMs
+VMware
 whitespace
 workflow
 
