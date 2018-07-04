@@ -2,7 +2,9 @@
 layout: article
 title: Installing Aquilon
 modified: 2018-05-13
-author: Luis Fernando Muñoz Mejías
+author: 
+  - Luis Fernando Muñoz Mejías
+  - Michel Jouvin
 menu: Installation
 redirect_from:
   - /documentation/2012/10/31/install-aquilon.html
@@ -207,7 +209,7 @@ systemctl start PostgreSQL
 ## Building Aquilon protocols
 
 You need to build the Aquilon protocols Python module from sources with the following commands (**if using a VirtualEnv,
-be sure that it is activated**):
+be sure that it is activated** or the Aquilon protocols will get installed at the wrong place):
 
 ```bash
 cd your_work_directory
@@ -535,7 +537,7 @@ must have the SELinux type `httpd_sys_content_t`. This can be set with:
 
 ## Upgrading Aquilon
 
-Upgrading Aquilon involves mainly updating both Aquilon protocols and Aquilon itself and sometimes a database
+Upgrading Aquilon involves updating both Aquilon protocols and Aquilon itself and sometimes a database
 schema upgrade. First step if to get the current version of Aquilon installed, using:
 
 ```bash
@@ -559,12 +561,12 @@ systemctl restart aquilon-broker
 
 To determine if a database upgrade is needed, go to directory `/opt/aquilon/upgrades` and look for directory names
 matching a version greater than the one that was previously installed. If such directories exist, you need to execute
-the SQL scripts (and sometimes Python scripts) they contain in sequence. Look at the `README` for more details.
+the SQL scripts (and sometimes Python scripts) they contain in sequence. You need to use
+the script variant appropriate to your database back-end (Oracle and PostgreSQL supported).
+There is also a `.backout` script to revert the change if necessary. Look at the `README` for more details.
 
-{% comment %}
-FIXME: remove this note once the problem has been fixed
-{% endcomment %}
-*Note: up to version 1.12.58, the SQL script is only for Oracle and may require some tweaking for SQLite and
+*Note: up to version 1.12.58, there is no `backout` script and the SQL scripts are only for Oracle and 
+may require some tweaking for SQLite and
 Postgres. In particular, SQLite has a very limited support for `ALTER TABLE` and doesn't support in particular
 `ATLER TABLE table MODIFY` statement used to define a constraint. This produces an error that can be ignored.*
 
