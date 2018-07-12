@@ -536,6 +536,68 @@ the following line with `visudo`:
  * On the broker host, under the broker account, generate SSH keys and add the pub key to 
  the `authorized_keys` file for the account created above on the AII server.
     
+## NFS-based Sandboxes
+
+Sandboxes are the directories when Aquilon user edit Pan templates. By default, they are located in 
+`/var/quattor/templates`. This area must be visible and modifiable by Aquilon users on the machine they
+use for interacting with Aquilon (typically not the broker host itself). The best approach is to put it on a
+distributed file system, like NFS or AFS.
+
+This section describes the configuration actions required to serve the sandbox area through NFS, from the
+broker host. It is not necessary to do this step as part of the initial installation. It can be done at a later
+stage, after the the Aquilon database has been [initialised][aquilon_configuration].
+
+### Configure the NFS server on the broker machine
+
+This typically involves installing the package `nfs-utils` and exporting read/write
+the sandbox area (`/var/quattor/templates`
+by default). **It is important that this path is mounted under the same path on client machines**.
+
+### Allow the aquilon user to execute `chown` as root
+
+Each sandbox is attached to a user and this user must have the write access to it. For this reason,
+when creating the Sandbox, the Aquilon broker will need to execute the `chown` command as `root`,
+using `sudo`. This is typically configured with the command `visudo`, adding the following line
+to the configuration:
+
+```
+aquilon ALL= (root)     NOPASSWD:       /bin/chown
+```
+
+### Add a script to set the sandbox owner
+
+Every time that a sandbox is created, the broker will call the script specified by the `mean` option
+in the broker configuration (`/etc/aqd.conf`). By default this option is defined to a script that does
+nothing apart from writing a line in the logs. A typical `mean` script for the PostgreSQL database
+back-end is:
+
+```bash
+sandbox_owner=$(echo $@ | awk -F'-owner ' '{print $2}' | awk '{print $1}')
+sandbox_path=$(echo $@ | awk -F'-path ' '{print $2}' | awk '{print $1}')
+# Use a DB query as 'aq' command requires a Kerberos token
+# psql returns an empty line after the matching line
+#uid=$(/opt/aquilon/bin/aq.py show user --username ${sandbox_owner} | grep UID | awk -F: '{print $2}')
+uid=$(psql aquilon -c "select uid from userinfo where name='${sandbox_owner}'" -t | egrep -v '^$' |sed -e 's/\s*\([0-9]\+\)/\1/')
+if [ -n "${uid}" ]
+then
+    echo "Setting ${sandbox_owner}'s sandbox (${sandbox_path}) owner to UID ${uid}"
+    sudo /bin/chown -R ${uid} ${sandbox_path}
+else
+    echo "Aquilon user '${sandbox_owner}' not found. Cannot update sandbox (${sandbox_path}) permission"
+    exit 1
+fi
+```
+
+**Note: this script is necessary even if the users log in the broker host to access their sandbox and
+interact with the broker. It has nothing specific to NFS but the command to change the sandbox ownership
+may vary according to the file system used.**
+
+
+### iptables
+
+If you have iptables configured on the broker host, it is necessary to ensure that the Git daemon
+(port 9418) is reachable from user machines.
+
 ## Enabling SELinux
 
 SELinux can be used in enforcing mode on the server hosting the Aquilon broker. In addition to all the steps described

@@ -7,10 +7,59 @@ menu: Using Aquilon
 
 {% include link_definitions.md %}
 
+## Managing Users
+
+At installation time, Aquilon is initialised with the Kerberos principal `aquilon` declared as the
+Aquilon administrator, meaning that it can use all the Aquilon commands. Normally, at a real site, you
+will have several users interacting with Aquilon and you want all of them to interact with its own
+Kerberos principal. This is done by adding new Aquilon users and defining their roles.
+
+### Add an Aquilon user
+
+The Aquilon user defines the Linux UID, GID and home
+directory associated with the Aquilon user but in standard installation, only the UID is actually
+used. The Aquilon user name **must match** the Kerberos principal name used by the user to interact
+with the broker (typically its Linux userid).
+
+To list existing users, use:
+
+```bash
+aq show_user --all
+```
+
+To create an account for user `johndoe`, use the following commands:
+
+```bash
+# Retrieve the Linux `uid` and `gid` for this account
+id johndoe
+# Create the Aquilon account
+aq add_user --user johndoe --uid uid_retrieved --gid gid_retrieved --home aquilon_account_dir
+```
+
+### Define user role
+
+When a user first connect to Aquilon, its role is set to `nobody`. As a result, it is restricted to 
+a few Aquilon commands, typically those who allow to display existing objects in the database. To administer
+objects, a user must have a role that allows to do it. It is possible to define as many role as needed and
+to specify explicitly what are the allowed commands for the role. The role `aqdadmin` is created at
+installation time and allows to use any Aquilon command.
+
+The user role is defined using the command `aq permission`.
+
 ## Using Sandboxes
 
-Sandboxes are Git repositories that are associated with an Aquilon user where the pan template
-development occurs.
+A sandbox is Git repository and a working directories that are associated with the Aquilon user who create it.
+This where the pan template development occurs.
+
+As the Aquilon users typically  don't have access to the machine where the Aquilon broker runs, the sandbox area
+on the broker is generally put on a distributed file system, like NFS (how to configure it is not covered in
+this guide, follow the instructions for the distributed file system that you want to use). The sandbox area
+must be writable by any machine used by Aquilon users.
+
+To allow the user to access its sandbox
+files, it is necessary to provide the broker with a script that will define the appropriate owner, based
+on the UID defined for the user in the Aquilon database. See installation 
+[documentation][aquilon_nfs_sandboxes] for more details.
 
 ### Define the Kerberos realm as trusted
 
@@ -28,33 +77,25 @@ to use is:
 aq update_realm --realm dailyplanet.com --trusted
 ```
 
-### Add an Aquilon user
+### Check that the Aquilon user exists
 
-A sandbox is associated with an Aquilon user. The Aquilon user is associated with an existing Linux account
-via the `uid` and `gid` but doesn't have to be Aquilon user name doesn't have to match the Linux user ID.
-It must be created with the `aq add_user` command if the user doesn't exist already. To list existing
-users, use:
+A sandbox is associated with an Aquilon user. The user who will create the sandbox must have a
+matching Aquilon user entry. To list existing users, use:
 
 ```bash
 aq show_user --all
 ```
 
-If you are using the `aquilon` Linux user as suggested, use the following commands:
-
-```bash
-# Retrieve the Linux `uid` and `gid` for this account
-id aquilon
-# Create the Aquilon account
-aq add_user --user aquilon --uid uid_retrieved --gid gid_retrieved --home aquilon_account_dir
-```
+If the Aquilon user needs to be created, refer to the [dedicated section](#add-an-aquilon-user)
 
 ### Sandbox creation
 
-The following command will create the sandbox object and the Git repository associated in
+The command below will create the sandbox object and the Git repository associated in
 `/var/quattor/templates/user/sandbox_name` with `user` the Aquilon user matching the Kerberos principal
 used and `sandbox_name` the name of the sandbox create. The sandbox is a Git repository
 created as a clone of the `template-king` repository (`template-king` is the Git remote
-`origin` for the sandbox repository):
+`origin` for the sandbox repository). The Aquilon user (in fact the UID associated with him) 
+executing the command will own the sandbox working directory.
 
 ```bash
 aq add_sandbox --sandbox site-init
