@@ -698,6 +698,11 @@ variable YUM_OS_DISTRIBUTION_NAME ?= 'centos7';
 # See https://github.com/quattor/aquilon/issues/91
 variable TIMEZONE ?= 'US/Pacific';
 
+# Template used to define filesystem partition (optional)
+variable FILESYSTEM_LAYOUT_CONFIG_SITE ?= "site/filesystems/layout-example";
+include "components/spma/config";
+include "filesystem/config";
+
 # Load Quattor profile schema
 include 'quattor/profile_base';
 
@@ -707,7 +712,7 @@ include 'components/spma/config';
 
 # Required information for every machine
 "/system/rootmail" = "admins@dailyplanet.com";
-include { 'components/accounts/config' };
+include 'components/accounts/config';
 "/software/components/accounts/rootpwd" = "hash_for_very_secret_password";
 
 include 'site/config/global_variables';
@@ -790,6 +795,9 @@ unique template archetype/final;
 # AII (initial installation) configuration
 variable AII_OSINSTALL_EXTRAPKGS ?= list();
 variable AII_OSINSTALL_OPTION_TIMEZONE = TIMEZONE;
+
+# Configure Quattor client
+include 'quattor/client/config';
 
 # Must be included after AII_OSINSTALL_EXTRAPKGS is populated
 include "config/quattor/aii";           # Part of the OS templates
