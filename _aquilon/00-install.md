@@ -43,8 +43,15 @@ yum install ant-apache-regexp ant-contrib \
   gcc git git-daemon java-1.8.0-openjdk-devel libxslt libxml2 make panc \
   knc krb5-workstation \
   protobuf-compiler protobuf-devel \
-  python-devel python-setuptools
+  python-devel python-setuptools \
+  aii-server
 ```
+
+{% comment %}
+FIXME: to be removed once https://github.com/quattor/aii/issues/288 is fixed.
+{% endcomment %}
+*Note: up to Quattor 18.6.0 included, `aii-server` has a missing requirement for its dependency `perl-IPC-Run` that
+must be added explicitly to the `yum` command.* 
 
 Also install a web server. Depending on your preferences, you can use:
 
@@ -509,6 +516,26 @@ the main configuration file is:
 * `Apache`: `/etc/httpd/conf/httpd.conf`
 * `Nginx`: `/etc/nginx/nginx.conf`
 
+## Configuring the AII server for Aquilon support
+
+AII (deployment) server can be run on the same machine as the Aquilon broker or on a separate machine.
+In both cases, this requires the broker to be able to connect the AII server through SSH using the
+account specified by configuration option `installfe_user`(the broker account name by default) and, from
+this account, to execute the command `aii-shellfe` as root through `sudo`.
+
+Main steps involved are:
+* If the AII server is not running on the broker host, on the AII server create the account matching 
+`installfe_user` configuration option (the broker account name by default).
+* On the AII server, configure `sudo` to allow the created account to execute `/usr/sbin/shellfe` as root
+without entering a password. If the account is `aquilon`, this typically involves adding 
+the following line with `visudo`:
+
+    ```bash
+    aquilon ALL= (root)     NOPASSWD:       /usr/sbin/aii-shellfe *
+    ```
+ * On the broker host, under the broker account, generate SSH keys and add the pub key to 
+ the `authorized_keys` file for the account created above on the AII server.
+    
 ## Enabling SELinux
 
 SELinux can be used in enforcing mode on the server hosting the Aquilon broker. In addition to all the steps described

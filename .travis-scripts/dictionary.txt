@@ -23,6 +23,8 @@ DPM
 EL
 EPEL
 formatter
+FQDN
+FQDNs
 FreeIPA
 fullname
 Gabor
@@ -94,6 +96,8 @@ SQLite
 sqlite
 Stijn
 stratuslab
+subnet
+subnets
 symlink
 systemd
 th

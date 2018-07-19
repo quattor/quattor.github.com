@@ -9,12 +9,12 @@ menu: Technical Details
 
 This page provides details on some Aquilon important concepts but is not a description on how to use
 Aquilon to manage a site. For this, see the dedicated pages on
-[Initializing an Aquilon site][aquilon_configuration] and on
+[Initialising an Aquilon site][aquilon_configuration] and on
 [Management Workflow and Advanced Topics][aquilon_management].
 
 ## Aquilon and Pan Templates
 
-Aquilon relies on a (relational) database to describe the hardware and software configurion of site hosts but
+Aquilon relies on a (relational) database to describe the hardware and software configuration of site hosts but
 the information used to actually configure a host, called a `host profile` (or `profile`), is based on
 the [Pan language][pan language]. A host configuration description in Pan language is made of
 building blocks called `pan templates`. Some of the pan templates reflect the database object description
@@ -22,11 +22,11 @@ when others are used to configure a `feature` and have to be written by humans.
 
 ### Plenary Templates
 
-The Aquilon broker takes care of converting the dabatase object descriptions into pan templates, updating them
+The Aquilon broker takes care of converting the database object descriptions into pan templates, updating them
 when the corresponding objects are added. These templates are generated and **must not be edited**. For this
 reason, they are stored in a specific area called the `plenary templates`. When using the standard Aquilon
 directory layout, the plenary templates are stored under `/var/quattor/cfg/plenary`. The plenary templates
-directory contains a subdirectory for each type of object in the Aquilon database (machine, network, ...).
+directory contains a sub-directory for each type of object in the Aquilon database (machine, network, ...).
 
 A specific set of templates is also stored in the plenary templates: [the template library][tl_intro].
 The template library is a set of generic templates that help to build host descriptions. They are
@@ -38,14 +38,14 @@ on how to manged the template library in Aquilon.
 ### Template King Git Repository
 
 In addition to the features provided by the template library, every site has to develop some site-specific
-templates. It is important that the version history of these templates is kept: for this reason, theay are
+templates. It is important that the version history of these templates is kept: for this reason, they are
 stored in a Git repository. Their development generally occurs in the context of sandboxes but a reference
 version of the site-specific templates is stored in a specific Git repository called the `template king`.
 With the standard Aquilon directory layout, it is stored in `/var/quattor/template-king`.
 
 This repository contains one branch for each [domain][aquilon_domains] and each [sandbox][aquilon_sandboxes].
 The branches are created and deleted
-by the broker whan a domain or sandbox is created or deleted with the relevant `aq` commands.
+by the broker when a domain or sandbox is created or deleted with the relevant `aq` commands.
 
 The template king repository is the Git origin of every other Git repository created by the broker.
 
@@ -99,5 +99,20 @@ no easy way to share personality definitions between archetypes.
 
 ## Clusters
 
-Clusters are mostly useful for defining HA services (perhaps with floating IPs) that exist on a set of hosts,
+Clusters are mostly useful for defining HA services (perhaps with floating IP addresses) that exist on a set of hosts,
 rather than on individual hosts. They get their own profiles in addition to the hosts.
+
+
+## Services
+
+An Aquilon service object defines the end point of a service for a given host, all hosts of a personality
+or all hosts of an archetype. It doesn't describe how to configure the service itself but allow to select
+the endpoint of a service instance based on the location, the host name, the cluster name... In general the
+site configuration templates use this information to configure the service on a given node. The information
+related to the service instance is available in the Pan templates under `/system/services/servicename` where 
+`servicename` is the name of the service. For example, one could define a `dns` service with different instances
+according to the host rack corresponding to the servers to use for hosts in the rack. In the site templates,
+it is then possible to use `/system/services/dns/server_ips` to retrieve the name server list for any host.
+
+One specific service is `bootserver`. It is used by the command `aq pxeswitch` to select the host providing
+the AII service used for the initial installation of an Aquilon host.
