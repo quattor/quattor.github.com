@@ -58,6 +58,7 @@ Kerberos
 keytab
 LAL
 LC
+LDAP
 libxslt
 libyaml
 logstash

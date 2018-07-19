@@ -568,7 +568,21 @@ aquilon ALL= (root)     NOPASSWD:       /bin/chown
 
 Every time that a sandbox is created, the broker will call the script specified by the `mean` option
 in the broker configuration (`/etc/aqd.conf`). By default this option is defined to a script that does
-nothing apart from writing a line in the logs. A typical `mean` script for the PostgreSQL database
+nothing apart from writing a line in the logs. 
+
+If the broker host is aware of the user accounts (for example, if your users are defined in LDAP and the broker
+host has access to it), the script can be:
+
+```bash
+sandbox_owner=$(echo $@ | awk -F'-owner ' '{print $2}' | awk '{print $1}')
+sandbox_path=$(echo $@ | awk -F'-path ' '{print $2}' | awk '{print $1}')
+echo "Setting ${sandbox_owner}'s sandbox (${sandbox_path}) owner"
+sudo /bin/chown -R ${sandbox_owner} ${sandbox_path}
+```
+
+If it is not the case, i.e. if the user accounts are not defined on the broker host, the script needs to 
+retrieve the user UID from the Aquilon database (where the information should have been added with the
+command [add_user][aquilon_management]). A typical script for the PostgreSQL database
 back-end is:
 
 ```bash

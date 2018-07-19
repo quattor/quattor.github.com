@@ -60,8 +60,13 @@ aq update_realm --realm dailyplanet.com --trusted
 
 ### Define Aquilon user UID
 
-A sandbox is associated with an Aquilon user. The user who will create the sandbox must have a
-matching Aquilon user entry, if the user account does not exist on the broker host. 
+*This section is only required if you are using using NFS for sandbox development but
+user accounts are not defined on the broker.*
+
+The broker needs to set the sandbox owner to user creating it. As the broker cannot retrieve
+the user UID from the user account when it is not defined on the broker host, it uses the user
+information defined in the Aquilon database to retrieve the UID to use.
+
 To list existing users, use:
 
 ```bash
@@ -71,7 +76,7 @@ aq show_user --all
 The Aquilon user defines the Linux UID, GID and home
 directory associated with the Aquilon user but in standard installation, only the UID is actually
 used. The Aquilon user name **must match** the Kerberos principal name used by the user to interact
-with the broker (typically its Linux userid).
+with the broker (typically its Linux userid) and the UID **must match** the actual UID of the user account.
 
 If there is no entry yet for the user, one must be created with `aq add_user`. If the existing
 entry doesn't have the right UID, use command `aq update_user` instead.
