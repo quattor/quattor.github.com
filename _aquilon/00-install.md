@@ -521,12 +521,12 @@ the main configuration file is:
 AII (deployment) server can be run on the same machine as the Aquilon broker or on a separate machine.
 In both cases, this requires the broker to be able to connect the AII server through SSH using the
 account specified by configuration option `installfe_user`(the broker account name by default) and, from
-this account, to execute the command `aii-shellfe` as root trough `sudo`.
+this account, to execute the command `aii-shellfe` as root through `sudo`.
 
 Main steps involved are:
 * If the AII server is not running on the broker host, on the AII server create the account matching 
 `installfe_user` configuration option (the broker account name by default).
-* On the AII server, configure `sudo` to allow the created account to execute `usr/sbin/shellfe` as root
+* On the AII server, configure `sudo` to allow the created account to execute `/usr/sbin/shellfe` as root
 without entering a password. If the account is `aquilon`, this typically involves adding 
 the following line with `visudo`:
 

@@ -97,6 +97,7 @@ sqlite
 Stijn
 stratuslab
 subnet
+subnets
 symlink
 systemd
 th

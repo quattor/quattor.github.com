@@ -256,11 +256,10 @@ hosts, personalities or archetypes. When mapped to a personality or archetype, t
 used for all nodes in this personality or archetype for which there is no explicit mapping.
 
 To create the service `dns` (to define the DNS server to use), 
-use the following command (`--need_client_list` controls whether the
-service requires an explicit client list):
+use the following command:
 
 ```bash
-aq add service --service dns --noneed_client_list
+aq add service --service dns
 ```
 
 Then create a service instance (the instance can have a different setting for --need_client_list`),
@@ -268,46 +267,46 @@ defining its associated endpoint. The associated endpoint must be a host entry i
 database. If the endpoint is not managed by Aquilon, define it in a non-compilable archetype:
 
 ```bash
-aq add service --service dns --instance metropolis1  --noneed_client_list
+aq add service --service dns --instance metropolis1
 aq bind server --service dns --instance metropolis1  --hostname ns.deilyplanet.com
-```
-
-Last step is to map the service instance to some locations or networks defined in the Aquilon configuration.
-This defines the hosts that are eligible to be managed by the instance but doesn't configure the hosts
-themselves to use the service (see next section).
-The location can be any location element defined in the database (country, city, room, rack...). For networks,
-the `networkid` is the IP address used when the network was created (use `aq show network --all` to see
-all the defined networks):
-
-```bash
-aq map service --service dns --instance metropolis1  --networkid 192.168.1.0
 ```
 
 ### Assigning hosts to a service instance
 
 Once a service has been defined, it is necessary to define which hosts are
-configured to use it. It is possible either to bind host explicitly or
-to define the service as required for an archetype or a personality, in which case all hosts
-with this archetype or personality will be added to the service when they are reconfigured.
-
-To bind one host, use:
-
-```bash
-aq bind client --service dns --hostname preprod.dailyplanet.com
-```
-
-To define the `dns` service as required for an archetype or personality, use:
+configured to use it. This is done by marking the service as required for 
+a given archetype or personality with the command `aq add_required_service` which
+means that all the hosts with this archetype of personality will have the service
+configured, using the appropriate instance for the host.
+For example, to define the `dns` service as required for the archetype `web_servers`, use:
 
 ```bash
 aq add required service --service dns --archetype web_servers
 ```
 
-Note that the `aq bind client` command (or `aq reconfigure`) will fail if there is
-no service instance that can serve the host, i.e. if the service mapping has not
-been properly defined to handle the network or location of the host.
+Hosts are assigned to service instance using service maps.
+A service map define the criteria to use to select an instance. They are typically
+based on the geographical locations but it also possible to use network subnets. When
+using the location information, it is possible to define different instances for different
+parts of the location hierarchy. For example, it is possible to define an instance that will
+be used for a city with the exception of one building that will have its own service mapping.
+This is done with the command `aq map_service`. For example:
+
+```bash
+aq map service --service dns --instance metropolis1  --city metropolis
+# Instance metropolis2 needs to be defined before
+aq map service --service dns --instance metropolis2  --building hq
+```
+
+You need to run the command `aq reconfigure` for a host for the service configuration
+changes to be actually taken into account in host profile. Note that
+this command will fail if there is
+no service instance that can serve a host for which the service is required, i.e. 
+if the service mapping has not
+been properly defined to handle the location or network of the host.
 
 After running `aq reconfigure` for some hosts assigned to the service, `aq show service`
-should show a non-zero number for `Client Count` for the service.
+should show a non-zero number for the service `Client Count`.
 
 ### Checking if a host has been assigned to a service
 
@@ -316,15 +315,12 @@ use the command `aq show service --client clientname` where `clientname` is the 
 
 ### Unbinding a client from a service
 
-To unbind a client from a service instance, use:
+To unbind a client from a service instance, it is necessary to 
+remove the service requirement matching the host with the command
+`aq del required service`.
 
-```bash
-aq unbind client --service dns --hostname preprod.dailyplanet.com
-```
-
-Note that removing a mapping for a service instance doesn't unbind the clients matching
-this mapping immediately but only when the corresponding hosts are reconfigured.
-
+The mapping is actually removed at the next `aq reconfigure` for the host after modifying
+the service requirements.
 
 ## Initial Installation
 
