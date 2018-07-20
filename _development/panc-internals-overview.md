@@ -2,7 +2,8 @@
 layout: article
 title: Overview of pan compiler development
 author: Isaura Claeys
-category: documentation
+redirect_from: /documentation/2016/06/20/panc-development.html
+menu: Pan compiler
 ---
 
 # Overview
