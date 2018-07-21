@@ -18,4 +18,18 @@ echo
 pyenv versions
 pyenv local 3.6
 pip3 install pyenchant
-git diff --name-only HEAD^ | grep '\.md$' | xargs -r python3.6 /tmp/markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
+
+# In a pull request, ${TRAVIS_COMMIT_RANGE} contains the commit range of the PR
+# Using it allows to test modified/added files of all PR commits and ensure that
+# deleted files are ignored (git diff provides the summary of all the modifications)
+if [ -z "${TRAVIS_COMMIT_RANGE}" ]
+then
+    commit_range=${TRAVIS_COMMIT_RANGE}
+    echo "Checking modified MD files in commit range ${commit_range}..."
+else
+    oommit_range="HEAD^"
+    echo "Checking modified MD files in last commit..."
+fi
+
+# Ignore deleted files
+git diff --name-only --diff-filter=d ${commit_range} | grep '\.md$' | xargs -r python3.6 /tmp/markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
