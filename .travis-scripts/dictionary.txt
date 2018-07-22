@@ -129,6 +129,10 @@ VMware
 whitespace
 workflow
 
+# Liquid comments are not properly handled
+FIXME
+
 # Entries to workaround a spellcheck bug. See https://github.com/stfc/markdown-spellchecker/issues/11.
 # Remove when the issue is fixed
+nfs
 tl

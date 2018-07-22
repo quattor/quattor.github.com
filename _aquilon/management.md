@@ -17,7 +17,7 @@ Kerberos principal. This is done by adding new Aquilon users and defining their 
 ### Define user role
 
 To have a user account created automatically, have the user connect to the broker and run a read-only command, 
-e.g. `aq status`. Once their Kerberos principal appears in the output of aq `show_principal`, 
+e.g. `aq status`. Once their Kerberos principal appears in the output of `aq show_principal`, 
 they can be assigned a more specific role with `aq permission`. An unknown principal can also 
 be created by passing `--createuser` to the `aq permission` command.
 
