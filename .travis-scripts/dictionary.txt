@@ -22,6 +22,7 @@ DNS
 DPM
 EL
 EPEL
+ESX
 formatter
 FQDN
 FQDNs
@@ -41,6 +42,8 @@ GRN
 GRNs
 hacky
 HEPiX
+hypervisor
+hypervisors
 init
 INSTALLDIR
 IP
@@ -56,6 +59,8 @@ libxslt
 libyaml
 logstash
 Maven
+metacluster
+metaclusters
 metaconfig
 metadata
 middleware
@@ -106,25 +111,17 @@ UMD
 unconfigured
 urbonegi
 unsynchronized
+vCenter
 versioned
 VirtualEnv
 virtualenv
 VLAN
 VM
 VMs
+VMware
 whitespace
 workflow
 
-# Workaround for issue https://github.com/stfc/markdown-spellchecker/issues/9
-# Remove when it is fixed
-aq
-conf
-endcomment
-FIXME
-freenode
-html
-hw
-md
-proofer
-py
+# Entries to workaround a spellcheck bug. See https://github.com/stfc/markdown-spellchecker/issues/11.
+# Remove when the issue is fixed
 tl
