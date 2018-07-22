@@ -22,7 +22,7 @@ pip3 install pyenchant
 # In a pull request, ${TRAVIS_COMMIT_RANGE} contains the commit range of the PR
 # Using it allows to test modified/added files of all PR commits and ensure that
 # deleted files are ignored (git diff provides the summary of all the modifications)
-if [ -z "${TRAVIS_COMMIT_RANGE}" ]
+if [ -n "${TRAVIS_COMMIT_RANGE}" ]
 then
     commit_range=${TRAVIS_COMMIT_RANGE}
     echo "Checking modified MD files in commit range ${commit_range}..."
