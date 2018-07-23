@@ -11,6 +11,7 @@ This file contains link definitions that can be used in reference links.
 [aquilon_management]: /aquilon/management.html
 [aquilon_plenary]: /aquilon/technical_details.html#plenary-templates
 [aquilon_sandboxes]: /aquilon/technical_details.html#sandboxes
+[aquilon_nfs_sandboxes]: /aquilon/00-install.html#nfs-based-sandboxes
 [aquilon_tl]: /aquilon/configuration.html#configuring-the-template-library
 [aq_conf_troubleshooting]: /aquilon/site_configuration.html#troubleshooting
 

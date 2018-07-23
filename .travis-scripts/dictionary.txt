@@ -1,3 +1,4 @@
+AFS
 AII
 Annecy
 API
@@ -32,6 +33,7 @@ Gabor
 Ganesha
 gerrit
 gcc
+GID
 Gintare
 GitHub
 GPFS
@@ -47,6 +49,7 @@ hypervisors
 init
 INSTALLDIR
 IP
+iptables
 IPMI
 IPv
 jrha
@@ -55,6 +58,7 @@ Kerberos
 keytab
 LAL
 LC
+LDAP
 libxslt
 libyaml
 logstash
@@ -65,6 +69,7 @@ metaconfig
 metadata
 middleware
 NIC
+NFS
 noarch
 NTP
 OneFlow
@@ -107,10 +112,12 @@ symlink
 systemd
 th
 UGent
+UID
 UMD
 unconfigured
-urbonegi
 unsynchronized
+urbonegi
+userid
 vCenter
 versioned
 VirtualEnv
@@ -122,6 +129,10 @@ VMware
 whitespace
 workflow
 
+# Liquid comments are not properly handled
+FIXME
+
 # Entries to workaround a spellcheck bug. See https://github.com/stfc/markdown-spellchecker/issues/11.
 # Remove when the issue is fixed
+nfs
 tl
