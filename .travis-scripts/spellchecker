@@ -27,7 +27,7 @@ then
     commit_range=${TRAVIS_COMMIT_RANGE}
     echo "Checking modified MD files in commit range ${commit_range}..."
 else
-    oommit_range="HEAD^"
+    commit_range="HEAD^"
     echo "Checking modified MD files in last commit..."
 fi
 
