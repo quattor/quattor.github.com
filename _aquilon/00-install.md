@@ -535,7 +535,24 @@ the following line with `visudo`:
     ```
  * On the broker host, under the broker account, generate SSH keys and add the pub key to 
  the `authorized_keys` file for the account created above on the AII server.
-    
+ 
+In addition, it is necessary to configure a web server on the AII server that serves a CGI script
+used during installation to switch the host from installation mode to local disk boot. A typical version of the script
+can be found in the [SCDB utils](https://raw.githubusercontent.com/quattor/scdb/master/src/cgis/aii-installack.cgi).
+If the AII server runs on the same host as the Aquilon broker, this script version should work out-of-the-box.
+Else it is necessary to replace the command definition at the end of the script by:
+
+```perl
+my $command = "/usr/bin/sudo /usr/sbin/aii-shellfe " .
+              "--cdburl http://broker.dom.ain/profiles " .
+              "--boot $host --nodhcp --noosinstall";
+```
+
+with `http://broker.dom.ain/profiles` corresponding to the URL where are served the host profiles on the broker.
+
+If you want to share the AII server between SCDB and an Aquilon broker, copy the script with a modified name,
+after making the modification above, and define the Pan variable `AII_ACK_CGI` to the relative URL of this script.
+ 
 ## NFS-based Sandboxes
 
 Sandboxes are the directories when Aquilon user edit Pan templates. By default, they are located in 

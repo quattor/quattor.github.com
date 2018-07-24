@@ -11,6 +11,7 @@ CAF
 CCM
 CentOS
 Ceph
+CGI
 compilable
 Compilable
 config
