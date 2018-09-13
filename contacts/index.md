@@ -16,7 +16,7 @@ We encourage everyone to get involved in the Quattor community and we're eager t
 
 We can be found on [Quattor forum][quattor-list]: this forum is used to discuss all matters related to Quattor and for announcements.
 This is the best way to reach main developers and experts. Anybody interested can subscribe to it by sending a mail
-to [quattor+subscribe@groups.google.com](mailto:quattor+subscribe@groups.google.com).
+to [quattor+subscribe@googlegroups.com](mailto:quattor+subscribe@googlegroups.com).
 
 Some of us also hang out on `#quattor` on [freenode.net].
 
