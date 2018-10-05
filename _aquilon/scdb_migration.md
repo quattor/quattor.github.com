@@ -31,7 +31,7 @@ After the initial import of SCDB global variables, it is recommended to review t
 that can be replaced by an Aquilon [service][aquilon_details]. This is in particular the case for
 the variable `AII_OSINSTALL_SRV ` who definition may be moved in the archetype `final.pan` template
 and be based on the `bootserver` service instance used for the host with the following Pan code
-(note that this makes use of the `value()` default feature which was new in Pan 10.7):
+(note that this makes use of the `value()` fall-back functionality which was added in Pan 10.7):
 
 ```pan
 variable AII_OSINSTALL_SRV ?= value('/system/services/bootserver/servers/0', undef);
@@ -54,7 +54,7 @@ Aquilon objects used to group hosts are archetypes. Each host is also attached t
 that can have some configuration attached to the geographical location.
 
 The specific configuration of each host in an archetype will be described by the host personality which can
-be common to several hosts in the archetype. On the other hand, personalities are bound to an archetype and there
+be common to several hosts in the archetype. On the other hand, personalities are defined within an archetype and there
 is no easy way to share their definitions between archetypes.
 
 As an example, every host running some parts of the grid middleware could be part of an archetype that adds
