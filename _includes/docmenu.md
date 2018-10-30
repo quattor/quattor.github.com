@@ -5,7 +5,7 @@
 Documentation categories must match a Jekyll collection name.
 If the collection name contains underscores, they are replaced by space in the documentation menu
 {% endcomment %}
-{% assign submenu_categories = "quattor, aquilon, template_library, development, other" | split: ", " %}
+{% assign submenu_categories = "quattor, aquilon, template_library, initial_installation, development, other" | split: ", " %}
 {% for topic in submenu_categories %}
   {% assign topic_words = topic | split: "_" %}
   {% capture topic_title %}{% for word in topic_words %}{{ word | capitalize }} {% endfor %}{% endcapture %}
