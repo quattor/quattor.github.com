@@ -8,7 +8,7 @@ redirect_from: /documentation/2017/02/27/uefi-support.html
 
 # {{ page.title }}
 
-Quattor 17.3 introduced UEFI support in AII. It is based on using the Grub2 EFI loader instead of PXELINUX/SYSLINUX. This page describes 
+Quattor 17.3 introduced UEFI support in AII. It is based on using the Grub2 EFI loader instead of PXELINUX or SYSLINUX. This page describes 
 how to enable it, when you have an AII working configuration for legacy BIOS.
 
 
@@ -22,7 +22,7 @@ in the same location where your `pxelinux.cfg` directory is. The required files 
 * `localboot.cfg` for Grub2 EFI: recommended file is provided by `aii-pxelinux` RPM and installed in `/usr/share/doc/aii-pxelinux-VERSION/eg` 
   (`localboot.cfg.grub2`).
 
-Also the DHCP server configuration must be updated to recognize the UEFI vendor class and use the appropriate boot loader and configuration files. 
+Also the DHCP server configuration must be updated to recognise the UEFI vendor class and use the appropriate boot loader and configuration files. 
 On an ISC DHCP server, this is typically done by adding in the `dhcpd` configuration (in the file dedicated to Quattor-managed machines for 
 example) something like:
 
@@ -76,7 +76,7 @@ configuration. `grub2-mkimage` important options are:
 * List of modules to add to the boot loader image: they are passed as parameters to `grub2-mkimage`. 
   You typically need `efi_gop efi_uga efinet linux linux16 linuxefi`: `linux` is not needed if you 
   don't intend to install EL6 machine with Grub2 UEFI (but this is 
-  harmless to add them if you have some control over the persons who can trigger the installtion).
+  harmless to add them if you have some control over the persons who can trigger the installation).
 * `--format=x86_64-efi`: required for the boot loader to be usable with a UEFI firmware.
 * `--output`: name of the boot loader file produced by the command. This is the file that 
   you need to copy to your TFTP server directory where the Grub2 configuration files will be generated 
@@ -90,7 +90,7 @@ grub2-mkimage --format=x86_64-efi --output=grubx64.efi --prefix='(pxe)/grub2-mod
 
 See the [Grub2 manual](https://www.gnu.org/software/grub/manual/grub.html) for details.
 
-### New aii-shellfe Configuration Options
+### New `aii-shellfe` Configuration Options
 
 New `aii-shellfe` configuration options have been introduced with the UEFI support. Look at 
 `/usr/share/doc/aii-server-VERSION/eg/aii-shellfe.conf` file for a list of all these options 
