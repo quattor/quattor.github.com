@@ -7,6 +7,7 @@ This file contains link definitions that can be used in reference links.
 [aquilon_configuration]: /aquilon/configuration.html
 [aquilon_details]: /aquilon/technical_details.html
 [aquilon_domains]: /aquilon/technical_details.html#domains
+[aquilon_hosts]: /aquilon/configuration.html#declaring-hosts
 [aquilon_install]: /aquilon/00-install.html
 [aquilon_management]: /aquilon/management.html
 [aquilon_plenary]: /aquilon/technical_details.html#plenary-templates

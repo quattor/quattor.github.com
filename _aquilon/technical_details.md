@@ -119,10 +119,17 @@ the AII service used for the initial installation of an Aquilon host.
 ## Clusters
 
 Clusters are collections of hosts that have a similar role/function. They are typically used describe 
-a cluster of hypervisors, like those provided by VMware ESX or clouds. Aquilon can provide some monitoring
+a cluster of hypervisors, like those provided by VMware ESX or clouds, a disk servers in a distributed
+storage technology like Hadoop or Ceph, hosts behind a proxy... 
+
+Aquilon can provide some monitoring
 thresholds associated with the cluster, like the minimum or maximum number of hosts that must be running at
 any time. Clusters can also be used to describe a HA cluster. Note that Aquilon is not a replacement for the
 cluster middleware: it just allows to represent a group of machines managed by such a middleware.
+
+Clusters, like hosts, have an archetype and personality attached. It allows to ensure that all hosts that are
+part of the cluster receive the same configuration. The cluster personality is added to the host, in addition
+to the host personality.
 
 Once a cluster is defined, it can be used as an alternative to a machine object to describe where is running
 a host. In this case, Aquilon doesn't track on which cluster node the host is running: it lets the middleware
