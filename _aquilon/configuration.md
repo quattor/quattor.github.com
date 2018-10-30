@@ -686,7 +686,11 @@ cd /var/quattor/templates/$USER/tutorial
 cat > web_servers/archetype/base.pan <<EOF
 unique template archetype/base;
 
-# This variable will allow to control the YUM snapshot used, if you are using YUM
+# Define the default suffix for YUM-based variant of RPMS configuration templates
+# Defined too late by the standard templates in the context of Aquilon
+variable RPMS_CONFIG_SUFFIX ?= '-yd';
+
+## This variable will allow to control the YUM snapshot used, if you are using YUM
 # snapshots as recommended
 variable YUM_SNAPSHOT_DATE ?= '20180409';
 
@@ -698,17 +702,16 @@ variable YUM_OS_DISTRIBUTION_NAME ?= 'centos7';
 # See https://github.com/quattor/aquilon/issues/91
 variable TIMEZONE ?= 'US/Pacific';
 
+# Basic stuff from Quattor core that will be needed in many places
+include 'quattor/functions/network';
+include 'components/spma/config';
+
 # Template used to define filesystem partition (optional)
 variable FILESYSTEM_LAYOUT_CONFIG_SITE ?= "site/filesystems/layout-example";
-include "components/spma/config";
 include "filesystem/config";
 
 # Load Quattor profile schema
 include 'quattor/profile_base';
-
-# Basic stuff from Quattor core that will be needed in many places
-include 'quattor/functions/network';
-include 'components/spma/config';
 
 # Required information for every machine
 "/system/rootmail" = "admins@dailyplanet.com";
@@ -801,7 +804,6 @@ include 'quattor/client/config';
 
 # Must be included after AII_OSINSTALL_EXTRAPKGS is populated
 include "config/quattor/aii";           # Part of the OS templates
-include "quattor/aii/config";
 
 # Configure YUM repositories
 # Must be done last
@@ -831,6 +833,10 @@ unique template ${template};
 # at a later stage, thus they are marked final
 
 final variable NODE_OS_VERSION = 'el7.x-x86_64';
+
+# Bind interface names defined in the profile to the machine interface
+# with the matching MAC address
+'/system/network/set_hwaddr' = true;
 
 include 'os/config/declarations';
 include 'config/core/base';
@@ -997,7 +1003,7 @@ cd /var/quattor/template-king
 git branch -D domain
 ```
 
-### Failure to run aq compile
+### Failure to run `aq compile`
 
 If `aq compile` fails to run properly (not if the compilation results in errors) because of something wrong
 with the compilation command, look for string `ant` in `/var/quattor/logs/aqd.log` and execute the command found
