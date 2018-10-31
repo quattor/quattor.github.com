@@ -299,7 +299,7 @@ because it has impact on the whole authentication system. In particular, enablin
 is done with the `authconfig` tool (which involves a lot more than simply enabling/disabling the `sssd`
 daemon).
 
-[ncm_authconfig]: http://docs-test-comps.readthedocs.org/en/latest/components/authconfig/
+[ncm_authconfig]: https://quattor-documentation.readthedocs.io/en/stable/components/authconfig/
 [sssd]: https://fedorahosted.org/sssd/
 
 ## Component
