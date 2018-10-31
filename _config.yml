@@ -16,6 +16,9 @@ collections:
   development:
     output: true
     permalink: /development/:title.html
+  initial_installation:
+    output: true
+    permalink: /aii/:title.html
   other:
     output: true
     permalink: /other/:title.html

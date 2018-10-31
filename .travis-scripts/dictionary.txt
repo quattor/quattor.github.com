@@ -23,6 +23,7 @@ devel
 DHCP
 DNS
 DPM
+EFI
 EL
 EPEL
 ESX
@@ -54,6 +55,7 @@ IP
 iptables
 IPMI
 IPv
+ISC
 jrha
 JSON
 Kerberos
@@ -91,6 +93,7 @@ postgresql
 PowerDNS
 predeployment
 protobuf
+PXELINUX
 PyPI
 quattor
 Quattor
@@ -113,8 +116,11 @@ stratuslab
 subnet
 subnets
 symlink
+SYSLINUX
 systemd
+TFTP
 th
+UEFI
 UGent
 UID
 UMD
