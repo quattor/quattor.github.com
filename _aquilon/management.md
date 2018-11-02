@@ -119,6 +119,37 @@ You are now ready to produce some useful pan code to define the configuration of
 host `testsrv.dailyplanet.com`.
 
 
+## Accessing Plenary Templates
+
+Plenary templates are all the templates generated and owned by the broker. They cannot be edited: their
+content is  modified by the Aquilon commands used to update the host configuration. For this reason, they
+cannot be accessed directly, for example in the sandbox. The content of these templates can be displayed
+with the `aq cat` command. Command options can be used to select the template to display: use `aq cat --help`
+to get the list of all the possible options. The main ones are:
+
+* `--hostname xxx.dom.ain`: object template for host `xxx.dom.ain`
+* `--hostname xxx.dom.ain --data`: host data template (archetype, hardware configuration, network configuration)
+for host `xxx.dom.ain`
+* `--machine xxx`: machine template for machine `xxx`
+* `--cluster xxx`: object template for cluster `xxx`
+* `--cluster xxx --data`: template describing members and location of cluster `xxx`
+* `--cluster xxx --client`: cluster configuration included in hosts who are members of cluster `xxx`
+* `--personality xxx --archetype yyy [--personality_stage stage]`: template describing personality `xxx`
+of archetype `yyy` (`--archetype` can be omitted if personality `xxx` exists only in one archetype).
+If `--personality_stage` is omitted, it defaults to `current`: specify it if you want to see the template
+for other stages (`previous` or `next`)
+* `--service xxx`: template describing the configuration common to all instances of service `xxx`
+* `--service xxx --instance yyy`: template describing instance `yyy` configuration of service `xxx`
+* `--service xxx --server`: template describing the common configuration all servers for service `xxx`
+* `--service xxx --server --instance yyy`: template describing the server configuration of instance `yyy`
+for service `xxx`
+
+*Note: the template library is also installed in the plenary template area and is not visible outside the
+broker. Currently, the `aq cat` command doesn't allow to display the template library contents. If you need
+to check the content of a template in the template library, refer to the
+appropriate GitHub repository or download a private copy of the template library (outside of any sandbox) using
+the [standard procedure][aquilon_tl].*
+
 ## Why to Use Domains
 
 [Domains][aquilon_domains] are used to implement a stage development workflow where changes are tested
