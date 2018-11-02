@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Summary of 2th Quattor workshop (2018-10-29 to 2018-10-31, University of Gent)
+title: Summary of 26th Quattor workshop (2018-10-29 to 2018-10-31, University of Gent)
 category: meeting
 author: Michel Jouvin
 ---
