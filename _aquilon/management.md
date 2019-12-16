@@ -312,6 +312,44 @@ If you need an external network, you have to create it with
 `--network_environment external` in its command line.
 
 
+## Host and Machine Parameters
+
+### Changing the IP address of a host
+
+Once a host has been created, it is possible to update its IP address but the command to use depends on whether it is
+the primary network address or not.
+
+
+### Primary network address:
+
+```bash
+aq update_machine --machine HOST_MACHINE --ip NEW_IP_ADDRESS
+```
+
+or:
+```bash
+aq update_machine --hostname HOST_NAME --ip NEW_IP_ADDRESS
+```
+
+where:
+* `HOST_MACHINE` is the name of the machine the host is bound to.
+* `HOST_NAME` is the primary FQDN of the host.
+* `NEW_IP_ADDRESS` is the desired IP address of the host.
+
+
+### Any another (non-primary) network address:
+
+```bash
+aq del_interface_address --machine HOST_MACHINE --interface INT_NAME --ip OLD_IP_ADDRESS
+aq add_interface_address --machine HOST_MACHINE --interface INT_NAME --ip NEW_IP_ADDRESS
+```
+
+where:
+* `HOST_MACHINE` is the name of the machine the host is bound to.
+* `INT_NAME` is the interface name (e.g. `eth0`).
+* `OLD_IP_ADDRESS` is the IP address to remove.
+* `NEW_IP_ADDRESS` is the desired IP address of the host.
+
 ## Services
 
 An Aquilon [service][aquilon_details] allows to define different endpoints for a given service based
