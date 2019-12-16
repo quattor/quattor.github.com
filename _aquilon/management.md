@@ -233,8 +233,8 @@ the command would be:
 aq bind_feature --feature demo --personality test --archetype web_servers
 ```
 
-*Note: despite the command help mentions that features can also be bound to archetypes, it is
-highly recommended not to do it.*
+*Note: it is possible to bind a feature to an archetype if you want all the personalities in the archetype
+to have this feature. To do this, just remove `--personality`.*
 
 
 ## Personalities
@@ -433,6 +433,120 @@ remove the service requirement matching the host with the command
 
 The mapping is actually removed at the next `aq reconfigure` for the host after modifying
 the service requirements.
+
+## Using Aquilon clusters
+
+[Clusters][aquilon_details] are intended to represent in Aquilon a group of hosts that must be configured in
+the same way. It may be hypervisors in a cloud, disk servers in a distributed storage infrastructure like Hadoop
+or Ceph, or hosts behind proxy. 
+
+Clusters, like hosts, have an archetype and personality attached. It allows for cluster-wide configuration
+to be applied after most of the host configuration is done, just before including the host archetype `final.pan`
+(the last thing done in any plenary object template). Thus the cluster personality is added to the host
+personality. Depending on the cluster type, the host personality of a clustered host may be as minimal
+as providing the basic OS configuration (typically the case for hypervisors in a cloud)or also 
+configure some features specific to the host (e.g. the hosts
+behind a proxy may not all run the same services).
+
+Configuring a cluster involves:
+* Creating the cluster archetype and personality
+* Creating the cluster
+* Adding hosts (hypervisors) to the cluster
+* Building the cluster and its hosts
+* Optionally, using the cluster as the "machine location" for virtual machines
+
+### Creating the cluster archetype and personality
+
+A cluster archetype is created the same way as as [host archetype](#adding-archetypes),
+with the exception that `--cluster_type compute` option must be added.. Depending if the
+archetype is defined as compilable or not, a profile will be created for the cluster (or not).
+ 
+A typical example would be:
+
+```bash
+aq add_archetype --archetype cluster_test --cluster_type compute
+```
+
+Option `--compilable` must be added to define the archetype as compilable and get a cluster profile
+object created. If you want the archetype to be compilable, you must create the same templates for
+the cluster archetype as for a 
+[host archetype](/aquilon/configuration.html#creating-the-archetypebase-and-archetypefinal-templates), as well
+as a [archetype/declaration.pan](/aquilon/configuration.html#enabling-the-template-library)
+if it is enabled for host archetypes. `declaration.pan` must be similar to the one used in a host archetype
+if you are using the template library. The exact content of `base.pan` and `final.pan`depend on what is required
+by the personality and features bound to the archetype: you should in particular make available all the information
+normally accessible to the features in the context of a host archetype.
+
+Personality is created and managed the same way as for a [host personality](#personalities)). The same personality
+(and archetype) can be used with several clusters.
+
+Like for host archetypes, it is possible to [bind](#binding-features-to-personalities) a feature to a cluster
+archetype instead of the cluster personality. 
+
+### Creating the cluster
+
+A cluster is created with `aq add_cluster`. For example, to create a cluster `cluster_test` that will
+use the personality `os_hv_test` from archetype `mycloud`, use the following command:
+
+```bash
+aq add cluster --cluster cluster_test --archetype mycloud --personality os_hv_test 
+               --down_hosts 0 --building hq --sandbox your/sandbox
+```
+
+In the previous command, `--down_hosts` is set to 0 as Aquilon doesn't make a direct use of this value
+(an external monitoring tool would be required). For `--building` and `--sandbox`, use values appropriate
+to your site (sandbox name must be in the form `user/sandbox_name`). 
+
+### Adding hosts to the cluster
+
+After creating the cluster, it is necessary to add or more hosts as the cluster members (e.g. hypervisors in a 
+cluster representing a cloud). The host must have been created with the [standard procedure](/aquilon/configuration.html#declaring-hosts)
+before adding it to the cluster. This is done with the command `aq cluster`.
+
+For example, to add a node `hv1.example.com` in the cluster `cluster_test`:
+
+```bash
+aq cluster --cluster cluster_test --hostname hv1.example.com
+```
+
+Note that if the host was previously part of another cluster, it will be removed from the original cluster.
+
+
+### Building the cluster and its hosts
+
+The command `aq reconfigure --membersof` allows to rebuild the host profile for each
+member of the cluster.
+
+For example, to rebuild the cluster `cluster_test` and its hosts, use:
+
+```bash
+aq reconfigure --membersof cluster_test
+```
+
+This command must be used after every change affecting the cluster configuration (in particular the cluster
+personality) to ensure that all the configuration (profile) of each cluster member is updated.
+
+In addition, there is a specific profile built for cluster itself if the archetype is compilable. To
+build or rebuild this cluster profile, use the command:
+
+```bash
+aq make cluster --cluster cluster_test
+```
+
+
+### Binding virtual machines to the cluster
+
+If the cluster is describing a virtualisation infrastructure like a cluster, hosts that are not part of the cluster
+may be associated with it through the (virtual) machine they use.  When creating the machine, use the
+option `--cluster` instead of `--rack`, `--desk` or `--chassis`. One the machine is configured,
+[add the hosts][aquilon_hosts] to Aquilon using the same procedure as for hosts using bare metal machines. 
+
+It is not possible to update a machine that was initially configured to use a bare metal machine to become
+a virtual machine. But it is possible to change the cluster hosting a machine (or change a virtual machine hosted
+by a host to a VM hosted by a cluster) with `aq update_machine` command with the `--cluster` option.
+
+To be able to bind a virtual machine to a cluster, it is necessary that the virtual machine has no local disk.
+Use `virtual_disk` as the disk type when creating the machine model that will be used by the virtual machine.
 
 ## Initial Installation
 

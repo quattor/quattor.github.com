@@ -49,6 +49,7 @@ GPUs
 GRN
 GRNs
 hacky
+Hadoop
 HPC
 HTC
 HEPiX
@@ -144,6 +145,7 @@ vCenter
 versioned
 VirtualEnv
 virtualenv
+virtualisation
 virtualised
 VLAN
 VM
