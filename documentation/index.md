@@ -21,6 +21,8 @@ You can find the latest documentation here: <http://quattor-documentation.readth
 
 #### Documentation by release version:
 
+* [18.6.0](http://quattor-documentation.readthedocs.io/en/18.6.0/)
+* [17.12.0](http://quattor-documentation.readthedocs.io/en/17.12.0/)
 * [17.8.0](http://quattor-documentation.readthedocs.io/en/17.8.0/)
 * [17.7.0](http://quattor-documentation.readthedocs.io/en/17.7.0/)
 * [17.2.0](http://quattor-documentation.readthedocs.io/en/17.2.0/)
