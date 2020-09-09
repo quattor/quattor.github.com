@@ -26,6 +26,26 @@ that have a line number in them, are from the templated files (so there's some o
 
 If you want to run a single unit test, add `-Dunittest=name_of_test.t` to the `mvn` command line.
 
+## Container-based tests
+
+Some repositories include a `Dockerfile` to run the tests (for example `configuration-modules-core`). This makes
+it pretty easy to get a test environment. The following examples are using podman instead of docker on a
+recent Fedora. They should be run from the root directory of the repository:
+
+- First build the container:
+```
+podman build -t quattor_testing -f Dockerfile .
+```
+This uses the current 'master' of `template-library-core` so you need to rebuild the container if you need a newer version.
+
+- To run all tests using the current (changed) repository:
+```
+podman run -it --user=$(id -ur):$(id -gr) --userns=keep-id -v $PWD:/quattor_test:z localhost/quattor_testing
+```
+The `--user` and `--userns` options are to make sure the test run as your user inside the container. To run specific
+test, you can pass the `MVN_ARGS` variable: `-e MVN_ARGS="-Dunittest=00-tqu.t -pl ncm-systemd"`.
+
+
 ## Logging
 
 If you want more logging, you can set `-Dprove.args=-v` (the `verbose` flag of `prove`)

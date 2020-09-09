@@ -52,6 +52,7 @@ Lots of good introductions and tutorials using Git and GitHub already exists, fo
    * Do not push to `upstream`
 7. Run the unit tests
    * Add new ones to cover your changes (or refine existing ones)
+   * [More information on running the tests](/development/unittests.html#running-the-tests)
 8. Open a pull request (PR)
    * Meaningful title; title will be part of the release notes
      * For `configuration-modules` repository: start the title with the component that is being modified
