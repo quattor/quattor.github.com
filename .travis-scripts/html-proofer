@@ -44,8 +44,7 @@ echo "html-proofer url-ignore option: ${url_ignore_option}"
 
 bundle exec jekyll build
 set +e # do not halt script on error
-# ignore 429 return code (too many requests)
-bundle exec htmlproofer --http_status_ignore 429 ${url_ignore_option} ${debug_option} --check-html ./_site
+bundle exec htmlproofer --disable-external ${url_ignore_option} ${debug_option} --check-html ./_site
 status=$?
 if [ ${status} -ne 0 -a -z "${debug_option}" ]
 then
