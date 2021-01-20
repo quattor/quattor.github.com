@@ -1,4 +1,3 @@
-
 ---
 layout: article
 title: Quattor 20.12.0 released
