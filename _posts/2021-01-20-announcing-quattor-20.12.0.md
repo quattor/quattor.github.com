@@ -9,14 +9,14 @@ Packages are available from our [yum repository](http://yum.quattor.org/20.12.0/
 
 As always, many thanks to everyone who contributed! We merged 69 pull requests and resolved 5 issues.
 
-The next release should be NEXT.0, take a look at the [backlog](http://www.quattor.org/release/) to see what we're working on.
+The next release should be 21.1.0, take a look at the [backlog](http://www.quattor.org/release/) to see what we're working on.
 
 
 Backwards Incompatible Changes
 ------------------------------
 
 ### configuration-modules-core
-* [** ncm-metaconfig:** update httpd apache ssl settings ](https://github.com/quattor/configuration-modules-core/pull/1390)
+* [**ncm-metaconfig:** update httpd apache ssl settings ](https://github.com/quattor/configuration-modules-core/pull/1390)
 * [**ncm-ceph:** remove unsupported code (Jewel)](https://github.com/quattor/configuration-modules-core/pull/1462)
 * [**ncm-metaconfig:** haproxy - add mode option for frontend and backend and ACLs](https://github.com/quattor/configuration-modules-core/pull/1400)
 
@@ -33,7 +33,7 @@ Changelog
 * [**structure_software:** add new modules subtree for e.g. DNF modules](https://github.com/quattor/template-library-core/pull/202)
 
 ### configuration-modules-core
-* [** ncm-metaconfig:** update httpd apache ssl settings ](https://github.com/quattor/configuration-modules-core/pull/1390)
+* [**ncm-metaconfig:** update httpd apache ssl settings ](https://github.com/quattor/configuration-modules-core/pull/1390)
 * [Run Unit Tests in Docker using a GitHub action](https://github.com/quattor/configuration-modules-core/pull/1442)
 * [**altlogrotate:** fix _glob handling multiple arguments](https://github.com/quattor/configuration-modules-core/pull/1444)
 * [**ncm-altlogrotate:** allow yearly rotation](https://github.com/quattor/configuration-modules-core/pull/1449)
@@ -44,7 +44,7 @@ Changelog
 * [**ncm-download:** support daemon actions on change](https://github.com/quattor/configuration-modules-core/pull/1454)
 * [**ncm-gpfs:** add ib_rdma_monitor_portstate to mmsysmon config](https://github.com/quattor/configuration-modules-core/pull/1459)
 * [**ncm-icinga:** add missing notification options](https://github.com/quattor/configuration-modules-core/pull/1433)
-* [ncm-metaconfig generic templates](https://github.com/quattor/configuration-modules-core/pull/1394)
+* [**ncm-metaconfig:** generic templates](https://github.com/quattor/configuration-modules-core/pull/1394)
 * [**ncm-metaconfig:** add chrony service](https://github.com/quattor/configuration-modules-core/pull/1473)
 * [**ncm-metaconfig:** add conntrackd service and keepalived vrrp_sync_groups](https://github.com/quattor/configuration-modules-core/pull/1468)
 * [**ncm-metaconfig:** add dellnetworking configuration](https://github.com/quattor/configuration-modules-core/pull/1406)
@@ -74,11 +74,11 @@ Changelog
 * [**ncm-puppet:** Document string quoting behaviour](https://github.com/quattor/configuration-modules-core/pull/1417)
 * [**ncm-shorewall:** add support for providers and rtrules configuration](https://github.com/quattor/configuration-modules-core/pull/1428)
 * [**ncm-shorewall:** add support for snat and deprecate masq](https://github.com/quattor/configuration-modules-core/pull/1467)
-* [ncm-spma DNF backend](https://github.com/quattor/configuration-modules-core/pull/1404)
+* [**ncm-spma:** DNF backend](https://github.com/quattor/configuration-modules-core/pull/1404)
 * [**ncm-spma:** yumng improvements](https://github.com/quattor/configuration-modules-core/pull/1420)
 * [**ncm-ssh:** Add schema entry for RevokedKeys option](https://github.com/quattor/configuration-modules-core/pull/1446)
 * [**ncm-ssh:** add HashKnownHosts schema entry](https://github.com/quattor/configuration-modules-core/pull/1445)
-* [ncm-symlink minor PAN template fixes](https://github.com/quattor/configuration-modules-core/pull/1411)
+* [**ncm-symlink:** minor PAN template fixes](https://github.com/quattor/configuration-modules-core/pull/1411)
 * [**ncm-systemd:** Add support for Socket in units](https://github.com/quattor/configuration-modules-core/pull/1448)
 * [**ncm-systemd:** Allow Exec* becoming lists](https://github.com/quattor/configuration-modules-core/pull/1414)
 * [**ncm-systemd:** add extra unit options for sandboxing](https://github.com/quattor/configuration-modules-core/pull/1396)
