@@ -2,6 +2,7 @@ AFS
 AII
 Andras
 Annecy
+apache
 APEL
 API
 aquilon
@@ -22,10 +23,12 @@ CentOS
 Ceph
 CERN
 CGI
+Changelog
 CNAF
 compilable
 Compilable
 config
+CPUs
 cron
 CSV
 CumulusOS
@@ -38,6 +41,7 @@ deployer
 devel
 DHCP
 DML
+DNF
 DNS
 DPM
 
@@ -54,6 +58,7 @@ formatter
 FQDN
 FQDNs
 FreeIPA
+frontend
 fullname
 
 Gabor
@@ -74,11 +79,13 @@ GRN
 GRNs
 
 hacky
+haproxy
 HEPiX
 Horvath
 HPC
 HTC
 HTCondor
+httpd
 hypervisor
 hypervisors
 
@@ -132,6 +139,7 @@ NIKHEF
 NIS
 noarch
 NTP
+NVMe
 
 OneFlow
 OpenID
@@ -167,12 +175,14 @@ rainer
 RAL
 ReadTheDocs
 reconnection
+regex
 Resize
 Roadmap
 RPM
 RPMs
 rsyslog
 
+sandboxing
 scalability
 SCDB
 SELinux
@@ -180,6 +190,7 @@ setup
 SINDES
 SLC
 SLS
+slurm
 Solaris
 SPMA
 SQL
@@ -207,6 +218,7 @@ UID
 UMD
 unconfigured
 uninstall
+unitfile
 unsynchronized
 urbonegi
 userid
@@ -229,6 +241,7 @@ WN
 workflow
 
 Xen
+Xeon
 
 YAIM
 
