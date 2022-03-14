@@ -2,7 +2,7 @@
 layout: article
 title: Getting more traces from component execution
 category: documentation
-image: img/quattor-logo.png
+image: assets/img/quattor-logo.png
 ---
 
 Starting with version 2.0.0 of the core modules (`CAF`), components

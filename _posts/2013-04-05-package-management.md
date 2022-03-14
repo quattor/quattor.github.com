@@ -2,7 +2,7 @@
 layout: article
 title: Installing and removing packages with Quattor
 category: documentation
-image: img/quattor-logo.png
+image: assets/img/quattor-logo.png
 ---
 
 We describe here the basic Pan statements and data structures for

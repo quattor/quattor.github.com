@@ -2,7 +2,7 @@
 layout: article
 title: Configuring the System Security Services Daemon
 category: review
-image: img/quattor-logo.png
+image: assets/img/quattor-logo.png
 ---
 
 **WARNING: THIS IS WORK IN PROGRESS**  And you should read carefully

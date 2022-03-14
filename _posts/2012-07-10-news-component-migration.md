@@ -2,7 +2,7 @@
 layout: article
 title: Migration of NCM components to Git+Maven
 category: news
-image: img/quattor-logo.png
+image: assets/img/quattor-logo.png
 ---
 
 You have probably noticed that some components are no longer in
