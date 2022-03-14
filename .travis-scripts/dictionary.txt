@@ -10,12 +10,15 @@ Aquilon
 
 bashism
 BDII
+boolean
 bootable
 Bruxelles
 backend
+BTRFS
 
 CAF
 Cal
+Cal's
 CCM
 CDB
 CDBSQL
@@ -24,6 +27,8 @@ Ceph
 CERN
 CGI
 Changelog
+Clojure
+CMDB
 CNAF
 compilable
 Compilable
@@ -47,6 +52,7 @@ DPM
 
 EFI
 EL
+ELFms
 EPEL
 ESX
 ETICS
@@ -77,6 +83,7 @@ GPUs
 GRIF
 GRN
 GRNs
+gzipped
 
 hacky
 haproxy
@@ -86,21 +93,27 @@ HPC
 HTC
 HTCondor
 httpd
+HTTPS
 hypervisor
 hypervisors
 
 init
 INSTALLDIR
+interprocess
+Interprocess
 IO
 IP
 IPMI
 iptables
 IPv
+IRC
 ISC
 
 jrha
 JSON
 JumpStart
+JVM
+
 Kerberos
 keytab
 Kickstart
@@ -138,6 +151,7 @@ NIC
 NIKHEF
 NIS
 noarch
+NSS
 NTP
 NVMe
 
@@ -153,6 +167,8 @@ panc
 panlint
 Perl
 PIC
+plugin
+plugins
 postgres
 Postgres
 postgresql
@@ -173,6 +189,7 @@ QWG
 RabbitMQ
 rainer
 RAL
+RDBMS
 ReadTheDocs
 reconnection
 regex
@@ -188,22 +205,29 @@ SCDB
 SELinux
 setup
 SINDES
+SL
 SLC
 SLS
 slurm
+snapshotting
 Solaris
+SourceForge
 SPMA
 SQL
 sqlite
 SQLite
+SSSD
 Stijn
 Stijn's
 stratuslab
 subnet
 subnets
+subtree
+subtrees
 SVN
 SWrep
 symlink
+symlinks
 SYSLINUX
 systemd
 
@@ -212,11 +236,13 @@ th
 Trac
 
 UAM
+UDP
 UEFI
 UGent
 UID
 UMD
 unconfigured
+unescaped
 uninstall
 unitfile
 unsynchronized
@@ -236,6 +262,8 @@ VMs
 VMware
 
 whitespace
+wildcard
+wildcards
 WMS
 WN
 workflow
@@ -244,6 +272,8 @@ Xen
 Xeon
 
 YAIM
+
+ZFS
 
 # Liquid comments are not properly handled
 FIXME
