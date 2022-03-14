@@ -40,7 +40,7 @@ prefix "/software/components/authconfig/sssd/domains";
 
 The _simple_ provider is described in the
 [Fedora guide section 8.2.3.2.3](https://docs.fedoraproject.org/en-US/Fedora/16/html/System_Administrators_Guide/chap-SSSD_User_Guide-Setting_Up_SSSD.html).
-The Pan data sctructure mimics the file, except that the `simple`
+The Pan data structure mimics the file, except that the `simple`
 prefixes are removed.  For instance,
 
 ```bash
@@ -64,7 +64,7 @@ The LDAP provider has **lots** of options.  We have transcribed the
 fields available in the `sssd-ldap` man page, together with their
 types.  We have done some grouping as well, so that all the
 `ldap_user_<field>` fields will enter in a matching `user/<field>`
-entry in ou
+entry e.g.
 
 ```bash
 prefix "/software/components/authconfig/sssd/domains/foo/ldap";
@@ -121,5 +121,5 @@ invocation of the `authconfig` command may affect the configurations
 and files handled by many different components.
 
 I think the best we can do is improve the component's code and
-testability.  Ideas on how to split or make this component more
-modular will be greately appreciated.
+ability to be tested.  Ideas on how to split or make this component more
+modular will be greatly appreciated.

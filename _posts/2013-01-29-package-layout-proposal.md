@@ -28,7 +28,7 @@ The diagram below shows how we could mirror one repository:
 
 ![Repository mirroring and snapshotting](/assets/img/repository-mirrors.png)
 
-The upstream repo would be mirrored with `rsync`, `reposync`, `wget`,
+The upstream repository would be mirrored with `rsync`, `reposync`, `wget`,
 or whatever other tool.
 
 After this mirroring is completed, a snapshot would be taken.  You can
@@ -46,9 +46,11 @@ Nodes would choose in their profile which snapshot they are
 
 The repository templates would specify the URL like this:
 
-    structure template repository/foo;
-    ...
-    "url" = format("http://server/packages/%s/repo_name", OS_SNAPSHOT_ID);
+```pan
+structure template repository/foo;
+...
+"url" = format("http://server/packages/%s/repo_name", OS_SNAPSHOT_ID);
+```
 
 where `OS_SNAPSHOT_ID` is some global variable that reflects the date,
 or something similar.  Rolling an upgrade would mean changing this

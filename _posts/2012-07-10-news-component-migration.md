@@ -13,7 +13,7 @@ version control and Maven as the build system. Only obsoleted
 components will stay in SVN.
 
 All core components are already in the
-[the Sourceforge Git repository](git://quattor.git.sourceforge.net/gitroot/quattor/core-ncm-components). We'll do the same for the Grid-based ones.
+[the SourceForge Git repository](git://quattor.git.sourceforge.net/gitroot/quattor/core-ncm-components). We'll do the same for the Grid-based ones.
 
 Stay tuned to
 [our Google+ page](https://plus.google.com/u/0/b/106108753304191902209/106108753304191902209/posts)

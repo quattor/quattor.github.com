@@ -19,7 +19,7 @@ N.B. The CMDB and AII servers can of course reside on the same system.
 ****************************************************************
 
 ## CMDB
-The Configuration Management Data Base has changed the most noticably during the evolution of Quattor,
+The Configuration Management Data Base has changed the most noticeably during the evolution of Quattor,
 it is the single component that admins and users interact with the most during day to day operations and therefore the place where scalability issues cause the most pain.
 
 ### CDB
@@ -57,7 +57,7 @@ it is the single component that admins and users interact with the most during d
 
 The Quattor toolkit can use both XML and JSON both plain and gzipped, gzipped JSON is recommended due to small size and clarity.
 
-The compiler is normally invoked by some part of the tooling that makes up a CMDB, but can also be used standalone, see [the Pan book](http://sourceforge.net/projects/quattor/files/Panc/10.0/pan-book.pdf/download) for more details.
+The compiler is normally invoked by some part of the tooling that makes up a CMDB, but can also be used stand-alone, see [the Pan book](http://sourceforge.net/projects/quattor/files/Panc/10.0/pan-book.pdf/download) for more details.
 
 `panc` is implemented in a mixture of Java and Clojure and runs in a standard JVM, see [Cal's article](/documentation/2012/05/07/review-pan-in-clojure.html) for a peek at the internals.
 
@@ -73,8 +73,8 @@ Uses a set of plugins to manage the configuration and state of:
     * Can reload `dhcpd` when the configuration changes.
 
 * `aii-pxelinux`
-    * Configures and maintains symlinks to manage pxe-booting of systems and subsequent installation with Kickstart.
-    * A cgi script called `installack.cgi` is called by nodes at the end of installation to switch back to booting from local disk.
+    * Configures and maintains symlinks to manage PXE-booting of systems and subsequent installation with Kickstart.
+    * A `cgi` script called `installack.cgi` is called by nodes at the end of installation to switch back to booting from local disk.
 
 * `aii-ks`
     * Writes Kickstart files for Anaconda for EL derived systems.
@@ -87,7 +87,7 @@ Uses a set of plugins to manage the configuration and state of:
 
 ### Configuration Cache Manager
 * `ccm-fetch`
-    * Fetches updated profile for system from upstream webserver, validates it and stores the new profile in the local cache.
+    * Fetches updated profile for system from an upstream web server, validates it and stores the new profile in the local cache.
 
 * `ccm-purge`
     * Cleans up the configuration cache directory removing unused configuration profiles, temporary files, and unused cached files.
@@ -100,16 +100,16 @@ Uses a set of plugins to manage the configuration and state of:
 * `ncm-ncd` - Node Configuration Dispatcher
     * Front end for invoking NCM configuration components.
     * Called with a list of components to be invoked as an argument.
-      Based on this list, the ncd looks up the inter-component dependencies, orders the components, and invokes each component sequentially.
-    * If no component is specified, the ncd will invoke all components which are marked as active in the node configuration profile.
+      Based on this list, `ncd` looks up the inter-component dependencies, orders the components, and invokes each component sequentially.
+    * If no component is specified, `ncd` will invoke all components which are marked as active in the node configuration profile.
       These are considered to be the ’default’ components to run.
 
 * `ncm-cdispd` - Configuration Dispatch Daemon.
     * Waits for new incoming configuration profiles and monitors the CCM cache.
     * Invokes components with changed configuration trees components via `ncm-ncd`.
 
-* `cdp-listend` - Notfication Listener Daemon.
-    * Listens for UDP packets on port 7777, when one is recieved it launches `ccm-fetch` to fetch new profiles and `ncm-cdispd` to apply them.
+* `cdp-listend` - Notification Listener Daemon.
+    * Listens for UDP packets on port 7777, when one is received it launches `ccm-fetch` to fetch new profiles and `ncm-cdispd` to apply them.
 
 * Configuration Components
     * Perl modules that are used by `ncm-ncd` to configure a specific service or subsystem on a client system.
