@@ -32,4 +32,4 @@ else
 fi
 
 # Ignore deleted files
-git diff --name-only --diff-filter=d ${commit_range} | grep '\.md$' | xargs -r python3.6 /tmp/markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
+git diff --name-only --diff-filter=d ${commit_range} | grep '\.md$' | grep -v '^assets/' | xargs -r python3.6 /tmp/markdown-spellchecker-$SCVERSION/src/spellchecker.py || exit 1
