@@ -15,6 +15,8 @@ title: downloads
         <p><a class='btn btn-primary' href='http://yum.quattor.org/'><span class="octicon octicon-package"></span><b>&nbsp;yum.quattor.org</b></a></p>
         <p>Read about <a href='/documentation/2014/11/27/configuring-quattor-repos.html'>configuring quattor repositories</a> with yum.</p>
         <p>To make use of the template library, read about our <a href='/documentation/2014/06/06/how-to-use-template-library.html'>supported work-flows</a>.</p>
+        
+        <h3>Nightly Builds</h3>
         <p>Nightly integration builds are run against several different platforms and RPMs from the latest successful builds can be found in <a  href='http://yum.quattor.org/nightlies/latest/'> the latest nightly directory</a>. Be aware that although these should have passed all unit tests, there is no guarantee that any of these builds will function correctly in a real environment.</p>
     </div>
     <div class='col-md-3'>
