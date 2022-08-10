@@ -9,7 +9,7 @@ title: downloads
         <h5 class='text-muted'>Configuration Modules and Template Library</h5>
         <p>Managed by <a href='https://github.com/jrha'>@jrha</a>.</p>
 
-        <p>New versions released every three months (version numbers follow a <code>YEAR.MONTH</code> format).</p>
+        <p>New versions released periodically (version numbers follow a <code>YEAR.MONTH</code> format).</p>
 
         <h5>Get client and server RPMs from:</h5>
         <p><a class='btn btn-primary' href='http://yum.quattor.org/'><span class="octicon octicon-package"></span><b>&nbsp;yum.quattor.org</b></a></p>
@@ -22,7 +22,7 @@ title: downloads
         <h5 class='text-muted'>Pan Language Compiler</h5>
         <p>Managed by <a href='https://github.com/jrha'>@jrha</a></p>
 
-        <p>New version every 6-9 months.</p>
+        <p>New versions as needed.</p>
 
         <p><a href='https://quattor-pan.readthedocs.org'>Pan Language Documentation</a></p>
 
@@ -32,7 +32,6 @@ title: downloads
     <div class='col-md-3'>
         <h3>Aquilon</h3>
         <h5 class='text-muted'>Configuration Management Environment</h5>
-        <p>Managed by <a href='https://github.com/urbonegi'>@urbonegi</a></p>
 
         <p>New version every 2-3 weeks.</p>
 
