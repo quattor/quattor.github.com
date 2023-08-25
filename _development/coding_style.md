@@ -91,14 +91,14 @@ Or the purpose of that line that starts and finishes beyond the screen?
 
 Here are the classic metrics for modularity:
 
-* No lines longer than 80 columns.
-  * Split or rearrange longer strings
-  * Split longer statements
-* If you have more than 3 levels of indentation, split your block
-* If your function goes beyond the screen, split it
-  * And don't try to reduce the font. ;)
-* If you have more than 7 local variables, split your function.
-  * Sometimes it's OK to have 10, but if you have 15 your code is a problem.
+* No lines longer than 80 columns.
+  * Split or rearrange longer strings
+  * Split longer statements
+* If you have more than 3 levels of indentation, split your block
+* If your function goes beyond the screen, split it
+  * And don't try to reduce the font. ;)
+* If you have more than 7 local variables, split your function.
+  * Sometimes it's OK to have 10, but if you have 15 your code is a problem.
 
 ### Don't use magic numbers
 
