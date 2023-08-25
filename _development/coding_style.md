@@ -42,7 +42,7 @@ or use a decent one. There are plenty of them.
 Use lowercase for local variables, uppercase for constants.
 
 We have no consistent convention for function names enforced in the existing code but
-the recommendation is function\_names\_like\_this\_one rather than functionNameLikeThis.
+the recommendation is `function_names_like_this_one` rather than `functionNameLikeThis`.
 
 ### Use meaningful names for globals, short names for locals
 
@@ -333,10 +333,10 @@ Instead, do:
  CAF::Process->new (["ls", "-l"], log => $self)->run();
 ```
 
-The log option is any CAF::Logger object, for instance the component you are writing (`$self`).
+The log option is any `CAF::Logger` object, for instance the component you are writing (`$self`).
 
-Sometimes you pass confidential data to your commands. For instance, an encrypted password to usermod.
-In this cases, you don't want your command logged. Just don't pass any log argument to CAF::Process::new:
+Sometimes you pass confidential data to your commands. For instance, an encrypted password to `usermod`.
+In this cases, you don't want your command logged. Just don't pass any log argument to `CAF::Process::new`:
 
 See [Quattor documentation][quattor_rtd_documentation] for examples covering
 the most common use cases.
@@ -371,10 +371,10 @@ most common use cases.
 Don't use them. If you don't use `File::Temp`, you'll use predictable filenames, and that's just bad. Then,
 most implementations make temporary files
 world readable, and you usually don't want that. If you need temporary storage for some text, use an array,
-IO::String, in-memory files, a CAF::FileWriter or anything like that.
+`IO::String`, in-memory files, a `CAF::FileWriter` or anything like that.
 
 So you want to run a command which needs a file name as an argument, right? Easy. Just pipe to that command,
-as shown above. And pass /dev/fd/0 as the file name.
+as shown above. And pass `/dev/fd/0` as the file name.
 
 Finally, if really all these options are not good enough, use `File::Temp::tmpfile`, which will provide you an
 anonymous file handle. But please, use this only if you are convinced there is no other way to keep your temporary data.
