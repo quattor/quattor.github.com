@@ -53,14 +53,14 @@ On the opposite, `this_is_a_temporary_counter` is plain bad for a loop variable.
 
 So, some good examples:
 
-```
+```perl
 sub write_user_credentials
 {
     # ...
 }
 ```
 
-```
+```perl
 foreach my $i (0..10) {
     # ...
 }
@@ -69,14 +69,14 @@ foreach my $i (0..10) {
 
 And very bad examples:
 
-```
+```perl
 sub wuc
 {
     # WTH???
 }
 ```
 
-```
+```perl
 foreach my $counter_from_0_to_10_included (0..10) {
     # Excuse me???
 }
@@ -107,14 +107,14 @@ They'll help you to understand why you chose such values on the past.
 
 A good example:
 
-```
+```perl
 use constant PI => 3.141592;
 my $circle_area = $radio * PI * PI;
 ```
 
 And the bad example:
 
-```
+```perl
 # Oops! I missed a decimal somewhere!
  my $circle_area = $radio * 3.14159 * 3.141592;
 ```
@@ -151,8 +151,7 @@ you have to work around some broken API, or some corner case. In such case, plea
 
 Bad examples:
 
-```
-#!perl
+```perl
  ############################################################
  #
  # Increment by 1
@@ -161,8 +160,7 @@ Bad examples:
  $i++;
 ```
 
-```
-#!perl
+```perl
  sub do_something
  {
     my @args = @_;
@@ -179,13 +177,11 @@ Bad examples:
 
 These are best done like this:
 
-```
-#!perl
+```perl
  $i++;
 ```
 
-```
-#!perl
+```perl
  # Performs task foo...
  sub foo {...}
  # Performs task bar...
@@ -212,15 +208,13 @@ use the `our` declaration for package-wide variables:
 
 Good:
 
-```
-#!perl
+```perl
  our @EXPORT = ...;
 ```
 
 Bad:
 
-```
-#!perl
+```perl
  use vars qw (@EXPORT);
  @EXPORT = ...;
 ```
@@ -230,22 +224,19 @@ Bad:
 Follow Kernighan-Ritchie's convention: open curly brackets on the same line as the sentence
 they belong to and close them on a line for their own, excepting when it's an else or a do-while block:
 
-```
-#!perl
+```perl
  if ($foo) {
      ...
  }
 ```
 
-```
-#!perl
+```perl
  while ($bar) {
      ...
  }
 ```
 
-```
-#!perl
+```perl
  if ($foo) {
      ...
  } else {
@@ -253,8 +244,7 @@ they belong to and close them on a line for their own, excepting when it's an el
  }
 ```
 
-```
-#!perl
+```perl
  do {
      ...
  } while ($bar);
@@ -266,8 +256,7 @@ This way it is perfectly clear where each block starts, finishes and continues.
 The only exception to this are the curly brackets that open a function. They should be on a
 different line, and have nothing else on the same line:
 
-```
-#!perl
+```perl
  sub foo
  {
      my @args = @_;
@@ -287,15 +276,13 @@ Use them a lot. When in doubt, use them. Especially:
 
 The reason is that:
 
-```
-#!perl
+```perl
  foo();
 ```
 
 Is easier to understand than:
 
-```
-#!perl
+```perl
  foo;
 ```
 
@@ -331,16 +318,14 @@ and it won't spawn new subshells, which is much safer.
 As the `CAF::Process` module logs the command line that you are executing at verbose and debug levels,
 you don't need to handle the logging yourself. Do not do:
 
-```
-#!perl
+```perl
  $self->debug (5, "Going to run ls -l");
  system ("ls", "-l");
 ```
 
 Instead, do:
 
-```
-#!perl
+```perl
  # Or any reporter object.
  my $proc = CAF::Proces->new (["ls", "-l"], log => $self);
  $proc->run();
@@ -362,8 +347,7 @@ the most common use cases.
 Writing to files is not as simple as one could think: there are risks that you should be aware of. For
 instance, the following code seems harmless but is an example of what shouldn't be done:
 
-```
-#!perl
+```perl
  open (FH, ">/tmp/foo");
 ```
 
