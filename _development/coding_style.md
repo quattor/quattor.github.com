@@ -102,14 +102,14 @@ Here are the classic metrics for modularity:
 
 ### Don't use magic numbers
 
-The `constant` pragma will give you meaningful names for any values other than 0 and 1 you need.
+Use [`Readonly`](https://metacpan.org/pod/Readonly) to give meaningful names to any values other than `0` and `1` that you need.
 They'll help you to understand why you chose such values on the past.
 
 A good example:
 
 ```perl
-use constant PI => 3.141592;
-my $circle_area = $radius ** 2 * PI;
+Readonly my $PI => 3.141592;
+my $circle_area = $radius ** 2 * $PI;
 ```
 
 And the bad example:
