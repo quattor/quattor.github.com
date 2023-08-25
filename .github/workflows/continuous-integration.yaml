@@ -1,0 +1,38 @@
+name: Run Tests
+
+on: [push, pull_request]
+
+jobs:
+  runtests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
+      with:
+        bundler-cache: true
+        ruby-version: '3.1'
+    - name: Set up Python 3
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyenchant
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 250
+    - name: Install Ruby gems
+      run: bundle install
+      env:
+          NOKOGIRI_USE_SYSTEM_LIBRARIES: true # speeds up installation of html-proofer
+    - name: Build with Jekyll
+      uses: actions/jekyll-build-pages@v1
+      with:
+        source: ./
+        destination: ./_site
+    - name: Check Spelling
+      run: .tests/spellchecker
+    - name: Check HTML
+      run: .tests/htmlproofer
