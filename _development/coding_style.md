@@ -108,15 +108,15 @@ They'll help you to understand why you chose such values on the past.
 A good example:
 
 ```perl
-my $circle_area = $radio * $PI * $PI;
 Readonly my $PI => 3.141592;
+my $circle_area = $radius ** 2 * $PI;
 ```
 
 And the bad example:
 
 ```perl
 # Oops! I missed a decimal somewhere!
-my $circle_area = $radio * 3.14159 * 3.141592;
+my $circle_area = $radius ** 2 * 3.14159;
 ```
 
 ### Module header
