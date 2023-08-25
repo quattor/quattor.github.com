@@ -32,6 +32,17 @@ by Greg Kroah-Hartman
 The basics
 ----------
 
+### Editor Settings
+
+Configure your editor of choice to:
+* Insert spaces instead of Tabs
+  * When `Tab` is pressed
+  * When performing automatic indentation.
+* Remove trailing whitespace from lines.
+* Remove extra new lines from the end of the file.
+* Insert a new line at the end of the file if there is not one.
+* Maximum line length to 120 characters
+
 ### Indentation
 
 Use 4 white spaces. No tabs, no 8 white spaces, no funny things. Fix your editor's configuration,
