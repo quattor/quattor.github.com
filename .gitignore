@@ -1,6 +1,7 @@
 _site
 *~
 Gemfile.lock
+vendor/
 
 # Eclipse project
 .project

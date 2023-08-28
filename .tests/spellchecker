@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -e # halt script on error
+
+SCVERSION="1.4"
+
+wget https://github.com/stfc/markdown-spellchecker/archive/$SCVERSION.tar.gz -O /tmp/spellchecker.tar.gz
+(cd /tmp && tar -xvzf spellchecker.tar.gz)
+
+cp -f .tests/dictionary.txt /tmp/markdown-spellchecker-$SCVERSION/src/dict.txt
+
+echo
+echo spellchecker config:
+echo --------------------
+cat /tmp/markdown-spellchecker-$SCVERSION/src/config.ini
+echo --------------------
+echo
+
+commit_range="HEAD^..HEAD"
+
+echo "Commit Range: ${commit_range}"
+
+# Ignore deleted files
+md_files="$(git diff --name-only --diff-filter=d "${commit_range}" -- | grep '\.md$' | grep -v '^assets/' || true)"
+
+if [[ -n "$md_files" ]]; then
+    echo "Markdown files changed:"
+    #shellcheck disable=SC2001
+    echo "$md_files" | sed 's/^/  /g'
+    echo "Running markdown-spellchecker:"
+    python3 /tmp/markdown-spellchecker-$SCVERSION/src/spellchecker.py $md_files || exit 1
+    exit 0
+else
+    echo "No markdown files changed, nothing to do."
+    exit 0
+fi
