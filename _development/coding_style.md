@@ -44,7 +44,7 @@ Use lowercase for local variables, uppercase for constants.
 We have no consistent convention for function names enforced in the existing code but
 the recommendation is `function_names_like_this_one` rather than `functionNameLikeThis`.
 
-### Use meaningful names for globals, short names for locals
+### Use meaningful names for global variables, short names for local variables
 
 `i` is a perfectly valid identifier for a loop variable. However, you deserve nasty punishment
 if you use it as a function name.
@@ -384,8 +384,8 @@ anonymous file handle. But please, use this only if you are convinced there is n
 
 `CAF::Path` is a module related to path operations (rather than file contents). Its main features are:
 
-* Test if a path exists, is a file, a symlink, a hardlink or a directory
-* Symlink and hardlink management
+* Test if a path exists, is a file, a symbolic link, a hard link or a directory
+* Symbolic link and hard link management
 * Management of file permissions and owner
 
 See [Quattor documentation][quattor_documentation] for more details on the
