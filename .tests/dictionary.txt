@@ -8,6 +8,8 @@ API
 aquilon
 Aquilon
 
+backtick
+backticks
 bashism
 BDII
 boolean
@@ -19,6 +21,7 @@ BTRFS
 CAF
 Cal
 Cal's
+Capitalisation
 CCM
 CDB
 CDBSQL
@@ -115,8 +118,10 @@ JumpStart
 JVM
 
 Kerberos
+Kernighan
 keytab
 Kickstart
+Kroah
 Kubernetes
 
 LAL
@@ -139,6 +144,7 @@ metaclusters
 metaconfig
 metadata
 middleware
+modularity
 multi
 
 Nagios
@@ -174,6 +180,7 @@ Postgres
 postgresql
 PostgreSQL
 PowerDNS
+pragma
 pre
 predeployment
 prepend
@@ -194,12 +201,15 @@ ReadTheDocs
 reconnection
 regex
 Resize
+Ritchie
+Ritchie's
 Roadmap
 RPM
 RPMs
 rsyslog
 
 sandboxing
+sanitise
 scalability
 SCDB
 SELinux
@@ -222,6 +232,8 @@ Stijn's
 stratuslab
 subnet
 subnets
+subshell
+subshells
 subtree
 subtrees
 SVN
