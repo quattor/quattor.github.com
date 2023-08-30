@@ -327,7 +327,7 @@ Instead, do:
 
 ```perl
  # Or any reporter object.
- my $proc = CAF::Proces->new (["ls", "-l"], log => $self);
+ my $proc = CAF::Process->new (["ls", "-l"], log => $self);
  $proc->run();
  # One-line version:
  CAF::Process->new (["ls", "-l"], log => $self)->run();
