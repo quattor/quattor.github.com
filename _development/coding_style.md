@@ -42,7 +42,7 @@ or use a decent one. There are plenty of them.
 Use lowercase for local variables, uppercase for constants.
 
 We have no consistent convention for function names enforced in the existing code but
-the recommandation is function\_names\_like\_this\_one rather than functionNameLikeThis.
+the recommendation is function\_names\_like\_this\_one rather than functionNameLikeThis.
 
 ### Use meaningful names for globals, short names for locals
 
@@ -435,7 +435,7 @@ The CAF objects will do so for you.
 message to get the information
 he needs. This should be used only for developer-relevant stuff, such as tracking temporary contents or so.
 
-There are 5 levels of debug information. We don't have a precise convention about what must be logget at which
+There are 5 levels of debug information. We don't have a precise convention about what must be logged at which
 level. Generally it is enough to use the first 2 levels.
 
 ### Use `error` only for fatal errors
