@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Quattor Coding Style
-author: Luis Fernando MuÃos Mejias
+author: Luis Fernando Muños Mejias
 menu: Coding Style
 ---
 
