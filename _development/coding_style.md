@@ -130,6 +130,29 @@ And the bad example:
 my $circle_area = $radius ** 2 * 3.14159;
 ```
 
+### Don't use each
+
+`each` is evil, and although it can be used correctly, should be avoided. The problem is that each sort-of remembers the last element it iterated over, this has all sorts of nasty side effects.
+
+Use `foreach` to iterate over `keys` instead.
+
+Bad example:
+
+```perl
+while (my ($k, $v) = each(%h)) {
+    ...
+}
+```
+
+Good example:
+
+```perl
+foreach my $k (keys %h) {
+    my $v = $h{$k};
+    ...
+}
+```
+
 ### Module header
 
 A Perl module **must** start with a line like:
