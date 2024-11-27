@@ -17,7 +17,7 @@ Many common code snippets can be found in the [Cheat Sheet](/documentation/2014/
 
 ### CAF, CCM and Configuration Modules (Components)
 
-You can find the latest documentation here: <http://quattor-documentation.readthedocs.io/en/latest>
+You can find the latest documentation here: <http://quattor-documentation.readthedocs.io/latest>
 
 #### Documentation by release version:
 
