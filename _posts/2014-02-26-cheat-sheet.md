@@ -3,7 +3,7 @@ layout: article
 title: Configuration cheat sheet
 category: documentation
 author: James Adams
-modified: 2017-06-19
+modified: 2026-06-16
 ---
 
 This article is intended as quick reference, or cheat sheet showing examples of a variety of common and simple configuration snippets in Quattor.
@@ -11,37 +11,51 @@ This article is intended as quick reference, or cheat sheet showing examples of 
 If you have any other examples, please add them!
 
 
+Packages
+=============
+
 Add default (latest) version of a package
-=========================================
+-------------------------------------------
+
 ```sh
 '/software/packages' = pkg_repl('ruby');
 ```
 
-Pin the version or architecture of a package
-============================================
-Pin version:
+Add default (latest) version of multiple packages:
+---------------------------------------------------
 
 ```sh
-"/software/packages" = pkg_repl("example-package", "0.1.19-1.el6");
+'/software/packages' = {
+    pkg_repl('ruby');
+    pkg_repl('git');
+};
 ```
 
-Pin Architecture:
+Pin the version and/or architecture of a package
+---------------------------------------------
+**Pin version:**
 
 ```sh
-"/software/packages/{example-package.noarch}" ?= dict();
+'/software/packages' = pkg_repl("example-package", "0.1.19-1.el6");
 ```
 
-Pin both:
+**Pin Architecture:**
 
 ```sh
-"/software/packages" = pkg_repl("example-package", "0.1.19-1.el6", "noarch");
+'/software/packages/{example-package.noarch}' ?= dict();
+```
+
+**Pin both:**
+
+```sh
+'/software/packages' = pkg_repl("example-package", "0.1.19-1.el6", "noarch");
 ```
 
 You can also use wildcards for pinning.
 Note that this will apply to packages which match and exist the specified version and architecture, others are silently ignored.
 
 ```sh
-"/software/packages" = pkg_repl("python*", "2.6.19-1.el6", "x86_64");
+'/software/packages' = pkg_repl("python*", "2.6.19-1.el6", "x86_64");
 ```
 
 This would pin `python-devel` and `python-libs` at `2.6.19-1.el6`, but leave `python-urlgrabber` at `3.1.0-6.el5`.
@@ -51,12 +65,31 @@ This would pin `python-devel` and `python-libs` at `2.6.19-1.el6`, but leave `py
 </div>
 
 
+Repositories
+=============
+
 Add a repository
 ----------------
 
 ```sh
 '/software/repositories' = append(create('repository/clockwork_angels'));
 ```
+
+Exclude a package from a repository
+------------------------------------
+
+In the `config.pan` file for the repository, add the following to exclude a package:
+
+
+```sh
+'excludepkgs' = list (
+    'package_1',
+    'package_2
+);
+```
+
+Directory and Files
+=====================
 
 Ensure a directory exists (and has correct permissions)
 -------------------------------------------------------
@@ -73,7 +106,7 @@ include 'components/dirperm/config';
 ```
 
 
-Include the contents of an arbitary file from the source tree
+Include the contents of an arbitrary file from the source tree
 -------------------------------------------------------------
 
 ```sh
@@ -83,18 +116,8 @@ prefix '/software/components/filecopy/services/{/etc/rsyslog.conf}';
 'config' = file_contents('site/logging/rsyslog/nameserver.conf');
 ```
 
-Configure a service to start
-----------------------------
 
-```sh
-include 'components/chkconfig/config';
-
-prefix '/software/components/chkconfig/service/rsyslog';
-'on' = '';
-'startstop' = true;
-```
-
-Download a file from a webserver
+Download a file from a web server
 --------------------------------
 
 ```sh
@@ -114,15 +137,64 @@ include 'components/download/config';
     <p>If you find yourself using this heavily you should definitely consider mirroring the files on a local server or at least using a caching proxy.</p>
 </div>
 
+Copy and run a script
+---------------------------
+
+This assumes that there is a script `foo.sh` present:
+
+```sh
+include 'components/filecopy/config';
+
+prefix '/software/components/filecopy/services{/root/foo.sh}';
+'config' = file_contents('bar/foo.sh');
+'owner' = 'root:root';
+'perms' = '0644';
+'restart' = '/root/foo.sh';
+```
+
+Create symlink for a directory
+-------------------------------
+
+```sh
+include 'components/symlink/config';
+
+'/software/components/symlink/links' ?= list();
+
+'/software/components/symlink/links' = merge(SELF, list(
+    dict(
+        'name', '/opt/foo',
+        'target', '/home/alex/bar',
+        'exists', true,
+    ),
+));
+
+```
+
+Services
+=========
+
+Configure a service to start
+----------------------------
+
+```sh
+include 'components/chkconfig/config';
+
+prefix '/software/components/chkconfig/service/rsyslog';
+'on' = '';
+'startstop' = true;
+```
+
+User Creation and User Groups
+==============================
+
 Add a user group
------------
+----------------
 
 ```sh
 include 'components/accounts/config';
 
 '/software/components/accounts/groups/syrinx/gid' = 2112;
 ```
-
 
 Add a user account
 ------------------
